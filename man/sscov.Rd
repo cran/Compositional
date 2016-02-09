@@ -1,0 +1,55 @@
+\name{sscov}
+\alias{sscov}
+\title{
+Spatial sign covariance matrix
+}
+
+\description{
+Spatial sign covariance matrix.
+}
+
+\usage{
+sscov(x)
+}
+
+\arguments{
+  \item{x}{
+  A matrix with continuous data.
+}
+}
+
+\details{
+The spatial median is at firrst computed and then the covariance matrix. This is used in the function \code{\link{comp.den}}.
+}
+
+\value{
+The spatial sign covariance matrix.
+}
+
+\references{
+A Durre, D Vogel, DE Tyler (2014). The spatial sign covariance matrix with unknown location.  Journal of Multivariate Analysis, 130: 107-117.
+http://arxiv.org/pdf/1307.5706v2.pdf
+}
+
+\author{
+Michail Tsagris
+
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{spat.med}, \link{comp.den}
+}
+}
+
+\examples{
+library(MASS)
+sscov(iris[, 1:4])
+}
+
+\keyword{ covariance matrix }
+\keyword{ robust statistics }

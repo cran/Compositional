@@ -1,0 +1,23 @@
+#useDynLib(Compositional, .registration = TRUE)
+
+importFrom("MASS", "mvrnorm", "cov.rob", "cov.trob")
+importFrom("graphics", "contour", "lines", "plot", "points", "abline", "hist", "legend", "text")
+
+importFrom("stats", "coef", "cor", "dist", "lm", "cov",
+           "optim", "optimize", "quantile", "sd", "rnorm",
+		   "qnorm", "nlminb", "nlm", "lm.fit", "rchisq",
+		   "deviance", "fitted", "glm", "mahalanobis",
+            "median", "pchisq", "qchisq", "resid",
+			"rgamma", "runif", "var", "qt")
+import("doParallel")
+import("parallel")
+import("foreach")
+importFrom("sn", "msn.mle", "rmsn")
+importFrom("quantreg", "rq")
+importFrom("mixture", "gpcm")
+importFrom("BB", "BBsolve")
+
+exportPattern("^[[:alpha:]]+")
+exportPattern("^[^\\.]")
+
+

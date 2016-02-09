@@ -1,0 +1,86 @@
+\name{alfapcr.tune}
+\alias{alfapcr.tune}
+\title{
+Tuning the number of PCs in the PCR with compositional data using the \eqn{\alpha}-transformation
+}
+
+\description{
+This is a cross-validation procedure to decide on the number of principal components when using regression with compositional data (as predictor variables) using the \eqn{\alpha}-transformation.
+}
+
+\usage{
+alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), oiko = "normal",
+seed = FALSE, ncores = 2)
+}
+
+\arguments{
+  \item{y}{
+  A vector with either continuous, binary or count data.
+}
+  \item{x}{
+  The predictor variables, the compositional data. Zero values are allowed.
+}
+  \item{M}{
+The number of folds for the K-fold cross validation, set to 10 by default.
+}
+  \item{maxk}{
+The maximum number of principal components to check.
+}
+  \item{a}{
+  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
+}
+  \item{oiko}{
+The family to be used, "normal" for a continuous variable, "binomial" for a binary or "poisson" for a count vaiable.
+}
+  \item{seed}{
+If seed is TRUE the same folds will always be generated.
+}
+  \item{ncores}{
+How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested.
+}
+}
+
+\details{
+The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called.
+}
+
+\value{
+A matrix including:
+  \item{mspe}{
+The rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.
+}
+}
+
+\references{
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57. http://arxiv.org/pdf/1508.01913v1.pdf
+
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
+
+Jolliffe I.T. (2002). Principal Component Analysis.
+}
+
+\author{
+Michail Tsagris
+
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{alfa}, \link{profile}, \link{alfa.pcr}, \link{pcr.tune}, \link{glmpcr.tune}, \link{glm}
+}
+}
+
+\examples{
+library(MASS)
+y <- fgl[, 1]
+x <- fgl[, 2:9]
+mod <- alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), oiko = "normal",
+seed = FALSE, ncores = 1)
+}
+
+\keyword{ \eqn{\alpha}-transformation }
+\keyword{ multivariate regression }

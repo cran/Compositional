@@ -1,0 +1,77 @@
+\name{alfa.pcr}
+\alias{alfa.pcr}
+\title{
+Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation
+}
+
+\description{
+Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation.
+}
+
+\usage{
+alfa.pcr(y, x, a, k, oiko = "normal", xnew = NULL)
+}
+
+\arguments{
+  \item{xnew}{
+  A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
+}
+  \item{y}{
+  A numerical vector containing the response variable values.
+}
+  \item{x}{
+  The predictor variables, the compositional data.
+}
+  \item{a}{
+  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
+}
+  \item{k}{
+  A number at least equal to 1. How many principal components to use.
+}
+  \item{oiko}{
+  The family of distributions. IT can be either, "normal" for continuous response and hence normal distribution,
+  "binomial" corresponding to binary response and hence logistic regression or "poisson" for count response and poisson regression.
+}
+}
+
+\details{
+The \eqn{\alpha}-transformation is applied to the compositional data first and then the principal components regression is performed.
+}
+
+\value{
+A list including:
+The output of the \link{pcr} or \link{glm.pcr} depending on the type of the response.
+}
+
+\references{
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57. http://arxiv.org/pdf/1508.01913v1.pdf
+
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
+}
+
+\author{
+Michail Tsagris
+
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
+}
+}
+
+\examples{
+library(MASS)
+y <- fgl[, 1]
+x <- fgl[, 2:9]
+mod <- alfa.pcr(y = y, x = x, 0.7, 1, oiko = "normal")
+mod
+}
+
+\keyword{ \eqn{\alpha}-transformation }
+\keyword{ principal components regression }

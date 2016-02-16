@@ -1,7 +1,8 @@
 #useDynLib(Compositional, .registration = TRUE)
 
 importFrom("MASS", "mvrnorm", "cov.rob", "cov.trob")
-importFrom("graphics", "contour", "lines", "plot", "points", "abline", "hist", "legend", "text")
+importFrom("graphics", "filled.contour", "contour", "lines", "plot",
+           "points", "abline", "hist", "legend", "text")
 
 importFrom("stats", "coef", "cor", "dist", "lm", "cov",
            "optim", "optimize", "quantile", "sd", "rnorm",
@@ -9,6 +10,9 @@ importFrom("stats", "coef", "cor", "dist", "lm", "cov",
 		   "deviance", "fitted", "glm", "mahalanobis",
             "median", "pchisq", "qchisq", "resid",
 			"rgamma", "runif", "var", "qt")
+
+importFrom("grDevices", "terrain.colors")
+
 import("doParallel")
 import("parallel")
 import("foreach")

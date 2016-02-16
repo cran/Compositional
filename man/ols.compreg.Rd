@@ -1,10 +1,10 @@
 \name{ols.compreg}
 \alias{ols.compreg}
 \title{
-Kullback-Leibler regression
+Non linear least squares regression
 }
 \description{
-Regression based on the Kullback-Leibler divergence.
+Non linear least squares regression.
 }
 \usage{
 ols.compreg(y, x, B = 1000, ncores = 4, xnew = NULL)

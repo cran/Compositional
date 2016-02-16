@@ -1,10 +1,10 @@
 \name{rmixcomp}
 \alias{rmixcomp}
 \title{
-Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation
+Simulation of compositional data from Gaussian mixture models
 }
 \description{
-Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation.
+Simulation of compositional data from Gaussian mixture models.
 }
 \usage{
 rmixcomp(n, prob, mu, sigma, type = "alr")

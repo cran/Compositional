@@ -12,7 +12,7 @@
 #### The Annals of Applied Statistics, 3(1):822-829
 ################################
 
-alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2) {
+alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2, graph = TRUE) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is a range of values of alpha
@@ -62,8 +62,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2) {
           yu <- y[ mat[, i], ]
           xa <- x[ -mat[, i], ]
           ya <- y[ -mat[, i], ]
-          mod <- alfa.reg(ya, xa, ba[l], xnew = xu)
-          yest <- mod$fitted
+          yest <- alfa.reg(ya, xa, ba[l], xnew = xu)$est
           ww[i, l] <- 2 * sum(yu * log(yu / yest), na.rm = T)
         }
       }
@@ -78,9 +77,11 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2) {
     pera <- apply(kula, 1, min)
     bias <- mean( kula[, val] - pera )
   }
-  plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
-  ylab = 'Twice the Kullback Leibler divergence')
-  for (i in 2:K)  lines(a, kula[i, ])
-  lines(a, kl, col = 2, lty = 2, lwd = 2)
+  if (graph == TRUE) {
+    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
+    ylab = 'Twice the Kullback Leibler divergence')
+    for (i in 2:K)  lines(a, kula[i, ])
+     lines(a, kl, col = 2, lty = 2, lwd = 2)
+  }
   list(kl = kl, opt = opt, value = per + bias, bias = bias)
 }

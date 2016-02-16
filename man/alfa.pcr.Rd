@@ -13,9 +13,6 @@ alfa.pcr(y, x, a, k, oiko = "normal", xnew = NULL)
 }
 
 \arguments{
-  \item{xnew}{
-  A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
-}
   \item{y}{
   A numerical vector containing the response variable values.
 }
@@ -32,6 +29,9 @@ alfa.pcr(y, x, a, k, oiko = "normal", xnew = NULL)
   The family of distributions. IT can be either, "normal" for continuous response and hence normal distribution,
   "binomial" corresponding to binary response and hence logistic regression or "poisson" for count response and poisson regression.
 }
+  \item{xnew}{
+  A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
+}
 }
 
 \details{
@@ -39,7 +39,6 @@ The \eqn{\alpha}-transformation is applied to the compositional data first and t
 }
 
 \value{
-A list including:
 The output of the \link{pcr} or \link{glm.pcr} depending on the type of the response.
 }
 

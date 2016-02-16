@@ -10,7 +10,7 @@ This is a cross-validation procedure to decide on the number of principal compon
 
 \usage{
 alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), oiko = "normal",
-seed = FALSE, ncores = 2)
+seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
 }
 
 \arguments{
@@ -38,16 +38,29 @@ If seed is TRUE the same folds will always be generated.
   \item{ncores}{
 How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested.
 }
+  \item{graph}{
+If graph is TRUE (default value) a filled contour plot will appear.
+}
+  \item{col.nu}{
+A number parameter for the filled contour plot, taken into account only if graph is TRUE.
+}
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called.
+The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
 }
 
 \value{
-A matrix including:
+If graph is TRUE a fileld contour a filled contour will appear.
+A list including:
   \item{mspe}{
-The rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.
+The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.
+}
+  \item{best.par}{
+The best pair of \eqn{\alpha} and number of principal components.
+}
+  \item{performance}{
+The minimum mean squared error of prediction (bias corrected) and the estimated bias.
 }
 }
 
@@ -57,6 +70,10 @@ Tsagris M. (2015). Regression analysis with compositional data containing zero v
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
 
 Jolliffe I.T. (2002). Principal Component Analysis.
+
+
+Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
+
 }
 
 \author{

@@ -3,11 +3,13 @@
 \title{
 Tuning of the principal components regression
 }
+
 \description{
 Tuning the number of principal components in the principal components regression.
 }
+
 \usage{
-pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2)
+pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = TRUE)
 }
 \arguments{
   \item{y}{
@@ -17,16 +19,19 @@ pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2)
   The predictor variables, they have to be continuous.
 }
   \item{M}{
-  The number of folds in the cross validation. 
+  The number of folds in the cross validation.
 }
   \item{maxk}{
-  The maximum number of principal components to check.   
+  The maximum number of principal components to check.
 }
   \item{seed}{
-  If seed is TRUE the folds will always be the same. 
+  If seed is TRUE the folds will always be the same.
 }
   \item{ncores}{
   The number of cores to use. If more than 1, parallel computing takes place.
+}
+ \item{graph}{
+If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }
 
@@ -36,6 +41,10 @@ Cross validation is performed to select the optimal number of principal componen
 
 \value{
 A list including:
+If graph is TRUE a plot of the performance versus the number of principal components will appear.
+  \item{msp}{
+  A matrix with the mean squared error of prediction (MSPE) for every fold.
+}
   \item{mspe}{
   A vector with the mean squared error of prediction (MSPE), each value corresponds to a number of principal components.
 }
@@ -43,12 +52,12 @@ A list including:
   The number of principal components which minimizes the MSPE.
 }
   \item{performance}{
-  The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion. 
+  The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion.
 }
 }
 
 \references{
-Jolliffe I.T. (2002). Principal Component Analysis. 
+Jolliffe I.T. (2002). Principal Component Analysis.
 
 Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
@@ -69,7 +78,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-library(MASS) 
+library(MASS)
 x <- fgl[, 2:9]
 y <- fgl[, 1]
 pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 1)

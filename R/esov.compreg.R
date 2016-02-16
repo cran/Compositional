@@ -39,9 +39,9 @@ esov.compreg <- function(y, x, B = 1000, ncores = 1, xnew = NULL) {
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   seb <- NULL
   if (B > 1) {
+  betaboot <- matrix( nrow = B, ncol = length(ini) )
   nc <- ncores
     if (nc == 1) {
-      betaboot <- matrix( nrow = B, ncol = length(ini) )
       for (i in 1:B) {
         ida <- sample( 1:n, n, replace = TRUE )
         yb <- y[ida, ]
@@ -56,7 +56,6 @@ esov.compreg <- function(y, x, B = 1000, ncores = 1, xnew = NULL) {
      s <- apply(betaboot, 2, sd)
      seb <- matrix(s, byrow = TRUE, ncol = d)
     } else {
-      betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
       ww <- foreach::foreach(i = 1:B, .combine = rbind, .export="esovreg") %dopar% {

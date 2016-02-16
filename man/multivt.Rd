@@ -1,10 +1,10 @@
 \name{multivt}
 \alias{multivt}
 \title{
-Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation
+MLE for the multivarite t distribution
 }
 \description{
-Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation.
+MLE of the parameters of a multivarite t distribution.
 }
 \usage{
 multivt(y, plot = FALSE)

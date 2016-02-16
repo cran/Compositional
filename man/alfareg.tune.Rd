@@ -9,7 +9,7 @@ Tuning the value of \eqn{\alpha} in the \eqn{\alpha}-regression.
 }
 
 \usage{
-alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2)
+alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2, graph = TRUE)
 }
 
 \arguments{
@@ -28,15 +28,18 @@ The number of folds to split the data.
  \item{nc}{
 The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster.
 }
+ \item{graph}{
+If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
+}
 }
 
 \details{
 The \eqn{\alpha}-transformation is applied to the compositional data and the numerical otpimiation is performed for the regression, unless \eqn{\alpha=0}, where the coefficients are available in closed form.
-The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
+The estimated bias correction via the Tibshirani and Tibshirani (2009) criterion is applied.
 }
 
 \value{
-A plot of the estimated Kullback-Leibler divergences (multiplied by 2) along the values of \eqn{\alpha}.
+A plot of the estimated Kullback-Leibler divergences (multiplied by 2) along the values of \eqn{\alpha} (if graph is set to TRUE).
 A list including:
   \item{kl}{
 Twice the Kullback-Leibler divergence of the observed from the fitted values.

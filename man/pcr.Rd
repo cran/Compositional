@@ -3,12 +3,15 @@
 \title{
 Principal components regression
 }
+
 \description{
 Principal components regression.
 }
+
 \usage{
 pcr(y, x, k = 1, xnew = NULL)
 }
+
 \arguments{
   \item{y}{
   A real values vector.
@@ -23,10 +26,12 @@ The number of principal components to use.
   If you have new data use it, otherwise leave it NULL.
 }
 }
+
 \details{
 The principal components of the cross product of the independent variables are obtained and classical regression is performed. This is use din the function
 \code{\link{alfa.pcr}}.
 }
+
 \value{
 A list including:
   \item{beta}{
@@ -50,20 +55,23 @@ The fitted or the predicted values (if xnew is not NULL).
 }
 \references{
 Jolliffe I.T. (2002). Principal Component Analysis.
-
 }
+
 \author{
 Michail Tsagris
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
 }
+
 %\note{
 %%  ~~further notes~~
 %}
+
 \seealso{
 \code{\link{pcr.tune}, \link{alfa.pcr}, \link{glm.pcr}
 }
 }
+
 \examples{
 library(MASS)
 x <- fgl[, 2:9]
@@ -71,5 +79,6 @@ y <- fgl[, 1]
 mod1 <- pcr(y, x, 1)
 mod2 <- pcr(y, x, 2)
 }
+
 \keyword{ principal components }
 \keyword{ linear regression }

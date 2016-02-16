@@ -1,0 +1,90 @@
+\name{ridge.tune}
+\alias{ridge.tune}
+\title{
+Cross validation for the ridge regression
+}
+
+\description{
+Cross validation for the ridge regression is performed using the TT estimate of bias (Tibshirani and Tibshirani, 2009).
+There is an option for the GCV criterion which is automatic.
+}
+
+\usage{
+ridge.tune(y, x, M = 10, lambda = seq(0, 2, by = 0.1), seed = FALSE, ncores = 2,
+graph = TRUE)
+}
+
+\arguments{
+  \item{y}{
+  A numeric vector containing the values of the target variable. If the values are proportions or percentages,
+  i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
+}
+  \item{x}{
+  A numeric matrix containing the variables. Rows are samples and columns are features.
+}
+  \item{M}{
+  The number of folds. Set to 10 by default.
+}
+  \item{lambda}{
+  A vector with the a grid of values of \eqn{\lambda} to be used.
+}
+  \item{seed}{
+  A boolean variable. If it is TRUE the results will always be the same.
+}
+ \item{ncores}{
+  The number of cores to use. If it is more than 1 parallel computing is performed.
+}
+ \item{graph}{
+If graph is set to TRUE the performances for each fold as a function of the \eqn{\lambda} values will appear.
+}
+}
+
+\details{
+A k-fold cross validation is performed and the estimated performance is bias corrected as suggested by Tibshirani and Tibshirani (2009). This function is used by \code{\link{alfaridge.tune}}.
+}
+
+\value{
+A list including:
+\item{msp}{
+The performance of the ridge regression for every fold.
+}
+\item{mspe}{
+The values of the mean prediction error for each value of \eqn{\lambda}.
+}
+\item{lambda}{
+The value of \eqn{\lambda} which corresponds to the minimum MSPE.
+}
+\item{performance}{
+The minimum bias corrected MSPE along with the estimate of bias.
+}
+}
+
+\references{
+Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1):55-67.
+
+Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
+
+Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics 3(2): 822-829.
+
+}
+\author{
+ Michail Tsagris
+
+R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and Michail Tsagris <mtsagris@yahoo.gr>
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{ \link{ridge.reg}, \link{alfaridge.tune} }
+}
+
+\examples{
+y <- iris[, 1]
+x <- iris[, 2:4]
+ridge.tune(y, x, M = 10, lambda = seq(0, 2, by = 0.1), seed = FALSE, ncores = 1, graph = TRUE)
+}
+
+\keyword{ Ridge regression }

@@ -6,7 +6,8 @@
 #### mtsagris@yahoo.gr
 ################################
 
-glmpcr.tune <- function(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE, ncores = 2) {
+glmpcr.tune <- function(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE,
+                        ncores = 2, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)
@@ -77,10 +78,12 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE
   mpd <- colMeans(msp)
   bias <- msp[ ,which.min(mpd)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
-  plot(1:maxk, mpd, xlab = "Number of principal components",
-       ylab = "Mean predicted deviance", type = "b")
+  if (graph == TRUE) {
+    plot(1:maxk, mpd, xlab = "Number of principal components",
+    ylab = "Mean predicted deviance", type = "b")
+  }
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
   performance <- c( min(mpd) + estb, estb)
   names(performance) <- c("MPD", "Estimated bias")
-  list(mpd = mpd, k = which.min(mpd), performance = performance)
+  list(msp = msp, mpd = mpd, k = which.min(mpd), performance = performance)
 }

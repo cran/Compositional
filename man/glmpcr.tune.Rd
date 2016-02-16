@@ -3,12 +3,16 @@
 \title{
 Tuning the principal components in the GLM
 }
+
 \description{
 Tuning the number of principal components in the generalised linear models.
 }
+
 \usage{
-glmpcr.tune(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE, ncores = 2)
+glmpcr.tune(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE, ncores = 2,
+graph = TRUE)
 }
+
 \arguments{
   \item{y}{
   A real valued vector.
@@ -31,6 +35,9 @@ glmpcr.tune(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE, ncores = 2
   \item{ncores}{
   The number of cores to use. If more than 1, parallel computing takes place.
 }
+ \item{graph}{
+If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
+}
 }
 
 \details{
@@ -38,8 +45,12 @@ Cross validation is performed to select the optimal number of principal componen
 }
 
 \value{
+If graph is TRUE a plot of the performance versus the number of principal components will appear.
 A list including:
-  \item{mspe}{
+  \item{msp}{
+  A matrix with the mean squared error of prediction (MSPE) for every fold.
+}
+  \item{mpd}{
   A vector with the mean squared error of prediction (MSPE), each value corresponds to a number of principal components.
 }
   \item{k}{

@@ -1,23 +1,21 @@
 ################################
-#### Selection of the number of principal components in PCR
-#### via K-fold cross validation
-#### Tsagris Michail 12/2013
+#### Ridge regression tuning of the
+#### lambda parameter via k-fold cross validation
+#### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
-#### References: Jolliffe I.T. (2002)
-#### Principal Component Analysis p. 167-188.
 ################################
 
-pcr.tune <- function(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = TRUE) {
-  ## y is the univariate dependent variable
+ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
+                       seed = FALSE, ncores = 2, graph = TRUE) {
+  ## y is the univariate dependent real valued variable
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default
-  ## maxk is the maximum number of eigenvectors to conside
-  ## ncores specifies how many cores to use
-  y <- as.vector(y)  ## makes sure y is a vector
+  ## lambda is a vector with a grid of values of lambda
+  ## ncores is the number of cores to use
+  y <- as.vector(y)  ## makes sure y is a matrix
   x <- as.matrix(x)
   n <- length(y)  ## sample size
-  p <- ncol(x)  ## number of independent variables
-  if ( maxk > p )  maxk <- p  ## just a check
+  k <- length(lambda)
   ## if seed==TRUE then the results will always be the same
   if (seed == TRUE)  set.seed(1234567)
   nu <- sample(1:n, min( n, round(n / M) * M ) )
@@ -26,7 +24,7 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = 
   options(warn = -1)
   mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   ## to a matrix a warning message should appear
-  msp <- matrix( nrow = M, ncol = maxk )
+  msp <- matrix( nrow = M, ncol = k )
   rmat <- nrow(mat)
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
@@ -38,24 +36,24 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = 
       ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
-      for ( j in 1:maxk ) {
-        est <- pcr(ytrain, xtrain, j, xtest)$est
+      for ( j in 1:k ) {
+        est <- ridge.reg(ytrain, xtrain, lambda[j], B = 1, xtest)$est
         msp[vim, j] <- sum( (ytest - est)^2 ) / rmat
       }
     }
   } else {
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
-    er <- numeric(maxk)
-    msp <- foreach::foreach(vim = 1:M, .combine = rbind, .export = "pcr") %dopar% {
+    er <- numeric(k)
+    msp <- foreach::foreach(vim = 1:M, .combine = rbind, .export = "ridge.reg") %dopar% {
       if (seed == TRUE)  set.seed( vim:c(vim + 10) ) ## If seed is TRUE the results
       ## will always be the same
       ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
       ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
-      for ( j in 1:maxk ) {
-        est <- pcr(ytrain, xtrain, j, xtest)$est
+      for ( j in 1:k ) {
+        est <- ridge.reg(ytrain, xtrain, lambda[j], B = 1, xtest)$est
         er[j] <- sum( (ytest - est)^2 ) / rmat
       }
       return(er)
@@ -63,14 +61,17 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = 
     stopCluster(cl)
   }
   mspe <- colMeans(msp)
-  bias <- msp[ ,which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
+  bias <- msp[, which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
   if (graph == TRUE) {
-    plot(1:maxk, mspe, xlab = "Number of principal components",
-    ylab = "MSPE", type = "b")
+    plot(lambda, mspe, type = 'b', ylim = c( min(mspe), max(mspe) ),
+    ylab = "Mean squared error of prediction",
+    xlab = expression(paste(lambda, " values")) )
   }
-  names(mspe) <- paste("PC", 1:maxk, sep = " ")
+  names(mspe) <- lambda
+  rownames(msp) <- 1:M
+  colnames(msp) <- lambda
   performance <- c( min(mspe) + estb, estb)
   names(performance) <- c("MSPE", "Estimated bias")
-  list(msp = msp, mspe = mspe, k = which.min(mspe), performance = performance)
+  list(msp = msp, mspe = mspe, lambda = which.min(mspe), performance = performance)
 }

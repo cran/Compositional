@@ -13,7 +13,8 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## the line above makes sure y is compositional data and
   ## then the unit vector is added to the desing matrix
   d <- ncol(y) - 1  ## dimensionality of the simplex
-  z <- list(y = y, x = x)
+  z <- list(y = log(y), x = x)
+
     dirireg <- function(param, z = z) {
       ## param contains the parameter values
       ## z contains the compositional data and independent variable(s)
@@ -28,15 +29,18 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
       mu1 <- cbind(1, exp(x %*% be))
       ma <- mu1/rowSums(mu1)  ## the fitted values
       l <- -( n * lgamma(phi) - sum( lgamma(phi * ma) ) +
-      sum( diag(log(y) %*% t(phi * ma - 1)) )  )
+      sum( diag( y %*% t(phi * ma - 1) ) )  )
       ## l is the log-likelihood
     l
   }
-  rla <- log(y[, -1]/y[, 1])  ## additive log-ratio transformation
+
+  runtime <- proc.time()
+  rla <- log(y[, -1] / y[, 1])  ## additive log-ratio transformation
   ini <- as.vector( coef(lm.fit(x, rla)) )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
+
   el <- NULL
   options(warn = -1)
   qa <- nlm(dirireg, c(3, as.vector( t(ini)) ), z = z)
@@ -55,12 +59,14 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   para <- qa$estimate[-1]  ## estimated parameter values
   beta <- matrix(para, ncol = d)  ## matrix of the betas
   colnames(beta) <- colnames(y[, -1])  ## names of the betas
-  s <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated betas
-  std.logphi <- s[1]  ## std of the estimated log of phi
-  S <- matrix(s[-1], ncol = d)  ## std of the estimated betas
+  seb <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated betas
+  std.logphi <- seb[1]  ## std of the estimated log of phi
+  seb <- matrix(seb[-1], ncol = d)  ## std of the estimated betas
+
   if ( !is.null( colnames(y) ) ) {
-    colnames(S) <- colnames(y[, -1])
-  } else  colnames(S) <- paste("Y", 1:d, sep = "")
+    colnames(seb) <- colnames(y[, -1])
+  } else  colnames(seb) <- paste("Y", 1:d, sep = "")
+
   if ( !is.null(xnew) ) {
     xnew <- cbind(1, xnew)
     xnew <- as.matrix(xnew)
@@ -72,11 +78,23 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     lev <- ( exp(log.phi) + 1 ) * rowSums( (y - est)^2 / mu )
     if (plot == TRUE) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",
-       ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
+      ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
       lines(1:n, lev, type = "h")
       abline(h = qchisq(0.95, d), lty = 2, col = 2)
     }
-      }
-  list(loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
-  std.logphi = std.logphi, beta = beta, seb = S, lev = lev, est = est)
+  }
+
+  runtime <- proc.time() - runtime
+
+  if ( is.null(colnames(x)) ) {
+    p <- ncol(x) - 1
+    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
+    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+  } else {
+    rownames(beta)  <- c("constant", colnames(x)[-1] )
+    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
+  }
+
+  list(runtime = runtime, loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
+  std.logphi = std.logphi, beta = beta, seb = seb, lev = lev, est = est)
 }

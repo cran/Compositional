@@ -8,7 +8,7 @@ Regression based on the ESOV divergence.
 }
 
 \usage{
-esov.compreg(y, x, B = 1000, ncores = 1, xnew = NULL)
+esov.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
@@ -35,6 +35,9 @@ The ESOV metric is adopted as the objective function. This involves numerical op
 
 \value{
 A list including:
+  \item{runtime}{
+  The time required by the regression.
+}
   \item{beta}{
 The beta coefficients.
 }
@@ -76,8 +79,6 @@ x <- fgl[, 1]
 y <- fgl[, 2:9]
 mod1 <- esov.compreg(y, x, B = 1, ncores = 1)
 mod2 <- kl.compreg(y, x, B = 1, ncores = 1)
-mod1
-mod2
 }
 
 \keyword{ ESOV metric }

@@ -19,17 +19,24 @@ mkde <- function(x, h, thumb = "none") {
   ## "scott", or "silverman"
   n <- nrow(x)
   d <- ncol(x)  ## sample and dimensionality of x
-  f <- numeric(n)
+
   if (thumb == "silverman") {
     s <- apply(x, 2, sd)
     h <- (4/(d + 2))^(1/(d + 4)) * s * n^(-1/(d + 4))
+
   } else  if (thumb == "scott") {
     s <- apply(x, 2, sd)
     h <- s * n^(-1/(d + 4))
-  } else  h <- h
+  } else if (thumb == "estim") {
+    h <- mkde.tune(x)$hopt
+  }
+
+  else  h <- h
+
   if (length(h) == 1) {
     h <- diag(h, d)
   } else h <- diag(h)
+
   con <- prod( diag(h) )
   y <- x %*% solve(h)
   a1 <- dist(y, diag = TRUE, upper = TRUE)

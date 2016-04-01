@@ -56,8 +56,7 @@ In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. h
     %}
 
 \seealso{
-  \code{ \link{ridge.plot}, \link{alfa.ridge}
-  }
+  \code{ \link{ridge.plot}, \link{alfa.ridge} }
 }
 
 \examples{

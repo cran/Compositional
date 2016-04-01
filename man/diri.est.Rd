@@ -19,11 +19,14 @@ diri.est(x, type = "mle")
   \item{type}{
   If you want to estimate the parameters use type="mle". If you want to estimate the mean vector along with the precision parameter,
   the second parametrisation of the Dirichlet, use type="prec". If you want to estimate the parameters via the entropy, then use type="ent".
+  The fastest by far when the sample size or/and the number of variables increases, is the type "prec". 
 }
 }
 
 \details{
-Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed.}
+Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed.
+}
+
 \value{
 A list including:
 \item{loglik}{
@@ -38,10 +41,13 @@ The estimated precision parameter, if type = "prec".
 \item{a}{
 The estimated mean vector, if type = "prec".
 }
+\item{runtime}{
+The run time of the maximisation procedure.
+}
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }

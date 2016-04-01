@@ -1,54 +1,63 @@
 \name{spat.med}
 \alias{spat.med}
 \title{
-Spatial median
+Spatial median for Euclidean data
 }
+
 \description{
-Spatial median.
+Spatial median for Euclidean data.
 }
+
 \usage{
 spat.med(x)
 }
+
 \arguments{
   \item{x}{
   A matrix with Euclidean data, continuous variables.
 }
 }
+
 \details{
 The spatial median, using a fixed point iterative algorithm, for Euclidean data is calcualted. It is a robust location estimate.
 This function is used by \code{\link{comp.den}}.
 }
+
 \value{
 A vector with the spatial median.
-
 }
+
 \references{
 Jyrki Mottonen, Klaus Nordhausen and Hannu Oja (2010). Asymptotic theory of the spatial median.
 In Nonparametrics and Robustness in Modern Statistical Inference and Time Series Analysis:
-A Festschrift in honor of Professor Jana Jureckova
+A Festschrift in honor of Professor Jana Jureckova.
 
 T. Karkkaminen and S. Ayramo (2005). On computation of spatial median for robust data mining.
 Evolutionary and Deterministic Methods for Design, Optimization and Control with Applications to
 Industrial and Societal Problems, EUROGEN 2005, R. Schilling, W.Haase, J. Periaux, H. Baier, G. Bugeda (Eds)
 FLM, Munich. http://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf
-
 }
+
 \author{
 Michail Tsagris
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
 }
+
 %\note{
 %%  ~~further notes~~
 %}
+
 \seealso{
 \code{\link{sscov}, \link{comp.den}
 }
 }
+
 \examples{
 library(MASS)
 spat.med( iris[, 1:4] )
 colMeans( iris[, 1:4] )
 }
+
 \keyword{ spatial median }
 \keyword{ robust statistics }

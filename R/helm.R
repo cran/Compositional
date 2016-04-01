@@ -8,11 +8,11 @@
 ################################
 
 helm <- function(n) {
-  h <- matrix(numeric(n^2), nrow = n)
-  h[1, ] <- 1/sqrt(n)
-  for (i in 2:n) {
-    for (j in 1:i - 1) h[i, j] <- 1/sqrt(i * (i - 1))
-    h[i, j + 1] <- -sum(h[i, ])
+  mat <- matrix(0, n - 1, n) 
+  i <- 2:n
+  r <- 1 / sqrt( i * (i - 1) )
+  for ( j in 1:(n - 1 ) ) { 
+    mat[j, 1: c(j + 1) ] <- c( rep(r[j], j), -( j * r[j] ) )
   }
-  h[c(2:n), ]
+  mat
 }

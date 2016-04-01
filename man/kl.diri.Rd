@@ -27,11 +27,13 @@ kl.diri(a, b, type = "KL")
 \details{
 Note that the order is important in the Kullback-Leibler divergence, since this is asymetric, but not in the Bhattacharyya distance, since it is a metric.
 }
+
 \value{
 The value of the Kullback-Leibler divergence or the Bhattacharyya distance.
 }
+
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
 }
 
 \author{
@@ -45,8 +47,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.est}, \link{diri.nr}
-}
+\code{\link{diri.est}, \link{diri.nr} }
 }
 
 \examples{

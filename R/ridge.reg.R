@@ -35,7 +35,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   if (B > 1) { ## bootstrap estimation of the standard errors
     be <- matrix(nrow = B, ncol = p )
     for ( i in 1:B) {
-      id <- sample(1:n, n, replace = T)
+      id <- sample(1:n, n, replace = TRUE)
       yb <- yy[id, ]  ;  xb <- xx[id, ]
       W <- solve( crossprod(xb) + lambda * diag(p) )
       be[i, ] <- W %*% crossprod(xb, yb)

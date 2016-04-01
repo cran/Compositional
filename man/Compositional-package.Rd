@@ -2,21 +2,19 @@
 \alias{Compositional-package}
 \docType{package}
 \title{
-This is an R package that provides methods for statistical analysis of compositional data
+Compositional Data Analysis
 }
 
 \description{
-Many types of regression and discriminant analysis, contour plots, parameter estimation and more functions are included. As a general rule, keep in mind that whenever
-the log-ratio transformation (additive or isometric) is to be used the compositional data must have no zero values. For all other cases, feel free
-to have zeros.
+A collection of functions for compositional data analysis.
 }
 
 \details{
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 1\cr
-Date: \tab 2016-02-05\cr
+Version: \tab 1.2 \cr
+Date: \tab 2016-03-31\cr
 License: \tab GPL-2\cr
 }
 }
@@ -26,7 +24,7 @@ Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
 }
 
 \section{Maintainers }{
-Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \references{

@@ -5,7 +5,7 @@ Dirichlet regression
 }
 
 \description{
-Dirichlet regression
+Dirichlet regression.
 }
 
 \usage{
@@ -33,6 +33,9 @@ A Dirichlet distribution is assumed for the regression. This involves numerical 
 
 \value{
 A list including:
+  \item{runtime}{
+  The time required by the regression.
+}
   \item{loglik}{
   The value of the log-likelihood.
 }
@@ -88,8 +91,6 @@ x <- iris[, 4]
 y <- iris[, 1:3]
 mod1 <- diri.reg(y, x)
 mod2 <- comp.reg(y, x)
-mod1
-mod2
 }
 
 \keyword{ Dirichlet regression }

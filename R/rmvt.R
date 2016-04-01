@@ -12,10 +12,10 @@ rmvt <- function(n, mu, sigma, v) {
   ## v is the degrees of freedom
   p <- length(mu)
   x <- matrix(rnorm(n * p), ncol = p)
-  w <- sqrt( v / rchisq(n, v) )
+  w <- sqrt(v / rchisq(n, v))
   eig <- eigen(sigma)
   lam <- eig$values
   vec <- eig$vectors
   B <- vec %*% diag( sqrt(lam) ) %*% t(vec)
-  w * x %*% B + rep( mu, rep(n, p) )
+  w * tcrossprod(x, B) + rep( mu, rep(n, p) )
 }

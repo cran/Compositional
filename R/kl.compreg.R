@@ -8,7 +8,7 @@
 #### Econometric Reviews (to appear)
 ################################
 
-kl.compreg <- function(y, x, B = 1000, ncores = 4, xnew = NULL) {
+kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)
   ## B is the number of bootstrap samples used to obtain
@@ -18,33 +18,40 @@ kl.compreg <- function(y, x, B = 1000, ncores = 4, xnew = NULL) {
   ## more are used (parallel computing)
   y <- as.matrix(y)
   y <- y/rowSums(y)  ## makes sure y is compositional data
-  x <- as.matrix(cbind(1, x))
+  x <- as.matrix( cbind(1, x) )
   d <- ncol(y) - 1  ## dimensionality of the simplex
   n <- nrow(y)  ## sample size
   z <- list(y = y, x = x)
-  klreg <- function(para, z) {
-    y <- z$y
-    x <- z$x
-    be <- matrix(para, byrow = TRUE, ncol = d)
-    mu1 <- cbind(1, exp(x %*% be))
-    mu <- mu1/rowSums(mu1)
-    f <- sum(y * log(y/mu), na.rm = T)
-    f
-  }
+
+   klreg <- function(para, z) {
+     y <- z$y
+     x <- z$x
+     be <- matrix(para, byrow = TRUE, ncol = d)
+     mu1 <- cbind( 1, exp(x %*% be) )
+     mu <- mu1 / rowSums(mu1)
+     f <- - sum(y * log(mu), na.rm = TRUE)
+     f
+   }
+
   ## the next lines minimize the reg function and obtain the estimated betas
   ini <- as.vector( t( coef(lm(y[, -1] ~ x[, -1])) ) )  ## initial values
+
+  runtime <- proc.time()
   options (warn = -1)
   qa <- nlm(klreg, ini, z = z)
   qa <- nlm(klreg, qa$estimate, z = z)
   qa <- nlm(klreg, qa$estimate, z = z)
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   seb <- NULL
+  runtime <- proc.time() - runtime
+
   if (B > 1) {
   nc <- ncores
     if (nc == 1) {
+      runtime <- proc.time()
       betaboot <- matrix(nrow = B, ncol = length(ini))
       for (i in 1:B) {
-        ida <- sample(1:n, n, replace = T)
+        ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
@@ -54,14 +61,17 @@ kl.compreg <- function(y, x, B = 1000, ncores = 4, xnew = NULL) {
         qa <- nlm(klreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
-     s <- apply(betaboot, 2, sd)
-     seb <- matrix(s, byrow = T, ncol = d)
+      s <- apply(betaboot, 2, sd)
+      seb <- matrix(s, byrow = TRUE, ncol = d)
+      runtime <- proc.time() - runtime
+
     } else {
-       betaboot <- matrix(nrow = B, ncol = length(ini) )
-       cl <- makePSOCKcluster(ncores)
-       registerDoParallel(cl)
-       ww <- foreach::foreach(i = 1:B, .combine = rbind) %dopar% {
-          ida <- sample(1:n, n, replace = T)
+      runtime <- proc.time()
+      betaboot <- matrix(nrow = B, ncol = length(ini) )
+      cl <- makePSOCKcluster(ncores)
+      registerDoParallel(cl)
+      ww <- foreach::foreach(i = 1:B, .combine = rbind) %dopar% {
+        ida <- sample(1:n, n, replace = T)
           yb <- y[ida, ]
           xb <- x[ida, ]
           zb <- list(y = yb, x = xb)
@@ -73,9 +83,11 @@ kl.compreg <- function(y, x, B = 1000, ncores = 4, xnew = NULL) {
        }
       stopCluster(cl)
       s <- apply(ww, 2, sd)
-      seb <- matrix(s, byrow = T, ncol = d)
+      seb <- matrix(s, byrow = TRUE, ncol = d)
+      runtime <- proc.time() - runtime
     }
   }
+
     if ( is.null(xnew) ) {
     mu <- cbind( 1, exp(x %*% beta) )
     est <- mu / rowSums(mu)
@@ -85,5 +97,15 @@ kl.compreg <- function(y, x, B = 1000, ncores = 4, xnew = NULL) {
     mu <- cbind(1, exp(x %*% beta))
     est <- mu / rowSums(mu)
   }
-  list(beta = beta, seb = seb, est = est)
+
+  if ( is.null(colnames(x)) ) {
+    p <- ncol(x) - 1
+    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
+    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+  } else {
+    rownames(beta)  <- c("constant", colnames(x)[-1] )
+    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
+  }
+
+  list(runtime = runtime, beta = beta, seb = seb, est = est)
 }

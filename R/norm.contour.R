@@ -16,11 +16,13 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt(3)/2 - 1e-04, length = n)
   mat <- matrix(nrow = n, ncol = n)
+  ha <- t( helm(3) )
   if (type == "alr") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
-    ya <- log(x) - mean(log(x))
-    ya <- ( ya %*% t( helm(3) ) )
+    ya <- log(x)
+    ya <- ya - rowMeans( ya )
+    ya <- as.matrix( ya %*% ha )
   }
   m <- colMeans(ya)  ## mean vector
   s <- var(ya)  ## covariance matrix
@@ -39,7 +41,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- log( w[-3] / w[3] )  ## additive log-ratio transformation
         } else {
           y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% t( helm(3) ) )
+          y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( c( y[1] - m[1], y[2] - m[2] ) %*% st %*%
           c( y[1] - m[1], y[2] - m[2] ) ) )
@@ -61,7 +63,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- log( w[-3] / w[3] )  ## additive log-ratio transformation
         } else {
           y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% t( helm(3) ) )
+          y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( c( y[1] - m[1], y[2] - m[2] ) %*% st %*%
           c( y[1] - m[1], y[2] - m[2]) ) )

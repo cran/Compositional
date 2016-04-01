@@ -3,6 +3,7 @@
 \title{
 Multivariate t random values simulation
 }
+
 \description{
 Multivariate t random values simulation.
 }
@@ -24,6 +25,7 @@ rmvt(n, mu, sigma, v)
   The degrees of freedom.
 }
 }
+
 \details{
 The algorithm uses univariate normal and chi-square random values and then generates multivariate t values via a spectral decomposition.This function is used by \code{\link{rcompt}}.
 }

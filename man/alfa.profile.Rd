@@ -20,9 +20,11 @@ alfa.profile(x, a = seq(-1, 1, by = 0.01))
   A grid of values of \eqn{\alpha}.
 }
 }
+
 \details{
 For every value of \eqn{\alpha} the normal likelihood (see the refernece) is computed. At the end, the plot of the values is constructed.
 }
+
 \value{
 A list including:
   \item{res}{
@@ -47,14 +49,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{fast.alfa}, \link{alfa}, \link{alfainv}
+\code{\link{alfa.tune}, \link{alfa}, \link{alfainv}
 }
 }
 
 \examples{
 library(MASS)
 x <- iris[, 1:4]
-fast.alfa(x)
+alfa.tune(x)
 alfa.profile(x)
 }
 

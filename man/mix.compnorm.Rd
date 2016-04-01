@@ -39,7 +39,7 @@ mix.compnorm(x, g, model, type = "alr")
 }
 }
   \item{type}{
-  Either the additive ("alr") or the isometric log-ratio transformation is to be used ("ilr").
+  Either the additive ("alr") or the isometric ("ilr") log-ratio transformation is to be used..
 }
 }
 
@@ -87,8 +87,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 x <- iris[, 1:4]
 mod1 <- mix.compnorm(x, 3, model = "EII" )
 mod2 <- mix.compnorm(x, 4, model = "VII")
-mod1
-mod2
 }
 
 \keyword{ Gaussian mixtures }

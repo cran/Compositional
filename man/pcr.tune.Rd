@@ -9,8 +9,9 @@ Tuning the number of principal components in the principal components regression
 }
 
 \usage{
-pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = TRUE)
+pcr.tune(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TRUE)
 }
+
 \arguments{
   \item{y}{
   A real valued vector.
@@ -24,14 +25,14 @@ pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 2, graph = TRUE)
   \item{maxk}{
   The maximum number of principal components to check.
 }
-  \item{seed}{
-  If seed is TRUE the folds will always be the same.
+  \item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
   \item{ncores}{
-  The number of cores to use. If more than 1, parallel computing takes place.
+  The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
  \item{graph}{
-If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
+If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }
 
@@ -53,6 +54,9 @@ If graph is TRUE a plot of the performance versus the number of principal compon
 }
   \item{performance}{
   The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion.
+}
+\item{runtime}{
+The time required by the cross-validation procedure.
 }
 }
 
@@ -81,7 +85,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 x <- fgl[, 2:9]
 y <- fgl[, 1]
-pcr.tune(y, x, M = 10, maxk = 50, seed = FALSE, ncores = 1)
+pcr.tune(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1)
 }
 
 \keyword{ principal components }

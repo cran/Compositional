@@ -12,6 +12,6 @@ alfadist <- function(x, a) {
   ## a is the power parameter, usually between -1 and 1
   x <- as.matrix(x)  ## makes sure x is a matric
   y <- alfa(x, a, h = TRUE)$aff
-  disa <- dist(y, diag = T, upper = T)
-  as.matrix(disa)
+  disa <- fields::rdist(y)
+  disa
 }

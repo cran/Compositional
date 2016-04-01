@@ -27,6 +27,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## of the independent variables
   crit.res <- sqrt( qchisq(0.975, d) )
   crit.x <- sqrt( qchisq(0.975, p) )
+
   if (plot == TRUE) {
     plot(dx, dres, xlim = c(0, max(dx) + 0.5), ylim = c(0, max(dres) + 0.5),
     xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance
@@ -34,9 +35,11 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
     abline(h = crit.res)
     abline(v = crit.x)
   }
-  resid.outliers <- as.vector( which(dres > crit.res) )
+
+  resid.out <- as.vector( which(dres > crit.res) )
   x.leverage <- which(dx > crit.x)
   out.and.lever <- which(dx > crit.x & dres > crit.res)
+
   if ( is.null(xnew) ) {
     est <- fitted(mod)
   } else {
@@ -44,10 +47,12 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
     xnew <- as.matrix(xnew)
     est <- xnew %*% coef(mod)
   }
+
   moda <- summary(mod)
   suma <- array(dim = c(1 + p, 6, d))
   r.squared <- numeric(d)
   mse <- deviance(mod)/( n - p - 1 )
+
   for (i in 1:d) {
     wa <- as.matrix( coef(moda[[i]]) )
     wa <- cbind( wa, wa[, 1] - qt(0.975, n - p - 1) * mse[i] ,
@@ -56,17 +61,19 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
     suma[, , i] <- wa
     r.squared[i] <- as.numeric( moda[[i]]$r.squared )
   }
+
   if ( is.null(colnames(y)) ) {
     dimnames(suma) <- list( rownames(wa), colnames(wa),
     paste("Y", 1:d, sep = "") )
     names(r.squared) <- paste("Y", 1:d, sep = "")
-    colnames(fitted) <- paste("Y", 1:d, sep = "")
+    colnames(est) <- paste("Y", 1:d, sep = "")
   } else {
     dimnames(suma) <- list( rownames(wa), colnames(wa), colnames(y) )
     names(r.squared) <- colnames(y)
     colnames(est) <- colnames(y)
   }
-  list(suma = suma, r.squared = r.squared, resid.outliers = resid.outliers,
-  x.leverage = x.leverage, out.and.lever = out.and.lever, est = est)
+
+  list(suma = suma, r.squared = r.squared, resid.out  = resid.out,
+  x.leverage = x.leverage, out = out.and.lever, est = est)
 }
 

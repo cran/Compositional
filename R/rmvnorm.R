@@ -14,6 +14,6 @@ rmvnorm <- function(n, mu, sigma) {
   eig <- eigen(sigma)  
   lam <- eig$values
   vec <- eig$vectors
-  B <- vec %*% diag( sqrt(lam) ) %*% t(vec)
-  x %*% B + rep( mu, rep(n, p) )
+  B <- ( vec %*% diag( sqrt(lam) ) ) %*% t(vec)
+  tcrossprod(x, B) + rep( mu, rep(n, p) )
 }

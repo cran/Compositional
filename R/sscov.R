@@ -16,5 +16,5 @@ sscov <- function(x) {
   me <- spat.med(x)  ## spatial median of x
   y <- x - rep( me, rep(n, p) )
   y <- y / sqrt ( rowSums(y^2) )  ## unit vectors
-  t(y) %*% y / n  ## SSCM
-}
+  crossprod( y ) / n  ## SSCM
+} 

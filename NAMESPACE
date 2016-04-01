@@ -2,7 +2,7 @@
 
 importFrom("MASS", "mvrnorm", "cov.rob", "cov.trob")
 importFrom("graphics", "filled.contour", "contour", "lines", "plot",
-           "points", "abline", "hist", "legend", "text")
+           "points", "abline", "hist", "legend", "text", image)
 
 importFrom("stats", "coef", "cor", "dist", "lm", "cov",
            "optim", "optimize", "quantile", "sd", "rnorm",
@@ -20,6 +20,9 @@ importFrom("sn", "msn.mle", "rmsn")
 importFrom("quantreg", "rq")
 importFrom("mixture", "gpcm")
 importFrom("BB", "BBsolve")
+importFrom("fields", "image.plot", "rdist")
+importFrom("grDevices", "grey")
+importFrom("stats", "aggregate")
 
 exportPattern("^[[:alpha:]]+")
 exportPattern("^[^\\.]")

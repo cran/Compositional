@@ -9,7 +9,7 @@ Regression based on the Kullback-Leibler divergence.
 }
 
 \usage{
-kl.compreg(y, x, B = 1000, ncores = 4, xnew = NULL)
+kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
@@ -36,6 +36,9 @@ The Kullback-Leibler divergence is adopted as the objective function. This invol
 
 \value{
 A list including:
+  \item{runtime}{
+  The time required by the regression.
+}
   \item{beta}{
 The beta coefficients.
 }
@@ -72,8 +75,6 @@ x <- fgl[, 1]
 y <- fgl[, 2:9]
 mod1<- kl.compreg(y, x, B = 1, ncores = 1)
 mod2 <- esov.compreg(y, x, B = 1, ncores = 1)
-mod1
-mod2
 }
 
 \keyword{ Kullback-Lebler divergence }

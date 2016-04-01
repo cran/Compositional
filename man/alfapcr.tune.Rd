@@ -9,8 +9,8 @@ This is a cross-validation procedure to decide on the number of principal compon
 }
 
 \usage{
-alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), oiko = "normal",
-seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
+alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
+mat = NULL, ncores = 1, graph = TRUE, col.nu = 15)
 }
 
 \arguments{
@@ -29,14 +29,11 @@ The maximum number of principal components to check.
   \item{a}{
   The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
 }
-  \item{oiko}{
-The family to be used, "normal" for a continuous variable, "binomial" for a binary or "poisson" for a count vaiable.
-}
-  \item{seed}{
-If seed is TRUE the same folds will always be generated.
+  \item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
   \item{ncores}{
-How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested.
+How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
   \item{graph}{
 If graph is TRUE (default value) a filled contour plot will appear.
@@ -47,7 +44,7 @@ A number parameter for the filled contour plot, taken into account only if graph
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
+The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. The estimated bias correction via the (Tibshirani and Tibshirani, 2009) criterion is applied.
 }
 
 \value{
@@ -62,6 +59,9 @@ The best pair of \eqn{\alpha} and number of principal components.
   \item{performance}{
 The minimum mean squared error of prediction (bias corrected) and the estimated bias.
 }
+\item{runtime}{
+The time required by the cross-validation procedure.
+}
 }
 
 \references{
@@ -73,7 +73,6 @@ Jolliffe I.T. (2002). Principal Component Analysis.
 
 
 Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
-
 }
 
 \author{
@@ -95,8 +94,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 y <- fgl[, 1]
 x <- fgl[, 2:9]
-mod <- alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), oiko = "normal",
-seed = FALSE, ncores = 1)
+mod <- alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), mat = NULL, ncores = 1)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

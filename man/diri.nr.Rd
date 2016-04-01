@@ -1,11 +1,11 @@
 \name{diri.nr}
 \alias{diri.nr}
 \title{
-Fiiting a Dirichlet distribution via Newton-Rapshon
+Fitting a Dirichlet distribution via Newton-Rapshon
 }
 
 \description{
-Fiiting a Dirichlet distribution via Newton-Rapshon.
+Fitting a Dirichlet distribution via Newton-Rapshon.
 }
 
 \usage{
@@ -20,17 +20,29 @@ diri.nr(x)
 
 \details{
 Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed via Newton-Raphson.
-Initial values suggested by Minka (2003) are used. The esimtation is much faster than "diri.est" when the sample size and
-or the dimensions increase.
+Initial values suggested by Minka (2003) are used. The estimatation is super faster than "diri.est" and the
+difference becomes really apparent when the sample size and or the dimensions increase. In fact this will work with millions of observations. 
+So in general, I trust this one more than "diri.est". 
+
+The only problem I have seen with this method is that if the data are concentrated around a point,
+say the center of the simplex, it will be hard for this and the previous methods to give estimates of the parameters.
+In this extremely difficult scenario I would suggest the use of the previous function with the precision parametrisation
+"diri.est(x, type = "prec")". It will be extremely fast and accurate.
 }
 
 \value{
 A list including:
+\item{iter}{
+The number of iterations required.
+}
 \item{loglik}{
 The value of the log-likelihood.
 }
 \item{param}{
 The estimated parameters.
+}
+\item{runtime}{
+The run time of the procedure.
 }
 }
 

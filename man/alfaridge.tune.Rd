@@ -10,8 +10,9 @@
 }
 
 \usage{
-alfaridge.tune(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1),
-seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
+alfaridge.tune(y, x, M = 10, a = seq(-1, 1, by = 0.1),
+lambda = seq(0, 2, by = 0.1), mat = NULL, ncores = 1,
+graph = TRUE, col.nu = 15)
 }
 
 \arguments{
@@ -20,7 +21,7 @@ seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
     i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
   }
   \item{x}{
-    A numeric matrix containing the compositional data, i.e. the predictor variables.
+    A numeric matrix containing the compositional data, i.e. the predictor variables. Zero values are allowed.
   }
   \item{M}{
     The number of folds. Set to 10 by default.
@@ -31,11 +32,11 @@ seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
   \item{lambda}{
     A vector with the a grid of values of \eqn{\lambda} to be used.
   }
-  \item{seed}{
-    A boolean variable. If it is TRUE the results will always be the same.
+  \item{mat}{
+   You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.     You can also leave it NULL and it will create folds.
   }
   \item{ncores}{
-    The number of cores to use. If it is more than 1 parallel computing is performed.
+    The number of cores to use. If it is more than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
   }
   \item{graph}{
     If graph is TRUE (default value) a filled contour plot will appear.
@@ -52,14 +53,17 @@ seed = FALSE, ncores = 2, graph = TRUE, col.nu = 15)
 \value{
 If graph is TRUE a fileld contour a filled contour will appear.
 A list including:
-  \item{mspe}{
+\item{mspe}{
 The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.
 }
-  \item{best.par}{
+\item{best.par}{
 The best pair of \eqn{\alpha} and \eqn{\lambda}.
 }
-  \item{performance}{
+\item{performance}{
 The minimum mean squared error of prediction (bias corrected) and the estimated bias.
+}
+\item{runtime}{
+The run time of the cross-validation procedure.
 }
 }
 
@@ -93,9 +97,10 @@ In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. h
 library(MASS)
 y <- fgl[, 1]
 x <- fgl[, 2:9]
-alfaridge.tune(y, x, M = 10, a = seq(0.1, 0.5, by = 0.1), lambda = seq(0.1, 1, by = 0.2),
-seed = FALSE, ncores = 1, graph = TRUE, col.nu = 15)
+alfaridge.tune( y, x, M = 10, a = seq(0.1, 1, by = 0.1),
+lambda = seq(0, 1, by = 0.1) )
 }
 
+\keyword{ \eqn{\alpha}-transformation }
 \keyword{ Ridge regression }
-\keyword{ parameters tuning }
+\keyword{ Parameters tuning }

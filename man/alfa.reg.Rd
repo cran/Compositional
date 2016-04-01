@@ -9,21 +9,26 @@ Regression with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
-alfa.reg(y, x, a, xnew = NULL)
+alfa.reg(y, x, a, xnew = NULL, yb = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with the compositional data.
+\item{y}{
+A matrix with the compositional data.
 }
-  \item{x}{
-  The predictor variable(s), they have to be continuous.
+\item{x}{
+The predictor variable(s), they have to be continuous.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression.
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
+}
+\item{yb}{
+If you have already transformed the data using the \eqn{\alpha}-transformation with the same \eqn{\alpha} as given in the argument "a", put it here. Othewrise leave it NULL.
+
+This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples. But, if you have a few thousands and or a few more components, there will be bigger differences.
 }
 }
 
@@ -33,6 +38,9 @@ The \eqn{\alpha}-transformation is applied to the compositional data first and t
 
 \value{
 A list including:
+  \item{runtime}{
+  The time required by the regression.
+}
   \item{beta}{
 The beta coefficients.
 }
@@ -53,7 +61,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{
@@ -73,10 +81,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[1:50, 1]
-y <- fgl[1:50, 2:9]
+x <- fgl[1:40, 1]
+y <- fgl[1:40, 2:9]
 mod1 <- alfa.reg(y, x, 0.2)
-mod2 <- alfa.reg(y, x, 1)
+#mod2 <- alfa.reg(y, x, 1)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

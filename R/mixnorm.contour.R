@@ -21,6 +21,7 @@ mixnorm.contour <- function(x, mod) {
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt(3)/2 - 1e-04, length = n)
   mat <- matrix(nrow = n, ncol = n)
+  ha <- t( helm (3) )
   for (i in 1:c(n/2)) {
     for (j in 1:n) {
       if (x2[j] < sqrt(3) * x1[i]) {
@@ -33,7 +34,7 @@ mixnorm.contour <- function(x, mod) {
         if (type == "alr") y <- log( w[-3]/w[3] )  ## alr transformation
         if (type == "ilr") {  ## isometric log-ratio transformation
           y <- log(w) - mean(log(w))
-          y <- as.vector( y %*% t( helm(3) ) )
+          y <- as.vector( y %*% ha )
         }
         ta <- numeric(g)
         for (k in 1:g) {
@@ -47,6 +48,7 @@ mixnorm.contour <- function(x, mod) {
       }
     }
   }
+
   for (i in c(n/2 + 1):n) {
     for (j in 1:n) {
       ## This checks if the point will lie inside the triangle
@@ -59,7 +61,7 @@ mixnorm.contour <- function(x, mod) {
         if (type == "alr") y <- log( w[-3]/w[3] )  ## alr transformation
         if (type == "ilr") {  ## isometric log-ratio transformation
           y <- log(w) - mean(log(w))
-          y <- as.vector( y %*% t( helm(3) ) )
+          y <- as.vector( y %*% ha )
         }
         ta <- numeric(g)
         for (k in 1:g) {
@@ -73,6 +75,7 @@ mixnorm.contour <- function(x, mod) {
       }
     }
   }
+
   contour(x1, x2, mat, col = 3)
   b1 <- c(1/2, 0, 1, 1/2)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)

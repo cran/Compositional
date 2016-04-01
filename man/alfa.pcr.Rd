@@ -9,12 +9,12 @@ Multivariate or univariate regression with compositional data in the covariates 
 }
 
 \usage{
-alfa.pcr(y, x, a, k, oiko = "normal", xnew = NULL)
+alfa.pcr(y, x, a, k, xnew = NULL)
 }
 
 \arguments{
   \item{y}{
-  A numerical vector containing the response variable values.
+  A numerical vector containing the response variable values. They can be continuous,  binary or discrete (counts).
 }
   \item{x}{
   The predictor variables, the compositional data.
@@ -25,17 +25,14 @@ alfa.pcr(y, x, a, k, oiko = "normal", xnew = NULL)
   \item{k}{
   A number at least equal to 1. How many principal components to use.
 }
-  \item{oiko}{
-  The family of distributions. IT can be either, "normal" for continuous response and hence normal distribution,
-  "binomial" corresponding to binary response and hence logistic regression or "poisson" for count response and poisson regression.
-}
   \item{xnew}{
   A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then the principal components regression is performed.
+The \eqn{\alpha}-transformation is applied to the compositional data first and then the principal components regression is performed. The family of distributions can be either, "normal" for continuous response and hence normal distribution,
+  "binomial" corresponding to binary response and hence logistic regression or "poisson" for count response and poisson regression.
 }
 
 \value{
@@ -68,7 +65,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 y <- fgl[, 1]
 x <- fgl[, 2:9]
-mod <- alfa.pcr(y = y, x = x, 0.7, 1, oiko = "normal")
+mod <- alfa.pcr(y = y, x = x, 0.7, 1)
 mod
 }
 

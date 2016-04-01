@@ -9,8 +9,8 @@ Tuning the number of principal components in the generalised linear models.
 }
 
 \usage{
-glmpcr.tune(y, x, M = 10, maxk = 10, oiko = "binomial", seed = FALSE, ncores = 2,
-graph = TRUE)
+glmpcr.tune(y, x, M = 10, maxk = 10,
+mat = NULL, ncores = 1, graph = TRUE)
 }
 
 \arguments{
@@ -26,17 +26,14 @@ graph = TRUE)
   \item{maxk}{
   The maximum number of principal components to check.
 }
-  \item{oiko}{
-  The type of regression to be used, "binomial" if you have binary data or "poisson" if you have count data.
-}
-  \item{seed}{
-  If seed is TRUE the folds will always be the same.
+  \item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
   \item{ncores}{
-  The number of cores to use. If more than 1, parallel computing takes place.
+  The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
  \item{graph}{
-If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
+If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }
 
@@ -59,9 +56,15 @@ A list including:
   \item{performance}{
   The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion.
 }
+  \item{runtime}{
+  The time required by the cross-validation procedure.
+  }
 }
 
 \references{
+Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data.
+Computational Statistics & Data Analysis 50(8): 1905-1924.
+
 Jolliffe I.T. (2002). Principal Component Analysis.
 
 Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
@@ -86,7 +89,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 x <- fgl[, 2:9]
 y <- rpois(214, 10)
-glmpcr.tune(y, x, M=10, maxk = 20, oiko = "poisson", seed = FALSE, ncores = 1)
+glmpcr.tune(y, x, M=10, maxk = 20, mat = NULL, ncores = 1)
 }
 
 \keyword{ GLM }

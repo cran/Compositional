@@ -31,7 +31,7 @@ ridge.reg(y, x, lambda, B = 1, xnew = NULL)
 }
 
 \details{
-This is used in the function \code{\link{alfa.ridge}}. There is also built-in function available from the MASS library, called \code{\link{lm.ridge}}.
+This is used in the function \code{\link{alfa.ridge}}. There is also a built-in function available from the MASS library, called \code{\link{lm.ridge}}.
 }
 
 \value{
@@ -46,6 +46,7 @@ This is used in the function \code{\link{alfa.ridge}}. There is also built-in fu
     The fitted or the predicted values (if xnew is not NULL).
   }
 }
+
 \references{
 Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1): 55-67.
 

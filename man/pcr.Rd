@@ -28,7 +28,7 @@ The number of principal components to use.
 }
 
 \details{
-The principal components of the cross product of the independent variables are obtained and classical regression is performed. This is use din the function
+The principal components of the cross product of the independent variables are obtained and classical regression is performed. This is used in the function
 \code{\link{alfa.pcr}}.
 }
 
@@ -53,6 +53,7 @@ The percentage of variance of the cross product of the independent variables exp
 The fitted or the predicted values (if xnew is not NULL).
 }
 }
+
 \references{
 Jolliffe I.T. (2002). Principal Component Analysis.
 }

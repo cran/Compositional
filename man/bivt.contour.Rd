@@ -60,8 +60,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 x <- iris[, 1:3]
 x <- x / rowSums(x)
 bivt.contour(x)
-dev.new()
 bivt.contour(x, type = "ilr")
 }
+
 \keyword{ contour plot }
 \keyword{ bivariate t distribution }

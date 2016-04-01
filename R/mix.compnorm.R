@@ -16,12 +16,16 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   x <- x/rowSums(x)  ## makes sure x is compositional
   p <- ncol(x)  ## dimensionality of the data
   n <- nrow(x)  ## sample size
+
   if (type == "alr") {
     y <- log(x[, -p]/x[, p])
   } else {
-    y1 <- log(x) - rowMeans( log(x) )
-    y <- y1 %*% t(helm(p))
+    y0 <- log(x)
+    y1 <- y0 - rowMeans( y0 )
+    y <- tcrossprod( y1, helm(p) )
+
   }
+
   mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, atol = 0.01)
   param <- mod$gpar
   mu <- matrix(nrow = g, ncol = length(param[[1]]$mu))
@@ -34,7 +38,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   colnames(mu) <- colnames(su) <- colnames(y)
   t <- matrix(nrow = n, ncol = g)
   for (j in 1:g) {
-    t[, j] <-  -0.5 * log(det(2 * pi * su[, , j])) -
+    t[, j] <- -0.5 * log(det(2 * pi * su[, , j])) -
     0.5 * mahalanobis(y, mu[j, ], su[, , j])
   }
   pij <- prob * exp(t)/rowSums(prob * exp(t))

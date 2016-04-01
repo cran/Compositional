@@ -9,7 +9,8 @@ Tuning the value of \eqn{\alpha} in the \eqn{\alpha}-regression.
 }
 
 \usage{
-alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2, graph = TRUE)
+alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10,
+mat = NULL, nc = 1, graph = FALSE)
 }
 
 \arguments{
@@ -25,8 +26,11 @@ alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10, nc = 2, graph = TRUE)
   \item{K}{
 The number of folds to split the data.
 }
+  \item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
+}
  \item{nc}{
-The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster.
+The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
  \item{graph}{
 If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
@@ -41,6 +45,9 @@ The estimated bias correction via the Tibshirani and Tibshirani (2009) criterion
 \value{
 A plot of the estimated Kullback-Leibler divergences (multiplied by 2) along the values of \eqn{\alpha} (if graph is set to TRUE).
 A list including:
+  \item{runtime}{
+  The runtime required by the cross-validation.
+}
   \item{kl}{
 Twice the Kullback-Leibler divergence of the observed from the fitted values.
 }
@@ -64,8 +71,8 @@ In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 
 Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
-
 }
+
 \author{
 Michail Tsagris
 
@@ -83,9 +90,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-y <- fgl[1:30, 2:4]
-x <- fgl[1:30, 1]
-mod <- alfareg.tune(y, x, a = seq(0.2, 0.3), K = 5, nc = 1)
+y <- fgl[1:40, 2:4]
+x <- fgl[1:40, 1]
+mod <- alfareg.tune(y, x, a = c(0.2, 0.25, 0.3), K = 5, nc = 1)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

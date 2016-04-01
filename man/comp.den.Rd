@@ -21,7 +21,7 @@ comp.den(x, type = "alr", dist = "normal")
   A boolean variable indicating the transformation to be used. Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio transformation respectively.
 }
   \item{dist}{
-  Takes values "normal", "t", "skewnorm", "rob" and "spatial". They first three options correspond to the parameters of the normal, t and skew normal distribution respectively.  If it set to "rob" the MCD estimates are computed and if set to "spatial" the spatial median and spatial sign covariance matrix are computed.
+  Takes values "normal", "t", "skewnorm", "rob" and "spatial". They first three options correspond to the parameters of the normal, t and skew normal distribution respectively. If it set to "rob" the MCD estimates are computed and if set to "spatial" the spatial median and spatial sign covariance matrix are computed.
 }
 }
 
@@ -63,6 +63,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 \code{\link{spat.med}, \link{sscov}, \link{multivt}
 }
 }
+
 \examples{
 library(MASS)
 x <- iris[, 1:4]

@@ -3,12 +3,15 @@
 \title{
 MLE for the multivarite t distribution
 }
+
 \description{
 MLE of the parameters of a multivarite t distribution.
 }
+
 \usage{
 multivt(y, plot = FALSE)
 }
+
 \arguments{
   \item{y}{
   A matrix with continuous data.
@@ -21,7 +24,6 @@ multivt(y, plot = FALSE)
 \details{
 The parameters of a multivariate t distribution are estimated. This is used by the functions \code{\link{comp.den}} and \code{\link{bivt.contour}}.
 }
-
 
 \value{
 A list including:
@@ -49,6 +51,7 @@ The classical covariance matrix.
 Nadarajah, S. and Kotz, S. (2008). Estimation methods for the multivariate t distribution.
 Acta Applicandae Mathematicae, 102(1):99-118.
 }
+
 \author{
 Michail Tsagris
 

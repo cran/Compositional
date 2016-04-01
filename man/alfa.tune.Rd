@@ -1,5 +1,5 @@
-\name{fast.alfa}
-\alias{fast.alfa}
+\name{alfa.tune}
+\alias{alfa.tune}
 \title{
 Fast estimation of the value of \eqn{\alpha}
 }
@@ -9,7 +9,7 @@ Fast estimation of the value of \eqn{\alpha}.
 }
 
 \usage{
-fast.alfa(x, B = 1, ncores = 1)
+alfa.tune(x, B = 1, ncores = 1)
 }
 
 \arguments{
@@ -20,22 +20,24 @@ fast.alfa(x, B = 1, ncores = 1)
   If no (bootstrap based) confidence intervals should be returned this should be 1 and more than 1 otherwise.
 }
   \item{ncores}{
-  If ncores is greater than 1 parallel computing is performed.
+  If ncores is greater than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 }
 
 \details{
-This is a faster function than \code{\link{profile}} for choosing the value of \eqn{\alpha}.
+This is a faster function than \code{\link{alfa.profile}} for choosing the value of \eqn{\alpha}.
 }
 
 \value{
-A vector with the best alpha, the maximised log-likelihood and the log-likelihood at \eqn{\alpha=0}, when B = 1 (no bootstrap) or
-a list including:
+A vector with the best alpha, the maximised log-likelihood and the log-likelihood at \eqn{\alpha=0}, when B = 1 (no bootstrap). If B>1 a list including:
   \item{param}{
-The best alpha and the value of the log-likelihod, along with the 95\% bootstrap based confidence intervals if B is greater than 1.
+The best alpha and the value of the log-likelihod, along with the 95\% bootstrap based confidence intervals.
 }
   \item{message}{
-A message with some information about the histogram if B is greater than 1.
+A message with some information about the histogram.
+}
+  \item{runtime}{
+The time (in seconds) of the process.
 }
 }
 
@@ -61,7 +63,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 \examples{
 library(MASS)
 x <- iris[, 1:4]
-fast.alfa(x)
+alfa.tune(x)
 alfa.profile(x)
 }
 

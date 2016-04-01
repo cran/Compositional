@@ -10,6 +10,8 @@
 spatmed.reg <- function(y, x, xnew = NULL) {
   ## y contains the dependent variables
   ## x contains the independent variable(s)
+
+  runtime <- proc.time()
   y <- as.matrix(y)
   x <- as.matrix(x)
   d <- ncol(y)  ## dimensionality of y
@@ -25,7 +27,7 @@ spatmed.reg <- function(y, x, xnew = NULL) {
     est <- x %*% be
     sum( sqrt( rowSums((y - est)^2) ) )
   }
-  ## we use nlm and optim to obtain the initial beta coefficients
+  ## we use nlm and optim to obtain the beta coefficients
   ini <- matrix(nrow = p, ncol = d)
   for (i in 1:d)  ini[, i] <- coef( quantreg::rq(y[, i] ~ x[, -1]) )
   ini <- as.vector(ini)
@@ -34,6 +36,7 @@ spatmed.reg <- function(y, x, xnew = NULL) {
   qa <- optim(qa$par, medi, z = z, control = list(maxit = 20000),
   hessian = TRUE)
   beta <- matrix( qa$par, ncol = ncol(y) )
+
   if ( is.null(xnew) ) {
     est = x %*% beta
   } else {
@@ -41,15 +44,25 @@ spatmed.reg <- function(y, x, xnew = NULL) {
     xnew <- as.matrix(xnew)
     est <- xnew %*% beta
   }
-  sb <- sqrt( diag( solve(qa$hessian) ) )
-  sb <- matrix( sb, ncol = ncol(y) )
+
+  seb <- sqrt( diag( solve(qa$hessian) ) )
+  seb <- matrix( seb, ncol = ncol(y) )
+
   if ( is.null(colnames(y)) ) {
-    colnames(sb) <- colnames(beta) <- paste("Y", 1:d, sep = "")
-  } else  colnames(sb) <- colnames(beta) <- colnames(y)
+    colnames(seb) <- colnames(beta) <- paste("Y", 1:d, sep = "")
+  } else  colnames(seb) <- colnames(beta) <- colnames(y)
+
   if ( is.null(colnames(x)) ) {
-    rownames(beta) <- rownames(sb) <- c( "Intercept",
-  paste("x", 1:c(p - 1), sep = "") )
-  } else  rownames(beta) <- rownames(sb) <- c( "Intercept", colnames(x)[-1] )
+    p <- ncol(x) - 1
+    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
+    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+  } else {
+    rownames(beta)  <- c("constant", colnames(x)[-1] )
+    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
+  }
+
   if (d == 1)  est <- as.vector(est)
-  list(beta = beta, seb = sb, est = est)
+  runtime <- proc.time() - runtime
+
+  list(runtime = runtime, beta = beta, seb = seb, est = est)
 }

@@ -1,14 +1,17 @@
-\name{mkde.tune_2}
-\alias{mkde.tune_2}
+\name{mkde.tune}
+\alias{mkde.tune}
 \title{
 Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation
 }
+
 \description{
 Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation.
 }
+
 \usage{
-mkde.tune_2( x, low = 0.1, up = 3, s = cov(x) )
+mkde.tune( x, low = 0.1, up = 3, s = cov(x) )
 }
+
 \arguments{
   \item{x}{
   A matrix with Euclidean (continuous) data.
@@ -23,9 +26,11 @@ mkde.tune_2( x, low = 0.1, up = 3, s = cov(x) )
   A covariance matrix. By default it is equal to the covariance matrix of the data, but can change to a robust covariance matrix, MCD for example.
 }
 }
+
 \details{
 Maximum likelihood cross validation is applied in order to choose the optimal value of the bandwidth parameter. No plot is produced.
 }
+
 \value{
 A list including:
   \item{hopt}{
@@ -42,22 +47,27 @@ http://cran.r-project.org/web/packages/kedd/vignettes/kedd.pdf
 
 M.P. Wand and M.C. Jones (1995). Kernel smoothing, pages 91-92.
 }
+
 \author{
 Michail Tsagris
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
 }
+
 %\note{
 %%  ~~further notes~~
 %}
+
 \seealso{
 \code{\link{mkde}, \link{comp.kerncontour}
 }
 }
+
 \examples{
 library(MASS)
-mkde.tune_2(iris[, 1:4], c(0.1, 3) )
+mkde.tune(iris[, 1:4], c(0.1, 3) )
 }
+
 \keyword{ maximum likelihood cross validation }
 \keyword{ bandwidth tuning }
 \keyword{ kernel density }

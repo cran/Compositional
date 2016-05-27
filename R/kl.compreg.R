@@ -16,11 +16,13 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
   ## more are used (parallel computing)
+
   y <- as.matrix(y)
   y <- y/rowSums(y)  ## makes sure y is compositional data
-  x <- as.matrix( cbind(1, x) )
-  d <- ncol(y) - 1  ## dimensionality of the simplex
   n <- nrow(y)  ## sample size
+  mat <- model.matrix(y ~ ., as.data.frame(x) )
+  x <- as.matrix(mat[1:n, ])
+  d <- ncol(y) - 1  ## dimensionality of the simplex
   z <- list(y = y, x = x)
 
    klreg <- function(para, z) {
@@ -34,7 +36,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
    }
 
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef(lm(y[, -1] ~ x[, -1])) ) )  ## initial values
+  ini <- as.vector( t( coef( lm(y[, -1] ~ x[, -1]) ) ) )  ## initial values
 
   runtime <- proc.time()
   options (warn = -1)
@@ -55,7 +57,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
+        ini <- as.vector( t( coef( lm(yb[, -1] ~ xb[, -1]) ) ) )  ## initial values
         qa <- nlm(klreg, ini, z = zb)
         qa <- nlm(klreg, qa$estimate, z = zb)
         qa <- nlm(klreg, qa$estimate, z = zb)

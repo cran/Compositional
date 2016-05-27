@@ -14,7 +14,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   ## x is the matrix containing the data
   ## M is the number of folds, set to 10 by default
   ## A is the maximum number of neighbours to use
-  ## actually it goes until A + 1
   ## ina indicates the groups, numerical variable
   ## a is a vector containing the values of the power parameter
   ## type is either 'S' or 'NS'. Should the standard k-NN be use or not
@@ -32,8 +31,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   if ( A >= min(table(ina)) )  A <- min(table(ina)) - 3  ## The maximum
   ## number  of nearest neighbours to use
   ng <- max(ina)  ## The number of groups
+  if ( min(x) == 0 )  a <- a[ a > 0 ]
 
-  dis <- matrix(numeric(n^2), nrow = n, ncol = n)
+  dis <- matrix(0, n, n)
   ## The next two functions split the sample into R different test
   ## and training datasets
   ## The test dataset is chosen via stratified or simple random sampling
@@ -57,7 +57,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   if (apostasi == "ESOV" | apostasi == "taxicab") {
 
     runtime <- proc.time()
-    per <- array( dim = c(M, A, length(a)) )
+    per <- array( dim = c(M, A - 1, length(a)) )
 
     for (i in 1:length(a)) {
 
@@ -91,7 +91,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
         if (type == "NS") {
           ## Non Standard algorithm
-          for (j in 1:A) {
+          for ( j in 1:c(A - 1) ) {
             knn <- j + 1
             for (l in 1:ng) {
               dista <- apo[, ina2 == l]
@@ -108,7 +108,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
         } else if (type == "S") {
           ## Standard algorithm
-          for (j in 1:A) {
+          for (j in 1:c(A - 1) ) {
             g <- numeric(rmat)
             knn <- j + 1
             for (k in 1:rmat) {
@@ -125,22 +125,22 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     }
 
-    ela <- matrix(nrow = length(a), ncol = A)
+    ela <- matrix(nrow = length(a), ncol = A - 1)
     for ( i in 1:length(a) )  ela[i, ] <- colMeans(per[, , i])
     ## The ela matrix contains the averages of the R
     ## repetitions over alpha and k
-    colnames(ela) <- paste("k=", 2:c(A + 1), sep = "")
+    colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
 
     ## The code for the heat plot of the estimated percentages
     if (graph == TRUE) {
-      fields::image.plot(a, 2:c(A + 1), ela, col = grey(1:11/11),
+      fields::image.plot(a, 2:A, ela, col = grey(1:11/11),
                          ylab = "k nearest-neighbours",
                          xlab = expression(paste(alpha, " values")) )
     }
 
     opt <- max(ela)
-    confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
+    confa <- which(ela == opt, arr.ind = TRUE)[1, ]
     bias <- numeric(M)
     for (i in 1:M) {
       bias[i] <- opt - per[ i, confa[2], confa[1] ]
@@ -156,7 +156,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   } else if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular") {
 
     runtime <- proc.time()
-    per <- matrix(nrow = M, ncol = A)
+    per <- matrix(nrow = M, ncol = A - 1)
 
     if (apostasi == "Ait") {
       xa <- log(x)
@@ -188,7 +188,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
       if (type == "NS") {
         ## Non Standard algorithm
-        for (j in 1:A) {
+        for ( j in 1:c(A - 1) ) {
           knn <- j + 1
           for (l in 1:ng) {
             dista <- apo[, ina2 == l]
@@ -205,7 +205,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
       } else {   ## if (type == "S")
         ## Standard algorithm
-        for (j in 1:A) {
+        for ( j in 1:c(A - 1) ) {
           knn <- j + 1
           g <- numeric(rmat)
           for (k in 1:rmat) {
@@ -222,7 +222,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     ela <- colMeans(per)
     opt <- max(ela)
-    names(ela) <- paste("k=", 2:c(A + 1), sep = "")
+    names(ela) <- paste("k=", 2:A, sep = "")
     best_k = which.max(ela) + 1
     bias <- apply(per, 1, max) - per[, best_k]
     bias <- mean(bias)
@@ -230,7 +230,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
     names(performance) <- c( "rate", "bias" )
 
     if (graph == TRUE) {
-      plot(2:c(A + 1), ela, type = "b", xlab = "k nearest neighbours", pch = 9,
+      plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9,
            col = 2, ylab = "Estimated percentage of correct classification")
     }
 

@@ -68,14 +68,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{esov.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}
+\code{\link{diri.reg}, \link{js.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}
 }
 }
 
 \examples{
 library(MASS)
 x <- iris[, 1:2]
-y<- iris[, 3:4]
+y <- iris[, 3:4]
 multivreg(y, x, plot = TRUE)
 }
 

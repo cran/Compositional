@@ -11,26 +11,33 @@ alfa <- function(x, a, h = TRUE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
   ## if h is TRUE the multiplication with the Helmert matrix takes place
+
   x <- as.matrix(x)  ## makes sure x is a matrix
   D <- ncol(x) ## number of components
   if ( D == 1 )   x <- t(x)
   x <- x / rowSums(x)  ## makes sure x is compositional data
+
   if (a != 0) {
     z <- ( x^a )
     ta <- rowSums(z)
     z <- z / ta
     z <- (D/a) * z - 1/a
     sa <- sum( log(ta) )
+
   } else {  ## if a=0 the ilr is calculated
     xa <- log(x)
     z <- xa - rowMeans( xa )  ## this is the clr
     sa <- nrow(x) * log(D)
   }
+
   if (h == TRUE) {
-    aff <- z %*% t( helm( D ) ) ## multiply by the Helmert sub-matrix
+    aff <- tcrossprod(z, helm( D ) ) ## multiply by the Helmert sub-matrix
     res <- list(sa = sa, aff = aff)
+
   } else {
     res <- list(sa = sa, aff = z)
   }
+
   res
+
 }

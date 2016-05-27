@@ -80,9 +80,9 @@ In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. h
 }
 
 \author{
-  Michail Tsagris
+Michail Tsagris
 
-  R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 %\note{

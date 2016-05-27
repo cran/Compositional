@@ -4,12 +4,10 @@ importFrom("MASS", "mvrnorm", "cov.rob", "cov.trob")
 importFrom("graphics", "filled.contour", "contour", "lines", "plot",
            "points", "abline", "hist", "legend", "text", image)
 
-importFrom("stats", "coef", "cor", "dist", "lm", "cov",
-           "optim", "optimize", "quantile", "sd", "rnorm",
-		   "qnorm", "nlminb", "nlm", "lm.fit", "rchisq",
-		   "deviance", "fitted", "glm", "mahalanobis",
-            "median", "pchisq", "qchisq", "resid",
-			"rgamma", "runif", "var", "qt")
+importFrom("stats", "coef", "cor", "dist", "lm", "cov", "aggregate", "optim", "optimize",
+           "quantile", "sd", "rnorm", "qnorm", "nlminb", "nlm", "lm.fit", "rchisq", "deviance",
+           "fitted", "glm", "mahalanobis", "median", "pchisq", "qchisq", "resid", "rgamma",
+           "runif", "var", "qt", "qf", "pf", "model.matrix")
 
 importFrom("grDevices", "terrain.colors")
 
@@ -17,12 +15,11 @@ import("doParallel")
 import("parallel")
 import("foreach")
 importFrom("sn", "msn.mle", "rmsn")
-importFrom("quantreg", "rq")
 importFrom("mixture", "gpcm")
 importFrom("BB", "BBsolve")
 importFrom("fields", "image.plot", "rdist")
 importFrom("grDevices", "grey")
-importFrom("stats", "aggregate")
+importFrom("emplik", "el.test")
 
 exportPattern("^[[:alpha:]]+")
 exportPattern("^[^\\.]")

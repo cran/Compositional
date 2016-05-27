@@ -9,38 +9,44 @@ Spatial median regression with Euclidean data.
 }
 
 \usage{
-spatmed.reg(y, x, xnew = NULL)
+spatmed.reg(y, x, xnew = NULL, tol = 1e-07)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with the compsitional data. Zero values are not allowed.
+\item{y}{
+A matrix with Euclidean data.
 }
-  \item{x}{
-  The predictor variable(s), they have to be continuous.
+\item{x}{
+The predictor variable(s), they have to be continuous.
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
 }
+\item{tol}{
+The threshold upon which to stop the iterations of the Newton-Rapshon algorithm.
+}
+
 }
 
 \details{
-The objective function is the minimization of the sum of the absolute residuals. It is the multivariate generalisation of the median regression.
-This function is used by \code{\link{comp.reg}}.
+The objective function is the minimization of the sum of the absolute residuals. It is the multivariate generalisation of the median regression. This function is used by \code{\link{comp.reg}}. Note, that the reponse variable must be a matrix with at least two columns.
 }
 
 \value{
 A list including:
-  \item{runtime}{
-  The time required by the regression. 
+\item{iter}{
+The number of iterations that were required.
 }
-  \item{beta}{
+\item{runtime}{
+The time required by the regression.
+}
+\item{beta}{
 The beta coefficients.
 }
-  \item{seb}{
+\item{seb}{
 The standard error of the beta coefficients.
 }
-  \item{est}{
+\item{est}{
 The fitted or the predicted values (if xnew is not NULL).
 }
 }
@@ -60,7 +66,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{multivreg}, \link{comp.reg}, \link{alfa.reg}, \link{esov.compreg}, \link{diri.reg}
+\code{\link{multivreg}, \link{comp.reg}, \link{alfa.reg}, \link{js.compreg}, \link{diri.reg}
 }
 }
 

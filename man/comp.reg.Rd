@@ -67,7 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{multivreg}, \link{spatmed.reg}, \link{esov.compreg}, \link{diri.reg}
+\code{\link{multivreg}, \link{spatmed.reg}, \link{js.compreg}, \link{diri.reg}
 }
 }
 

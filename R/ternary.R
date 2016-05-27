@@ -11,9 +11,11 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   ## if pca==TRUE it will plot the first principal component
   x <- as.matrix(x)  ## makers sure x is a matrix
   x <- x / rowSums(x)  ## makes sure x is compositional data
+
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
   } else nam <- paste("X", 1:3, sep = " ")
+
   n <- nrow(x)
   ina <- numeric(n) + 1
   ## m1 is the closed geometric mean
@@ -25,6 +27,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
   ina[ rowSums(x == 0) == 1 ] <- 3
+
   b1 <- c(1/2, 0, 1, 1/2)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
@@ -35,6 +38,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   points( d[1:n, 1], d[1:n, 2], col = ina )
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
+
   if (means == TRUE) {
     ## should the means appear in the plot?
     points( d[c(n + 1), 1], d[c(n + 1), 2], pch = 2, col = 2 )
@@ -42,6 +46,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     legend(0.57, 0.9, c("closed geometric mean"," arithmetic mean"),
     pch = c(2, 3), col = c(2, 3), bg = 'gray90')
   }
+
   if (pca == TRUE  &  min(x) > 0 ) {
     ## should the first principal component appear?
     z <- log( x[1:n, ] ) - rowMeans( log(x[1:n, ]) ) ## clr transformation
@@ -55,8 +60,10 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     wa <- wa1 %*% proj
     lines(wa, lwd = 2, lty = 2)
   }
+
   mu <- rbind(m1, m2)
   rownames(mu) <- c("closed geometric", "arithmetic mean")
   colnames(mu) <- nam
   mu
+
 }

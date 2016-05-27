@@ -1,5 +1,5 @@
 ################################
-#### ESOV regression for compositional data
+#### Jensen-Shannon divergence based regression for compositional data
 #### Tsagris Michail 5/2015
 #### mtsagris@yahoo.gr
 #### References: Michail Tsagris (2015)
@@ -7,7 +7,7 @@
 #### Proceedings of the 28th Panhellenic Statistics Conference
 ################################
 
-esov.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
+js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)
   ## B is the number of bootstrap samples used to obtain
@@ -15,20 +15,22 @@ esov.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
   ## more are used (parallel computing)
+
   y <- as.matrix(y)
   y <- y/rowSums(y)  ## makes sure y is compositional data
-  x <- as.matrix(cbind(1, x))
-  d <- ncol(y) - 1  ## dimensionality of the simplex
   n <- nrow(y)  ## sample size
+  mat <- model.matrix(y ~ ., as.data.frame(x) )
+  x <- as.matrix(mat[1:n, ])
+  d <- ncol(y) - 1  ## dimensionality of the simplex
   z <- list(y = y, x = x)
 
-  esovreg <- function(para, z = z){
+  jsreg <- function(para, z = z){
     y <- z$y   ;   x <- z$x
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
     mu <- mu1 / rowSums(mu1)
     M <- ( mu + y ) / 2
-    f <- sum( -y * log(1 + mu / y) + mu * log(mu / M), na.rm = TRUE )
+    f <- sum( - y * log(1 + mu / y) + mu * log(mu / M), na.rm = TRUE )
     f
   }
 
@@ -37,11 +39,11 @@ esov.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   runtime <- proc.time()
   options (warn = -1)
-  qa <- nlm(esovreg, ini, z = z)
-  qa <- nlm(esovreg, qa$estimate, z = z)
-  qa <- nlm(esovreg, qa$estimate, z = z)
-  qa <- nlm(esovreg, qa$estimate, z = z)
-  qa <- nlm(esovreg, qa$estimate, z = z)
+  qa <- nlm(jsreg, ini, z = z)
+  qa <- nlm(jsreg, qa$estimate, z = z)
+  qa <- nlm(jsreg, qa$estimate, z = z)
+  qa <- nlm(jsreg, qa$estimate, z = z)
+  qa <- nlm(jsreg, qa$estimate, z = z)
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   seb <- NULL
   runtime <- proc.time() - runtime
@@ -57,9 +59,9 @@ esov.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
         ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
-        qa <- nlm(esovreg, ini, z = zb)
-        qa <- nlm(esovreg, qa$estimate, z = zb)
-        qa <- nlm(esovreg, qa$estimate, z = zb)
+        qa <- nlm(jsreg, ini, z = zb)
+        qa <- nlm(jsreg, qa$estimate, z = zb)
+        qa <- nlm(jsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
       s <- apply(betaboot, 2, sd)
@@ -70,15 +72,15 @@ esov.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       runtime <- proc.time()
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export="esovreg") %dopar% {
+      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export="jsreg") %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
         ini <- as.vector( t( coef(lm( yb[, -1] ~ xb[, -1]) ) ) )  ## initial values
-        qa <- nlm(esovreg, ini, z = zb)
-        qa <- nlm(esovreg, qa$estimate, z = zb)
-        qa <- nlm(esovreg, qa$estimate, z = zb)
+        qa <- nlm(jsreg, ini, z = zb)
+        qa <- nlm(jsreg, qa$estimate, z = zb)
+        qa <- nlm(jsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
       stopCluster(cl)

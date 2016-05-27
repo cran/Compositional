@@ -1,18 +1,18 @@
 Package: Compositional
-Version: 1.2
-Date: 2016-03-31
+Version: 1.3
+Date: 2016-05-27
 Title: Compositional Data Analysis
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@yahoo.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "athineou@csd.uoc.gr") )
 Author: Michail Tsagris [aut, cre], Giorgos Athineou [aut]
 Maintainer: Michail Tsagris <mtsagris@yahoo.gr>
 Depends: R (>= 3.2.2)
-Imports: sn, quantreg, mixture, BB, doParallel, parallel, foreach,
-        MASS, fields
+Imports: sn, mixture, BB, doParallel, parallel, foreach, MASS, fields,
+        emplik
 Description: A collection of functions for compositional data analysis.
 License: GPL (>= 2)
 URL:
 NeedsCompilation: no
-Packaged: 2016-04-01 06:32:45 UTC; user
+Packaged: 2016-05-27 09:42:51 UTC; user
 Repository: CRAN
-Date/Publication: 2016-04-01 10:45:20
+Date/Publication: 2016-05-27 15:51:33

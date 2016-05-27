@@ -58,7 +58,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:3]
+x <- iris[51:100, 1:3]
 x <- x / rowSums(x)
 skewnorm.contour(x)
 skewnorm.contour(x, type = "ilr")

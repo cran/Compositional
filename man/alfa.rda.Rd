@@ -79,7 +79,6 @@ mod <- alfa.rda(x, x, ina, 0)
 table(ina, mod$est)
 mod2 <- alfa.rda(x, x, ina, 0.5)
 table(ina, mod2$est)
-
 }
 
 \keyword{ Regularised discriminant analysis }

@@ -66,7 +66,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{esov.compreg}, \link{kl.compreg}, \link{comp.reg}, \link{comp.reg}, \link{alfa.reg}
+\code{\link{diri.reg}, \link{js.compreg}, \link{kl.compreg}, \link{comp.reg}, \link{comp.reg}, \link{alfa.reg}
 }
 }
 
@@ -75,7 +75,7 @@ library(MASS)
 x <- fgl[, 1]
 y <- fgl[, 2:9]
 mod1 <- ols.compreg(y, x, B = 1, ncores = 1)
-mod2 <- esov.compreg(y, x, B = 1, ncores = 1)
+mod2 <- js.compreg(y, x, B = 1, ncores = 1)
 }
 
 \keyword{ ordinary least squares }

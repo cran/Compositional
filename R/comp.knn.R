@@ -8,6 +8,7 @@
 #### mtsagris@yahoo.gr
 ################################
 
+
 comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
                      apostasi = "ESOV", mesos = TRUE) {
   ## xnew is the new dataset. It can be a single vector or a matrix
@@ -25,66 +26,80 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
   ## algorithm, that is when type=NS
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x/rowSums(x)  ## makes sure the data sum to 1
+  x <- x / rowSums(x)  ## makes sure the data sum to 1
   n <- nrow(x)
+  p <- ncol(x)
   ina <- as.numeric(ina)
   xnew <- as.matrix(xnew)
-  xnew <- matrix(xnew, ncol = ncol(x)) ## makes sure xnew is a matrix
-  xnew <- xnew/rowSums(xnew)  ## make the data sum to 1
+  xnew <- matrix( xnew, ncol = p ) ## makes sure xnew is a matrix
+  xnew <- xnew / rowSums(xnew)  ## make the data sum to 1
   nc <- max(ina)  ## The number of groups
   nu <- nrow(xnew)
-  w <- rbind(x, xnew)
+  disa <- matrix(0, nu, n)
 
   if (apostasi == "ESOV") {
-    nz <- nrow(w)
-    dis <- matrix( numeric(nz^2), nrow = nz, ncol = nz )
-    z <- w^a / rowSums( w^a )  ## The power transformation is applied
-    for (m1 in 1:c(nz - 1)) {
-      for (m2 in c(m1 + 1):nz) {
-        ma <- z[m1, ] + z[m2, ]
-        dis[m1, m2] <- sqrt( sum( z[m1, ] * log( 2 * z[m1, ]/ma ) +
-                                    z[m2, ] * log( 2 * z[m2, ]/ma ), na.rm = TRUE ) )
+    xa <- x^a
+    zx <- xa / rowSums( xa )  ## The power transformation is applied
+    za <- xnew^a
+    znew <- za / rowSums( za )  ## The power transformation is applied
+    for (i in 1:nu) {
+      zan <- znew[i, ]
+      for (j in 1:n) {
+        ma <- zan + zx[j, ]
+        disa[i, j] <- sqrt( sum( zan * log( 2 * zan/ma ) +
+                      zx[j, ] * log( 2 * zx[j, ]/ma ), na.rm = TRUE ) )
       }
     }
-    dis <- dis + t(dis)
 
-  } else  if (apostasi == "taxicab") {
-    z <- w^a / rowSums( w^a )  ## The power transformation is applied
-    dis <- dist(z, method = "manhattan", diag = TRUE, upper = TRUE)
-    dis <- as.matrix(dis)
+  } else  if ( apostasi == "taxicab" ) {
+    xa <- x^a
+    zx <- xa / rowSums( xa )  ## The power transformation is applied
+    za <- xnew^a
+    znew <- za / rowSums( za )  ## The power transformation is applied
+    for (i in 1:nu) {
+      b <- t(zx) - znew[i, ]
+      disa[i, ] <- colSums( abs(b) )
+    }
 
-  } else if (apostasi == "Ait") {
+  } else if ( apostasi == "Ait" ) {
     ## this requires non zero data ## be careful
     xa <- log(x)
-    z <- xa - rowMeans( xa )
-    dis <- fields::rdist(z)
+    zx <- xa - rowMeans( xa )
+    za <- log(xnew)
+    znew <- za - rowMeans( za )
+    Ip <- diag(p)
+    for (i in 1:nu) {
+      disa[i, ] <- as.vector( sqrt( mahalanobis(zx, znew[i, ], Ip, inverted = TRUE) ) )
+    }
 
-  } else if (apostasi == "Hellinger") {
-    z <- sqrt(x)
-    dis <- fields::rdist(z)
-    dis <- dis /sqrt(2)
+  } else if ( apostasi == "Hellinger" ) {
+    zx <- sqrt(x)
+    znew <- sqrt(xnew)
+    Ip <- diag(p)
+    for (i in 1:nu) {
+      disa[i, ] <- as.vector( sqrt( mahalanobis(zx, znew[i, ], Ip, inverted = TRUE) ) )
+    }
+    disa <- disa / sqrt(2)
 
-  } else if (apostasi == "angular") {
-    z <- sqrt(x)
-    dis <- tcrossprod( z )
-    diag(dis) <- 1
-    dis[dis > 1] <- 1
-    dis <- acos(dis)
+  } else if ( apostasi == "angular" ) {
+    zx <- sqrt(x)
+    znew <- sqrt(xnew)
+    disa <- tcrossprod( znew, zx )
+    disa[disa >= 1] <- 1
+    disa <- acos(disa)
   }
 
   ta <- matrix(nrow = nu, ncol = nc)
-  apo <- matrix(dis[-c(1:n), 1:n], nrow = nu)
 
   if (type == "NS") {
     ## Non Standard algorithm
     for (m in 1:nc) {
-      dista <- apo[, ina == m]
-      dista <- t( apply(dista, 1, sort) )
+      disa <- t( apply(disa, 1, sort) )
       if (mesos == TRUE) {
-        ta[, m] <- rowMeans( dista[, 1:k] )
+        ta[, m] <- rowMeans( disa[, 1:k] )
 
       } else {
-        ta[, m] <- k / rowSums( 1 / dista[, 1:k] )
+        ta[, m] <- k / rowSums( 1 / disa[, 1:k] )
       }
     }
     g <- apply(ta, 1, which.min)
@@ -93,13 +108,13 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
     ## Standard algorithm
     g <- numeric(nu)
     for (l in 1:nu) {
-      xa <- cbind(ina, apo[l, ])
+      xa <- cbind(ina, disa[l, ])
       qan <- xa[order(xa[, 2]), ]
       sa <- qan[1:k, 1]
       tab <- table(sa)
-      g[l] <- as.integer(names(tab)[which.max(tab)])
+      g[l] <- as.integer(names(tab)[ which.max(tab) ] )
     }
   }
 
-  return(g)
+  g
 }

@@ -14,9 +14,11 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   x <- as.matrix(x)
   x <- x / rowSums(x)
   x1 <- seq(0.001, 0.999, length = n)
-  x2 <- seq(0.001, sqrt(3)/2 - 1e-04, length = n)
+  sqrt3 <- sqrt(3)
+  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
   ha <- t( helm(3) )
+
   if (type == "alr") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
@@ -24,17 +26,19 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
     ya <- ya - rowMeans( ya )
     ya <- as.matrix( ya %*% ha )
   }
+
   m <- colMeans(ya)  ## mean vector
   s <- var(ya)  ## covariance matrix
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)
-  for (i in 1:c(n/2)) {
-    for (j in 1:n) {
-      if (x2[j] < sqrt(3) * x1[i]) {
+
+  for ( i in 1:c(n/2) ) {
+    for ( j in 1:n ) {
+      if ( x2[j] < sqrt3 * x1[i] ) {
         ## This checks if the point will lie inside the triangle
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt(3)
-        w2 <- x1[i] - x2[j] / sqrt(3)
+        w3 <- (2 * x2[j]) / sqrt3
+        w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
         if (type == "alr") {
@@ -50,13 +54,14 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
       }
     }
   }
-  for (i in c(n/2 + 1):n) {
-    for (j in 1:n) {
+
+  for ( i in c(n/2 + 1):n ) {
+    for ( j in 1:n ) {
       ## This checks if the point will lie inside the triangle
-      if (x2[j] < sqrt(3) - sqrt(3) * x1[i]) {
+      if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt(3)
-        w2 <- x1[i] - x2[j] / sqrt(3)
+        w3 <- (2 * x2[j]) / sqrt3
+        w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
         if (type == "alr") {
@@ -72,11 +77,17 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
       }
     }
   }
-  contour(x1, x2, mat, col = 3)
-  b1 <- c(1/2, 0, 1, 1/2)
-  b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
-  b <- cbind(b1, b2)
-  points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+
+  contour( x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
+  b1 <- c( 1/2, 0, 1, 1/2 )
+  b2 <- c( sqrt3/2, 0, 0, sqrt3/2 )
+  b <- cbind(b1 ,b2)
+  points( b[, 1], b[, 2], type = "l", xlab = " ", ylab = " " )
+  nam <- colnames(x)
+  if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
+  text( b[1, 1], b[1, 2] + 0.01, nam[3], cex = 1)
+  text( b[2:3, 1] + 0.01, b[2:3, 2] - 0.01, nam[1:2], cex = 1)
+
   if (appear == TRUE) {
     proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt(3)/2), ncol = 2)
     x <- as.matrix(x)
@@ -84,4 +95,5 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
   }
+
 }

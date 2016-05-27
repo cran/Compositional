@@ -17,18 +17,29 @@
 ################################
 
 spat.med <- function(x) {
+  ## contains the data
+
   x <- as.matrix(x)
   p <- ncol(x)
   s <- diag(p)
   u <- matrix(nrow = 10000, ncol = p)
   u[1, ] <- apply(x, 2,median)
-  ww <- sqrt( mahalanobis(x, u[1, ], s ) )
+
+  ww <- sqrt( mahalanobis(x, u[1, ], s, inverted = TRUE ) )
   u[2, ] <- colSums(x / ww) / sum(1 / ww)
   i <- 2
-  while ( sum( abs(u[i, ] - u[i - 1, ]) ) > 1e-10 ) {
+
+  while ( sum( abs(u[i, ] - u[i - 1, ]) ) > 1e-9 ) {
     i <- i +1
-    ww <- sqrt( mahalanobis(x, u[i - 1, ], s ) )
+    ww <- sqrt( mahalanobis(x, u[i - 1, ], s, inverted = TRUE ) )
     u[i, ] <- colSums(x / ww) / sum(1 / ww)
+
+    if ( any( is.na( u[i,] ) ) ) {
+      u[i, ] <- u[i - 1, ] 
+    }
+
   }
+
   u[i, ]
+
 } 

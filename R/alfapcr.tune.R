@@ -120,8 +120,8 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   rownames(mean.mspe) = a   ;  colnames(mspe) = paste("PC", 1:d, sep = "")
 
   if (graph == TRUE) {
-    filled.contour(a, 1:d, mean.mspe, col = terrain.colors(col.nu),
-     xlab = expression( paste(alpha, " values") ), ylab = "Number of PCs")
+    filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ), 
+    ylab = "Number of PCs")
   }
 
   best.par <- c( a[ best.par[1] ], best.par[2] )

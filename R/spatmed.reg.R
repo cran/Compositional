@@ -7,62 +7,84 @@
 #### mtsagris@yahoo.gr
 ################################
 
-spatmed.reg <- function(y, x, xnew = NULL) {
-  ## y contains the dependent variables
-  ## x contains the independent variable(s)
 
-  runtime <- proc.time()
+spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07) {
+
   y <- as.matrix(y)
   x <- as.matrix(x)
-  d <- ncol(y)  ## dimensionality of y
-  x <- cbind(1, x)  ## add the constant term
-  p <- ncol(x)  ## dimensionality of x
-  z <- list(y = y, x = x)
-  ## medi is the function to perform median regression
-  medi <- function(beta, z) {
+  x <- cbind(1, x)
+  p <- ncol(x)
+  d <- ncol(y)
+
+  medi <- function(be, z) {
     y <- z$y
     x <- z$x
     p <- ncol(x)
-    be <- matrix(beta, nrow = p)
+    be <- matrix(be, nrow = p)
     est <- x %*% be
-    sum( sqrt( rowSums((y - est)^2) ) )
-  }
-  ## we use nlm and optim to obtain the beta coefficients
-  ini <- matrix(nrow = p, ncol = d)
-  for (i in 1:d)  ini[, i] <- coef( quantreg::rq(y[, i] ~ x[, -1]) )
-  ini <- as.vector(ini)
-  qa <- nlm(medi, ini, z = z, iterlim = 10000)
-  qa <- optim(qa$estimate, medi, z = z, control = list(maxit = 20000))
-  qa <- optim(qa$par, medi, z = z, control = list(maxit = 20000),
-  hessian = TRUE)
-  beta <- matrix( qa$par, ncol = ncol(y) )
-
-  if ( is.null(xnew) ) {
-    est = x %*% beta
-  } else {
-    xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
-    est <- xnew %*% beta
+    sum( sqrt( rowSums( (y - est)^2) ) )
   }
 
-  seb <- sqrt( diag( solve(qa$hessian) ) )
-  seb <- matrix( seb, ncol = ncol(y) )
+    tic <- proc.time()
 
-  if ( is.null(colnames(y)) ) {
-    colnames(seb) <- colnames(beta) <- paste("Y", 1:d, sep = "")
-  } else  colnames(seb) <- colnames(beta) <- colnames(y)
+    B <- array( dim = c(p, d, 1000) )
+    B[, , 1] <- coef( lm( y ~ x[, -1] ) )
+    est <- y - x %*% B[, , 1]
+    ww <- sqrt( rowSums( est^2 ) )
 
-  if ( is.null(colnames(x)) ) {
-    p <- ncol(x) - 1
-    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
-    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
-  } else {
-    rownames(beta)  <- c("constant", colnames(x)[-1] )
-    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
-  }
+    z <- x / ww
+    a1 <- crossprod(z, x)
+    a2 <- crossprod(z, y)
 
-  if (d == 1)  est <- as.vector(est)
-  runtime <- proc.time() - runtime
+    B[, , 2] <- solve(a1, a2)
+    i <- 2
 
-  list(runtime = runtime, beta = beta, seb = seb, est = est)
+    while ( sum( abs(B[, , i] - B[, , i - 1 ]) ) > tol ) {
+      i <- i +1
+      est <- y - x %*% B[, , i - 1]
+      ww <- sqrt( rowSums( est^2 ) )
+      ela <- which(ww == 0)
+      z <- x / ww
+      z[ela, ] <- 0
+      a1 <- crossprod(x, z)
+      a2 <- crossprod(z, y )
+
+      B[, , i] <- solve(a1, a2)
+
+    }
+
+    be <- B[, , i]
+
+    ## we use nlm and optim to obtain the standard errors
+    z <- list(y = y, x = x)
+    qa <- nlm(medi, as.vector(be), z = z, iterlim = 1000, hessian = TRUE)
+    seb <- sqrt( diag( solve(qa$hessian) ) )
+    seb <- matrix(seb, ncol = d)
+
+    if ( is.null(xnew) ) {
+      est <- x %*% be
+    } else {
+      xnew <- cbind(1, xnew)
+      xnew <- as.matrix(xnew)
+      est <- xnew %*% be
+    }
+
+    if ( is.null(colnames(y)) ) {
+      colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
+    } else  colnames(seb) <- colnames(be) <- colnames(y)
+
+    if ( is.null(colnames(x)) ) {
+      p <- ncol(x) - 1
+      rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
+      rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+    } else {
+      rownames(be)  <- c("constant", colnames(x)[-1] )
+      rownames(seb) <- c("constant", colnames(x)[-1] )
+    }
+
+    runtime <- proc.time() - tic
+
+    list(iter = i, runtime = runtime, be = be, seb = seb, est = est)
+
+
 }

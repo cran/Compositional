@@ -16,17 +16,19 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   x <- x / rowSums(x)
   if (type == 'alr') {
     y <- log( x[, -3] / x[, 3] ) ## additive log-ratio transformation
-  } else {
-    y <- log(x) - rowMeans( log(x) )
-    y <- as.matrix( y %*% t( helm(3) ) )
-  }
+  } else { 
+    ha <- t( helm(3) )
+    y <- log(x)
+    y <- y - rowMeans( y )
+    y <- as.matrix( y %*% ha )
+  }  
   mod <- multivt(y)
   m <- mod$center
   s <- mod$scatter
   v <- mod$df
-  p <- 2
+  p <- 2 
   x1 <- seq(0.001, 0.999, length = n)
-  x2 <- seq(0.001, sqrt(3)/2 - 0.0001, length = n)
+  x2 <- seq(0.001, sqrt(3)/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
   st <- solve(s)
   for (i in 1:c(n/2) ) {
@@ -42,7 +44,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
 	     y <- log(w[-3] / w[3]) ## additive log-ratio transformation
        } else {
          y <- log(w) - mean(log(w))
-         y <- as.vector( y %*% t(helm(3)) )
+         y <- as.vector( y %*% ha )
        }  ## isometric log-ratio transformation
        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) )-
        0.5 * (v + p) * ( log( 1 + ( c(y[1] - m[1], y[2] - m[2]) %*%
@@ -67,7 +69,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
 	   y <- log(w[-3]/w[3]) ## additive log-ratio transformation
      } else  {
        y <- log(w) - mean(log(w))
-       y <- as.vector( y %*% t(helm(3)) )
+       y <- as.vector( y %*% ha )
      }  ## isometric log-ratio transformation
      ca <- lgamma((v + p)/2) - lgamma(v/2) - 0.5 * log( det(pi * v * s) ) -
      0.5 * (v + p) * (log( 1 + ( c( y[1] - m[1], y[2] - m[2] ) %*%
@@ -79,14 +81,17 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
 	}
    }
   }
+
   contour(x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n",
   yaxt = "n", bty = "n")
   b1 <- c(1/2, 0, 1, 1/2)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+
   if (appear == TRUE){
    nam <- colnames(x)
+   if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
    text(b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1)
    text(b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1)
    proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt(3)/2), ncol = 2)
@@ -94,4 +99,5 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
    xa <- x %*% proj
    points(xa[, 1], xa[, 2])
   }
+
 }

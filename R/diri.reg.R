@@ -9,9 +9,10 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   y <- as.matrix(y)
   n <- nrow(y)
   y <- y/rowSums(y)
-  x <- as.matrix( cbind(1, x) )
   ## the line above makes sure y is compositional data and
-  ## then the unit vector is added to the desing matrix
+  n <- nrow(y)  ## sample size
+  mat <- model.matrix(y~ ., as.data.frame(x) )
+  x <- as.matrix(mat[1:n, ])  ## the desing matrix is created
   d <- ncol(y) - 1  ## dimensionality of the simplex
   z <- list(y = log(y), x = x)
 
@@ -28,22 +29,22 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
       be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
       mu1 <- cbind(1, exp(x %*% be))
       ma <- mu1/rowSums(mu1)  ## the fitted values
-      l <- -( n * lgamma(phi) - sum( lgamma(phi * ma) ) +
-      sum( diag( y %*% t(phi * ma - 1) ) )  )
+      l <-  -( n * lgamma(phi) - sum( lgamma(phi * ma) ) +
+      sum( diag( tcrossprod(y, phi * ma - 1 ) ) )  )
       ## l is the log-likelihood
     l
   }
 
   runtime <- proc.time()
   rla <- log(y[, -1] / y[, 1])  ## additive log-ratio transformation
-  ini <- as.vector( coef(lm.fit(x, rla)) )  ## initial values
+  ini <- as.vector( coef( lm.fit(x, rla) ) )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
 
   el <- NULL
   options(warn = -1)
-  qa <- nlm(dirireg, c(3, as.vector( t(ini)) ), z = z)
+  qa <- nlm(dirireg, c(3, as.vector( t(ini) ) ), z = z)
   el[1] <- -qa$minimum
   qa <- nlm(dirireg, qa$estimate, z = z)
   el[2] <- -qa$minimum

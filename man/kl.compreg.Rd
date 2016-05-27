@@ -1,15 +1,17 @@
-\name{kl.compreg}
+\name{Divergence based regression}
 \alias{kl.compreg}
+\alias{js.compreg}
 \title{
-Kullback-Leibler regression
+Divergence based regression
 }
 
 \description{
-Regression based on the Kullback-Leibler divergence.
+Regression based on the Kullback-Leibler and the Jensen-Shannon divergence.
 }
 
 \usage{
 kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
+js.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
@@ -17,7 +19,7 @@ kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
   A matrix with the compositional data (dependent variable). Zero values are allowed.
 }
   \item{x}{
-  The predictor variable(s), they have to be continuous.
+  The predictor variable(s), they can be either continnuous or categorical or both.
 }
   \item{B}{
   If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
@@ -65,7 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{esov.compreg}, \link{ols.compreg}, \link{comp.reg}
+\code{\link{diri.reg}, \link{js.compreg}, \link{ols.compreg}, \link{comp.reg}
 }
 }
 
@@ -74,7 +76,7 @@ library(MASS)
 x <- fgl[, 1]
 y <- fgl[, 2:9]
 mod1<- kl.compreg(y, x, B = 1, ncores = 1)
-mod2 <- esov.compreg(y, x, B = 1, ncores = 1)
+mod2 <- js.compreg(y, x, B = 1, ncores = 1)
 }
 
 \keyword{ Kullback-Lebler divergence }

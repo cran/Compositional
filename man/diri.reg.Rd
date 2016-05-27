@@ -17,7 +17,7 @@ diri.reg(y, x, plot = TRUE, xnew = NULL)
   A matrix with the compositional data (dependent variable). Zero values are not allowed.
 }
   \item{x}{
-  The predictor variable(s), they have to be continuous.
+  The predictor variable(s), they can be either continnuous or categorical or both.
 }
   \item{plot}{
   A boolean variable specifying whether to plot the leverage values of the observations or not. This is taken into account only when xnew = NULL.
@@ -82,7 +82,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{esov.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}, \link{alfa.reg}
+\code{\link{js.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}, \link{alfa.reg}
 }
 }
 

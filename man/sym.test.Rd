@@ -52,7 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{esov.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}
+\code{\link{diri.nr}, \link{diri.est}, \link{rdiri}
 }
 }
 
@@ -64,4 +64,4 @@ sym.test(x)
 }
 
 \keyword{ symmetric Dirichlet distribution }
-\keyword{ log-likeliihood ratio test }
+\keyword{ Log-likelihood ratio test }

@@ -1,5 +1,7 @@
-\name{comp.knn}
+\name{The k-NN algorithm for compositional data}
 \alias{comp.knn}
+\alias{alfa.knn}
+
 \title{
 The k-NN algorithm for compositional data
 }
@@ -10,6 +12,9 @@ The k-NN algorithm for compositional data with and without using the power trans
 
 \usage{
 comp.knn(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", mesos = TRUE)
+
+alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE)
+
 }
 
 \arguments{
@@ -77,7 +82,7 @@ x <- iris[, 1:4]
 ina <- iris[, 5]
 mod <- comp.knn(x, x, ina, a = 1, k = 5)
 table(ina, mod)
-mod2 <- comp.knn(x, x, ina, a = 0, k = 5)
+mod2 <- alfa.knn(x, x, ina, a = 1, k = 5)
 table(ina, mod2)
 
 }

@@ -45,7 +45,7 @@ The fitted or the predicted values (if xnew is not NULL).
 }
 
 \references{
-Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data. 
+Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data.
 Computational Statistics & Data Analysis 50(8): 1905-1924.
 
 Jolliffe I.T. (2002). Principal Component Analysis.
@@ -68,7 +68,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x<- iris[, 1:4]
+x <- iris[, 1:4]
 y<- rbinom(150, 1, 0.6)
 mod<- glm.pcr(y, x, k = 1)
 }

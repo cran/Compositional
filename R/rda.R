@@ -55,6 +55,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
 
   ta <- ta + con
   est <- apply(ta, 1, which.max)
-  prob <- exp(ta) / rowSums( exp(ta) ) ## the probability of classification
+  expta <- exp(ta)
+  prob <- expta / rowSums( expta ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)
 }

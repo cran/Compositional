@@ -79,5 +79,6 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   names(res) <- c( "rate", "bias", "se of rate", "best_a",
                    "best_gam", "best del" )
   runtime <- proc.time() - toc
+
   list(result = res,  percent = percent, se = se, runtime = runtime)
 }

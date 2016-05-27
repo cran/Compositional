@@ -64,11 +64,11 @@
 }
 
 \examples{
-  library(MASS)
-  y <- fgl[, 1]
-  x <- fgl[, 2:9]
-  mod1 <- alfa.ridge(y, x, a = 0.5, lambda = 0.1, B = 1, xnew = NULL)
-  mod2 <- alfa.ridge(y, x, a = 0.5, lambda = 1, B = 1, xnew = NULL)
+library(MASS)
+y <- fgl[, 1]
+x <- fgl[, 2:9]
+mod1 <- alfa.ridge(y, x, a = 0.5, lambda = 0.1, B = 1, xnew = NULL)
+mod2 <- alfa.ridge(y, x, a = 0.5, lambda = 1, B = 1, xnew = NULL)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

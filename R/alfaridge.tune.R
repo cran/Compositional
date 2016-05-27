@@ -76,8 +76,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
   rownames(mean.mspe) = a   ;  colnames(mspe) = lambda
 
   if (graph == TRUE) {
-    filled.contour( a, lambda, mean.mspe,
-                   xlab = expression( paste(alpha, " values") ),
+    filled.contour( a, lambda, mean.mspe, xlab = expression( paste(alpha, " values") ),
                    ylab = expression( paste(lambda, " values") ) )
   }
 

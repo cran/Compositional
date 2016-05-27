@@ -11,6 +11,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is the value of alpha
+
   y <- as.matrix(y)
   y <- y/rowSums(y)  ## makes sure y is compositional data
   x <- as.matrix(x)
@@ -42,15 +43,14 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   d <- ncol(y) - 1  ## dimensionality of the simplex
 
   ## internal function for the alfa-regression
-  reg <- function(para, z){
-    ya <- z$ya   ;   x <- z$x
-    d <- ncol(ya)  ;  p <- ncol(x)
-    m0 <- numeric(d)
-    n <- nrow(ya)
+  reg <- function(para){
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
-    mu <- mu1 / rowSums(mu1)
-    ma <- alfa(mu, a)$aff
+    zz <- ( mu1^a )
+    ta <- rowSums(zz)
+    za <- zz / ta
+    za <- ( ( d + 1 ) / a ) * za - 1/a
+    ma <- za %*% ha
     esa <- ya - ma
     sa <- crossprod(esa) / (n - p)
     f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( mahalanobis(esa, m0, sa) )
@@ -67,18 +67,21 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     runtime <- proc.time()
 
     if ( is.null(yb) ) {
-      yb <- alfa(y, a)$aff
+      ya <- alfa(y, a)$aff
     } else {
-      yb <- yb
+      ya <- yb
     }
 
-    z <- list(ya = yb, x = x)
-    ini <- as.vector( coef(lm(yb ~ x[, -1])) )
-    qa <- nlminb( ini, reg, z = z, control = list(iter.max = 1000) )
-    qa <- optim( qa$par, reg, z = z, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, z = z, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, z = z, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, z = z, control = list(maxit = 5000), hessian = TRUE )
+    ha <- t( helm(d + 1) )
+    m0 <- numeric(d)
+    ini <- as.vector( coef(lm(ya ~ x[, -1])) )
+
+    qa <- nlminb( ini, reg, control = list(iter.max = 1000) )
+    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, control = list(maxit = 5000), hessian = TRUE )
+
     beta <- matrix(qa$par, byrow = TRUE, ncol = d)
     seb <- sqrt( diag( solve( qa$hessian) ) )
     seb <- matrix(seb, byrow = TRUE, ncol = d)
@@ -105,3 +108,4 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   list(runtime = runtime, beta = beta, seb = seb, est = est)
 }
+

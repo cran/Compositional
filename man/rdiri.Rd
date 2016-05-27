@@ -9,7 +9,7 @@ Dirichlet random values simulation.
 }
 
 \usage{
-rdiri(n, a) 
+rdiri(n, a)
 }
 
 \arguments{
@@ -22,7 +22,7 @@ rdiri(n, a)
 }
 
 \details{
-The algorithm is straightforward, for each vector, independent gamma values are generated and then divided by their total sum.  
+The algorithm is straightforward, for each vector, independent gamma values are generated and then divided by their total sum.
 }
 
 \value{
@@ -46,12 +46,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.est}, \link{diri.nr}, \link{diri.contour} 
+\code{\link{diri.est}, \link{diri.nr}, \link{diri.contour}
 }
 }
 
 \examples{
-x = rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
+x <- rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
 diri.est(x)
 }
 

@@ -1,49 +1,53 @@
-\name{compknn.tune}
+\name{Tuning of the k-NN algorithm for compositional data}
 \alias{compknn.tune}
+\alias{alfaknn.tune}
 \title{
 Tuning of the he k-NN algorithm for compositional data
 }
 
 \description{
-Tuning of the k-NN algorithm for compositional data with and without using the power transformation. In addition, estimation of the rate of correct classification via M-fold cross-validation.
+Tuning of the k-NN algorithm for compositional data with and without using the power or the \eqn{\alpha}-transformation. In addition, estimation of the rate of correct classification via M-fold cross-validation.
 }
 
 \usage{
 compknn.tune(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE)
+
+alfaknn.tune(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
+a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
+\item{x}{
+A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
 }
-  \item{ina}{
-  A group indicator variable for the avaiable data.
+\item{ina}{
+A group indicator variable for the avaiable data.
 }
-  \item{M}{
- The number of folds to be used. This is taken into consideration only if the matrix "mat" is not supplied.
+\item{M}{
+The number of folds to be used. This is taken into consideration only if the matrix "mat" is not supplied.
 }
-  \item{A}{
- The maximum number of nearest neighbours to consider. The maximum is actuall A + 1, because the 1 neasrest neighbour is not used.
+\item{A}{
+The maximum number of nearest neighbours to consider. Note that the 1 neasrest neighbour is not used.
 }
-  \item{type}{
-  This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
-  }
-  \item{mesos}{
- This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
+\item{type}{
+This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
 }
-  \item{a}{
-  A grid of values of \eqn{\alpha} to be used only if the distance chosen allows for it.
+\item{mesos}{
+This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
 }
-  \item{apostasi}{
-  The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger" or "angualar". See the references for them.
+\item{a}{
+A grid of values of \eqn{\alpha} to be used only if the distance chosen allows for it.
 }
-  \item{mat}{
+\item{apostasi}{
+The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger" or "angualar". See the references for them.
+}
+\item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
-  \item{graph}{
-  If set to TRUE a grpah with the results will appear.
-  }
+\item{graph}{
+If set to TRUE a graph with the results will appear.
+}
 }
 
 \details{
@@ -96,8 +100,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 \examples{
 x <- iris[, 1:4]
 ina <- iris[, 5]
-mod <- compknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
-mod
+mod1 <- compknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
+mod2 <- alfaknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
 }
 
 \keyword{ Regularised discriminant analysis }

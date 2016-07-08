@@ -17,15 +17,17 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   nu <- nrow(x)  ## sample size
   sqrt3 <- sqrt(3)
   ha <- t( helm(3) )
+
   if (type == "alr")  z <- log(x[, -3]/x[, 3])  ## alr transformation
   if (type == "ilr") {  ## isometric log-ratio transformation
-      z <- log(x) - rowMeans(log(x))
+      zx <- log(x)
+      z <- zx - rowMeans( zx )
       z <- z %*% ha
   }
 
   hopt <- mkde.tune(z)$hopt
   con <- hopt^2
-  hopt <- diag( rep(hopt, 2) )
+  hopt <- diag( hopt, 2 )
   ts <- solve(hopt^2)
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
@@ -91,7 +93,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   b <- cbind(b1, b2)
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
   nam <- colnames(x)
-  if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "") 
+  if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
 

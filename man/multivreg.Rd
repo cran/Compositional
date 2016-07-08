@@ -1,4 +1,4 @@
-\name{multivreg}
+\name{Multivariate linear regression}
 \alias{multivreg}
 \title{
 Multivariate linear regression

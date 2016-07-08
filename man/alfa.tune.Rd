@@ -1,4 +1,4 @@
-\name{alfa.tune}
+\name{Fast estimation of the value of alpha}
 \alias{alfa.tune}
 \title{
 Fast estimation of the value of \eqn{\alpha}

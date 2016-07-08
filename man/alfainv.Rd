@@ -1,7 +1,7 @@
-\name{alfainv}
+\name{Inverse of the alpha-transformation}
 \alias{alfainv}
 \title{
-The inverse of the \eqn{\alpha}-transformation
+Inverse of the \eqn{\alpha}-transformation
 }
 
 \description{

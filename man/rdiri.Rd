@@ -1,4 +1,4 @@
-\name{rdiri}
+\name{Dirichlet random values simulation}
 \alias{rdiri}
 \title{
 Dirichlet random values simulation

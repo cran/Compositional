@@ -6,7 +6,7 @@
 ################################
 
 ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
-  mat = NULL, ncores = 1, graph = FALSE) {
+                       mat = NULL, ncores = 1, graph = FALSE) {
 
   ## y is the univariate or multivariate dependent variable
   ## x contains the independent variables(s)
@@ -42,24 +42,29 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
   if (ncores == 1) {
     runtime <- proc.time()
     for (vim in 1:M) {
-      ytest <- as.matrix( y[mat[, vim], ] )  ## test set dependent vars
-      ytrain <- as.matrix( y[-mat[, vim], ] )  ## train set dependent vars
-      my <- colMeans(ytrain)
-      yy <- ytrain - rep(my, rep(rmat, di) )  ## center the dependent variables
+      ytest <- y[ mat[, vim] ]   ## test set dependent vars
+      ytrain <- y[ -mat[, vim], ]   ## train set dependent vars
+      my <- sum(ytrain) / rmat
+      yy <- ytrain - my  ## center the dependent variables
+
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- colMeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
-      xtest <- ( xtest - rep( mx, rep(rmat, p) ) ) %*% s ## standardize the xtest
-      xx <- scale(xtrain)[1:c(n - rmat), ]  ## standardize the independent variables
+      s <- fastR::colVars(xtrain, std = TRUE)
+      xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
+      xtest <- t(xtest)
+      xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
+      xx <- t(xx)
+
       sa <- svd(xx)
-      u <- sa$u   ;   d <- sa$d   ;   v <- sa$v
+      tu <- t(sa$u)    ;    d <- sa$d    ;    v <- sa$v
+
       for ( i in 1:k ) {
-        beta <- ( v %*% diag( d / ( d^2 + lambda[i] ) ) %*% t(u) ) %*% yy
+        beta <- ( v %*% (tu *  d / ( d^2 + lambda[i] ) ) ) %*% yy
         est <- xtest %*% beta + my
         msp[vim, i] <- sum( (ytest - est)^2 ) / rmat
       }
+
     }
     runtime <- proc.time() - runtime
 
@@ -68,43 +73,53 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     pe <- numeric(k)
+
     msp <- foreach(vim = 1:M, .combine = rbind) %dopar% {
-      ytest <- as.matrix( y[mat[, vim], ] )  ## test set dependent vars
-      ytrain <- as.matrix( y[-mat[, vim], ] )  ## train set dependent vars
-      my <- colMeans(ytrain)
-      yy <- ytrain - rep(my, rep(rmat, di) )  ## center the dependent variables
+      ytest <- y[ mat[, vim], ]   ## test set dependent vars
+      ytrain <- y[ -mat[, vim], ]   ## train set dependent vars
+      my <- sum(ytrain) / rmat
+      yy <- ytrain- my  ## center the dependent variables
+
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- colMeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
-      xtest <- ( xtest - rep( mx, rep(rmat, p) ) ) %*% s ## standardize the xtest
-      xx <- scale(xtrain)[1:c(n - rmat), ]  ## standardize the independent variables
+      s <- fastR::colVars(xtrain, std = TRUE)
+      xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
+      xtest <- t(xtest)
+
+      xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
+      xx <- t(xx)
+
       sa <- svd(xx)
-      u <- sa$u   ;   d <- sa$d   ;   v <- sa$v
+      tu <- t(sa$u)    ;    d <- sa$d    ;    v <- sa$v
+
       for ( i in 1:k ) {
-        beta <- ( v %*% diag( d / ( d^2 + lambda[i] ) ) %*% t(u) ) %*% yy
+        beta <- ( v %*% (tu *  d / ( d^2 + lambda[i] ) ) ) %*% yy
         est <- xtest %*% beta + my
         pe[i] <- sum( (ytest - est)^2 ) / rmat
       }
+
       return(pe)
     }
+
     runtime <- proc.time() - runtime
     stopCluster(cl)
   }
+
   mspe <- colMeans(msp)
   bias <- msp[ , which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 
   if (graph == TRUE) {
     plot(lambda, mspe, type = 'b', ylim = c(min(mspe), max(mspe)),
-    ylab = "Mean squared error of prediction",
-    xlab = expression(paste(lambda, " values")) )
+         ylab = "Mean squared error of prediction",
+         xlab = expression(paste(lambda, " values")) )
   }
 
   names(mspe) <- lambda
   performance <- c( min(mspe) + estb, estb)
   names(performance) <- c("MSPE", "Estimated bias")
   list(msp = msp, mspe = mspe, lambda = which.min(mspe), performance = performance,
-  runtime = runtime)
+       runtime = runtime)
+
 }

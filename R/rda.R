@@ -33,7 +33,6 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ta <- matrix(nrow = nu, ncol = nc)
   ng <- as.vector( table(ina) )
   ci <- log(ng / n)
-  con <-  - D / 2 * log(2 * pi)  ## constant part
   sk <- array( dim = c(D, D, nc) )
 
   mesos <- aggregate( x, by = list(ina), mean )
@@ -41,21 +40,21 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
 
   ni <- rep(ng - 1, each = D^2)
 
-  for (m in 1:nc)  sk[, , m] <- cov( x[ina == m, ] )
+  for (m in 1:nc)  sk[, , m] <- fastR::cova( x[ina == m, ] )
   s <- ni * sk
   Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
-  sp <- diag( mean( diag(Sp) ), D ) ## spherical covariance matrix
+  sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
   Sa <- gam * Sp + (1 - gam) * sp  ## regularised covariance matrix
 
   for (j in 1:nc) {
     Ska[, , j] <- del * sk[, , j] + (1 - del) * Sa
     ta[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-      0.5 * mahalanobis( xnew, mesos[j, ], Ska[, , j] )
+      0.5 * fastR::mahala( xnew, mesos[j, ], Ska[, , j] )
   }
 
-  ta <- ta + con
-  est <- apply(ta, 1, which.max)
+  est <- max.col(ta)
   expta <- exp(ta)
   prob <- expta / rowSums( expta ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)
+
 }

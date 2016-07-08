@@ -1,4 +1,4 @@
-\name{kl.diri}
+\name{Kullback-Leibler divergence and Bhattacharyya distance between two Dirichlet distributions}
 \alias{kl.diri}
 \title{
 Kullback-Leibler divergence and Bhattacharyya distance between two Dirichlet distributions

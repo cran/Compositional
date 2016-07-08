@@ -15,10 +15,10 @@ alfa <- function(x, a, h = TRUE) {
   x <- as.matrix(x)  ## makes sure x is a matrix
   D <- ncol(x) ## number of components
   if ( D == 1 )   x <- t(x)
-  x <- x / rowSums(x)  ## makes sure x is compositional data
+  x <-  x / rowSums(x)  ## makes sure x is compositional data
 
   if (a != 0) {
-    z <- ( x^a )
+    z <- x^a
     ta <- rowSums(z)
     z <- z / ta
     z <- (D/a) * z - 1/a

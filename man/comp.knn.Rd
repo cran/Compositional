@@ -37,7 +37,7 @@ The value of \eqn{\alpha}. As zero values in the compositional data are allowed,
   This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
   }
   \item{apostasi}{
-  The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger" or "angualar". See the references for them.
+  The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS". See the references for them.
 }
   \item{mesos}{
  This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
@@ -55,11 +55,13 @@ A vector with the estimated groups.
 \references{
 Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present. Journal of Data Science, 12(3): 519-534.
 
-
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew TA Wood (2016).  Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
+Tsagris Michail, Simon Preston and Andrew TA Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
 http://arxiv.org/pdf/1106.1451.pdf
+
+Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
+Journal of Applied Statistics. http://www.tandfonline.com/doi/full/10.1080/02664763.2016.1193846
 }
 
 \author{

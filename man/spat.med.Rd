@@ -1,4 +1,4 @@
-\name{spat.med}
+\name{Spatial median for Euclidean data}
 \alias{spat.med}
 \title{
 Spatial median for Euclidean data

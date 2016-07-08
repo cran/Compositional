@@ -1,4 +1,4 @@
-\name{rmvt}
+\name{Multivariate t random values simulation}
 \alias{rmvt}
 \title{
 Multivariate t random values simulation

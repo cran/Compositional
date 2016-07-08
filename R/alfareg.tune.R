@@ -107,5 +107,5 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     lines(a, kl, col = 2, lty = 2, lwd = 2)
   }
 
-  list(runtime = apa, kl = kl, opt = opt, value = per + bias, bias = bias)
+  list(runtime = apa, kula = kula, kl = kl, opt = opt, value = per + bias, bias = bias)
 }

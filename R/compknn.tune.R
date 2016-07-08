@@ -22,7 +22,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   ## If not, then the harmonic mean will be used. Both of these apply for
   ## the non-standard algorithm, that is when type='NS'
   ## apostasi is the type of metric used: 'ESOV' or 'taxicab',
-  ## 'Ait', 'Hellinger', or 'angular'
+  ## 'Ait', 'Hellinger', 'angular' or 'CS'
 
   x <- as.matrix(x)  ## makes sure the x is a matrix
   x <- x/rowSums(x)  ## makes sure the the data sum to 1
@@ -54,28 +54,42 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   ## The algorithm is repated R times and each time the estimated
   ## percentages are stored in the array per.
 
-  if (apostasi == "ESOV" | apostasi == "taxicab") {
+  if (apostasi == "ESOV" | apostasi == "taxicab" | apostasi == "CS") {
 
     runtime <- proc.time()
+    a <- a[ a != 0 ]
+
     per <- array( dim = c(M, A - 1, length(a)) )
 
-    for (i in 1:length(a)) {
+    for ( i in 1:length(a) ) {
 
       z <- x^a[i] / rowSums( x^a[i] )  ## The power transformation is applied
 
       if (apostasi == "ESOV") {
-        for ( m1 in 1:c(n - 1) ) {
-          for ( m2 in c(m1 + 1):n ) {
-            ma <- z[m1, ] + z[m2, ]
-            dis[m1, m2] <- sqrt( sum( z[m1, ] * log( 2 * z[m1, ]/ma ) +
+         for ( m1 in 1:c(n - 1) ) {
+           for ( m2 in c(m1 + 1):n ) {
+             ma <- z[m1, ] + z[m2, ]
+             dis[m1, m2] <- sqrt( sum( z[m1, ] * log( 2 * z[m1, ]/ma ) +
                                         z[m2, ] * log( 2 * z[m2, ]/ma ), na.rm = TRUE ) )
-          }
-        }
-        dis <- dis + t(dis)
+           }
+         }
+         dis <- dis + t(dis)
 
       } else if (apostasi == "taxicab") {
         dis <- dist(z, method = "manhattan", diag = TRUE, upper = TRUE)
         dis <- as.matrix(dis)
+
+      } else if ( apostasi == "CS" ) {
+          p <- ncol(x)
+          for ( m1 in 1:c(n - 1) ) {
+            for ( m2 in c(m1 + 1):n ) {
+              sa <- (z[m1, ] - z[m2, ])^2 / (z[m1, ] + z[m2, ])
+              disa[m1, m2] <- sum( sa[ abs(sa) < Inf ] )
+            }
+          }
+          dis <- ( 1/abs( a[i] ) ) * sqrt(2 * p) * sqrt(disa)
+          dis <- dis + t(dis)
+
       }
 
       ## The k-NN algorithm is calculated R times. For every repetition a
@@ -112,7 +126,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
             g <- numeric(rmat)
             knn <- j + 1
             for (k in 1:rmat) {
-              xa <- cbind(ina2, apo[k, ])
+              xa <- cbind(ina2, apo[knn, ])
               qan <- xa[order(xa[, 2]), ]
               sa <- qan[1:knn, 1]
               tab <- table(sa)
@@ -120,7 +134,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
             }
             per[vim, j, i] <- mean(g == id)
           }
+
         }
+
       }
 
     }
@@ -145,6 +161,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
     for (i in 1:M) {
       bias[i] <- opt - per[ i, confa[2], confa[1] ]
     }
+
     bias <- mean(bias)
     performance <- c(opt - bias, bias)
     names(performance) <- c( "rate", "bias" )
@@ -153,7 +170,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
                      best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
 
 
-  } else if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular") {
+  } else if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular" ) {
 
     runtime <- proc.time()
     per <- matrix(nrow = M, ncol = A - 1)
@@ -174,7 +191,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
       diag(dis) <- 1
       dis[ dis > 1 ] <- 1
       dis <- acos(dis)
+
     }
+
     diag(dis) <- 0
 
     for (vim in 1:M) {

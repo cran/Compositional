@@ -1,4 +1,4 @@
-\name{alfa}
+\name{The alpha-transformation}
 \alias{alfa}
 \title{
 The \eqn{\alpha}-transformation

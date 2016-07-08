@@ -7,7 +7,6 @@
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## y is the compositional data
   y <- as.matrix(y)
-  n <- nrow(y)
   y <- y/rowSums(y)
   ## the line above makes sure y is compositional data and
   n <- nrow(y)  ## sample size
@@ -27,10 +26,11 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
       n <- nrow(y)  ## sample size
       d <- ncol(y) - 1  ## dimensionality of  the simplex
       be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
-      mu1 <- cbind(1, exp(x %*% be))
-      ma <- mu1/rowSums(mu1)  ## the fitted values
-      l <-  -( n * lgamma(phi) - sum( lgamma(phi * ma) ) +
-      sum( diag( tcrossprod(y, phi * ma - 1 ) ) )  )
+      mu1 <- cbind( 1, exp(x %*% be) )
+      ma <- mu1 / rowSums(mu1)  ## the fitted values
+      ba <- phi * ma
+      l <-  -( n * lgamma(phi) - sum( lgamma(ba) ) +
+              sum( y * (ba - 1 ) ) )
       ## l is the log-likelihood
     l
   }
@@ -49,12 +49,14 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   qa <- nlm(dirireg, qa$estimate, z = z)
   el[2] <- -qa$minimum
   vim <- 2
+
   while (el[vim] - el[vim - 1] > 1e-06) {
     ## the tolerance value can of course change
     vim <- vim + 1
     qa <- nlm(dirireg, qa$estimate, z = z)
     el[vim] <- -qa$minimum
   }
+
   qa <- nlm(dirireg, qa$estimate, z = z, hessian = TRUE)
   log.phi <- qa$estimate[1]
   para <- qa$estimate[-1]  ## estimated parameter values
@@ -73,21 +75,24 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     xnew <- as.matrix(xnew)
     mu <- cbind( 1, exp(xnew %*% beta) )
     est <- mu / rowSums(mu)
+
   } else {
     mu <- cbind( 1, exp(x %*% beta) )
     est <- mu / rowSums(mu)  ## fitted values
     lev <- ( exp(log.phi) + 1 ) * rowSums( (y - est)^2 / mu )
+
     if (plot == TRUE) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",
       ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
       lines(1:n, lev, type = "h")
       abline(h = qchisq(0.95, d), lty = 2, col = 2)
     }
+
   }
 
   runtime <- proc.time() - runtime
 
-  if ( is.null(colnames(x)) ) {
+  if ( is.null( colnames(x) ) ) {
     p <- ncol(x) - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
@@ -98,4 +103,5 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   list(runtime = runtime, loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
   std.logphi = std.logphi, beta = beta, seb = seb, lev = lev, est = est)
+
 }

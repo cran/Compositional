@@ -1,4 +1,4 @@
-\name{rcompt}
+\name{Multivariate t random values simulation on the simplex}
 \alias{rcompt}
 \title{
 Multivariate t random values simulation on the simplex

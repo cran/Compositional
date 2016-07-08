@@ -1,4 +1,4 @@
-\name{norm.contour}
+\name{Contour plot of the normal distribution in S^2}
 \alias{norm.contour}
 \title{
 Contour plot of the normal distribution in \eqn{S^2}

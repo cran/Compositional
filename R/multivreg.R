@@ -11,6 +11,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## with at least two columns
   ## x contains the independent variable(s) which have to be
   ## in a matrix format or a vector if you have just one
+
   y <- as.matrix(y)
   x <- as.matrix(x)
   n <- nrow(y)  ## sample size
@@ -18,20 +19,21 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   p <- ncol(x)  ## dimensionality of x
   mod <- lm(y ~ x)   ## linear regression
   res <- resid(mod)  ## residuals
-  s <- cov(res) * (n - 1) / (n - p - 1)
-  sxx <- cov(x)  ## covariance of the independent variables
-  dres <- sqrt( mahalanobis(res, numeric(d), s) )  ## Mahalanobis distances
+  s <- fastR::cova(res) * (n - 1) / (n - p - 1)
+  sxx <- fastR::cova(x)  ## covariance of the independent variables
+  dres <- sqrt( rowSums( res %*% solve(s) * res ) ) ## Mahalanobis distances
   ## of the residuals
+
   mx <- colMeans(x)  ## mean vector of the independent variales
-  dx <- sqrt( mahalanobis(x, mx, sxx) )  ## Mahalanobis distances
+  dx <- sqrt( fastR::mahala(x, mx, sxx) )  ## Mahalanobis distances
   ## of the independent variables
   crit.res <- sqrt( qchisq(0.975, d) )
   crit.x <- sqrt( qchisq(0.975, p) )
 
   if (plot == TRUE) {
     plot(dx, dres, xlim = c(0, max(dx) + 0.5), ylim = c(0, max(dres) + 0.5),
-    xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance
-    of residuals")
+         xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance
+         of residuals")
     abline(h = crit.res)
     abline(v = crit.x)
   }
@@ -49,14 +51,14 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   }
 
   moda <- summary(mod)
-  suma <- array(dim = c(1 + p, 6, d))
+  suma <- array( dim = c(1 + p, 6, d) )
   r.squared <- numeric(d)
   mse <- deviance(mod)/( n - p - 1 )
 
   for (i in 1:d) {
     wa <- as.matrix( coef(moda[[i]]) )
     wa <- cbind( wa, wa[, 1] - qt(0.975, n - p - 1) * mse[i] ,
-    wa[, 1] + qt(0.975, n - p - 1) * mse[i] )
+                 wa[, 1] + qt(0.975, n - p - 1) * mse[i] )
     colnames(wa)[5:6] <- paste(c(2.5, 97.5), "%", sep = "")
     suma[, , i] <- wa
     r.squared[i] <- as.numeric( moda[[i]]$r.squared )
@@ -64,7 +66,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   if ( is.null(colnames(y)) ) {
     dimnames(suma) <- list( rownames(wa), colnames(wa),
-    paste("Y", 1:d, sep = "") )
+                            paste("Y", 1:d, sep = "") )
     names(r.squared) <- paste("Y", 1:d, sep = "")
     colnames(est) <- paste("Y", 1:d, sep = "")
   } else {
@@ -74,6 +76,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   }
 
   list(suma = suma, r.squared = r.squared, resid.out  = resid.out,
-  x.leverage = x.leverage, out = out.and.lever, est = est)
+       x.leverage = x.leverage, out = out.and.lever, est = est)
+
 }
 

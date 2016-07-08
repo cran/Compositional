@@ -1,7 +1,7 @@
-\name{glmpcr.tune}
+\name{Tuning the principal components with GLMs}
 \alias{glmpcr.tune}
 \title{
-Tuning the principal components in the GLM
+Tuning the principal components with GLMs
 }
 
 \description{

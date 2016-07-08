@@ -1,4 +1,4 @@
-\name{mix.compnorm}
+\name{Gaussian mixture models for compositional data}
 \alias{mix.compnorm}
 \title{
 Gaussian mixture models for compositional data

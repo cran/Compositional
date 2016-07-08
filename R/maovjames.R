@@ -9,6 +9,7 @@
 ################################
 
 maovjames <- function(x, ina, a = 0.05) {
+
   ## x contains all the groups together
   ## a is the significance level
   x <- as.matrix(x)  ## makes sure x is a matrix
@@ -20,24 +21,25 @@ maovjames <- function(x, ina, a = 0.05) {
   ## the objects below will be used later
   me <- mi <- W <- matrix(nrow = k, ncol = p)
   ta <- numeric(k)
-  wi <- array(dim = c(p, p, k))
+  wi <- array( dim = c(p, p, k) )
 
   ## the next for function calculates the
   ## mean vector and covariance matrix of each group
   for (i in 1:k) {
-    mi[i, ] <- colMeans(x[ina == i, ])
-    wi[, , i] <- solve( var(x[ina == i, ] ) / ni[i] )
+    mi[i, ] <- colMeans( x[ina == i, ] )
+    wi[, , i] <- solve( var( x[ina == i, ] ) / ni[i] )
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
 
   W <- apply(wi, 1:2, sum)
-  ma <- apply(me, 2, sum)
-  mesi <- solve(W, ma)  ## common mean vector
+  Ws <- solve(W)
+  ma <- colSums(me)
+  mesi <- Ws %*% ma  ## common mean vector
   t1 <- t2 <- numeric(k)
   Ip <- diag(p)
   for (i in 1:k) {
-  ta[i] <- ( (mi[i, ] - mesi) %*% wi[, , i] ) %*% (mi[i, ] - mesi)
-    exa1 <- Ip - solve(W, wi[, , i] )
+  ta[i] <- ( t(mi[i, ] - mesi) %*% wi[, , i] ) %*% (mi[i, ] - mesi)
+    exa1 <- Ip - Ws %*% wi[, , i]
     t1[i] <- sum( diag(exa1) )
     t2[i] <- sum( exa1^2 )
    }
@@ -50,8 +52,9 @@ maovjames <- function(x, ina, a = 0.05) {
   x2 <- qchisq(1 - a, r)
   delta <- (A + B * x2)
   twoha <- x2 * delta  ## corrected critical value of the chi-square distribution
-  pvalue <- 1 - pchisq(test/delta, r)  ## p-value of the test statistic
+  pvalue <- pchisq(test/delta, r, lower.tail = FALSE)  ## p-value of the test statistic
   result <- c(test, delta, twoha, pvalue)
   names(result) <- c("test", "correction", "corr.critical", "p-value")
   result
+
 }

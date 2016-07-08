@@ -1,4 +1,4 @@
-\name{rmvnorm}
+\name{Multivariate normal random values simulation}
 \alias{rmvnorm}
 \title{
 Multivariate normal random values simulation

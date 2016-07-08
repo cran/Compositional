@@ -1,11 +1,11 @@
-\name{comp.reg}
+\name{Multivariate regression with compositional data}
 \alias{comp.reg}
 \title{
-Regression with compositional data
+Multivariate regression with compositional data
 }
 
 \description{
-Regression with compositional data.
+Multivariate regression with compositional data.
 }
 
 \usage{

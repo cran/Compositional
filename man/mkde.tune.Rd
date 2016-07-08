@@ -1,4 +1,4 @@
-\name{mkde.tune}
+\name{Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation}
 \alias{mkde.tune}
 \title{
 Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation

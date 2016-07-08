@@ -9,10 +9,12 @@ sym.test <- function(x) {
   n <- nrow(x)  ## the sample size
   D <- ncol(x)  ## the dimensionality of the data
   zx <- log(x)
-   sym <- function(a, zx) {
+
+  sym <- function(a, zx) {
     n * lgamma(D * a) - n * D * lgamma(a) +
-    sum( zx * (a - 1) )
-   }
+      sum( zx * (a - 1) )
+  }
+
   t0 <- optimize(sym, c(0, 1000), zx = zx, maximum = TRUE)
   t1 <- diri.nr(x)
   a0 <- t0$maximum
@@ -26,6 +28,8 @@ sym.test <- function(x) {
     names(a1) <- paste("X", 1:D, sep = "")
   } else  names(a1) <- colnames(x)
   res <- c(h1, h0, test, pvalue, D - 1)
+
   names(res) <- c('loglik1', 'loglik0', 'test', 'pvalue', 'df')
   list(est.par = a1, one.par = a0, res = res )
+
 }

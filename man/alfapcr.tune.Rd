@@ -1,4 +1,4 @@
-\name{alfapcr.tune}
+\name{Tuning the number of PCs in the PCR with compositional data using the alpha-transformation}
 \alias{alfapcr.tune}
 \title{
 Tuning the number of PCs in the PCR with compositional data using the \eqn{\alpha}-transformation

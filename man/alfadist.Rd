@@ -1,4 +1,4 @@
-\name{alfadist}
+\name{The alpha-distance}
 \alias{alfadist}
 \title{
 The \eqn{\alpha}-distance

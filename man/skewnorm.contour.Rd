@@ -1,4 +1,4 @@
-\name{skewnorm.contour}
+\name{Contour plot of the skew skewnormal distribution in S^2}
 \alias{skewnorm.contour}
 \title{
 Contour plot of the skew skewnormal distribution in \eqn{S^2}

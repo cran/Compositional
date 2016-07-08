@@ -34,14 +34,12 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     f
   }
 
-  ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef(lm(y[, -1] ~ x[, -1])) ) )  ## initial values
+  ## the next lines minimize the kl.compreg function and obtain the estimated betas
+  ini <- as.vector( t( kl.compreg(y, x[, -1])$beta ) )
 
   runtime <- proc.time()
   options (warn = -1)
   qa <- nlm(jsreg, ini, z = z)
-  qa <- nlm(jsreg, qa$estimate, z = z)
-  qa <- nlm(jsreg, qa$estimate, z = z)
   qa <- nlm(jsreg, qa$estimate, z = z)
   qa <- nlm(jsreg, qa$estimate, z = z)
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
@@ -58,13 +56,13 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
+        ini <- as.vector( t( kl.compreg(yb, xb[, -1])$beta ) ) ## initial values
         qa <- nlm(jsreg, ini, z = zb)
         qa <- nlm(jsreg, qa$estimate, z = zb)
         qa <- nlm(jsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
-      s <- apply(betaboot, 2, sd)
+      s <- fastR::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
 
@@ -84,7 +82,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         betaboot[i, ] <- qa$estimate
       }
       stopCluster(cl)
-      s <- apply(ww, 2, sd)
+      s <- fastR::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
     }

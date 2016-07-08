@@ -40,7 +40,7 @@ This is used in the non standard algorithm. If TRUE, the arithmetic mean of the 
 A grid of values of \eqn{\alpha} to be used only if the distance chosen allows for it.
 }
 \item{apostasi}{
-The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger" or "angualar". See the references for them.
+The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS". See the references for them.
 }
 \item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
@@ -80,6 +80,9 @@ Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of sta
 
 Tsagris Michail, Simon Preston and Andrew TA Wood (2016).  Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
 http://arxiv.org/pdf/1106.1451.pdf
+
+Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
+Journal of Applied Statistics.  http://www.tandfonline.com/doi/full/10.1080/02664763.2016.1193846
 }
 
 \author{

@@ -13,43 +13,42 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
   ## x can be either "lik" or "ent"
 
   if (type == 1) {
+
     runtime <- proc.time()
     x <- as.matrix(x)  ## makes sure x is a matrix
     x <- x/rowSums(x)  ## makes sure x is compositional data
     n <- nrow(x)  ## the sample size
     p <- ncol(x)  ## dimensionality
-    ell <- NULL
     m <- colMeans(x)
-    zx <- log(x)
+    zx <- t( log(x) )
 
     lm <- log(m)
-    down <-  - sum(  m * colMeans( zx - rep(lm, rep(n, p ) ) ) )
-    s <- 0.5 * (p - 1) / down  ## initial value for precision
-    a <- s * m  ## initial values
-    ell[1] <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-    sum( zx %*% (a- 1) )
-    gm <- colSums(zx)
-    z <- n * digamma( sum(a) )
-    g <- z - n * digamma(a) + gm
-    qk <-  - n * trigamma(a)
+    down <-  - sum(  m * rowMeans( zx - lm ) )
+    sa <- 0.5 * (p - 1) / down  ## initial value for precision
+    a1 <- sa * m  ## initial values
+    gm <- rowSums(zx)
+
+    z <- n * digamma( sa )
+    g <- z - n * digamma(a1) + gm
+    qk <-  - n * trigamma(a1)
     b <- ( sum(g / qk) ) / ( 1/z - sum(1 / qk) )
-    a <- a - (g - b)/qk
-    ell[2] <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-    sum( zx %*% (a - 1) )
+    a2 <- a1 - (g - b)/qk
     i <- 2
 
-    while( abs( ell[i] - ell[i - 1] ) > tol ) {
+    while( sum( abs( a2 - a1 ) ) > tol ) {
       i <- i + 1
-      z <- n * digamma( sum(a) )
-      g <- z - n * digamma(a) + gm
-      qk <-  - n * trigamma(a)
+      a1 <- a2
+      z <- n * digamma( sum(a1) )
+      g <- z - n * digamma(a1) + gm
+      qk <-  - n * trigamma(a1)
       b <- ( sum(g / qk) ) / ( 1/z - sum(1 / qk) )
-      a <- a - (g - b) / qk
-      ell[i] <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-      sum( zx %*% (a - 1) )
+      a2 <- a1 - (g - b) / qk
     }
 
-    loglik <- ell[i]
+    a <- a2
+
+    loglik <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
+      sum( zx * (a - 1) )
 
     runtime <- proc.time() - runtime
 
@@ -60,33 +59,34 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
     x <- x/rowSums(x)  ## makes sure x is compositional data
     n <- nrow(x)  ## sample size
     p <- ncol(x)
-    zx <- log(x)
+    zx <- t( log(x) )
 
-    ma <- colMeans(zx)
+    ma <- rowMeans(zx)
     m <- colMeans(x)
     lm <- log(m)
-    down <-  - sum(  m * colMeans( zx - rep(lm, rep(n, p ) ) ) )
-    s <- 0.5 * (p - 1) / down  ## initial value for precision
-    a <- s * m  ## initial values
+    down <-  - sum( m * ( ma - lm ) )
+    sa <- 0.5 * (p - 1) / down  ## initial value for precision
+    a1 <- sa * m  ## initial values
 
-    f <- ma - digamma(a) + digamma( sum(a) )
-    der <-  - trigamma(a) + trigamma( sum(a) )
-    der <- diag( 1 / der )
-    a <- rbind(a, a - f %*% der )
+    f <- ma - digamma(a1) + digamma( sa )
+    der <-  - trigamma(a1) + trigamma( sa )
+    a2 <- a1 - f / der
     i <- 2
 
-    while ( sum( abs( a[i, ] - a[i - 1, ] ) ) > tol ) {
+    while ( sum( abs( a2 - a1 ) ) > tol ) {
+      a1 <- a2
       i <- i + 1
-      f <- ma - digamma(a[i - 1, ]) + digamma( sum(a[i - 1, ]) )
-      der <-  - trigamma(a[i - 1, ]) + trigamma( sum(a[i - 1, ]) )
-      der <- diag( 1 / der )
-      a <- rbind(a, a[i - 1, ] - f %*% der )
+      sa <- sum( a1)
+      f <- ma - digamma(a1) + digamma( sa )
+      der <-  - trigamma(a1) + trigamma( sa )
+      a2 <- a1 - f / der
 
     }
 
-    a <- a[i, ]
+    a <- a2
+
     loglik <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-    sum( zx %*% (a - 1) )
+      sum( zx * (a - 1) )
 
     runtime <- proc.time() - runtime
 
@@ -97,4 +97,5 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
   } else  names(a) <- colnames(x)
 
   list(iter = i, loglik = loglik, param = a, runtime = runtime)
+
 }

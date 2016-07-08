@@ -1,4 +1,4 @@
-\name{diri.nr}
+\name{Fitting a Dirichlet distribution via Newton-Rapshon}
 \alias{diri.nr}
 \title{
 Fitting a Dirichlet distribution via Newton-Rapshon

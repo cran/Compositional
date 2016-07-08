@@ -1,4 +1,4 @@
-\name{rda.tune}
+\name{Tuning the parameters of the regularised discriminant analysis}
 \alias{rda.tune}
 \title{
 Tuning the parameters of the regularised discriminant analysis

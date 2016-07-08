@@ -1,4 +1,4 @@
-\name{alfareg.tune}
+\name{Tuning the value of alpha in the alpha-regression}
 \alias{alfareg.tune}
 \title{
 Tuning the value of \eqn{\alpha} in the \eqn{\alpha}-regression
@@ -45,11 +45,14 @@ The estimated bias correction via the Tibshirani and Tibshirani (2009) criterion
 \value{
 A plot of the estimated Kullback-Leibler divergences (multiplied by 2) along the values of \eqn{\alpha} (if graph is set to TRUE).
 A list including:
-  \item{runtime}{
-  The runtime required by the cross-validation.
+\item{runtime}{
+The runtime required by the cross-validation.
 }
-  \item{kl}{
-Twice the Kullback-Leibler divergence of the observed from the fitted values.
+\item{kula}{
+A matrix with twice the Kullback-Leibler divergence of the observed from the fitted values. Each row corresponds to a fold and each column to a value of \eqn{\alpha}. The average over the columns equal the next argument, "kl".
+}
+\item{kl}{
+A vector with twice the Kullback-Leibler divergence of the observed from the fitted values. Every value corresponds to a value of \eqn{\alpha}.
 }
   \item{opt}{
 The optimal value of \eqn{\alpha}.

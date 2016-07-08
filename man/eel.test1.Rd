@@ -1,4 +1,4 @@
-\name{eel.test1}
+\name{Exponential empirical likelihood for a one sample mean vector hypothesis testing}
 \alias{eel.test1}
 \title{
 Exponential empirical likelihood for a one sample mean vector hypothesis testing

@@ -1,12 +1,12 @@
-\name{Divergence based regression}
+\name{Divergence based regression for compositional data}
 \alias{kl.compreg}
 \alias{js.compreg}
 \title{
-Divergence based regression
+Divergence based regression for compositional data
 }
 
 \description{
-Regression based on the Kullback-Leibler and the Jensen-Shannon divergence.
+Regression for compositional data based on the Kullback-Leibler and the Jensen-Shannon divergence.
 }
 
 \usage{

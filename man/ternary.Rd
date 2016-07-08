@@ -1,4 +1,4 @@
-\name{ternary}
+\name{Ternary diagram}
 \alias{ternary}
 
 \title{

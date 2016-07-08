@@ -1,4 +1,4 @@
-\name{alfa.pcr}
+\name{Multivariate or univariate regression with compositional data in the covariates side using the alpha-transformation}
 \alias{alfa.pcr}
 \title{
 Multivariate or univariate regression with compositional data in the covariates side using the \eqn{\alpha}-transformation

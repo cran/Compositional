@@ -1,4 +1,4 @@
-\name{bic.mixcompnorm}
+\name{bMixture model selection via BIC}
 \alias{bic.mixcompnorm}
 \title{
 Mixture model selection via BIC

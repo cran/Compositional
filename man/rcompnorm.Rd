@@ -1,4 +1,4 @@
-\name{rcompnorm}
+\name{Multivariate normal random values simulation on the simplex}
 \alias{rcompnorm}
 \title{
 Multivariate normal random values simulation on the simplex

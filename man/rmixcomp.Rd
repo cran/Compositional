@@ -1,4 +1,4 @@
-\name{rmixcomp}
+\name{Simulation of compositional data from Gaussian mixture models}
 \alias{rmixcomp}
 \title{
 Simulation of compositional data from Gaussian mixture models

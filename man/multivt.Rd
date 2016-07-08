@@ -1,4 +1,4 @@
-\name{multivt}
+\name{MLE for the multivarite t distribution}
 \alias{multivt}
 \title{
 MLE for the multivarite t distribution

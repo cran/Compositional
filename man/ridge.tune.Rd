@@ -1,4 +1,4 @@
-\name{ridge.tune}
+\name{Cross validation for the ridge regression}
 \alias{ridge.tune}
 \title{
 Cross validation for the ridge regression

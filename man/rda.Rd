@@ -1,4 +1,4 @@
-\name{rda}
+\name{Regularised discriminant analysis for Euclidean data}
 \alias{rda}
 \title{
 Regularised discriminant analysis for Euclidean data

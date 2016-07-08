@@ -81,7 +81,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
   }
 
   best.par <- c( a[ best.par[1] ], best.par[2] )
-  names(best.par) <- c("alpha", "PC")
+  names(best.par) <- c("alpha", "lambda")
   performance <- c(opt.mspe, bias)
   names(performance) <- c("bias corrected mspe", "estimated bias")
 

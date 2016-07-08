@@ -12,16 +12,19 @@ frechet <- function(x, a) {
   ## a is the power parameter, usually between -1 and 1
   x <- as.matrix(x)  ## makes sure x is a matrix
   x <- x / rowSums(x)  ## makes sure x is compositional data
+
   if (a == 0) {
      xa <- log(x)
      y <- xa - rowMeans(xa)
-     m1 <- colMeans(y)
-     m <- exp(m1) / sum( exp(m1) )  ## closed geometric mean
+     m1 <- exp( colMeans(y) )
+     m <- m1 / sum( m1 )  ## closed geometric mean
+
   }  else {
      xa <- x^a
      z <- xa / rowSums(xa)
      m1 <- colMeans(z) ^ ( 1 / a )
      m <- m1 / sum(m1)  ## frechet mean in general
   }
+
   m
 }

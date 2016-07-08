@@ -1,4 +1,4 @@
-\name{ridge.reg}
+\name{Ridge regression}
 \alias{ridge.reg}
 \title{
   Ridge regression

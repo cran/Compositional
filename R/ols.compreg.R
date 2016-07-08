@@ -23,6 +23,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   d <- ncol(y) - 1  ## dimensionality of the simplex
   n <- nrow(y)  ## sample size
   z <- list(y = y, x = x)
+
   olsreg <- function(para, z) {
     y <- z$y
     x <- z$x
@@ -32,8 +33,9 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     mu <- mu1 / rowSums(mu1)
     sum( (y - mu)^2 )
   }
+
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef(lm(y[, -1] ~ x[, -1])) ) )  ## initial values
+  ini <- as.vector( t( coef(lm.fit(x, y[, -1]) ) ) )  ## initial values
   options (warn = -1)
   qa <- nlm(olsreg, ini, z = z)
   qa <- nlm(olsreg, qa$estimate, z = z)
@@ -43,7 +45,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   runtime <- proc.time() - runtime
 
   if (B > 1) {
-  nc <- ncores
+    nc <- ncores
     if (nc == 1) {
       runtime <- proc.time()
       betaboot <- matrix(nrow = B, ncol = length(ini))
@@ -52,15 +54,15 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
+        ini <- as.vector( t( coef(lm.fit(xb, yb[, -1]) ) ) )  ## initial values
         qa <- nlm(olsreg, ini, z = zb)
         qa <- nlm(olsreg, qa$estimate, z = zb)
         qa <- nlm(olsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
-     s <- apply(betaboot, 2, sd)
-     seb <- matrix(s, byrow = TRUE, ncol = d)
-     runtime <- proc.time() - runtime
+      s <- fastR::colVars(ww, std = TRUE)
+      seb <- matrix(s, byrow = TRUE, ncol = d)
+      runtime <- proc.time() - runtime
 
     } else {
       runtime <- proc.time()
@@ -72,14 +74,14 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
+        ini <- as.vector( t( coef(lm.fit(xb, yb[, -1]) ) ) )  ## initial values
         qa <- nlm(olsreg, ini, z = zb)
         qa <- nlm(olsreg, qa$estimate, z = zb)
         qa <- nlm(olsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
       stopCluster(cl)
-      s <- apply(ww, 2, sd)
+      s <- fastR::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
     }

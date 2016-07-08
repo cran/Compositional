@@ -1,11 +1,11 @@
-\name{comp.test}
+\name{Hypothesis testing for two or more compositional mean vectors}
 \alias{comp.test}
 \title{
-Empirical likelihood hypothesis testing for two mean vectors
+Hypothesis testing for two or more compositional mean vectors
 }
 
 \description{
-Empirical likelihood hypothesis testing for two mean vectors.
+Hypothesis testing for two or more compositional mean vectors.
 }
 
 \usage{

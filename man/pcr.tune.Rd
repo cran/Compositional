@@ -1,4 +1,4 @@
-\name{pcr.tune}
+\name{Tuning of the principal components regression}
 \alias{pcr.tune}
 \title{
 Tuning of the principal components regression

@@ -1,4 +1,4 @@
-\name{mkde}
+\name{Multivariate kernel density estimation}
 \alias{mkde}
 \title{
 Multivariate kernel density estimation

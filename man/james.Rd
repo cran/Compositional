@@ -1,4 +1,4 @@
-\name{james}
+\name{James multivariate version of the t-test}
 \alias{james}
 \title{
 James multivariate version of the t-test
@@ -78,10 +78,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-james( iris[1:50, 1:4], iris[51:100, 1:4], R = 1 )
-james( iris[1:50, 1:4], iris[51:100, 1:4], R = 2 )
-james( iris[1:50, 1:4], iris[51:100, 1:4] )
-hotel2T2( iris[1:50, 1:4], iris[51:100, 1:4] )
+james( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
+james( iris[1:25, 1:4], iris[26:50, 1:4], R = 2 )
+james( iris[1:25, 1:4], iris[26:50, 1:4] )
+hotel2T2( iris[1:25, 1:4], iris[26:50, 1:4] )
 }
 
 \keyword{ Multivariate analysis of variance }

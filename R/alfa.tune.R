@@ -11,6 +11,7 @@
 alfa.tune <- function(x, B = 1, ncores = 1) {
   ## x is the compositional data
   ## x must not contain any zeros
+
   x <- as.matrix(x)
   x <- x / rowSums(x)
   n <- nrow(x)  ## sample size
@@ -24,7 +25,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
     trans <- alfa(x, a)
     z <- trans$aff  ## the alpha-transformation
     sa <- trans$sa  ## part of the Jacobian determinant as well
-    -n/2 * log( abs( det( f * cov(z) ) ) ) + (a - 1) * ja - D * sa
+    -n/2 * log( abs( det( f * fastR::cova(z) ) ) ) + (a - 1) * ja - D * sa
   }
 
   if (B == 1) {
@@ -32,9 +33,8 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
     aff0 <- alfa(x, 0)
     z0 <- aff0$aff
     sa <- aff0$sa  ## part of the Jacobian determinant as well
-    lik0 <-  -n/2 * d * log(2 * pi) - (n - 1) * d/2 -
-      n/2 * log( abs( det( f * cov(z0) ) ) ) +
-      n * (d + 1/2) * log(D) - ja - D * sa
+    lik0 <- con -  n/2 * log( abs( det( f * fastR::cova(z0) ) ) ) -
+            ja - D * sa
     result <- c(ell$maximum, ell$objective + con, lik0)
     names(result) <- c("best alpha", "max log-lik", "log-lik at 0")
 

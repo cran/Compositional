@@ -1,4 +1,4 @@
-\name{sym.test}
+\name{Log-likelihood ratio test for a symmetric Dirichlet distribution}
 \alias{sym.test}
 \title{
 Log-likelihood ratio test for a symmetric Dirichlet distribution
@@ -52,7 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.nr}, \link{diri.est}, \link{rdiri}
+\code{\link{diri.nr}, \link{diri.est}, \link{rdiri}, \link{dirimean.test}
 }
 }
 

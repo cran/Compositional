@@ -58,13 +58,14 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- colMeans(xtrain)
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
+      s <- fastR::colVars(xtrain, std = TRUE)
+
       xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
-      xnew <- ( xtest - rep(mx, rep(rmat, p)) ) %*% s ## standardize the xnew values
+      xnew <- ( t(xtest) - mx ) / s ## standardize the xnew values
+      xnew <- t(xnew)
 
       for ( j in 1:maxk) {
         mod <- glm(ytrain ~ z[, 1:j], family = oiko )
@@ -97,13 +98,14 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- colMeans(xtrain)
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
+      s <- fastR::colVars(xtrain, std = TRUE)
+
       xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
-      xnew <- ( xtest - rep(mx, rep(rmat, p)) ) %*% s ## standardize the xnew values
+      xnew <- ( t(xtest) - mx ) / s ## standardize the xnew values
+      xnew <- t(xnew)
       xnew <- cbind(1, xnew %*% vec)
 
       for ( j in 1:maxk) {

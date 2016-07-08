@@ -1,4 +1,4 @@
-\name{bivt.contour}
+\name{Contour plot of the t distribution in S^2}
 \alias{bivt.contour}
 \title{
 Contour plot of the t distribution in \eqn{S^2}

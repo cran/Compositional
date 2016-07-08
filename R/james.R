@@ -36,16 +36,16 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   mesoi <- rbind(ybar1, ybar2)
   rownames(mesoi) <- c("Sample 1", "Sample 2")
 
-  if ( is.null( colnames(y1) ) ) {
+  if ( is.null(colnames(y1)) ) {
     colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(y1)
-  A1 <- cov(y1)/n1
-  A2 <- cov(y2)/n2
+  A1 <- fastR::cova(y1)/n1
+  A2 <- fastR::cova(y2)/n2
   V <- A1 + A2  ## covariance matrix of the difference
-  m0 <- numeric(p)
-  test <- as.numeric( mahalanobis(dbar, m0, V) )
-  b1 <- solve(V, A1)
-  b2 <- solve(V, A2)
+  Vinv <- solve(V)
+  test <- sum( dbar %*% Vinv * dbar )
+  b1 <- Vinv %*% A1
+  b2 <- Vinv %*% A2
   trb1 <- sum( diag(b1) )
   trb2 <- sum( diag(b2) )
 
@@ -53,7 +53,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     ## James test
     A <- 1 + (1/(2 * p)) * ( trb1^2/(n1 - 1) + trb2^2/(n2 - 1) )
     B <- ( 1/(p * (p + 2)) ) * ( sum(b1 * b1) / (n1 - 1) +
-         sum(b2 * b2)/(n2 - 1) + 0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) )
+                                   sum(b2 * b2)/(n2 - 1) + 0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) )
     x2 <- qchisq(1 - a, p)
     delta <- (A + B * x2)
     twoha <- x2 * delta  ## corrected critical value of the chi-square
@@ -62,12 +62,11 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     names(info) <- c("test", "p-value", "correction", "corrected.critical")
     note <- paste("James test")
     result <- list(note = note, mesoi = mesoi, info = info)
-  }
 
-  if (R == 2) {
+  } else if (R == 2) {
     ## MNV test
-    low <- ( sum( diag( b1 %*% b1 ) ) + trb1^2 ) / n1 +
-      ( sum( diag( b2 %*% b2 ) ) + trb2^2 ) / n2
+    low <- ( sum( b1^2 ) + trb1^2 ) / n1 +
+      ( sum( b2^2 ) + trb2^2 ) / n2
     v <- (p + p^2) / low
     test <- as.numeric( ( (v - p + 1) / (v * p) ) * test )  ## test statistic
     crit <- qf(1 - a, p, v - p + 1)  ## critical value of the F distribution
@@ -76,28 +75,29 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     names(info) <- c("test", "p-value", "critical", "numer df", "denom df")
     note <- paste("MNV variant of James test")
     result <- list(note = note, mesoi = mesoi, info = info)
-  }
 
-  if (R > 2) {
+  } else  if (R > 2) {
     ## bootstrap calibration
     runtime <- proc.time()
-    mc <- solve( solve(A1) + solve(A2) ) %*%
-      ( solve(A1, ybar1) + solve(A2, ybar2) )
+    a1inv <- solve(A1)
+    a2inv <- solve(A2)
+    mc <- solve( a1inv + a2inv ) %*% ( a1inv %*% ybar1 + a2inv %*% ybar2 )
     ## mc is the combined sample mean vector
     ## the next two rows bring the mean vectors of the two sample equal
     ## to the combined mean and thus equal under the null hypothesis
-    x1 <- y1 - rep( ybar1, rep(n1, p) ) + rep( mc, rep(n1, p) )
-    x2 <- y2 - rep( ybar2, rep(n2, p) ) + rep( mc, rep(n2, p) )
+    mc1 <-  - ybar1 + mc
+    mc2 <-  - ybar2 + mc
+    x1 <- y1 + rep( mc1, rep(n1, p) )
+    x2 <- y2 + rep( mc2, rep(n2, p) )
     tb <- numeric(R)
 
     for (i in 1:R) {
       b1 <- sample(1:n1, n1, replace = TRUE)
       b2 <- sample(1:n2, n2, replace = TRUE)
-      db <- colMeans(x1[b1, ]) - colMeans(x2[b2, ])  ## difference of the two mean vectors
-      A1 <- cov(x1[b1, ]) / n1
-      A2 <- cov(x2[b2, ]) / n2
-      V <- A1 + A2  ## covariance matrix of the difference
-      tb[i] <- as.numeric( mahalanobis(db, 0, V) )
+      xb1 <- x1[b1, ]     ;      xb2 <- x2[b2, ]
+      db <- colMeans(xb1) - colMeans(xb2)  ## difference of the two mean vectors
+      Vb <- cov(xb1) / n1 + cov(xb2) / n2  ## covariance matrix of the difference
+      tb[i] <- sum( db %*% solve(Vb, db ) )
     }
 
     pvalue <- ( sum(tb > test) + 1 ) / (R + 1)
@@ -109,7 +109,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
 
     note <- paste("Bootstrap calibration")
     runtime <- proc.time() - runtime
-    result <- list(mesoi = mesoi, pvalue = pvalue, note = note, runtime = runtime)
+    result <- list(note = note, mesoi = mesoi, pvalue = pvalue, runtime = runtime)
   }
 
   result

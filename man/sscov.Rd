@@ -1,4 +1,4 @@
-\name{sscov}
+\name{Spatial sign covariance matrix}
 \alias{sscov}
 \title{
 Spatial sign covariance matrix
@@ -9,17 +9,20 @@ Spatial sign covariance matrix.
 }
 
 \usage{
-sscov(x)
+sscov(x, me = NULL)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with continuous data.
+\item{x}{
+A matrix with continuous data.
+}
+\item{me}{
+If you have already computed the spatial median plug it in here.
 }
 }
 
 \details{
-The spatial median is at firrst computed and then the covariance matrix. This is used in the function \code{\link{comp.den}}.
+The spatial median is at first computed (if not supplied) and then the covariance matrix. This is used in the function \code{\link{comp.den}}.
 }
 
 \value{

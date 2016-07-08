@@ -1,4 +1,4 @@
-\name{pcr}
+\name{Principal components regression}
 \alias{pcr}
 \title{
 Principal components regression

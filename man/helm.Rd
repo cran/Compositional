@@ -1,4 +1,4 @@
-\name{helm}
+\name{The Helmert sub-matrix}
 \alias{helm}
 \title{
 The Helmert sub-matrix
@@ -9,24 +9,24 @@ The Helmert sub-matrix.
 }
 
 \usage{
-helm(n) 
+helm(n)
 }
 
 \arguments{
   \item{n}{
-  A number grater than or equal to 2. 
+  A number grater than or equal to 2.
 }
 }
 
 \details{
-The Helmert sub-matrix is returned. It is an orthogonal matrix without the first row. 
+The Helmert sub-matrix is returned. It is an orthogonal matrix without the first row.
 }
 \value{
 A \eqn{(n-1) \times n} matrix.
 }
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
 
 John Aitchison (2003). The Statistical Analysis of Compositional Data p. 99 Blackburn Press.

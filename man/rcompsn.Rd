@@ -1,4 +1,4 @@
-\name{rcompsn}
+\name{Multivariate skew normal random values simulation on the simplex}
 \alias{rcompsn}
 \title{
 Multivariate skew normal random values simulation on the simplex

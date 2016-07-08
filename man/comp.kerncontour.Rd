@@ -1,4 +1,4 @@
-\name{comp.kerncontour}
+\name{Contour plot of the kernel density estimate in S^2}
 \alias{comp.kerncontour}
 \title{
 Contour plot of the kernel density estimate in \eqn{S^2}

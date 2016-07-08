@@ -8,6 +8,7 @@ multivt <- function(y, plot = FALSE) {
   ## the next mvt function is for the appropriate
   ## degrees of freedom
   ## y contains the data
+
   y <- as.matrix(y)  ## makes sure y is a matrix
    mvt <- function(y, v) {
     ## the next function 'a' estimates the mean and covariance for given
@@ -19,9 +20,10 @@ multivt <- function(y, plot = FALSE) {
     me <- as.vector(a$center)
     f <- n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
     log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) *
-    sum( log(1 + mahalanobis(y, me, se)/v) )
+    sum( log( 1 + fastR::mahala(y, me, se)/v ) )
     f
    }
+
   b <- optimize(mvt, c(0.9, 20000), y = y, maximum = T)
   dof <- b$maximum
   loglik <- b$objective
@@ -33,6 +35,7 @@ multivt <- function(y, plot = FALSE) {
   ## for comparison pruposes
   apotelesma <- list(center = result$center, scatter = result$cov,
   df = dof, loglik = loglik, mesos = colMeans(y), covariance = cov(y))
+
   if (plot == TRUE) {
     lik <- deg <- seq(max(1, dof - 20), dof + 20, by = 0.1)
     for ( i in 1:length(deg) )  lik[i] <- mvt(y, deg[i])
@@ -50,5 +53,6 @@ multivt <- function(y, plot = FALSE) {
     df = dof, conf = conf, loglik = loglik, mesos = colMeans(y),
     covariance = cov(y))
   }
+
   apotelesma
 }

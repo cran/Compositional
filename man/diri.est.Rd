@@ -1,4 +1,4 @@
-\name{diri.est}
+\name{iiting a Dirichlet distribution}
 \alias{diri.est}
 \title{
 Fiiting a Dirichlet distribution
@@ -13,13 +13,12 @@ diri.est(x, type = "mle")
 }
 
 \arguments{
-  \item{x}{
-  A matrix containing the compositional data.
+\item{x}{
+A matrix containing the compositional data.
 }
-  \item{type}{
-  If you want to estimate the parameters use type="mle". If you want to estimate the mean vector along with the precision parameter,
-  the second parametrisation of the Dirichlet, use type="prec". If you want to estimate the parameters via the entropy, then use type="ent".
-  The fastest by far when the sample size or/and the number of variables increases, is the type "prec". 
+\item{type}{
+If you want to estimate the parameters use type="mle". If you want to estimate the mean vector along with the precision parameter,
+the second parametrisation of the Dirichlet, use type="prec".
 }
 }
 
@@ -63,7 +62,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.nr}, \link{diri.contour}
+\code{\link{diri.nr}, \link{diri.contour}, \link{rdiri}
 }
 }
 
@@ -71,7 +70,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 x = rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
 diri.est(x)
 diri.est(x, type = "prec")
-diri.est(x, type = "ent")
 }
 
 \keyword{ Dirichlet distribution }

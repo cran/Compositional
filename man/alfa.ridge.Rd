@@ -1,4 +1,4 @@
-\name{alfa.ridge}
+\name{Ridge regression with compositional data in the covariates side using the alpha-transformation}
 \alias{alfa.ridge}
 \title{
   Ridge regression with compositional data in the covariates side using the \eqn{\alpha}-transformation

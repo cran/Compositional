@@ -24,10 +24,10 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
   n1 <- nrow(y1)   ;   n2 <- nrow(y2)  ## sample sizes
   n <- n1 + n2  ## total sample size
   s1 <- ( (n1 - 1) / n1 ) * cov(y1)  ;  s2 <- ( (n2 - 1) / n2 ) * cov(y2)
-  m1 <- colMeans(y1)  ;  m2 <- colMeans(y2)  ## mean vectors
+  m1 <- colMeans(y1)    ;    m2 <- colMeans(y2)  ## mean vectors
   ## mu is the estimate of the common mean vector
-  v1 <- solve(s1)   ;  v2 <- solve(s2)
-  a1 <- n1 * v1   ;   a2 <-  n2 * v2
+  v1 <- solve(s1)    ;   v2 <- solve(s2)
+  a1 <- n1 * v1    ;    a2 <-  n2 * v2
   mu1 <- solve( a1 + a2, a1 %*% m1 + a2 %*% m2 )
 
   runtime <- proc.time()
@@ -38,14 +38,14 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
 
   if ( R == 0 ) {
     pvalue <- pchisq(test, d, lower.tail = FALSE)
-    result <- list( test = test, dof = d, pvalue = pvalue, mu = mu, runtime = runtime, 
+    result <- list( test = test, dof = d, pvalue = pvalue, mu = mu, runtime = runtime,
     note = paste("Chi-square approximation") )
 
   } else if ( R == 1 ) {
     delta <- james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(test / delta, d, lower.tail = FALSE) )
-    result <- list(test = test, modif.test = stat, dof = d, pvalue = pvalue, mu = mu, 
+    result <- list(test = test, modif.test = stat, dof = d, pvalue = pvalue, mu = mu,
     runtime = runtime, note = paste("James corrected chi-square approximation"))
 
   } else if ( R == 2 ) {
@@ -55,15 +55,15 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     pvalue <- as.numeric( pf(stat, d, dof, lower.tail = FALSE) )
     dof <- c(d, v - d + 1)
     names(dof) <- c("numer df", "denom df")
-    result <- list(test = test, modif.test = stat, dof = dof, pvalue = pvalue, 
+    result <- list(test = test, modif.test = stat, dof = dof, pvalue = pvalue,
     mu = mu, runtime = runtime, note = paste("F approximation"))
 
     ## else bootstrap calibration is implemented
   } else if (R > 2) {
     ybar1 <- colMeans(y1)
     ybar2 <- colMeans(y2)
-    z1 <- y1 - rep( ybar1, rep(n1, d) ) + rep( mu1, rep(n1, d) )
-    z2 <- y2 - rep( ybar2, rep(n2, d) ) + rep( mu1, rep(n2, d) )
+    z1 <- y1 - rep( ybar1 - mu1, rep(n1, d) )
+    z2 <- y2 - rep( ybar2 - mu1, rep(n2, d) )
 
     if (ncores == 1) {
       runtime <- proc.time()
@@ -71,7 +71,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
       for (i in 1:R) {
         b1 <- sample(1:n1, n1, replace = TRUE)
         b2 <- sample(1:n2, n2, replace = TRUE)
-        y1 <- z1[b1, ]   ;   y2 <- z2[b2, ]
+        y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
         apot <- nlm( elpa, mu1 )
         tb[i] <- apot$minimum
       }
@@ -86,7 +86,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
           .export = "el.test" ) %dopar% {
             b1 <- sample(1:n1, n1, replace = TRUE)
             b2 <- sample(1:n2, n2, replace = TRUE)
-            y1 <- z1[b1, ]   ;   y2 <- z2[b2, ]
+            y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
             apot <- nlm( elpa, mu1 )
             tb[i] <- apot$minimum
       }

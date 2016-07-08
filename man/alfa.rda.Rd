@@ -1,4 +1,4 @@
-\name{alfa.rda}
+\name{Regularised discriminant analysis for compositional data using the alpha-transformation}
 \alias{alfa.rda}
 \title{
 Regularised discriminant analysis for compositional data using the \eqn{\alpha}-transformation

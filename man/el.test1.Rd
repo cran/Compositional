@@ -1,4 +1,4 @@
-\name{el.test1}
+\name{Empirical likelihood for a one sample mean vector hypothesis testing}
 \alias{el.test1}
 \title{
 Empirical likelihood for a one sample mean vector hypothesis testing

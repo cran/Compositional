@@ -8,6 +8,7 @@
 ################################
 
 pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TRUE) {
+
   ## y is the univariate dependent variable
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default
@@ -26,12 +27,12 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
     ## as the one specified by the user
     ## to a matrix a warning message should appear
     options(warn = -1)
-    mat <- matrix( nu, ncol = M ) 
+    mat <- matrix( nu, ncol = M )
   } else  mat <- mat
 
   M <- ncol(mat)
   rmat <- nrow(mat)
-  ntrain = n - rmat
+  ntrain <- n - rmat
   msp <- matrix( nrow = M, ncol = maxk )
 
   ## deigma will contain the positions of the test set
@@ -40,8 +41,11 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
   ## the commands outside this function
 
   if (ncores == 1) {
+
     runtime <- proc.time()
+
     for (vim in 1:M) {
+
       ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
       ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
@@ -50,13 +54,18 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- colMeans(xtrain)
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
-      xtrain <- scale(xtrain)[1:(ntrain), ]  ## standardize the independent variables
-      eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
+      s <- fastR::colVars(xtrain, std = TRUE)
+
+      mtrain <- t( xtrain )
+      mtrain <- mtrain - mx
+      mtrain <- mtrain / sqrt( rowSums(mtrain^2) )
+      sar <- tcrossprod( mtrain )
+
+      eig <- eigen( sar )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
-      xnew <- ( xtest - rep(mx, rep(rmat, p)) ) %*% s  ## standardize the xnew values
+      xnew <- ( t(xtest) - mx ) / s  ## standardize the xnew values
+      xnew <- t(xnew)
 
       for ( j in 1:maxk ) {
         zzk <- crossprod(z[, 1:j])
@@ -65,11 +74,15 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
         est <- as.vector( m + xnew %*% be )  ## predicted values for PCA model
         msp[vim, j] <- sum( (ytest - est)^2 ) / rmat
       }
+
     }
+
     runtime <- proc.time() - runtime
 
   } else {
+
     runtime <- proc.time()
+
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     er <- numeric(maxk)
@@ -84,10 +97,14 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- colMeans(xtrain)
-      s <- apply(xtrain, 2, sd)
-      s <- diag(1/s)
-      xtrain <- scale(xtrain)[1:(ntrain), ]  ## standardize the independent variables
-      eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
+      s <- colVars(xtrain, std = TRUE)
+
+      mtrain <- t( xtrain )
+      mtrain <- mtrain - mx
+      mtrain <- mtrain / sqrt( rowSums(mtrain^2) )
+      sar <- tcrossprod( mtrain )
+
+      eig <- eigen( sar )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
 
@@ -95,13 +112,16 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
         zzk <- crossprod(z[, 1:j])
         be <- vec[, 1:j] %*% solve( zzk, crossprod( z[, 1:j], ytrain ) )
         ## b is the PCA based coefficients
-        xnew <- ( xtest - rep(mx, rep(rmat, p)) ) %*% s  ## standardize the xnew values
+        xnew <- ( t(xtest) - mx ) / s  ## standardize the xnew values
+        xnew <- t(xnew)
         est <- as.vector( m + xnew %*% be )  ## predicted values for PCA model
         er[j] <- sum( (ytest - est)^2 ) / rmat
       }
       return(er)
     }
+
     stopCluster(cl)
+
     runtime <- proc.time() - runtime
   }
 

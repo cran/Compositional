@@ -1,7 +1,7 @@
-\name{frechet}
+\name{The Frechet mean for compositional data}
 \alias{frechet}
 \title{
-The Frechet mean
+The Frechet mean for compositional data
 }
 
 \description{

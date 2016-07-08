@@ -1,12 +1,12 @@
-\name{comp.den}
+\name{Estimating location and scatter parameters for compositional data}
 \alias{comp.den}
 
 \title{
-Estimating location and scatter parameters
+Estimating location and scatter parameters for compositional data
 }
 
 \description{
-Estimating location and scatter parameters in a robust and non robust way.
+Estimating location and scatter parameters for compositional data in a robust and non robust way.
 }
 
 \usage{

@@ -33,6 +33,7 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
 
   ## multi-sample case
   if (k > 2) {
+
     if (test == "maov") {
       result <- maov(x, ina)
     } else if (test == "maovjames") {
@@ -46,18 +47,24 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
 
     if ( test == "hotel" ) {
       result <- hotel2T2(y1, y2, R = R, graph = graph)
+
     } else if ( test == "james" ) {
       if (R <= 1) {
         R <- 1
+
       } else if (R == 2) {
         R <- 2
+
       } else R = R
       result <- james(y1, y2, R = R, graph = graph)
+
     } else if ( test == "el" ) {
       result <- el.test2(y1, y2, R = R, ncores = ncores, graph = graph)
+
     } else if ( test == "eel" ) {
      result <- eel.test2(y1, y2, R = R, graph = graph)
     }
+
   }
 
   result

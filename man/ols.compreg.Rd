@@ -1,11 +1,11 @@
-\name{ols.compreg}
+\name{Non linear least squares regression for compositional data}
 \alias{ols.compreg}
 \title{
-Non linear least squares regression
+Non linear least squares regression for compositional data
 }
 
 \description{
-Non linear least squares regression.
+Non linear least squares regression for compositional data.
 }
 
 \usage{

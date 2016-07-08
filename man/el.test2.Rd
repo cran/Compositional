@@ -1,4 +1,4 @@
-\name{el.test2}
+\name{Empirical likelihood hypothesis testing for two mean vectors}
 \alias{el.test2}
 \title{
 Empirical likelihood hypothesis testing for two mean vectors
@@ -87,9 +87,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-el.test2( iris[1:50, 1:4], iris[51:100, 1:4], R = 0 )
-el.test2( iris[1:50, 1:4], iris[51:100, 1:4], R = 1 )
-el.test2( iris[1:50, 1:4], iris[51:100, 1:4], R = 2 )
+el.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 0 )
+el.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
+el.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 2 )
 }
 
 \keyword{ Multivariate hypothesis testing }

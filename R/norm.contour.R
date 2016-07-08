@@ -11,6 +11,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
+
   x <- as.matrix(x)
   x <- x / rowSums(x)
   x1 <- seq(0.001, 0.999, length = n)

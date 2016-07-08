@@ -1,4 +1,4 @@
-\name{maov}
+\name{Multivariate analysis of variance}
 \alias{maov}
 \title{
 Multivariate analysis of variance

@@ -49,14 +49,16 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
 
   if (pca == TRUE  &  min(x) > 0 ) {
     ## should the first principal component appear?
-    z <- log( x[1:n, ] ) - rowMeans( log(x[1:n, ]) ) ## clr transformation
+    zx <- log(x[1:n, ])
+    z <- zx - rowMeans( zx ) ## clr transformation
     m <- colMeans(z)  ## mean vector in the clr space
     a <- eigen( cov(z) )$vectors[, 1] + m  ## move the unit vector a bit
     sc <- z %*% a
     lam <- seq( min(sc) - 1.5, max(sc) + 1.5, length = n )
     x1 <- cbind( a[1] * lam, a[2] * lam, a[3] * lam) + cbind( m[1] * (1 - lam),
     m[2] * (1 - lam), m[3] * (1 - lam) )
-    wa1 <- exp(x1) / rowSums( exp(x1) )  ## first principal component in S^2
+    expx1 <- exp(x1)
+    wa1 <- expx1 / rowSums( expx1 )  ## first principal component in S^2
     wa <- wa1 %*% proj
     lines(wa, lwd = 2, lty = 2)
   }

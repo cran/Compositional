@@ -1,4 +1,4 @@
-\name{alfa.reg}
+\name{Regression with compositional data using the alpha-transformation}
 \alias{alfa.reg}
 \title{
 Regression with compositional data using the \eqn{\alpha}-transformation

@@ -17,14 +17,15 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   x <- as.matrix(x)
   M <- as.vector( as.matrix(M) )
   m <- colMeans(x)  ## sample mean vector
-  s <- cov(x)  ## sample covariance matrix
+  s <- fastR::cova(x)  ## sample covariance matrix
   n <- nrow(x)  ## sample size
   p <- ncol(x)  ## dimensionality of the data
-  test <- as.vector( (n * (n - p) ) / ( (n - 1) * p ) * mahalanobis(m, M, s) )
+  dm <- m - M
+  test <- as.vector( (n * (n - p) ) / ( (n - 1) * p ) * dm %*% solve(s, dm) )
 
   ## test is the test statistic
   if (R == 1) {
-    pvalue <- 1 - pf(test, p, n - p)  ## p-value of the test statistic
+    pvalue <- pf(test, p, n - p, lower.tail = FALSE)  ## p-value of the test statistic
     crit <- qf(1 - a, p, n - p)  ## critival value of the F distribution
     info <- c(test, pvalue, crit, p, n - p)
     names(info) <- c("test", "p-value", "critical", "numer df", "denom df")
@@ -32,16 +33,19 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   }
 
   if (R > 1) {
-    runtime <- proc.time()
     ## bootstrap calibration
     tb <- numeric(R)
-    y <- x - rep( m, rep(n, p) ) + rep( M, rep(n, p) )  ## brings the data
+    mm <-  - m + M
+    y <- x + rep( mm, rep(n, p) ) ## brings the data
     ## under the null hypothesis, i.e. mean vector equal to M
+
     for (i in 1:R) {
       b <- sample(1:n, n, replace = TRUE)
-      sb <- cov(y[b, ])
-      mb <- colMeans(y[b, ])
-      tb[i] <- mahalanobis(mb, M, sb)
+      yb <- y[b, ]
+      sb <- fastR::cova(yb)
+      mb <- colMeans(yb)
+      dmb <- mb - M
+      tb[i] <- dmb %*% solve(sb, dmb)
     }
 
     tb <- ( n * (n - p) ) / ( (n - 1) * p ) * tb
@@ -52,9 +56,8 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
       abline(v = test, lty = 2, lwd = 2)  ## The dotted vertical line
       ## is the test statistic value
     }
-    runtime <- proc.time() - runtime
 
-    result <- list(m = m, pvalue = pvalue, runtime = runtime)
+    result <- list(m = m, pvalue = pvalue)
   }
 
   result

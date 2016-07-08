@@ -1,4 +1,4 @@
-\name{alfarda.tune}
+\name{Cross validation for the regularised discriminant analysis with compositional data using the alpha-transformation}
 \alias{alfarda.tune}
 \title{
 Cross validation for the regularised discriminant analysis with compositional data using the \eqn{\alpha}-transformation

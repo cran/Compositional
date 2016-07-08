@@ -1,4 +1,4 @@
-\name{alfaridge.tune}
+\name{Cross validation for the ridge regression with compositional data as predictor using the alpha-transformation}
 \alias{alfaridge.tune}
 \title{
   Cross validation for the ridge regression with compositional data as predictor using the \eqn{\alpha}-transformation

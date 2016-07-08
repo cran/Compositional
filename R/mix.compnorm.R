@@ -12,6 +12,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   ## g is the number of components to be used
   ## model is the type of model to be used
   ## type is either 'alr' or 'ilr'
+
   x <- as.matrix(x)  ## makes sure x is a matrix
   x <- x/rowSums(x)  ## makes sure x is compositional
   p <- ncol(x)  ## dimensionality of the data
@@ -29,19 +30,24 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, atol = 0.01)
   param <- mod$gpar
   mu <- matrix(nrow = g, ncol = length(param[[1]]$mu))
-  su <- array(dim = c(length(param[[1]]$mu), length(param[[1]]$mu), g))
+  su <- array( dim = c( length(param[[1]]$mu), length(param[[1]]$mu), g ) )
+
   for (i in 1:g) {
-    mu[i, ] <- param[[i]]$mu  ## mean vector of each component
-    su[, , i] <- param[[i]]$sigma  ## covariance of each component
+    mu[i, ] <- param[[ i ]]$mu  ## mean vector of each component
+    su[, , i] <- param[[ i ]]$sigma  ## covariance of each component
   }
   prob <- param$pi  ## mixing probability of each component
   colnames(mu) <- colnames(su) <- colnames(y)
-  t <- matrix(nrow = n, ncol = g)
+  ta <- matrix(nrow = n, ncol = g)
+
   for (j in 1:g) {
-    t[, j] <- -0.5 * log(det(2 * pi * su[, , j])) -
-    0.5 * mahalanobis(y, mu[j, ], su[, , j])
+    ta[, j] <- -0.5 * log(det(2 * pi * su[, , j])) -
+      0.5 * fastR::mahala(y, mu[j, ], su[, , j])
   }
-  pij <- prob * exp(t)/rowSums(prob * exp(t))
-  est <- apply(pij, 1, which.max)
+
+  probexpta <- prob * exp(ta)
+  pij <- probexpta / rowSums(probexpta)
+  est <- max.col(pij)
+
   list(type = type, mu = mu, su = su, prob = prob, est = est)
 }

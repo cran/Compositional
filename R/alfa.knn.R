@@ -39,10 +39,12 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
 
   znew <- alfa(xnew, a)$aff
   z <- alfa(x, a)$aff
-  Ip <- diag(p - 1)
+  tz <- t(z)
 
   for (i in 1:nu) {
-    apo[i, ] <- as.vector( sqrt( mahalanobis(z, znew[i, ], Ip, inverted = TRUE) ) )
+    zz <- tz - znew[i, ]
+    apo[i, ] <- sqrt( colSums( zz^2 ) )
+
   }
 
   if (type == "NS") {

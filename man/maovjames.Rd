@@ -1,4 +1,4 @@
-\name{maovjames}
+\name{Multivariate analysis of variance (James test)}
 \alias{maovjames}
 \title{
 Multivariate analysis of variance (James test)

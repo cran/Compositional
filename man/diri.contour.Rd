@@ -1,4 +1,4 @@
-\name{diri.contour}
+\name{Contour plot of a Dirichlet distribution in S^2}
 \alias{diri.contour}
 \title{
 Contour plot of a Dirichlet distribution in \eqn{S^2}

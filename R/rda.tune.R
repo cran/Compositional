@@ -20,9 +20,8 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   Ska <- array( dim = c(D, D, nc) )
   ng <- as.vector( table(ina) )
   ci <- log(ng / n)
-  con <-  - D / 2 * log(2 * pi)  ## constant part
   sk <- array( dim = c(D, D, nc) )
-  lg <- length(gam)  ;  ld <- length(del)
+  lg <- length(gam)    ;    ld <- length(del)
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
@@ -61,10 +60,10 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- fastR::cova( train[ida == m, ] )
       s <- na * sk
       Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
-      sp <- diag( mean( diag( Sp ) ), D )
+      sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
         for (k2 in 1:length(del)) {
@@ -72,11 +71,11 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
+              0.5 * fastR::mahala( test, mesi[j, ], Ska[, , j] )
           }
-          gr <- gr + con
-          g <- apply(gr, 1, which.max)
-          group[k1, k2] <- mean(g == id)
+          gr <- gr
+          g <- max.col(gr)
+          group[k1, k2] <- sum( g == id ) / rmat
         }
       }
       a <- as.vector( group )
@@ -110,10 +109,10 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- fastR::cova( train[ida == m, ] )
       s <- na * sk
       Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
-      sp <- diag( mean( diag( Sp ) ), D )
+      sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
         for (k2 in 1:length(del)) {
@@ -121,11 +120,11 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
+              0.5 * fastR::mahala( test, mesi[j, ], Ska[, , j] )
           }
-          gr <- gr + con
-          g <- apply(gr, 1, which.max)
-          per[k1, k2, vim] <- mean(g == id)
+          gr <- gr
+          g <- max.col(gr)
+          per[k1, k2, vim] <- sum( g == id ) / rmat
         }
       }
     }
@@ -148,4 +147,5 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   colnames(result) <- c('optimal', 'best gamma', 'best delta')
 
   list(per = per, percent = percent, se = su, result = result, runtime = runtime)
+
 }

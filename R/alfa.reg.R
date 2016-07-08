@@ -15,49 +15,60 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   y <- as.matrix(y)
   y <- y/rowSums(y)  ## makes sure y is compositional data
   x <- as.matrix(x)
-  p <- ncol(x)   ;   n <- nrow(x)
+  p <- ncol(x)    ;    n <- nrow(x)
+
+  if ( p == 1 ) {
+    x <- as.vector(x)
+    mx <- mean(x)
+    s <- sd(x)
+    x <- ( x - mx ) / s
+
+  } else {
+    mx <- colMeans(x)
+    s <- fastR::colVars(x, std = TRUE)
+    x <- ( t(x) - mx ) / s  ## standardize the xnew values
+    x <- t(x)
+  }
+
+  x <- as.matrix( cbind(1, x) )
+  d <- ncol(y) - 1  ## dimensionality of the simplex
 
   if ( !is.null(xnew) ) {
     ## if the xnew is the same as the x, the classical fitted values
     ## will be returned. Otherwise, the estimated values for the
     ## new x values will be returned.
-    if (p == 1) {
-      mx <- mean(x)
-      s <- sd(x)
-      xnew <- (xnew - mx) / s
+    if ( p == 1 ) {
+      xnew <- as.vector(xnew)
+      xnew <- ( xnew - mx ) / s
+
     } else {
-      x <- as.matrix(x)
-      mx <- colMeans(x)
-      s <- apply(x, 2, sd)
-      s <- diag(1/s)
       xnew <- as.matrix(xnew)
-      xnew <- matrix(xnew, ncol = p)
-      nu <- nrow(xnew)
-      xnew <- ( xnew - rep(mx, rep(nu, p)) ) %% s  ## standardize the xnew values
+      xnew <- ( t(xnew) - mx ) / s  ## standardize the xnew values
+      xnew <- t(xnew)
     }
+
     xnew <- cbind(1, xnew)
   }
-
-  x <- scale(x)[1:n, ]  ## standardize the independent variables
-  x <- as.matrix( cbind(1, x) )
-  d <- ncol(y) - 1  ## dimensionality of the simplex
 
   ## internal function for the alfa-regression
   reg <- function(para){
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
-    zz <- ( mu1^a )
+    zz <- mu1^a
     ta <- rowSums(zz)
     za <- zz / ta
     za <- ( ( d + 1 ) / a ) * za - 1/a
     ma <- za %*% ha
     esa <- ya - ma
     sa <- crossprod(esa) / (n - p)
-    f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( mahalanobis(esa, m0, sa) )
+    tesa <- esa
+    su <- solve(sa)
+    f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( colSums( tesa %*% su * tesa ) )
     f
   }
 
   if ( a == 0 ) {
+    ya <- alfa(y, a)$aff
     mod <- comp.reg(y, x[, -1], yb = yb)
     beta <- mod$beta
     seb <- mod$seb
@@ -74,7 +85,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
     ha <- t( helm(d + 1) )
     m0 <- numeric(d)
-    ini <- as.vector( coef(lm(ya ~ x[, -1])) )
+    ini <- as.vector( coef( lm.fit(x, ya) ) )
 
     qa <- nlminb( ini, reg, control = list(iter.max = 1000) )
     qa <- optim( qa$par, reg, control = list(maxit = 5000) )
@@ -97,7 +108,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     est <- mu/rowSums(mu)
   }
 
-  if ( is.null(colnames(x)) ) {
+  if ( is.null( colnames(x) ) ) {
     p <- ncol(x) - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )

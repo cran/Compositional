@@ -1,4 +1,4 @@
-\name{spatmed.reg}
+\name{Spatial median regression}
 \alias{spatmed.reg}
 \title{
 Spatial median regression
@@ -14,7 +14,7 @@ spatmed.reg(y, x, xnew = NULL, tol = 1e-07)
 
 \arguments{
 \item{y}{
-A matrix with Euclidean data.
+A matrix with the compsitional data. Zero values are not allowed.
 }
 \item{x}{
 The predictor variable(s), they have to be continuous.
@@ -29,7 +29,8 @@ The threshold upon which to stop the iterations of the Newton-Rapshon algorithm.
 }
 
 \details{
-The objective function is the minimization of the sum of the absolute residuals. It is the multivariate generalisation of the median regression. This function is used by \code{\link{comp.reg}}. Note, that the reponse variable must be a matrix with at least two columns.
+The objective function is the minimization of the sum of the absolute residuals. It is the multivariate generalisation of the median regression.
+This function is used by \code{\link{comp.reg}}.
 }
 
 \value{

@@ -6,17 +6,17 @@ importFrom("graphics", "filled.contour", "contour", "lines", "plot",
 
 importFrom("stats", "coef", "cor", "dist", "lm", "cov", "aggregate", "optim", "optimize",
            "quantile", "sd", "rnorm", "qnorm", "nlminb", "nlm", "lm.fit", "rchisq", "deviance",
-           "fitted", "glm", "mahalanobis", "median", "pchisq", "qchisq", "resid", "rgamma",
-           "runif", "var", "qt", "qf", "pf", "model.matrix")
+           "fitted", "glm", "pchisq", "qchisq", "resid", "rgamma",
+           "runif", "var", "qt", "qf", "pf", "model.matrix", "mahalanobis")
 
 importFrom("grDevices", "terrain.colors")
+importFrom("fastR", "colVars", "mahala", "colMedians")
 
 import("doParallel")
 import("parallel")
 import("foreach")
 importFrom("sn", "msn.mle", "rmsn")
 importFrom("mixture", "gpcm")
-importFrom("BB", "BBsolve")
 importFrom("fields", "image.plot", "rdist")
 importFrom("grDevices", "grey")
 importFrom("emplik", "el.test")

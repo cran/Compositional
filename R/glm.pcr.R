@@ -5,7 +5,7 @@
 ################################
 
 glm.pcr <- function(y, x, k = 1, xnew = NULL) {
-  ## y is either a binary variable 0, 1 (binomial) or 
+  ## y is either a binary variable 0, 1 (binomial) or
   ## a numerical variable with counts (poisson)
   ## x contains the independent variables
   ## k shows the number of components to keep
@@ -15,8 +15,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   n <- nrow(x)
   p <- ncol(x)
   m <- colMeans(x)
-  s <- apply(x, 2, sd)
-  s <- diag(1/s)
+
   x <- scale(x)[1:n, ]  ## standardize the independent variables
   eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
   values <- eig$values  ## eigenvalues
@@ -25,7 +24,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   z <- x %*% vec  ## PCA scores
 
     if ( length(unique(y)) == 2 ) {
-    oiko <- "binomial" 
+    oiko <- "binomial"
   } else oiko <- "poisson"
 
   mod <- glm(y ~ z[, 1:k], family = oiko )
@@ -35,16 +34,17 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   if ( !is.null(xnew) ) {
     xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
-    nu <- nrow(xnew)
-    xnew <- ( xnew - rep(m, rep(nu, p)) ) %*% s ## standardize the xnew values 
+    s <- fastR::colVars(x, std = TRUE)
+    xnew <- ( t(xnew) - m ) / s ## standardize the xnew values
+    xnew <- t(xnew)
     es <- as.vector( xnew %*% be ) + b[1]
   } else {
-    es <- as.vector( x %*% be ) + b[1]  
+    es <- as.vector( x %*% be ) + b[1]
   }
 
   if (oiko == "binomial") {
     est <- as.vector(  exp(es) / (1 + exp(es))  )
   } else est <- as.vector( exp(es) )    ## fitted values for PCA model
-  
+
   list(model = summary(mod), per = per[k], est = est)
 }

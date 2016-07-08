@@ -1,4 +1,4 @@
-\name{glm.pcr}
+\name{Principal component generalised linear models}
 \alias{glm.pcr}
 \title{
 Principal component generalised linear models

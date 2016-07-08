@@ -1,4 +1,4 @@
-\name{alfaridge.plot}
+\name{Ridge regression with the alpha-transformation plot}
 \alias{alfaridge.plot}
 \title{
   Ridge regression plot

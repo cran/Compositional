@@ -17,7 +17,7 @@ el.test1 <- function(x, mu, R = 1, ncores = 1, graph = FALSE) {
     n <- nrow(x)
     d <- ncol(x)
     m <- colMeans(x)
-    y <- x - rep( m, rep(n, d) ) + rep( mu, rep(n, d) )  ## brings the data
+    y <- x - rep( m - mu, rep(n, d) ) ## brings the data under the null hypothesis
 
     if (ncores == 1) {
       ## under the null hypothesis, i.e. mean vector equal to M

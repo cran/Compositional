@@ -1,11 +1,11 @@
-\name{alfa.profile}
+\name{Estimation of the value of alpha via the profile log-likelihood}
 \alias{alfa.profile}
 \title{
-Estimation of the value of \eqn{\alpha} via the alfa.profile log-likelihood
+Estimation of the value of \eqn{\alpha} via the alfa profile log-likelihood
 }
 
 \description{
-Estimation of the value of \eqn{\alpha} via the alfa.profile log-likelihood.
+Estimation of the value of \eqn{\alpha} via the alfa profile log-likelihood.
 }
 
 \usage{

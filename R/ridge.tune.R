@@ -50,7 +50,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- colMeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- fastR::colVars(xtrain, std = TRUE)
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
       xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
@@ -83,7 +83,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- colMeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- fastR::colVars(xtrain, std = TRUE)
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
 

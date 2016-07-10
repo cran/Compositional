@@ -54,7 +54,7 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- colMeans(xtrain)
-      s <- fastR::colVars(xtrain, std = TRUE)
+      s <- Rfast::colVars(xtrain, std = TRUE)
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx

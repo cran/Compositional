@@ -60,7 +60,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(olsreg, qa$estimate, z = zb)
         betaboot[i, ] <- qa$estimate
       }
-      s <- fastR::colVars(ww, std = TRUE)
+      s <- Rfast::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
 
@@ -81,7 +81,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         betaboot[i, ] <- qa$estimate
       }
       stopCluster(cl)
-      s <- fastR::colVars(ww, std = TRUE)
+      s <- Rfast::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
     }

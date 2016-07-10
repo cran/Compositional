@@ -29,7 +29,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   if ( is.null(colnames(x1)) ) {
     colnames(mesoi) <- colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(x1)
-  v <- ( (n1 - 1) * fastR::cova(x1) + (n2 - 1) * fastR::cova(x2) )/(n - 2)
+  v <- ( (n1 - 1) * Rfast::cova(x1) + (n2 - 1) * Rfast::cova(x2) )/(n - 2)
   ## v is the pooled covariance matrix
   t2 <- ( n1 * n2 * (dbar %*% solve(v, dbar) ) )/n
   test <- as.vector( ( (n - p - 1) * t2 )/( (n - 2) * p ) )  ## test statistic
@@ -58,7 +58,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
       b2 <- sample(1:n2, n2, replace = TRUE)
       yb1 <- y1[b1, ]    ;   yb2 <- y2[b2, ]
       db <- colMeans(yb1) - colMeans(yb2)  ## difference of the mean vectors
-      vb <- ( (n1 - 1) * fastR::cova(yb1) + (n2 - 1) * fastR::cova(y2) ) / (n - 2)
+      vb <- ( (n1 - 1) * cov(yb1) + (n2 - 1) * cov(y2) ) / (n - 2)
       ## vb is the pooled covariance matrix
       tb[i] <- ( n1 * n2 * (db %*% solve(vb, db) ) ) / n
     }

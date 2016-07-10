@@ -28,7 +28,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   my <- sum(y) / n
   yy <- y - my   ## center the dependent variables
   mx <- colMeans(x)
-  s <- fastR::colVars(x, std = TRUE)
+  s <- Rfast::colVars(x, std = TRUE)
   xx <- ( t(x) - mx )/s  ## standardize the independent variables
   xx <- t(xx)
 
@@ -49,7 +49,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
       yb <- yy[id, ]     ;     xb <- xx[id, ]
       be[i, ] <- solve( crossprod(xb) + lamip, crossprod(xb, yb) )
     }
-    seb <- matrix( fastR::colVars(be,std = TRUE), nrow = p ) ## bootstrap standard errors of betas
+    seb <- matrix( Rfast::colVars(be,std = TRUE), nrow = p ) ## bootstrap standard errors of betas
   }
 
   ## seb contains the standard errors of the coefficients

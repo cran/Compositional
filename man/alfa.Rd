@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{alfainv}, \link{profile}
+\code{\link{alfainv}, \link{alfa.profile}, \link{alfa.tune}
 }
 }
 

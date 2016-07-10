@@ -21,11 +21,11 @@ mkde <- function(x, h, thumb = "none") {
   d <- ncol(x)  ## sample and dimensionality of x
 
   if (thumb == "silverman") {
-    s <- fastR::colVars(x, std = TRUE)
+    s <- Rfast::colVars(x, std = TRUE)
     h <- ( 4/(d + 2) )^( 1/(d + 4) ) * s * n^( -1/(d + 4) )
 
   } else  if (thumb == "scott") {
-    s <- fastR::colVars(x, std = TRUE)
+    s <- Rfast::colVars(x, std = TRUE)
     h <- s * n^( -1/(d + 4) )
 
   } else if (thumb == "estim") {

@@ -34,7 +34,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   if ( !is.null(xnew) ) {
     xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
-    s <- fastR::colVars(x, std = TRUE)
+    s <- Rfast::colVars(x, std = TRUE)
     xnew <- ( t(xnew) - m ) / s ## standardize the xnew values
     xnew <- t(xnew)
     es <- as.vector( xnew %*% be ) + b[1]

@@ -21,7 +21,7 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   n <- nrow(x)
   p <- ncol(x)
   mx <- colMeans(x)
-  s <- fastR::colVars(x, std = TRUE)
+  s <- Rfast::colVars(x, std = TRUE)
   x <- ( t(x) - m )/ s  ## standardise the x values
   x <- t(x)
 

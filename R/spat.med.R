@@ -21,7 +21,7 @@ spat.med <- function(x) {
 
   x <- as.matrix(x)
   y <- t(x)
-  u1 <- as.vector( fastR::colMedians(x) )
+  u1 <- as.vector( Rfast::colMedians(x) )
 
   z <- y - u1
   ww <- 1 / sqrt( colSums(z^2) )

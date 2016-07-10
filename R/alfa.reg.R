@@ -25,7 +25,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   } else {
     mx <- colMeans(x)
-    s <- fastR::colVars(x, std = TRUE)
+    s <- Rfast::colVars(x, std = TRUE)
     x <- ( t(x) - mx ) / s  ## standardize the xnew values
     x <- t(x)
   }

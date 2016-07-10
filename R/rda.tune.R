@@ -60,7 +60,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- fastR::cova( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
       s <- na * sk
       Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
@@ -71,7 +71,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * fastR::mahala( test, mesi[j, ], Ska[, , j] )
+              0.5 * Rfast::mahala( test, mesi[j, ], Ska[, , j] )
           }
           gr <- gr
           g <- max.col(gr)
@@ -109,7 +109,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- fastR::cova( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
       s <- na * sk
       Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
@@ -120,7 +120,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * fastR::mahala( test, mesi[j, ], Ska[, , j] )
+              0.5 * Rfast::mahala( test, mesi[j, ], Ska[, , j] )
           }
           gr <- gr
           g <- max.col(gr)

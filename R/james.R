@@ -39,8 +39,8 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   if ( is.null(colnames(y1)) ) {
     colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(y1)
-  A1 <- fastR::cova(y1)/n1
-  A2 <- fastR::cova(y2)/n2
+  A1 <- Rfast::cova(y1)/n1
+  A2 <- Rfast::cova(y2)/n2
   V <- A1 + A2  ## covariance matrix of the difference
   Vinv <- solve(V)
   test <- sum( dbar %*% Vinv * dbar )

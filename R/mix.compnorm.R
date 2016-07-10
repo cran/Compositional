@@ -42,7 +42,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
 
   for (j in 1:g) {
     ta[, j] <- -0.5 * log(det(2 * pi * su[, , j])) -
-      0.5 * fastR::mahala(y, mu[j, ], su[, , j])
+      0.5 * Rfast::mahala(y, mu[j, ], su[, , j])
   }
 
   probexpta <- prob * exp(ta)

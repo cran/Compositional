@@ -27,7 +27,7 @@ maovjames <- function(x, ina, a = 0.05) {
   ## mean vector and covariance matrix of each group
   for (i in 1:k) {
     mi[i, ] <- colMeans( x[ina == i, ] )
-    wi[, , i] <- solve( var( x[ina == i, ] ) / ni[i] )
+    wi[, , i] <- ni[i] * solve( Rfast::cova( x[ina == i, ] ) )
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
 

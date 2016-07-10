@@ -58,7 +58,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- colMeans(xtrain)
-      s <- fastR::colVars(xtrain, std = TRUE)
+      s <- Rfast::colVars(xtrain, std = TRUE)
 
       xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
@@ -98,7 +98,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- colMeans(xtrain)
-      s <- fastR::colVars(xtrain, std = TRUE)
+      s <- Rfast::colVars(xtrain, std = TRUE)
 
       xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix

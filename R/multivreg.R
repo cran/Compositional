@@ -19,13 +19,13 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   p <- ncol(x)  ## dimensionality of x
   mod <- lm(y ~ x)   ## linear regression
   res <- resid(mod)  ## residuals
-  s <- fastR::cova(res) * (n - 1) / (n - p - 1)
-  sxx <- fastR::cova(x)  ## covariance of the independent variables
+  s <- Rfast::cova(res) * (n - 1) / (n - p - 1)
+  sxx <- Rfast::cova(x)  ## covariance of the independent variables
   dres <- sqrt( rowSums( res %*% solve(s) * res ) ) ## Mahalanobis distances
   ## of the residuals
 
   mx <- colMeans(x)  ## mean vector of the independent variales
-  dx <- sqrt( fastR::mahala(x, mx, sxx) )  ## Mahalanobis distances
+  dx <- sqrt( Rfast::mahala(x, mx, sxx) )  ## Mahalanobis distances
   ## of the independent variables
   crit.res <- sqrt( qchisq(0.975, d) )
   crit.x <- sqrt( qchisq(0.975, p) )

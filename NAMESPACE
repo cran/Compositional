@@ -10,7 +10,7 @@ importFrom("stats", "coef", "cor", "dist", "lm", "cov", "aggregate", "optim", "o
            "runif", "var", "qt", "qf", "pf", "model.matrix", "mahalanobis")
 
 importFrom("grDevices", "terrain.colors")
-importFrom("fastR", "colVars", "mahala", "colMedians")
+importFrom("Rfast", "colVars", "mahala", "colMedians")
 
 import("doParallel")
 import("parallel")

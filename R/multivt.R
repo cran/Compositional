@@ -20,7 +20,7 @@ multivt <- function(y, plot = FALSE) {
     me <- as.vector(a$center)
     f <- n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
     log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) *
-    sum( log( 1 + fastR::mahala(y, me, se)/v ) )
+    sum( log( 1 + Rfast::mahala(y, me, se)/v ) )
     f
    }
 

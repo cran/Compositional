@@ -18,6 +18,7 @@ alfa.ridge <- function(y, x, a, lambda, B = 1, xnew = NULL) {
   ## if pred is TRUE it means that you want to predict new y
   ## but if xnew is x (by default), the pred is not important
   ## the pred is important if xnew is not x
+  
   z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
   mod <- ridge.reg(y, z, lambda, B = B, xnew = xnew)
   mod ## ridge regression with the alpha-transformed compositional data

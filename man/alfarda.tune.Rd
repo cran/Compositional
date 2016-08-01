@@ -64,7 +64,7 @@ The runtime of the cross-validation procedure.
 \references{
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew TA Wood (2016).  Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
+Tsagris Michail, Simon Preston and Andrew TA Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
 http://arxiv.org/pdf/1106.1451.pdf
 
 Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics 3(2): 822-829.
@@ -88,8 +88,8 @@ R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and M
 library(MASS)
 x <- fgl[, 2:9]
 ina <- fgl[, 10]
-moda <- alfarda.tune(x, ina, a = seq(0.5, 1, by = 0.1), M = 10,
-gam = seq(0, 0.7, by = 0.1), del = seq(0, 0.7, by = 0.1),
+moda <- alfarda.tune(x, ina, a = seq(0.7, 1, by = 0.1), M = 10,
+gam = seq(0.1, 0.3, by = 0.1), del = seq(0.1, 0.3, by = 0.1),
 ncores = 1, mat = NULL)
 }
 

@@ -11,7 +11,6 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-
   x <- as.matrix(x)
   x <- x / rowSums(x)
   x1 <- seq(0.001, 0.999, length = n)
@@ -48,8 +47,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- log(w) - mean( log(w) )
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
-        can <- down * exp( -0.5 * ( c( y[1] - m[1], y[2] - m[2] ) %*% st %*%
-          c( y[1] - m[1], y[2] - m[2] ) ) )
+        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
         if (abs(can) < Inf)
           mat[i, j] <- can else mat[i, j] <- NA
       }
@@ -71,8 +69,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- log(w) - mean( log(w) )
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
-        can <- down * exp( -0.5 * ( c( y[1] - m[1], y[2] - m[2] ) %*% st %*%
-          c( y[1] - m[1], y[2] - m[2]) ) )
+        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
         if (abs(can) < Inf)
           mat[i, j] <- can else mat[i, j] <- NA
       }

@@ -12,7 +12,7 @@ rmvt <- function(n, mu, sigma, v) {
   ## v is the degrees of freedom
 
   p <- length(mu)
-  x <- matrix( rnorm(n * p), ncol = p )
+  x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
   w <- sqrt( v / rchisq(n, v) )
   eig <- eigen(sigma)
   lam <- eig$values

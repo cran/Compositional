@@ -21,7 +21,7 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
 
   if ( length(unique(y)) == 2 ) {
     oiko <- "binomial"
-  } else if ( sum(y) - round(y) == 0 ) {
+  } else if ( sum(y - round(y) ) == 0 ) {
     oiko <- "poisson"
   } else oiko <- "normal"
 

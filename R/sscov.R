@@ -8,7 +8,7 @@
 #### mtsagris@yahoo.gr
 ################################
 
-sscov <- function(x, me = NULL) {
+sscov <- function(x, me = NULL, tol = 1e-09) {
   ## x contains the data
 
   x <- as.matrix(x)  ## makes sure x is a matrix
@@ -16,8 +16,8 @@ sscov <- function(x, me = NULL) {
   p <- ncol(x)
 
   if ( is.null(me) ) {
-    me <- spat.med(x)  ## spatial median of x
-  }
+    me <- spat.med(x, tol)  ## spatial median of x
+  } 
 
   y <- x - rep( me, rep(n, p) )
   rs <- sqrt ( rowSums(y^2) )

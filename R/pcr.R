@@ -20,8 +20,8 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   y <- y - m  ## standardize the dependent variable
   n <- nrow(x)
   p <- ncol(x)
-  mx <- colMeans(x)
-  s <- Rfast::colVars(x, std = TRUE)
+  mx <- as.vector( Rfast::colmeans(x) )
+  s <- as.vector( Rfast::colVars(x, std = TRUE) )
   x <- ( t(x) - m )/ s  ## standardise the x values
   x <- t(x)
 
@@ -31,9 +31,10 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   vec <- eig$vectors  ## eigenvectors, or principal components
   z <- x %*% vec  ## PCA scores
   mod <- lm.fit(x, y)  ## lm.fit is an internal of lm and thus faster
-  sigma <- sum(mod$residuals^2)/(n - p - 1)  ## estimated variance
+  sigma <- sum( mod$residuals^2 ) / (n - p - 1)  ## estimated variance
   zzk <- crossprod( z[, 1:k] )
-  b <- vec[, 1:k] %*% solve( zzk, crossprod( z[, 1:k], y ) )
+  A <- vec[, 1:k] %*% chol2inv( chol(zzk) )
+  b <- A %*% crossprod( z[, 1:k], y )
   ## b is the PCA based coefficients
 
   mse <- r2 <- NULL
@@ -51,7 +52,7 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   }
 
   ## rs is the adjusted R squared for the PCA model
-  va <- sigma * vec[, 1:k] %*% solve(zzk, t(vec[, 1:k]) )
+  va <- sigma * tcrossprod( A, vec[, 1:k] )
   ## va is the covariance matrix of the parameters
   ## of the parameters of the PCA model
   vara <- sqrt( diag(va) )  ## standard errors of coefficients of PCA model

@@ -21,7 +21,7 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   R <- length(lambda)
   be <- matrix(nrow = p, ncol = R)
   yy <- y - sum(y) / n  ## center the dependent variables
-  xx <- scale(x)[1:n, ]  ## standardize the independent variables
+  xx <- Rfast::standardise(x)  ## standardize the independent variables
   sa <- svd(xx)
   tu <- t(sa$u)   ;    d <- sa$d    ;    v <- sa$v
 

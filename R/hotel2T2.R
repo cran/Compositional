@@ -20,8 +20,8 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   n1 <- nrow(x1)  ## size of the first sample
   n2 <- nrow(x2)  ## size of the second sample
   n <- n1 + n2  ## total sample size
-  xbar1 <- colMeans(x1)  ## sample mean vector of the first sample
-  xbar2 <- colMeans(x2)  ## sample mean vector of the second sample
+  xbar1 <- as.vector( Rfast::colmeans(x1) ) ## sample mean vector of the first sample
+  xbar2 <- as.vector( Rfast::colmeans(x1) )  ## sample mean vector of the second sample
   dbar <- xbar2 - xbar1  ## difference of the two mean vectors
   mesoi <- rbind(xbar1, xbar2)
   rownames(mesoi) <- c("Sample 1", "Sample 2")
@@ -29,7 +29,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   if ( is.null(colnames(x1)) ) {
     colnames(mesoi) <- colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(x1)
-  v <- ( (n1 - 1) * Rfast::cova(x1) + (n2 - 1) * Rfast::cova(x2) )/(n - 2)
+  v <- ( (n1 - 1) * cov(x1) + (n2 - 1) * cov(x2) )/(n - 2)
   ## v is the pooled covariance matrix
   t2 <- ( n1 * n2 * (dbar %*% solve(v, dbar) ) )/n
   test <- as.vector( ( (n - p - 1) * t2 )/( (n - 2) * p ) )  ## test statistic
@@ -57,7 +57,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
       b1 <- sample(1:n1, n1, replace = TRUE)
       b2 <- sample(1:n2, n2, replace = TRUE)
       yb1 <- y1[b1, ]    ;   yb2 <- y2[b2, ]
-      db <- colMeans(yb1) - colMeans(yb2)  ## difference of the mean vectors
+      db <- as.vector( Rfast::colmeans(yb1) ) - as.vector( Rfast::colmeans(yb2) )  ## difference of the mean vectors
       vb <- ( (n1 - 1) * cov(yb1) + (n2 - 1) * cov(y2) ) / (n - 2)
       ## vb is the pooled covariance matrix
       tb[i] <- ( n1 * n2 * (db %*% solve(vb, db) ) ) / n

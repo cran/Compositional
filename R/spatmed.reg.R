@@ -7,7 +7,7 @@
 #### mtsagris@yahoo.gr
 ################################
 
-spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07) {
+spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
 
   y <- as.matrix(y)
   n <- nrow(y)
@@ -60,11 +60,29 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07) {
 
   be <- B2
 
-  ## we use nlm and optim to obtain the standard errors
-  z <- list(y = y, x = x)
-  qa <- nlm(medi, as.vector(be), z = z, iterlim = 5000, hessian = TRUE)
-  seb <- sqrt( diag( solve(qa$hessian) ) )
-  seb <- matrix(seb, ncol = d)
+  seb = NULL
+
+  if ( ses == TRUE ) {
+    ## we use nlm and optim to obtain the standard errors
+    z <- list(y = y, x = x)
+    qa <- nlm(medi, as.vector(be), z = z, iterlim = 5000, hessian = TRUE)
+    seb <- sqrt( diag( solve(qa$hessian) ) )
+    seb <- matrix(seb, ncol = d)
+
+    if ( is.null(colnames(y)) ) {
+      colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
+    } else  colnames(seb) <- colnames(be) <- colnames(y)
+
+    if ( is.null(colnames(x)) ) {
+      p <- ncol(x) - 1
+      rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
+      rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+    } else {
+      rownames(be)  <- c("constant", colnames(x)[-1] )
+      rownames(seb) <- c("constant", colnames(x)[-1] )
+    }
+
+  }
 
   if ( is.null(xnew) ) {
     est <- x %*% be
@@ -74,17 +92,15 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07) {
     est <- xnew %*% be
   }
 
-  if ( is.null( colnames(y) ) ) {
-    colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
-  } else  colnames(seb) <- colnames(be) <- colnames(y)
+  if ( is.null(colnames(y)) ) {
+    colnames(be) <- paste("Y", 1:d, sep = "")
+  } else  colnames(be) <- colnames(y)
 
   if ( is.null(colnames(x)) ) {
     p <- ncol(x) - 1
     rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
-    rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {
     rownames(be)  <- c("constant", colnames(x)[-1] )
-    rownames(seb) <- c("constant", colnames(x)[-1] )
   }
 
   runtime <- proc.time() - tic

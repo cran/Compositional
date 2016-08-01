@@ -63,7 +63,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
     for (i in 1:nu) {
       b <- t(zx) - znew[i, ]
-      disa[i, ] <- colSums( abs(b) )
+      disa[i, ] <- as.vector( Rfast::colsums( abs(b) ) )
     }
 
   } else if ( apostasi == "Ait" ) {
@@ -76,7 +76,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
     for (i in 1:nu) {
       zz <- tzx - znew[i, ]
-      disa[i, ] <-  sqrt( colSums( zz^2 ) )
+      disa[i, ] <-  sqrt( as.vector( Rfast::colsums( zz^2 ) ) )
     }
 
   } else if ( apostasi == "Hellinger" ) {
@@ -86,7 +86,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
     for (i in 1:nu) {
       zz <- tzx - znew[i, ]
-      disa[i, ] <-  sqrt( colSums( zz^2 ) )
+      disa[i, ] <-  sqrt( as.vector( Rfast::colsums( zz^2 ) ) )
     }
     disa <- disa / sqrt(2)
 

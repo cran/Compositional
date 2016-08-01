@@ -31,12 +31,12 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
      be <- matrix(para, byrow = TRUE, ncol = d)
      mu1 <- cbind( 1, exp(x %*% be) )
      mu <- mu1 / rowSums(mu1)
-     f <- - sum(y * log(mu), na.rm = TRUE)
+     f <-  - sum(y * log(mu), na.rm = TRUE)
      f
    }
 
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef( lm(y[, -1] ~ x[, -1]) ) ) )  ## initial values
+  ini <- as.vector( t( coef( lm.fit(x, y[, -1]) ) ) )  ## initial values
 
   runtime <- proc.time()
   options (warn = -1)
@@ -57,7 +57,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef( lm(yb[, -1] ~ xb[, -1]) ) ) )  ## initial values
+        ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
         qa <- nlm(klreg, ini, z = zb)
         qa <- nlm(klreg, qa$estimate, z = zb)
         qa <- nlm(klreg, qa$estimate, z = zb)
@@ -77,7 +77,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
           yb <- y[ida, ]
           xb <- x[ida, ]
           zb <- list(y = yb, x = xb)
-          ini <- as.vector( t( coef(lm(yb[, -1] ~ xb[, -1])) ) )  ## initial values
+          ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
           qa <- nlm(klreg, ini, z = zb)
           qa <- nlm(klreg, qa$estimate, z = zb)
           qa <- nlm(klreg, qa$estimate, z = zb)

@@ -1,7 +1,7 @@
-\name{iiting a Dirichlet distribution}
+\name{Fitting a Dirichlet distribution}
 \alias{diri.est}
 \title{
-Fiiting a Dirichlet distribution
+Fitting a Dirichlet distribution
 }
 
 \description{
@@ -62,7 +62,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.nr}, \link{diri.contour}, \link{rdiri}
+\code{\link{diri.nr}, \link{diri.contour}, \link{rdiri}, \link{d.dirichlet}
 }
 }
 

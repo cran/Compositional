@@ -54,7 +54,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
       }
     }
 
-    kl <- colMeans(kula)
+    kl <- as.vector( Rfast::colmeans(kula) )
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)
@@ -91,7 +91,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
 
     stopCluster(cl)
     kula <- kula[, 1:la]
-    kl <- colMeans(kula)
+    kl <- as.vector( Rfast::colmeans(kula) )
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)

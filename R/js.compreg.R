@@ -75,7 +75,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         zb <- list(y = yb, x = xb)
-        ini <- as.vector( t( coef(lm( yb[, -1] ~ xb[, -1]) ) ) )  ## initial values
+        ini <- as.vector( t( kl.compreg(yb, xb[, -1])$beta ) ) ## initial values
         qa <- nlm(jsreg, ini, z = zb)
         qa <- nlm(jsreg, qa$estimate, z = zb)
         qa <- nlm(jsreg, qa$estimate, z = zb)

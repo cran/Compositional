@@ -19,8 +19,8 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   p <- ncol(x)  ## dimensionality of x
   mod <- lm(y ~ x)   ## linear regression
   res <- resid(mod)  ## residuals
-  s <- Rfast::cova(res) * (n - 1) / (n - p - 1)
-  sxx <- Rfast::cova(x)  ## covariance of the independent variables
+  s <- cov(res) * (n - 1) / (n - p - 1)
+  sxx <- cov(x)  ## covariance of the independent variables
   dres <- sqrt( rowSums( res %*% solve(s) * res ) ) ## Mahalanobis distances
   ## of the residuals
 

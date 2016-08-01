@@ -10,7 +10,7 @@ Estimating location and scatter parameters for compositional data in a robust an
 }
 
 \usage{
-comp.den(x, type = "alr", dist = "normal")
+comp.den(x, type = "alr", dist = "normal", tol = 1e-09)
 }
 
 \arguments{
@@ -22,6 +22,9 @@ comp.den(x, type = "alr", dist = "normal")
 }
   \item{dist}{
   Takes values "normal", "t", "skewnorm", "rob" and "spatial". They first three options correspond to the parameters of the normal, t and skew normal distribution respectively. If it set to "rob" the MCD estimates are computed and if set to "spatial" the spatial median and spatial sign covariance matrix are computed.
+}
+\item{tol}{
+A tolerance level to terminate the process of finding the spatial median when dist = "spatial". This is set to 1e-09 by default.
 }
 }
 

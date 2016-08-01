@@ -13,8 +13,8 @@ A collection of functions for compositional data analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 1.5 \cr
-Date: \tab 2016-07-10\cr
+Version: \tab 1.6 \cr
+Date: \tab 2016-08-01\cr
 License: \tab GPL-2\cr
 }
 }
@@ -34,7 +34,10 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \note{
 Acknowledgments:
 
-Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Dr Simon Preston from the university of Nottingham for being his supervisors during his PhD in compositional data analysis. We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team) for his help with this package.
+Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Dr Simon Preston from the university of Nottingham for being
+his supervisors during his PhD in compositional data analysis. We would also like to express our acknowledgments to Profesor Kurt Hornik
+(and also the rest of the R core team) for his help with this package. Manos Papadakis, undergraduate student in the department of computer science, university of Crete,
+is also acknowledged for his programming tips.
 }
 
 \keyword{ Compositional data }

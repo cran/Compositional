@@ -47,7 +47,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
 
-    ww <- foreach(vim = 1:M, .combine = cbind) %dopar% {
+    ww <- foreach(vim = 1:M, .combine = cbind, .packages="Rfast") %dopar% {
 
       test <- as.matrix( x[ mat[, vim], ] )  ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
@@ -55,14 +55,13 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
 
       na <- as.vector( table(ida) )
+      mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
-      mesi <- aggregate( train, by = list(ida), mean )
-      mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
-      Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
+      Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
@@ -104,14 +103,13 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
 
       na <- as.vector( table(ida) )
+      mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
-      mesi <- aggregate( train, by = list(ida), mean )
-      mesi <- as.matrix( mesi[, -1] )
 
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
-      Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
+      Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
@@ -132,7 +130,8 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
 
   }
 
-  percent <- apply(per, 1:2, mean)
+  percent <- t( colMeans( aperm(per) ) )
+  #su <- t( Rfast::colVars(aperm(per), std = TRUE) )
   su <- apply(per, 1:2, sd)
   dimnames(percent) <- dimnames(su) <- list(gamma = gam, delta = del)
 

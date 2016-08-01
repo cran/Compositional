@@ -19,14 +19,14 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   n <- nrow(x)
   ina <- numeric(n) + 1
   ## m1 is the closed geometric mean
-  g1 <- colMeans( log(x[, -1] / x[, 1]) )
+  g1 <- as.vector( Rfast::colmeans( log(x[, -1] / x[, 1]) ) )
   g2 <- c( 1, exp(g1) )
   m1 <- g2 / sum(g2)
   ## m2 is the simple arithmetic mean
-  m2 <- colMeans(x)
+  m2 <- as.vector( Rfast::colmeans(x) )
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
-  ina[ rowSums(x == 0) == 1 ] <- 3
+  ina[ rowSums(x == 0) > 0 ] <- 3
 
   b1 <- c(1/2, 0, 1, 1/2)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
@@ -51,7 +51,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     ## should the first principal component appear?
     zx <- log(x[1:n, ])
     z <- zx - rowMeans( zx ) ## clr transformation
-    m <- colMeans(z)  ## mean vector in the clr space
+    m <- as.vector( Rfast::colmeans(z) )  ## mean vector in the clr space
     a <- eigen( cov(z) )$vectors[, 1] + m  ## move the unit vector a bit
     sc <- z %*% a
     lam <- seq( min(sc) - 1.5, max(sc) + 1.5, length = n )

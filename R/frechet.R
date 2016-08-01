@@ -16,13 +16,13 @@ frechet <- function(x, a) {
   if (a == 0) {
      xa <- log(x)
      y <- xa - rowMeans(xa)
-     m1 <- exp( colMeans(y) )
+     m1 <- exp( as.vector( Rfast::colmeans(y) ) )
      m <- m1 / sum( m1 )  ## closed geometric mean
 
   }  else {
      xa <- x^a
      z <- xa / rowSums(xa)
-     m1 <- colMeans(z) ^ ( 1 / a )
+     m1 <- as.vector( Rfast::colmeans(z) ) ^ ( 1 / a )
      m <- m1 / sum(m1)  ## frechet mean in general
   }
 

@@ -43,7 +43,7 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
 
   for (i in 1:nu) {
     zz <- tz - znew[i, ]
-    apo[i, ] <- sqrt( colSums( zz^2 ) )
+    apo[i, ] <- sqrt( as.vector( Rfast::colsums( zz^2 ) ) )
 
   }
 
@@ -59,7 +59,7 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
         ta[, m] <- k / rowSums( 1 / dista[, 1:k] )
       }
     }
-    g <- apply(ta, 1, which.min)
+    g <- max.col(-ta)
 
   } else if (type == "S") {
     ## Standard algorithm

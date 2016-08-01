@@ -149,7 +149,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
     rownames(ela) <- paste("alpha=", a, sep = "")
 
     ## The code for the heat plot of the estimated percentages
-    if (graph == TRUE) {
+    if ( graph == TRUE ) {
       fields::image.plot(a, 2:A, ela, col = grey(1:11/11),
                          ylab = "k nearest-neighbours",
                          xlab = expression(paste(alpha, " values")) )
@@ -248,7 +248,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
     performance <- c(opt - bias, bias)
     names(performance) <- c( "rate", "bias" )
 
-    if (graph == TRUE) {
+    if ( graph == TRUE ) {
       plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9,
            col = 2, ylab = "Estimated percentage of correct classification")
     }

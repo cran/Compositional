@@ -8,11 +8,10 @@ sym.test <- function(x) {
   ## x contains the data
   n <- nrow(x)  ## the sample size
   D <- ncol(x)  ## the dimensionality of the data
-  zx <- log(x)
+  zx <- log(x) 
 
   sym <- function(a, zx) {
-    n * lgamma(D * a) - n * D * lgamma(a) +
-      sum( zx * (a - 1) )
+    n * lgamma(D * a) - n * D * lgamma(a) + sum( zx * (a - 1) )
   }
 
   t0 <- optimize(sym, c(0, 1000), zx = zx, maximum = TRUE)
@@ -22,7 +21,7 @@ sym.test <- function(x) {
   h1 <- t1$loglik
   h0 <- as.numeric(t0$objective)
   test <- 2 * (h1 - h0)
-  pvalue <- 1 - pchisq(test, D - 1)
+  pvalue <- pchisq(test, D - 1, lower.tail = FALSE)
 
   if ( is.null(colnames(x)) ) {
     names(a1) <- paste("X", 1:D, sep = "")

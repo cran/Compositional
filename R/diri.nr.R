@@ -19,11 +19,11 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
     x <- x/rowSums(x)  ## makes sure x is compositional data
     n <- nrow(x)  ## the sample size
     p <- ncol(x)  ## dimensionality
-    m <- colMeans(x)
+    m <- as.vector( Rfast::colmeans(x) )
     zx <- t( log(x) )
 
-    lm <- log(m)
-    down <-  - sum(  m * rowMeans( zx - lm ) )
+    down <-  - sum( m * ( rowMeans( zx ) - log(m) ) )
+
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
     gm <- rowSums(zx)
@@ -45,10 +45,8 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
       a2 <- a1 - (g - b) / qk
     }
 
-    a <- a2
-
-    loglik <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-      sum( zx * (a - 1) )
+    loglik <- n * lgamma( sum(a2) ) - n * sum( lgamma(a2) ) +
+      sum( zx * (a2 - 1) )
 
     runtime <- proc.time() - runtime
 
@@ -63,8 +61,7 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
 
     ma <- rowMeans(zx)
     m <- colMeans(x)
-    lm <- log(m)
-    down <-  - sum( m * ( ma - lm ) )
+    down <-  - sum( m * ( ma - log(m) ) )
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
 
@@ -83,19 +80,17 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
 
     }
 
-    a <- a2
-
-    loglik <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
-      sum( zx * (a - 1) )
+    loglik <- n * lgamma( sum(a2) ) - n * sum( lgamma(a2) ) +
+      sum( zx * (a2 - 1) )
 
     runtime <- proc.time() - runtime
 
   }
 
   if ( is.null(colnames(x)) ) {
-    names(a) <- paste("X", 1:p, sep = "")
-  } else  names(a) <- colnames(x)
+    names(a2) <- paste("X", 1:p, sep = "")
+  } else  names(a2) <- colnames(x)
 
-  list(iter = i, loglik = loglik, param = a, runtime = runtime)
+  list(iter = i, loglik = loglik, param = a2, runtime = runtime)
 
 }

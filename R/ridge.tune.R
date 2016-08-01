@@ -48,9 +48,9 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       yy <- ytrain - my  ## center the dependent variables
 
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
-      mx <- colMeans(xtrain)
+      mx <- as.vector( Rfast::colmeans(xtrain) )
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- Rfast::colVars(xtrain, std = TRUE)
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
       xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
@@ -81,9 +81,9 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       yy <- ytrain- my  ## center the dependent variables
 
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
-      mx <- colMeans(xtrain)
+      mx <- as.vector( Rfast::colmeans(xtrain) )
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- Rfast::colVars(xtrain, std = TRUE)
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
 
@@ -106,7 +106,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     stopCluster(cl)
   }
 
-  mspe <- colMeans(msp)
+  mspe <- as.vector( Rfast::colmeans(msp) )
   bias <- msp[ , which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 

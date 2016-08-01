@@ -20,27 +20,27 @@ mkde <- function(x, h, thumb = "none") {
   n <- nrow(x)
   d <- ncol(x)  ## sample and dimensionality of x
 
-  if (thumb == "silverman") {
-    s <- Rfast::colVars(x, std = TRUE)
+  if ( thumb == "silverman" ) {
+    s <- as.vector( Rfast::colVars(x, std = TRUE) )
     h <- ( 4/(d + 2) )^( 1/(d + 4) ) * s * n^( -1/(d + 4) )
 
-  } else  if (thumb == "scott") {
-    s <- Rfast::colVars(x, std = TRUE)
+  } else  if ( thumb == "scott" ) {
+    s <- as.vector( Rfast::colVars(x, std = TRUE) )
     h <- s * n^( -1/(d + 4) )
 
-  } else if (thumb == "estim") {
+  } else if ( thumb == "estim" ) {
     h <- mkde.tune(x)$hopt
 
   } else  h <- h
 
-  if (length(h) == 1) {
-    h <- diag( 1/h, d )
-  } else h <- diag(h)
+  if ( length(h) == 1 ) {
+    h <- diag( 1 / h, d )
+  } else h <- diag( 1 / h)
 
-  con <- prod( diag( 1 / h ) )
+  con <- prod( diag( h ) )
   y <- x %*% h
   a1 <- fields::rdist(y, compact = FALSE)
-  f <- as.vector( 1/(2 * pi)^(d/2) * (1/con) * rowMeans( exp(-0.5 * a1^2 ) ) )
+  f <- as.vector( 1/(2 * pi)^(d/2) * con * rowMeans( exp(-0.5 * a1^2 ) ) )
   f
 
 }

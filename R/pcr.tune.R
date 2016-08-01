@@ -53,8 +53,8 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
-      mx <- colMeans(xtrain)
-      s <- Rfast::colVars(xtrain, std = TRUE)
+      mx <- as.vector( Rfast::colmeans(xtrain) )
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
@@ -96,8 +96,8 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
-      mx <- colMeans(xtrain)
-      s <- colVars(xtrain, std = TRUE)
+      mx <- as.vector(Rfast::colmeans(xtrain) )
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
@@ -125,11 +125,11 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
     runtime <- proc.time() - runtime
   }
 
-  mspe <- colMeans(msp)
+  mspe <- as.vector( Rfast::colmeans(msp) )
   bias <- msp[ ,which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 
-  if (graph == TRUE) {
+  if ( graph == TRUE ) {
     plot(1:maxk, mspe, xlab = "Number of principal components",
     ylab = "MSPE", type = "b")
   }

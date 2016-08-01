@@ -48,7 +48,7 @@ mixnorm.contour <- function(x, mod) {
 
         ta <- numeric(g)
         for (k in 1:g) {
-          ta[k] <- ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
+          ta[k] <- ldet[k] - 0.5 * Rfast::mahala(y, mu[k, ], su[, , k])
         }
 
         can <- sum( prob * exp(ta) )
@@ -78,7 +78,7 @@ mixnorm.contour <- function(x, mod) {
 
         ta <- numeric(g)
         for (k in 1:g) {
-          ta[k] <-  ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
+          ta[k] <-  ldet[k] - 0.5 * Rfast::mahala(y, mu[k, ], su[, , k])
         }
 
         can <- sum( prob * exp(ta) )

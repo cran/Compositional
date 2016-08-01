@@ -29,8 +29,7 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
       mu1 <- cbind( 1, exp(x %*% be) )
       ma <- mu1 / rowSums(mu1)  ## the fitted values
       ba <- phi * ma
-      l <-  -( n * lgamma(phi) - sum( lgamma(ba) ) +
-              sum( y * (ba - 1 ) ) )
+      l <-  -( n * lgamma(phi) - sum( lgamma(ba) ) + sum( y * (ba - 1 ) ) )
       ## l is the log-likelihood
     l
   }

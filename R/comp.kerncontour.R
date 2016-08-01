@@ -27,8 +27,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
 
   hopt <- mkde.tune(z)$hopt
   con <- hopt^2
-  hopt <- diag( hopt, 2 )
-  ts <- solve(hopt^2)
+  ts <- diag( 1/hopt^2, 2 )
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)

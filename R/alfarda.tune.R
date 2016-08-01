@@ -41,10 +41,11 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   M<- ncol(mat)
 
   ## if you have zero values, only positive alphas are allowed
-  if ( min(x) == 0 )  a = a [ a > 0 ]
+  if ( min(x) == 0 )  a = a[ a > 0 ]
 
   info <- list()
   props <- ser <- array( dim = c( length(gam), length(del), length(a) ) )
+
   for ( k in 1:length(a) ) {
     z <- alfa(x, a[k])$aff  ## apply the alpha-transformation
     mod <- rda.tune(x = z, ina = ina, M = M, gam = gam, del = del,

@@ -16,8 +16,8 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
 
   x <- as.matrix(x)
   M <- as.vector( as.matrix(M) )
-  m <- colMeans(x)  ## sample mean vector
-  s <- Rfast::cova(x)  ## sample covariance matrix
+  m <- as.vector( Rfast::colmeans(x) )  ## sample mean vector
+  s <- cov(x)  ## sample covariance matrix
   n <- nrow(x)  ## sample size
   p <- ncol(x)  ## dimensionality of the data
   dm <- m - M
@@ -42,8 +42,8 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
     for (i in 1:R) {
       b <- sample(1:n, n, replace = TRUE)
       yb <- y[b, ]
-      sb <- Rfast::cova(yb)
-      mb <- colMeans(yb)
+      sb <- cov(yb)
+      mb <- as.vector( Rfast::colmeans(yb) )
       dmb <- mb - M
       tb[i] <- dmb %*% solve(sb, dmb)
     }

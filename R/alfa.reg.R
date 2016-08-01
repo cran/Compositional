@@ -24,8 +24,8 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     x <- ( x - mx ) / s
 
   } else {
-    mx <- colMeans(x)
-    s <- Rfast::colVars(x, std = TRUE)
+    mx <- as.vector( Rfast::colmeans(x) )
+    s <- as.vector( Rfast::colVars(x, std = TRUE) )
     x <- ( t(x) - mx ) / s  ## standardize the xnew values
     x <- t(x)
   }
@@ -61,9 +61,8 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     ma <- za %*% ha
     esa <- ya - ma
     sa <- crossprod(esa) / (n - p)
-    tesa <- esa
     su <- solve(sa)
-    f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( colSums( tesa %*% su * tesa ) )
+    f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( esa %*% su * esa )
     f
   }
 

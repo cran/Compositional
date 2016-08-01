@@ -14,7 +14,7 @@ diri.contour(a, n = 100, x = NULL)
 
 \arguments{
   \item{a}{
-  A matrix with the compositional data. It has to be a 3 column matrix.
+  A vector with three elements corresponding to the 3 (estimated) parameters.
 }
   \item{n}{
   The number of grid points to consider over which the density is calculated.

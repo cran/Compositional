@@ -53,7 +53,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{sym.test}, \link{diri.nr}, \link{diri.est}, \link{rdiri}
+\code{\link{sym.test}, \link{diri.nr}, \link{diri.est}, \link{rdiri}, \link{d.dirichlet}
 }
 }
 

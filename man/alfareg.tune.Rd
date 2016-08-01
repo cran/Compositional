@@ -87,7 +87,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{alfa}, \link{alfa.reg}
+\code{ \link{alfa.reg}, \link{alfa}
 }
 }
 
@@ -95,7 +95,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 y <- fgl[1:40, 2:4]
 x <- fgl[1:40, 1]
-mod <- alfareg.tune(y, x, a = c(0.2, 0.25, 0.3), K = 5, nc = 1)
+mod <- alfareg.tune(y, x, a = c(0.2, 0.35, 0.05), K = 5, nc = 1)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

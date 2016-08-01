@@ -57,10 +57,11 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
-      mx <- colMeans(xtrain)
-      s <- Rfast::colVars(xtrain, std = TRUE)
+      mx <- as.vector( Rfast::colmeans(xtrain) )
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      xtrain <- (t(xtrain) - mx)/s
+      xtrain <- t(xtrain)  ## standardize the independent variables
 
-      xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
@@ -97,10 +98,11 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
-      mx <- colMeans(xtrain)
-      s <- Rfast::colVars(xtrain, std = TRUE)
+      mx <- as.vector( Rfast::colmeans(xtrain) )
+      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      xtrain <- (t(xtrain) - mx)/s
+      xtrain <- t(xtrain)  ## standardize the independent variables
 
-      xtrain <- scale(xtrain)[1:ntrain, ]  ## standardize the independent variables
       eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       vec <- eig$vectors  ## eigenvectors, or principal components
       z <- xtrain %*% vec  ## PCA scores
@@ -129,7 +131,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
     runtime <- proc.time() - runtime
   }
 
-  mpd <- colMeans(msp)
+  mpd <- as.vector( Rfast::colmeans(msp) )
   bias <- msp[ ,which.min(mpd)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 

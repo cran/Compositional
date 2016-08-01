@@ -20,17 +20,14 @@ maov <- function(x, ina) {
   n <- nrow(x)  ## total sample size
   g <- max(ina)  ## number of groups
   p <- ncol(x)  ## dimensionality of the data
-  s <- array( dim = c(p, p, g) )
 
-  for (i in 1:g)  s[, , i] <- (ni[i] - 1) * cov(x[ina == i, ])  ## group covariances
-  W <- apply(s, 1:2, sum)
-  m <- aggregate(x, by = list(ina), mean)  ## group mean vectors
-  m <- as.matrix(m[, -1])
-  me <- colMeans(x)  ## total mean vector
+  m <- rowsum(x, ina) / ni
+  me <- as.vector( Rfast::colmeans(x) )  ## total mean vector
   y <- sqrt(ni) * (m - rep(me, rep(g, p)) )
   B <- crossprod(y)
-  A <- diag(p) + solve(W, B)
-  lam <- 1/det(A)
+
+  Tot <- cov(x) * (n - 1)
+  lam <- det(Tot - B) / det(Tot)
 
   if (g == 2 ) {
     stat <- (n - p - 1 ) / p * (1 - lam)/lam
@@ -43,7 +40,7 @@ maov <- function(x, ina) {
     note <- paste("F approximation has been used")
 
   } else {
-    stat <- -( n - 1 - (p + g)/2 ) * log(lam)
+    stat <-  -( n - 1 - (p + g)/2 ) * log(lam)
     pvalue <- pchisq( stat, p * (g - 1), lower.tail = FALSE )
     note <- paste("Chi-square approximation has been used")
   }

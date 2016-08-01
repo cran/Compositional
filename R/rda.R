@@ -35,21 +35,20 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ci <- log(ng / n)
   sk <- array( dim = c(D, D, nc) )
 
-  mesos <- aggregate( x, by = list(ina), mean )
-  mesos <- as.matrix( mesos[, -1] )
+  mesos <- rowsum(x, ina) / ng
 
   ni <- rep(ng - 1, each = D^2)
 
-  for (m in 1:nc)  sk[, , m] <- Rfast::cova( x[ina == m, ] )
+  for (m in 1:nc)  sk[, , m] <- cov( x[ina == m, ] )
   s <- ni * sk
-  Sp <- apply(s, 1:2, sum) / (n - nc)  ## pooled covariance matrix
+  Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
   sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
   Sa <- gam * Sp + (1 - gam) * sp  ## regularised covariance matrix
 
   for (j in 1:nc) {
     Ska[, , j] <- del * sk[, , j] + (1 - del) * Sa
     ta[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-      0.5 * Rfast::mahala( xnew, mesos[j, ], Ska[, , j] )
+      0.5 * mahala( xnew, mesos[j, ], Ska[, , j] )
   }
 
   est <- max.col(ta)

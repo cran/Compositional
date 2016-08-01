@@ -9,7 +9,7 @@ Spatial sign covariance matrix.
 }
 
 \usage{
-sscov(x, me = NULL)
+sscov(x, me = NULL, tol = 1e-09)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A matrix with continuous data.
 }
 \item{me}{
 If you have already computed the spatial median plug it in here.
+}
+\item{tol}{
+A tolerance level to terminate the process of finding the spatial median. This is set to 1e-09 by default.
 }
 }
 

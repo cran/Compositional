@@ -9,12 +9,15 @@ Spatial median for Euclidean data.
 }
 
 \usage{
-spat.med(x)
+spat.med(x, tol = 1e-09)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with Euclidean data, continuous variables.
+\item{x}{
+A matrix with Euclidean data, continuous variables.
+}
+\item{tol}{
+A tolerance level to terminate the process. This is set to 1e-09 by default.
 }
 }
 
@@ -55,7 +58,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-spat.med( iris[, 1:4] )
+spat.med( as.matrix( iris[, 1:4] ) )
 colMeans( iris[, 1:4] )
 }
 

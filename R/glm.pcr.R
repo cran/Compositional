@@ -16,7 +16,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   p <- ncol(x)
   m <- colMeans(x)
 
-  x <- scale(x)[1:n, ]  ## standardize the independent variables
+  x <- Rfast::standardise(x)  ## standardize the independent variables
   eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
   values <- eig$values  ## eigenvalues
   per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
@@ -34,7 +34,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   if ( !is.null(xnew) ) {
     xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
-    s <- Rfast::colVars(x, std = TRUE)
+    s <- as.vector( Rfast::colVars(x, std = TRUE) )
     xnew <- ( t(xnew) - m ) / s ## standardize the xnew values
     xnew <- t(xnew)
     es <- as.vector( xnew %*% be ) + b[1]

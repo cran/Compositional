@@ -13,7 +13,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
                            mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
 
   x <- as.matrix(x)
-  x <- x/ rowSums(x)
+  x <- x / as.vector( Rfast::rowsums(x) )
   d <- ncol(x) - 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
@@ -51,8 +51,8 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     ms <- numeric( M * length(lambda) )
-    ww <- foreach(i = 1:da, .combine = cbind, .export = c("ridge.tune",
-       "alfa", "helm") ) %dopar% {
+    ww <- foreach(i = 1:da, .combine = cbind, .packages = "Rfast", .export = c("ridge.tune",
+       "alfa", "helm", "colmeans", "colVars") ) %dopar% {
       z <- alfa(x, a[i])$aff
       mod <- ridge.tune(y, z, M = M, lambda = lambda, mat = mat, ncores = 1, graph = FALSE)
       ms[i] <- as.vector(mod$msp)
@@ -62,7 +62,6 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
     }
     runtime <- proc.time() - tac
   }
-
 
   dimnames(mspe2) <- list(folds = 1:M, lambda = lambda, a = a)
   mspe <- array( dim = c(da, length(lambda), M) )

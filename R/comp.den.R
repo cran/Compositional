@@ -11,19 +11,19 @@
   ## dist is the distribution to be fitted,
   ## "normal", "rob", "spatial", "t", "skewnorm"
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / rowSums(x)  ## makes sure x is compositional data
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
 
   ## if type = "none" or dist = "dirichlet" the Dirichlet is fitted
   if (dist == "normal") {
     if (type == "alr") {  ## additive log-ratio transformation
       y <- log(x[, -1]/ x[, 1])
-      m <- colMeans(y)
+      m <- as.vector( Rfast::colmeans(y) )
       mu <- c( 1, exp(m) )
       mu <- mu / sum(mu)
       s <- cov(y)
     } else {
       y <- alfa(x, 0)
-      m <- colMeans(y)
+      m <- as.vector( Rfast::colmeans(y) )
       mu <- alfainv(m, 0)
       s <- cov(y)
     }

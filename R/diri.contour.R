@@ -52,12 +52,11 @@ diri.contour <- function(a, n = 100, x = NULL) {
   b <- cbind(b1, b2)
   ## the next line draws the triangle in the two dimensions
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+  
   if ( !is.null(x) ) {
     x <- as.matrix(x)
-    x <- x / rowSums(x)
+    x <- x / as.vector( Rfast::rowsums(x) )
     proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2)
-    x <- as.matrix(x)
-    x <- x/rowSums(x)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
   }

@@ -24,12 +24,12 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   ## xnew is the new dataset. It can be a single vector or a matrix
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x/rowSums(x)  ## makes sure the data sum to 1
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the data sum to 1
   n <- nrow(x)
   p <- ncol(x)
   xnew <- as.matrix(xnew)
   xnew <- matrix(xnew, ncol = p)  ## makes sure xnew is a matrix
-  xnew <- xnew/rowSums(xnew)  ## make the data sum to 1
+  xnew <- xnew / as.vector( Rfast::rowsums(xnew) )  ## make the data sum to 1
   ina <- as.numeric(ina)
   nc <- max(ina) ## The number of groups
   nu <- nrow(xnew)
@@ -54,9 +54,9 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
       dista <- apo[, ina == m]
       dista <- t( apply(dista, 1, sort) )
       if (mesos == TRUE) {
-        ta[, m] <- rowMeans( dista[, 1:k] )
+        ta[, m] <- as.vector( Rfast::rowmeans( dista[, 1:k] ) )
       } else {
-        ta[, m] <- k / rowSums( 1 / dista[, 1:k] )
+        ta[, m] <- k / as.vector( Rfast::rowsums( 1 / dista[, 1:k] ) )
       }
     }
     g <- max.col(-ta)

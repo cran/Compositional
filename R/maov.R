@@ -29,12 +29,12 @@ maov <- function(x, ina) {
   Tot <- cov(x) * (n - 1)
   lam <- det(Tot - B) / det(Tot)
 
-  if (g == 2 ) {
+  if ( g == 2 ) {
     stat <- (n - p - 1 ) / p * (1 - lam)/lam
     pvalue <- pf( stat, p, n - p - 1, lower.tail = FALSE )
     note <- paste("F approximation has been used")
 
-  } else if (g == 3) {
+  } else if ( g == 3 ) {
     stat <- (n - p - 2 )/p * (1 - sqrt(lam)) / sqrt(lam)
     pvalue <- pf( stat, 2 * p, 2 * (n - p - 2), lower.tail = FALSE )
     note <- paste("F approximation has been used")

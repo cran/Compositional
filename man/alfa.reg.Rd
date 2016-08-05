@@ -83,8 +83,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 library(MASS)
 x <- fgl[1:40, 1]
 y <- fgl[1:40, 2:9]
-mod1 <- alfa.reg(y, x, 0.2)
-mod2 <- alfa.reg(y, x, 0.6)
+mod <- alfa.reg(y, x, 0.2)
 }
 
 \keyword{ \eqn{\alpha}-transformation }

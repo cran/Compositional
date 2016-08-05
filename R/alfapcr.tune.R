@@ -16,7 +16,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   ## "normal" is set by default
 
   x <- as.matrix(x)
-  x <- x/ rowSums(x)
+  x <- x / as.vector( Rfast::rowsums(x) )
   n <- nrow(x)
   d <- ncol(x) - 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
@@ -36,7 +36,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
 
   if ( length(unique(y)) == 2 ) {
     oiko <- "binomial"
-  } else if ( sum(y) - round(y) == 0 ) {
+  } else if ( sum( y - round(y) ) == 0 ) {
     oiko <- "poisson"
   } else oiko <- "normal"
 

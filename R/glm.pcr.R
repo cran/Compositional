@@ -14,7 +14,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   y <- as.vector(y)
   n <- nrow(x)
   p <- ncol(x)
-  m <- colMeans(x)
+  m <- as.vector( Rfast::colmeans(x) )
 
   x <- Rfast::standardise(x)  ## standardize the independent variables
   eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
@@ -23,7 +23,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   vec <- eig$vectors  ## eigenvectors, or principal components
   z <- x %*% vec  ## PCA scores
 
-    if ( length(unique(y)) == 2 ) {
+    if ( length( unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else oiko <- "poisson"
 
@@ -34,7 +34,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   if ( !is.null(xnew) ) {
     xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
-    s <- as.vector( Rfast::colVars(x, std = TRUE) )
+    s <- Rfast::colVars(x, std = TRUE) 
     xnew <- ( t(xnew) - m ) / s ## standardize the xnew values
     xnew <- t(xnew)
     es <- as.vector( xnew %*% be ) + b[1]

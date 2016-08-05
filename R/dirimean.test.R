@@ -4,7 +4,7 @@ dirimean.test <- function(x, a) {
   ## a is the hypothesized compositional mean vector
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / rowSums(x)  ## makes sure x is compositional data
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
   a <- as.vector(a)
   n <- nrow(x)  ## sample size
   d <- ncol(x) - 1

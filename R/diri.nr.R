@@ -16,7 +16,7 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
 
     runtime <- proc.time()
     x <- as.matrix(x)  ## makes sure x is a matrix
-    x <- x/rowSums(x)  ## makes sure x is compositional data
+    x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
     n <- nrow(x)  ## the sample size
     p <- ncol(x)  ## dimensionality
     m <- as.vector( Rfast::colmeans(x) )
@@ -26,7 +26,7 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
 
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
-    gm <- rowSums(zx)
+    gm <- as.vector( Rfast::rowsums(zx) )
 
     z <- n * digamma( sa )
     g <- z - n * digamma(a1) + gm

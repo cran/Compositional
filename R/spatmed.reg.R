@@ -30,7 +30,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
 
   B1 <- coef( lm.fit(x,  y) )
   est <- y - x %*% B1
-  ww <- sqrt( rowSums( est^2 ) )
+  ww <- sqrt( as.vector(Rfast::rowsums( est^2 ) ) )
 
   z <- x / ww
   a1 <- crossprod(z, x)
@@ -43,7 +43,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
     i <- i +1
     B1 <- B2
     est <- y - x %*% B1
-    ww <- sqrt( rowSums( est^2 ) )
+    ww <- sqrt( as.vector( Rfast::rowsums( est^2 ) ) )
     ela <- which( ww == 0 )
     z <- x / ww
 

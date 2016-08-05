@@ -22,5 +22,5 @@ rcompt <- function(n, m, s, dof, type = "alr") {
     y < exp(y)
   }
 
-  y / rowSums(y)
+  y / as.vector( Rfast::rowsums(y) )
 }

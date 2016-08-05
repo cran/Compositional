@@ -12,7 +12,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
   x <- as.matrix(x)
-  x <- x / rowSums(x)
+  x <- x / as.vector(Rfast::rowsums(x) )
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
@@ -23,11 +23,11 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
     ya <- log(x)
-    ya <- ya - rowMeans( ya )
+    ya <- ya - as.vector( Rfast::rowmeans( ya ) )
     ya <- as.matrix( ya %*% ha )
   }
 
-  m <- colMeans(ya)  ## mean vector
+  m <- as.vector( Rfast::colmeans(ya) )  ## mean vector
   s <- var(ya)  ## covariance matrix
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)

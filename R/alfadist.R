@@ -13,6 +13,6 @@ alfadist <- function(x, a) {
 
   x <- as.matrix(x)  ## makes sure x is a matric
   y <- alfa(x, a, h = TRUE)$aff
-  disa <- fields::rdist(y)
-  disa
+  fields::rdist(y)
+    
 }

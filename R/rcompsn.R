@@ -23,5 +23,5 @@ rcompsn <- function(n, xi, Omega, alpha, dp = NULL, type = "alr") {
     y < exp(y)
   }
 
-  y / rowSums(y)
+  y / as.vector( Rfast::rowsums(y) )
 }

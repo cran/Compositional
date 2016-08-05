@@ -12,7 +12,7 @@ kl.diri <- function(a, b, type = "KL") {
   ## if type == "bhatt" the Bhattacharyya distance between Dir(a) and
   ## Dir(b) is calculated
 
-  if (type == "KL") {
+  if ( type == "KL" ) {
     a0 <- sum(a)
     b0 <- sum(b)
     f <- sum( (a - b) * ( digamma(a) - digamma(a0)) ) + sum(lgamma(b) -

@@ -13,14 +13,14 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
   x <- as.matrix(x)
-  x <- x / rowSums(x)
+  x <- x / as.vector( Rfast::rowsums(x) )
 
   if (type == 'alr') {
     y <- log( x[, -3] / x[, 3] ) ## additive log-ratio transformation
   } else {
     ha <- t( helm(3) )
     y <- log(x)
-    y <- y - rowMeans( y )
+    y <- y - as.vector( Rfast::rowmeans( y ) )
     y <- as.matrix( y %*% ha )
   }
 

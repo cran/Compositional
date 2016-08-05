@@ -2,15 +2,15 @@
 
 importFrom("MASS", "mvrnorm", "cov.rob", "cov.trob")
 importFrom("graphics", "filled.contour", "contour", "lines", "plot",
-           "points", "abline", "hist", "legend", "text", image)
+           "points", "abline", "hist", "legend", "text", "image")
 
-importFrom("stats", "coef", "cor", "dist", "lm", "cov", "aggregate", "optim", "optimize",
+importFrom("stats", "coef", "cor", "dist", "lm", "cov", "optim", "optimize",
            "quantile", "sd", "rnorm", "qnorm", "nlminb", "nlm", "lm.fit", "rchisq", "deviance",
-           "fitted", "glm", "pchisq", "qchisq", "resid", "rgamma",
+           "fitted", "glm", "pchisq", "qchisq", "resid", "rgamma", "mahalanobis",
            "runif", "var", "qt", "qf", "pf", "model.matrix")
 
 importFrom("grDevices", "terrain.colors")
-importFrom("Rfast", "colVars", "mahala", "colMedians", "colmeans", "colsums")
+importFrom("Rfast", "colVars", "colMedians", "colmeans", "colsums", "rowmeans", "rowsums")
 
 import("doParallel")
 import("parallel")

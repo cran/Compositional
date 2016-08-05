@@ -12,7 +12,7 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   ## type takes three values, either 'classical' or
   ## 'spatial' for spatial median regression.
   y <- as.matrix(y)
-  y <- y/rowSums(y)  ## makes sure y is compositional data
+  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
   x <- as.matrix(x)
 
   ## alr transformation with the first component being the base
@@ -47,6 +47,6 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   }
 
   est2 <- cbind(1, exp(est1))
-  est <- est2/rowSums(est2)
+  est <- est2 / as.vector( Rfast::rowsums(est2) )
   list(runtime = runtime, beta = beta, seb = seb, est = est)
 }

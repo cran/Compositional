@@ -1,5 +1,5 @@
 \name{Density values of a Dirichlet distribution}
-\alias{d.dirichlet}
+\alias{ddiri}
 \title{
 Density values of a Dirichlet distribution
 }
@@ -9,7 +9,7 @@ Density values of a Dirichlet distribution.
 }
 
 \usage{
-d.dirichlet(x, a, logged = TRUE)
+ddiri(x, a, logged = TRUE)
 }
 
 \arguments{
@@ -54,7 +54,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 \examples{
 x <- rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
 a <- diri.est(x)
-f <- d.dirichlet(x, a$param)
+f <- ddiri(x, a$param)
 sum(f)
 a
 }

@@ -13,6 +13,6 @@ rdiri <- function(n, a) {
 
   D <- length(a)
   y <- matrix( rgamma(n * D, a, 1), ncol = D, byrow = TRUE )
-  y / rowSums(y)  ## Dirichlet simulated values
+  y / as.vector( Rfast::rowsums(y) )  ## Dirichlet simulated values
 
 }

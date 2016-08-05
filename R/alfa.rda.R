@@ -21,4 +21,5 @@ alfa.rda <- function(xnew, x, ina, a, gam = 1, del = 0) {
   y <- alfa(x, a)$aff  ## apply the alpha-transformation
   ynew <- alfa(xnew, a)$aff
   rda(xnew = ynew, x = y, ina = ina, gam = gam, del = del)
+  
 }

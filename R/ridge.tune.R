@@ -50,7 +50,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- as.vector( Rfast::colmeans(xtrain) )
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
       xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
@@ -74,7 +74,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     registerDoParallel(cl)
     pe <- numeric(k)
 
-    msp <- foreach(vim = 1:M, .combine = rbind) %dopar% {
+    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("colmeans", "colVars") ) %dopar% {
       ytest <- y[ mat[, vim], ]   ## test set dependent vars
       ytrain <- y[ -mat[, vim], ]   ## train set dependent vars
       my <- sum(ytrain) / rmat
@@ -83,7 +83,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- as.vector( Rfast::colmeans(xtrain) )
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
       xtest <- t(xtest)
 

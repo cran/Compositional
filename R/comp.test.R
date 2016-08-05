@@ -36,7 +36,7 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
 
     if (test == "maov") {
       result <- maov(x, ina)
-    } else if (test == "maovjames") {
+    } else if ( test == "maovjames" ) {
       result <- maovjames(x, ina)
     }
 

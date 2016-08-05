@@ -12,7 +12,7 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   ## a is the grid of values of the power parameter
 
   x <- as.matrix(x)  ## makes the data in a matrix form
-  x <- x/rowSums(x)  ## makes sure the data are compositional
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the data are compositional
   D <- ncol(x)  ## number of components
   d <- D - 1  ## dimensionality of the simplex
   n <- nrow(x)  ## sample size of the data

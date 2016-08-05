@@ -12,7 +12,7 @@ rcompnorm <- function(n, m, s, type = "alr") {
   ## type is either alr or ilr
 
   x <- rmvnorm(n, m, s)
-  if (type == "alr") {
+  if ( type == "alr" ) {
     y <- cbind( 1, exp(x) )
 
   } else {
@@ -21,5 +21,5 @@ rcompnorm <- function(n, m, s, type = "alr") {
     y < exp(y)
   }
 
-  y / rowSums(y)
+  y / as.vector( Rfast::rowsums(y) )
 }

@@ -12,7 +12,7 @@ diri.est <- function(x, type = 'mle') {
   ## type = 'ent' means to use the entropy for the estimation
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x/rowSums(x)  ## makes sure x is compositional data
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
   n <- nrow(x)  ## sample size
   z <- log(x)
 

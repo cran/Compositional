@@ -45,7 +45,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
   rmat <- nrow(mat)
   ntrain <- n - rmat
 
-  if ( length(unique(y)) == 2 ) {
+  if ( length( unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else oiko <- "poisson"
 
@@ -58,7 +58,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- as.vector( Rfast::colmeans(xtrain) )
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- (t(xtrain) - mx)/s
       xtrain <- t(xtrain)  ## standardize the independent variables
 
@@ -91,7 +91,8 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach(vim = 1:M, .combine = rbind) %dopar% {
+    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast",
+                   .export = c("colVars", "colmeans") ) %dopar% {
       ## will always be the same
       ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
       ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
@@ -99,7 +100,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
       mx <- as.vector( Rfast::colmeans(xtrain) )
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- (t(xtrain) - mx)/s
       xtrain <- t(xtrain)  ## standardize the independent variables
 

@@ -54,11 +54,11 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- as.vector( Rfast::colmeans(xtrain) )
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( rowSums(mtrain^2) )
+      mtrain <- mtrain / sqrt( as.vector( Rfast::rowsums(mtrain^2) ) )
       sar <- tcrossprod( mtrain )
 
       eig <- eigen( sar )  ## eigen analysis of the design matrix
@@ -86,7 +86,8 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach::foreach(vim = 1:M, .combine = rbind) %dopar% {
+    msp <- foreach::foreach(vim = 1:M, .combine = rbind, .packages = "Rfast",
+                            .export = c("colVars", "colmeans") ) %dopar% {
       ## will always be the same
 
       ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
@@ -97,11 +98,11 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- as.vector(Rfast::colmeans(xtrain) )
-      s <- as.vector( Rfast::colVars(xtrain, std = TRUE) )
+      s <- Rfast::colVars(xtrain, std = TRUE)
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( rowSums(mtrain^2) )
+      mtrain <- mtrain / sqrt( as.vector( Rfast::rowsums(mtrain^2) ) )
       sar <- tcrossprod( mtrain )
 
       eig <- eigen( sar )  ## eigen analysis of the design matrix

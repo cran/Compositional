@@ -23,7 +23,7 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
   ## the non-standard algorithm, that is when type='NS'
 
   x <- as.matrix(x)  ## makes sure the x is a matrix
-  x <- x/rowSums(x)  ## makes sure the the data sum to 1
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the the data sum to 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
   n <- nrow(x)  ## sample size
   if ( A >= min(table(ina)) )  A <- min(table(ina)) - 3  ## The maximum
@@ -85,9 +85,9 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
               dista <- apo[, ina2 == l]
               dista <- t( apply(dista, 1, sort) )
               if (mesos == TRUE) {
-                ta[, l] <- rowMeans( dista[, 1:knn] )
+                ta[, l] <- as.vector( Rfast::rowmeans( dista[, 1:knn] ) )
               } else {
-                ta[, l] <- knn / rowSums( 1 / dista[, 1:knn] )
+                ta[, l] <- knn / as.vector( Rfast::rowsums( 1 / dista[, 1:knn] ) )
               }
             }
             g <- apply(ta, 1, which.min)

@@ -13,7 +13,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   ## x must not contain any zeros
 
   x <- as.matrix(x)
-  x <- x / rowSums(x)
+  x <- x / as.vector( Rfast::rowsums(x) )
   n <- nrow(x)  ## sample size
   f <- (n - 1) / n
   D <- ncol(x)  ## number of components

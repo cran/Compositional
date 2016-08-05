@@ -67,7 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{diri.est}, \link{diri.contour} \link{rdiri}, \link{d.dirichlet}
+\code{\link{diri.est}, \link{diri.contour} \link{rdiri}, \link{ddiri}
 }
 }
 

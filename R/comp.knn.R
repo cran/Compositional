@@ -25,13 +25,13 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
   ## algorithm, that is when type=NS
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / rowSums(x)  ## makes sure the data sum to 1
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the data sum to 1
   n <- nrow(x)
   p <- ncol(x)
   ina <- as.numeric(ina)
   xnew <- as.matrix(xnew)
   xnew <- matrix( xnew, ncol = p ) ## makes sure xnew is a matrix
-  xnew <- xnew / rowSums(xnew)  ## make the data sum to 1
+  xnew <- xnew / as.vector( Rfast::rowsums(xnew) )  ## make the data sum to 1
   nc <- max(ina)  ## The number of groups
   nu <- nrow(xnew)
   disa <- matrix(0, nu, n)
@@ -42,9 +42,9 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
   if (apostasi == "ESOV") {
     xa <- x^a
-    zx <- xa / rowSums( xa )  ## The power transformation is applied
+    zx <- xa / as.vector( Rfast::rowsums( xa ) ) ## The power transformation is applied
     za <- xnew^a
-    znew <- za / rowSums( za )  ## The power transformation is applied
+    znew <- za / as.vector( Rfast::rowsums( za ) ) ## The power transformation is applied
 
     for (i in 1:nu) {
       zan <- znew[i, ]
@@ -57,9 +57,9 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
   } else  if ( apostasi == "taxicab" ) {
     xa <- x^a
-    zx <- xa / rowSums( xa )  ## The power transformation is applied
+    zx <- xa / as.vector( Rfast::rowsums( xa ) ) ## The power transformation is applied
     za <- xnew^a
-    znew <- za / rowSums( za )  ## The power transformation is applied
+    znew <- za / as.vector( Rfast::rowsums( za ) ) ## The power transformation is applied
 
     for (i in 1:nu) {
       b <- t(zx) - znew[i, ]
@@ -69,9 +69,9 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
   } else if ( apostasi == "Ait" ) {
     ## this requires non zero data ## be careful
     xa <- log(x)
-    zx <- xa - rowMeans( xa )
+    zx <- xa - as.vector( Rfast::rowmeans( xa ) )
     za <- log(xnew)
-    znew <- za - rowMeans( za )
+    znew <- za - as.vector( Rfast::rowmeans( za ) )
     tzx <- t(zx)
 
     for (i in 1:nu) {
@@ -99,9 +99,9 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
   }  else if ( apostasi == "CS" ) {
      xa <- x^a
-     zx <- xa / rowSums( xa )  ## The power transformation is applied
+     zx <- xa / as.vector( Rfast::rowsums( xa ) ) ## The power transformation is applied
      za <- xnew^a
-     znew <- za / rowSums( za )  ##
+    znew <- za / as.vector( Rfast::rowsums( za ) ) ## The power transformation is applied
 
      for (i in 1:nu) {
        for (j in 1:n) {
@@ -120,10 +120,10 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
     for (m in 1:nc) {
       disa <- t( apply(disa, 1, sort) )
       if (mesos == TRUE) {
-        ta[, m] <- rowMeans( disa[, 1:k] )
+        ta[, m] <- as.vector( Rfast::rowmeans( disa[, 1:k] ) )
 
       } else {
-        ta[, m] <- k / rowSums( 1 / disa[, 1:k] )
+        ta[, m] <- k / as.vector( Rfast::rowsums( 1 / disa[, 1:k] ) )
       }
     }
 

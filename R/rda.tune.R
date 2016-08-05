@@ -47,7 +47,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
 
-    ww <- foreach(vim = 1:M, .combine = cbind, .packages="Rfast") %dopar% {
+    ww <- foreach(vim = 1:M, .combine = cbind ) %dopar% {
 
       test <- as.matrix( x[ mat[, vim], ] )  ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
@@ -70,7 +70,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * Rfast::mahala( test, mesi[j, ], Ska[, , j] )
+              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
           }
           gr <- gr
           g <- max.col(gr)
@@ -118,7 +118,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           for (j in 1:nc) {
             Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * Rfast::mahala( test, mesi[j, ], Ska[, , j] )
+              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
           }
           gr <- gr
           g <- max.col(gr)

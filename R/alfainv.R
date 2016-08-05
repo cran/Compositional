@@ -23,12 +23,12 @@ alfainv <- function(x, a, h = TRUE) {
 
   if (a != 0) {
     z <- ( a * y + 1 )^( 1/a )
-    z <- z / rowSums(z)
+    z <- z / as.vector( Rfast::rowsums(z) )
 
     } else {
     ## is a=0, the inverse of the clr is calculated
     ey <- exp(y)
-    z <- ey / rowSums( ey )
+    z <- ey / as.vector( Rfast::rowsums( ey ) )
     }
 
   z

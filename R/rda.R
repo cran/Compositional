@@ -48,12 +48,12 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   for (j in 1:nc) {
     Ska[, , j] <- del * sk[, , j] + (1 - del) * Sa
     ta[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-      0.5 * mahala( xnew, mesos[j, ], Ska[, , j] )
+      0.5 * mahalanobis( xnew, mesos[j, ], Ska[, , j] )
   }
 
   est <- max.col(ta)
   expta <- exp(ta)
-  prob <- expta / rowSums( expta ) ## the probability of classification
+  prob <- expta / as.vector( Rfast::rowsums( expta ) ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)
 
 }

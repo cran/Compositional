@@ -10,7 +10,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
   x <- as.matrix(x)  ## makers sure x is a matrix
-  x <- x / rowSums(x)  ## makes sure x is compositional data
+  x <- x / as.vector( Rfast::rowsums(x) ) ## makes sure x is compositional data
 
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
@@ -50,7 +50,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   if (pca == TRUE  &  min(x) > 0 ) {
     ## should the first principal component appear?
     zx <- log(x[1:n, ])
-    z <- zx - rowMeans( zx ) ## clr transformation
+    z <- zx - as.vector( Rfast::rowmeans( zx ) ) ## clr transformation
     m <- as.vector( Rfast::colmeans(z) )  ## mean vector in the clr space
     a <- eigen( cov(z) )$vectors[, 1] + m  ## move the unit vector a bit
     sc <- z %*% a
@@ -58,7 +58,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     x1 <- cbind( a[1] * lam, a[2] * lam, a[3] * lam) + cbind( m[1] * (1 - lam),
     m[2] * (1 - lam), m[3] * (1 - lam) )
     expx1 <- exp(x1)
-    wa1 <- expx1 / rowSums( expx1 )  ## first principal component in S^2
+    wa1 <- expx1 / as.vector( rowsums( expx1 ) )  ## first principal component in S^2
     wa <- wa1 %*% proj
     lines(wa, lwd = 2, lty = 2)
   }

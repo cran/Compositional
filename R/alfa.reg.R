@@ -13,7 +13,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   ## a is the value of alpha
 
   y <- as.matrix(y)
-  y <- y/rowSums(y)  ## makes sure y is compositional data
+  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
   x <- as.matrix(x)
   p <- ncol(x)    ;    n <- nrow(x)
 
@@ -25,7 +25,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   } else {
     mx <- as.vector( Rfast::colmeans(x) )
-    s <- as.vector( Rfast::colVars(x, std = TRUE) )
+    s <- Rfast::colVars(x, std = TRUE) 
     x <- ( t(x) - mx ) / s  ## standardize the xnew values
     x <- t(x)
   }
@@ -101,10 +101,10 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   if ( !is.null(xnew) ) {
     mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu/rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
   } else {
     mu <- cbind(1, exp(x %*% beta) )
-    est <- mu/rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
   }
 
   if ( is.null( colnames(x) ) ) {

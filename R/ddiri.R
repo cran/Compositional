@@ -4,7 +4,7 @@
 #### mtsagris@yahoo.gr
 ################################
 
-d.dirichlet <- function(x, a, logged = TRUE) {
+ddiri <- function(x, a, logged = TRUE) {
   ## x is the compositional data
   ## a is a vector with the parameters
 
@@ -15,7 +15,7 @@ d.dirichlet <- function(x, a, logged = TRUE) {
   } else {
 
     x <- as.matrix(x)  ## makes sure x is a matrix
-    x <- x/rowSums(x)  ## makes sure x is compositional data
+    x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
     f <- lgamma( sum(a) ) - sum( lgamma(a) ) + as.vector( log(x) %*% (a - 1) )
   }
 

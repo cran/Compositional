@@ -7,7 +7,7 @@
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## y is the compositional data
   y <- as.matrix(y)
-  y <- y/rowSums(y)
+  y <- y / as.vector( Rfast::rowsums(y) )
   ## the line above makes sure y is compositional data and
   n <- nrow(y)  ## sample size
   mat <- model.matrix(y~ ., as.data.frame(x) )
@@ -73,12 +73,12 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     xnew <- cbind(1, xnew)
     xnew <- as.matrix(xnew)
     mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu / rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
 
   } else {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / rowSums(mu)  ## fitted values
-    lev <- ( exp(log.phi) + 1 ) * rowSums( (y - est)^2 / mu )
+    est <- mu / as.vector( Rfast::rowsums(mu) )  ## fitted values
+    lev <- ( exp(log.phi) + 1 ) * as.vector( Rfast::rowsums( (y - est)^2 / mu ) )
 
     if (plot == TRUE) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",

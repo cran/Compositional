@@ -25,7 +25,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   ## 'Ait', 'Hellinger', 'angular' or 'CS'
 
   x <- as.matrix(x)  ## makes sure the x is a matrix
-  x <- x/rowSums(x)  ## makes sure the the data sum to 1
+  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the the data sum to 1
   n <- nrow(x)  ## sample size
   ina <- as.numeric(ina)
   if ( A >= min(table(ina)) )  A <- min(table(ina)) - 3  ## The maximum
@@ -63,7 +63,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     for ( i in 1:length(a) ) {
 
-      z <- x^a[i] / rowSums( x^a[i] )  ## The power transformation is applied
+      z <- x^a[i] / as.vector( Rfast::rowsums( x^a[i] ) )  ## The power transformation is applied
 
       if (apostasi == "ESOV") {
          for ( m1 in 1:c(n - 1) ) {
@@ -111,13 +111,13 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
               dista <- apo[, ina2 == l]
               dista <- t( apply(dista, 1, sort) )
               if (mesos == TRUE) {
-                ta[, l] <- rowMeans( dista[, 1:knn] )
+                ta[, l] <- as.vector( Rfast::rowmeans( dista[, 1:knn] ) )
               } else {
-                ta[, l] <- knn / rowSums( 1 / dista[, 1:knn] )
+                ta[, l] <- knn / as.vector( Rfast::rowsums( 1 / dista[, 1:knn] ) )
               }
             }
             g <- apply(ta, 1, which.min)
-            per[vim, j, i] <- mean(g == id)
+            per[vim, j, i] <- sum( g == id ) / rmat
           }
 
         } else if (type == "S") {
@@ -132,7 +132,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
               tab <- table(sa)
               g[k] <- as.integer(names(tab)[which.max(tab)])
             }
-            per[vim, j, i] <- mean(g == id)
+            per[vim, j, i] <- sum( g == id ) / rmat
           }
 
         }
@@ -177,7 +177,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     if (apostasi == "Ait") {
       xa <- log(x)
-      z <- xa - rowMeans( xa )
+      z <- xa - as.vector( Rfast::rowmeans( xa ) )
       dis <- fields::rdist(z)
 
     } else if (apostasi == "Hellinger") {
@@ -213,13 +213,13 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
             dista <- apo[, ina2 == l]
             dista <- t( apply(dista, 1, sort) )
             if (mesos == TRUE) {
-              ta[, l] <- rowMeans( dista[, 1:knn] )
+              ta[, l] <- as.vector( Rfast::rowmeans( dista[, 1:knn] ) )
             } else {
-              ta[, l] <- knn / rowSums( 1 / dista[, 1:knn] )
+              ta[, l] <- knn / as.vector( Rfast::rowsums( 1 / dista[, 1:knn] ) )
             }
           }
           g <- apply(ta, 1, which.min)
-          per[vim, j] <- sum(g == id)/nu
+          per[vim, j] <- sum(g == id)/rmat
         }
 
       } else {   ## if (type == "S")
@@ -234,7 +234,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
             tab <- table(sa)
             g[k] <- as.integer(names(tab)[which.max(tab)])
           }
-          per[vim, j] <- mean(g == id)
+          per[vim, j] <- sum(g == id)/rmat
         }
       }
     }

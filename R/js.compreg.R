@@ -17,7 +17,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## more are used (parallel computing)
 
   y <- as.matrix(y)
-  y <- y/rowSums(y)  ## makes sure y is compositional data
+  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
   n <- nrow(y)  ## sample size
   mat <- model.matrix(y ~ ., as.data.frame(x) )
   x <- as.matrix(mat[1:n, ])
@@ -90,12 +90,12 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   if ( is.null(xnew) ) {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
   } else {
     xnew <- cbind(1, xnew)
     xnew <- as.matrix(xnew)
     mu <- cbind(1, exp(x %*% beta))
-    est <- mu / rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
   }
 
   if ( is.null(colnames(x)) ) {

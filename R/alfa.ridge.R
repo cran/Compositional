@@ -22,4 +22,5 @@ alfa.ridge <- function(y, x, a, lambda, B = 1, xnew = NULL) {
   z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
   mod <- ridge.reg(y, z, lambda, B = B, xnew = xnew)
   mod ## ridge regression with the alpha-transformed compositional data
+  
 }

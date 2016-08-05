@@ -20,7 +20,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     f1 <- exp( as.vector( x %*% lam_old ) )
     f2 <- sum(f1)
     f2a <- x * f1
-    f3 <- colSums( f2a )
+    f3 <- as.vector(Rfast::colsums( f2a ) )
     f4 <- f3 / f2
     f <- f4 - mu
     der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
@@ -36,7 +36,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
       f1 <- exp( as.vector( x %*% lam_old ) )
       f2 <- sum(f1)
       f2a <- x * f1
-      f3 <- colSums( f2a )
+      f3 <- as.vector( Rfast::colsums( f2a ) )
       f4 <- f3 / f2
       f <- f4 - mu
       der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2

@@ -19,14 +19,14 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
   x <- as.matrix(x)
-  x <- x / rowSums(x)
+  x <- x / as.vector( Rfast::rowsums(x) )
   ha <- t( helm(3) )
 
   if (type == "alr") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
     ya <- log(x)
-    ya <- ya - rowMeans( ya )
+    ya <- ya - as.vector( Rfast::rowmeans( ya ) )
     ya <- as.matrix( ya %*% ha )
   }
   sqrt3 <- sqrt(3)

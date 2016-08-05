@@ -24,7 +24,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
   n <- nrow(y)
   x <- as.matrix(x)
   y <- as.matrix(y)
-  y <- y /rowSums(y)
+  y <- y / as.vector( Rfast::rowsums(y) )
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / K) * K ) )
@@ -70,8 +70,9 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     ## but with options(warn = -1) you will not see it
     cl <- makePSOCKcluster(nc)
     registerDoParallel(cl)
-    kula <- foreach(j = 1:nc, .combine = cbind,
-                    .export = c("alfa.reg", "alfa", "helm", "comp.reg", "multivreg") ) %dopar% {
+    kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast",
+        .export = c("alfa.reg", "alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans",
+                    "colVars") ) %dopar% {
                       ba <- val[, j]
                       ww <- matrix(nrow = K, ncol = length(ba) )
                       for ( l in 1:length(ba) ) {

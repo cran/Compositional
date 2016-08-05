@@ -24,8 +24,8 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   dres <- sqrt( rowSums( res %*% solve(s) * res ) ) ## Mahalanobis distances
   ## of the residuals
 
-  mx <- colMeans(x)  ## mean vector of the independent variales
-  dx <- sqrt( Rfast::mahala(x, mx, sxx) )  ## Mahalanobis distances
+  mx <- as.vector(Rfast::colmeans(x) )  ## mean vector of the independent variales
+  dx <- sqrt( mahalanobis(x, mx, sxx) )  ## Mahalanobis distances
   ## of the independent variables
   crit.res <- sqrt( qchisq(0.975, d) )
   crit.x <- sqrt( qchisq(0.975, p) )

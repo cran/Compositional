@@ -20,7 +20,7 @@ sscov <- function(x, me = NULL, tol = 1e-09) {
   } 
 
   y <- x - rep( me, rep(n, p) )
-  rs <- sqrt ( rowSums(y^2) )
+  rs <- sqrt ( as.vector(Rfast::rowsums(y^2) ) )
   y <- y / rs  ## unit vectors
   crossprod( y ) / n  ## SSCM
 

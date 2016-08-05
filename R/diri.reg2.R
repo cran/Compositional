@@ -7,7 +7,7 @@
 diri.reg2 <- function(y, x, xnew = NULL) {
   ## y is the compositional data
   y <- as.matrix(y)
-  y <- y/rowSums(y)
+  y <- y / as.vector( Rfast::rowsums(y) )
   n <- nrow(y)  ## sample size
   mat <- model.matrix(y ~ ., as.data.frame(x) )
   x <- as.matrix(mat[1:n, ])  ## the desing matrix is created
@@ -80,11 +80,11 @@ diri.reg2 <- function(y, x, xnew = NULL) {
     xnew <- cbind(1, xnew)
     xnew <- as.matrix(xnew)
     mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu / rowSums(mu)
+    est <- mu / as.vector( Rfast::rowsums(mu) )
 
   } else {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / rowSums(mu)  ## fitted values
+    est <- mu / as.vector( Rfast::rowsums(mu) ) ## fitted values
   }
 
 

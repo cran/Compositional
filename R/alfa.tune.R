@@ -13,13 +13,13 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   ## x must not contain any zeros
 
   x <- as.matrix(x)
-  x <- x / as.vector( Rfast::rowsums(x) )
-  n <- nrow(x)  ## sample size
+  x <- x / Rfast::rowsums(x)
+  n <- dim(x)[1]  ## sample size
   f <- (n - 1) / n
-  D <- ncol(x)  ## number of components
+  D <- dim(x)[2]  ## number of components
   d <- D - 1  ## dimensionality of the simplex
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
-  con <-  -n / 2 * d * log(2 * pi) - (n - 1) * d/2 + n * (d + 1/2) * log(D)
+  con <-  -n / 2 * d * log(2 * pi) - (n - 1) * d/2 + n * (d + 0.5) * log(D)
 
   pa <- function(a, x) {
     trans <- alfa(x, a)

@@ -17,8 +17,8 @@ mkde <- function(x, h, thumb = "none") {
   ## h is the h you want, which is either a vector or a single number
   ## thumb can be either "none" so the specified h is used, or
   ## "scott", or "silverman"
-  n <- nrow(x)
-  d <- ncol(x)  ## sample and dimensionality of x
+  n <- dim(x)[1]
+  d <- dim(x)[2]  ## sample and dimensionality of x
 
   if ( thumb == "silverman" ) {
     s <- Rfast::colVars(x, std = TRUE) 
@@ -40,7 +40,7 @@ mkde <- function(x, h, thumb = "none") {
   con <- prod( diag( h ) )
   y <- x %*% h
   a1 <- fields::rdist(y, compact = FALSE)
-  f <- 1/(2 * pi)^(d/2) * con * as.vector( Rfast::rowmeans( exp(-0.5 * a1^2 ) ) )
+  f <- (0.5 / pi)^(d/2) * con * Rfast::rowmeans( exp(-0.5 * a1^2 ) )
   f
 
 }

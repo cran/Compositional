@@ -17,7 +17,7 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
 
   x <- as.matrix(x)
   n <- length(y)  ## sample size
-  p <- ncol(x)  ## dimensionality of x
+  p <- dim(x)[2]  ## dimensionality of x
   R <- length(lambda)
   be <- matrix(nrow = p, ncol = R)
   yy <- y - sum(y) / n  ## center the dependent variables
@@ -26,7 +26,7 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   tu <- t(sa$u)   ;    d <- sa$d    ;    v <- sa$v
 
   for (i in 1:R) {
-    be[, i] <- ( v %*% (tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
+    be[, i] <- ( v %*% ( tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
   }
 
   plot(lambda, be[1,], type = "l", col = 1, lty = 1,

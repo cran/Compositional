@@ -14,15 +14,15 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   ## type is either 'alr' or 'ilr'
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional
-  p <- ncol(x)  ## dimensionality of the data
-  n <- nrow(x)  ## sample size
+  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional
+  p <- dim(x)[2]  ## dimensionality of the data
+  n <- dim(x)[1]  ## sample size
 
   if (type == "alr") {
     y <- log(x[, -p]/x[, p])
   } else {
     y0 <- log(x)
-    y1 <- y0 - as.vector( Rfast::rowmeans( y0 ) )
+    y1 <- y0 - Rfast::rowmeans( y0 ) 
     y <- tcrossprod( y1, helm(p) )
 
   }
@@ -32,7 +32,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   mu <- matrix(nrow = g, ncol = length(param[[1]]$mu))
   su <- array( dim = c( length(param[[1]]$mu), length(param[[1]]$mu), g ) )
 
-  for (i in 1:g) {
+  for ( i in 1:g ) {
     mu[i, ] <- param[[ i ]]$mu  ## mean vector of each component
     su[, , i] <- param[[ i ]]$sigma  ## covariance of each component
   }
@@ -41,12 +41,12 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   ta <- matrix(nrow = n, ncol = g)
 
   for (j in 1:g) {
-    ta[, j] <- -0.5 * log(det(2 * pi * su[, , j])) -
-      0.5 * mahalanobis(y, mu[j, ], su[, , j])
+    ta[, j] <-  - 0.5 * log( det(2 * pi * su[, , j]) ) -
+      0.5 * Rfast::mahala(y, mu[j, ], su[, , j])
   }
 
   probexpta <- prob * exp(ta)
-  pij <- probexpta / as.vector( Rfast::rowsums(probexpta) )
+  pij <- probexpta / Rfast::rowsums(probexpta)
   est <- max.col(pij)
 
   list(type = type, mu = mu, su = su, prob = prob, est = est)

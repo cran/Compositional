@@ -22,14 +22,14 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ## they can speed the computations a lot.
 
   x <- as.matrix(x)
-  n <- nrow(x)
-  D <- ncol(x)
+  n <- dim(x)[1]
+  D <- dim(x)[2]
   xnew <- as.matrix(xnew)
   xnew <- matrix(xnew, ncol = D)
-  nu <- nrow(xnew)  ## number of the new observations
+  nu <- dim(xnew)[1]  ## number of the new observations
   ina <- as.numeric(ina)
   nc <- max(ina)
-  Ska <- array( dim = c(D, D, nc) )
+  #Ska <- array( dim = c(D, D, nc) )
   ta <- matrix(nrow = nu, ncol = nc)
   ng <- as.vector( table(ina) )
   ci <- log(ng / n)
@@ -41,19 +41,19 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
 
   for (m in 1:nc)  sk[, , m] <- cov( x[ina == m, ] )
   s <- ni * sk
-  Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
+  Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
   sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
   Sa <- gam * Sp + (1 - gam) * sp  ## regularised covariance matrix
 
   for (j in 1:nc) {
-    Ska[, , j] <- del * sk[, , j] + (1 - del) * Sa
-    ta[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-      0.5 * mahalanobis( xnew, mesos[j, ], Ska[, , j] )
+    Ska <- del * sk[, , j] + (1 - del) * Sa
+    ta[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
+      0.5 * Rfast::mahala( xnew, mesos[j, ], Ska )
   }
 
   est <- max.col(ta)
   expta <- exp(ta)
-  prob <- expta / as.vector( Rfast::rowsums( expta ) ) ## the probability of classification
+  prob <- expta / Rfast::rowsums( expta ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)
 
 }

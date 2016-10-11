@@ -24,18 +24,16 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   ## xnew is the new dataset. It can be a single vector or a matrix
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the data sum to 1
-  n <- nrow(x)
-  p <- ncol(x)
+  x <- x / Rfast::rowsums(x)  ## makes sure the data sum to 1
+  n <- dim(x)[1]
+  p <- dim(x)[2]
   xnew <- as.matrix(xnew)
   xnew <- matrix(xnew, ncol = p)  ## makes sure xnew is a matrix
-  xnew <- xnew / as.vector( Rfast::rowsums(xnew) )  ## make the data sum to 1
+  xnew <- xnew / Rfast::rowsums(xnew)  ## make the data sum to 1
   ina <- as.numeric(ina)
   nc <- max(ina) ## The number of groups
   nu <- nrow(xnew)
-  w <- rbind(x, xnew)
-  nz <- nrow(w)
-  apo <- matrix( 0, nu, n )
+  apo <- matrix( 0, n, nu )
 
   znew <- alfa(xnew, a)$aff
   z <- alfa(x, a)$aff
@@ -43,20 +41,19 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
 
   for (i in 1:nu) {
     zz <- tz - znew[i, ]
-    apo[i, ] <- sqrt( as.vector( Rfast::colsums( zz^2 ) ) )
-
+    apo[, i] <- sqrt( Rfast::colsums( zz^2 ) )
   }
 
   if (type == "NS") {
     ## Non Standard algorithm
     ta <- matrix(nrow = nu, ncol = nc)
     for (m in 1:nc) {
-      dista <- apo[, ina == m]
-      dista <- t( apply(dista, 1, sort) )
+      dista <- apo[ina == m, ]
+      dista <- Rfast::sort_mat(dista)
       if (mesos == TRUE) {
-        ta[, m] <- as.vector( Rfast::rowmeans( dista[, 1:k] ) )
+        ta[, m] <- Rfast::colmeans( dista[1:k, ] )
       } else {
-        ta[, m] <- k / as.vector( Rfast::rowsums( 1 / dista[, 1:k] ) )
+        ta[, m] <- k / Rfast::colsums( 1 / dista[1:k, ] )
       }
     }
     g <- max.col(-ta)
@@ -65,7 +62,7 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
     ## Standard algorithm
     g <- numeric(nu)
     for (l in 1:nu) {
-      xa <- cbind(ina, apo[l, ])
+      xa <- cbind(ina, apo[, l])
       qan <- xa[order(xa[, 2]), ]
       sa <- qan[1:k, 1]
       tab <- table(sa)

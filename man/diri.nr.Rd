@@ -17,7 +17,7 @@ diri.nr(x, type = 1, tol = 1e-07)
 A matrix containing the compositional data. Zeros are not allowed.
 }
 \item{type}{
-Type can either be 1, so that the Newton-Rapshon is used for the maximisation of the log-likelihood, as Minka (2012) suggested or it can be 1. In the latter case the Newton-Raphson algorithm is implemented involving matrix inversions.
+Type can either be 1, so that the Newton-Rapshon is used for the maximisation of the log-likelihood, as Minka (2012) suggested or it can be 1. In the latter case the Newton-Raphson algorithm is implemented involving matrix inversions. In addition an even faster implementation has been implemented (in C++) in the package \bold{Rfast} and is used here.
 }
 \item{tol}{
 The tolerance level idicating no further increase in the log-likelihood.
@@ -39,7 +39,7 @@ In this extremely difficult scenario I would suggest the use of the previous fun
 \value{
 A list including:
 \item{iter}{
-The number of iterations required.
+The number of iterations required. If the argument "type" is set to 2 this is not returned.
 }
 \item{loglik}{
 The value of the log-likelihood.

@@ -13,11 +13,11 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
                            mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
 
   x <- as.matrix(x)
-  x <- x / as.vector( Rfast::rowsums(x) )
-  d <- ncol(x) - 1
+  x <- x / Rfast::rowsums(x)
+  d <- dim(x)[2] - 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
-  n <- nrow(x)
+  n <- dim(x)[1]
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )

@@ -8,7 +8,7 @@
 #### mtsagris@yahoo.gr
 ################################
 
-compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
+compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
                          a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
 
   ## x is the matrix containing the data
@@ -25,10 +25,10 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
   ## 'Ait', 'Hellinger', 'angular' or 'CS'
 
   x <- as.matrix(x)  ## makes sure the x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the the data sum to 1
-  n <- nrow(x)  ## sample size
+  x <- x / Rfast::rowsums(x)  ## makes sure the the data sum to 1
+  n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
-  if ( A >= min(table(ina)) )  A <- min(table(ina)) - 3  ## The maximum
+  if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
   ## number  of nearest neighbours to use
   ng <- max(ina)  ## The number of groups
   if ( min(x) == 0 )  a <- a[ a > 0 ]
@@ -63,32 +63,36 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     for ( i in 1:length(a) ) {
 
-      z <- x^a[i] / as.vector( Rfast::rowsums( x^a[i] ) )  ## The power transformation is applied
+      z <- x^a[i] / Rfast::rowsums( x^a[i] )  ## The power transformation is applied
 
       if (apostasi == "ESOV") {
-         for ( m1 in 1:c(n - 1) ) {
-           for ( m2 in c(m1 + 1):n ) {
-             ma <- z[m1, ] + z[m2, ]
-             dis[m1, m2] <- sqrt( sum( z[m1, ] * log( 2 * z[m1, ]/ma ) +
-                                        z[m2, ] * log( 2 * z[m2, ]/ma ), na.rm = TRUE ) )
-           }
-         }
-         dis <- dis + t(dis)
+        for ( m1 in 1:c(n - 1) ) {
+          z1 <- z[m1, ]
+          for ( m2 in c(m1 + 1):n ) {
+            z2 <- z[m2, ]
+            ma <- z1 + z2
+            dis[m1, m2] <- sqrt( sum( z1 * log( 2 * z1 / ma ) +
+                                        z2 * log( 2 * z2 / ma ), na.rm = TRUE ) )
+          }
+        }
+        dis <- dis + t(dis)
 
       } else if (apostasi == "taxicab") {
         dis <- dist(z, method = "manhattan", diag = TRUE, upper = TRUE)
         dis <- as.matrix(dis)
 
       } else if ( apostasi == "CS" ) {
-          p <- ncol(x)
-          for ( m1 in 1:c(n - 1) ) {
-            for ( m2 in c(m1 + 1):n ) {
-              sa <- (z[m1, ] - z[m2, ])^2 / (z[m1, ] + z[m2, ])
-              disa[m1, m2] <- sum( sa[ abs(sa) < Inf ] )
-            }
+        p <- dim(x)[2]
+        for ( m1 in 1:c(n - 1) ) {
+          z1 <- z[m1, ]
+          for ( m2 in c(m1 + 1):n ) {
+            z2 <- z[m2, ]
+            sa <- (z1 - z2)^2 / (z1 + z2)
+            dis[m1, m2] <- sum( sa[ abs(sa) < Inf ] )
           }
-          dis <- ( 1/abs( a[i] ) ) * sqrt(2 * p) * sqrt(disa)
-          dis <- dis + t(dis)
+        }
+        dis <- sqrt(2 * p) * sqrt(dis) / abs( a[i] )
+        dis <- dis + t(dis)
 
       }
 
@@ -100,23 +104,24 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
         ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
         aba <- as.vector( mat[, vim] )
         aba <- aba[aba > 0]
-        apo <- dis[aba, -aba]
-        ta <- matrix(nrow = rmat, ncol = ng)
+        apo <- dis[-aba, aba]
 
         if (type == "NS") {
           ## Non Standard algorithm
+          ta <- matrix(nrow = rmat, ncol = ng)
+
           for ( j in 1:c(A - 1) ) {
             knn <- j + 1
             for (l in 1:ng) {
-              dista <- apo[, ina2 == l]
-              dista <- t( apply(dista, 1, sort) )
+              dista <- apo[ina2 == l, ]
+              dista <- Rfast::sort_mat(dista)
               if (mesos == TRUE) {
-                ta[, l] <- as.vector( Rfast::rowmeans( dista[, 1:knn] ) )
+                ta[, l] <- Rfast::colmeans( dista[1:knn, ] ) 
               } else {
-                ta[, l] <- knn / as.vector( Rfast::rowsums( 1 / dista[, 1:knn] ) )
+                ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] ) 
               }
             }
-            g <- apply(ta, 1, which.min)
+            g <- max.col(-ta)
             per[vim, j, i] <- sum( g == id ) / rmat
           }
 
@@ -126,7 +131,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
             g <- numeric(rmat)
             knn <- j + 1
             for (k in 1:rmat) {
-              xa <- cbind(ina2, apo[knn, ])
+              xa <- cbind(ina2, apo[, k])
               qan <- xa[order(xa[, 2]), ]
               sa <- qan[1:knn, 1]
               tab <- table(sa)
@@ -177,7 +182,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 
     if (apostasi == "Ait") {
       xa <- log(x)
-      z <- xa - as.vector( Rfast::rowmeans( xa ) )
+      z <- xa - Rfast::rowmeans( xa )
       dis <- fields::rdist(z)
 
     } else if (apostasi == "Hellinger") {
@@ -202,7 +207,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
       ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
       aba <- as.vector( mat[, vim] )
       aba <- aba[aba > 0]
-      apo <- dis[aba, -aba]
+      apo <- dis[-aba, aba]
       ta <- matrix(nrow = rmat, ncol = ng)
 
       if (type == "NS") {
@@ -210,16 +215,16 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
         for ( j in 1:c(A - 1) ) {
           knn <- j + 1
           for (l in 1:ng) {
-            dista <- apo[, ina2 == l]
-            dista <- t( apply(dista, 1, sort) )
+            dista <- apo[ina2 == l, ]
+            dista <- Rfast::sort_mat(dista)
             if (mesos == TRUE) {
-              ta[, l] <- as.vector( Rfast::rowmeans( dista[, 1:knn] ) )
+              ta[, l] <- Rfast::colmeans( dista[1:knn, ] ) 
             } else {
-              ta[, l] <- knn / as.vector( Rfast::rowsums( 1 / dista[, 1:knn] ) )
+              ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] ) 
             }
           }
-          g <- apply(ta, 1, which.min)
-          per[vim, j] <- sum(g == id)/rmat
+          g <- max.col(-ta)
+          per[vim, j] <- sum( g == id )/rmat
         }
 
       } else {   ## if (type == "S")
@@ -228,18 +233,18 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
           knn <- j + 1
           g <- numeric(rmat)
           for (k in 1:rmat) {
-            xa <- cbind(ina2, apo[k, ])
+            xa <- cbind(ina2, apo[, k])
             qan <- xa[order(xa[, 2]), ]
             sa <- qan[1:knn, 1]
             tab <- table(sa)
             g[k] <- as.integer(names(tab)[which.max(tab)])
           }
-          per[vim, j] <- sum(g == id)/rmat
+          per[vim, j] <- sum( g == id )/rmat
         }
       }
     }
 
-    ela <- colMeans(per)
+    ela <- Rfast::colmeans(per)
     opt <- max(ela)
     names(ela) <- paste("k=", 2:A, sep = "")
     best_k = which.max(ela) + 1

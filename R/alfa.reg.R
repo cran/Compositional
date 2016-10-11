@@ -13,9 +13,9 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   ## a is the value of alpha
 
   y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
+  y <- y / Rfast::rowsums(y)  ## makes sure y is compositional data
   x <- as.matrix(x)
-  p <- ncol(x)    ;    n <- nrow(x)
+  p <- dim(x)[2]    ;    n <- dim(x)[1]
 
   if ( p == 1 ) {
     x <- as.vector(x)
@@ -24,14 +24,14 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     x <- ( x - mx ) / s
 
   } else {
-    mx <- as.vector( Rfast::colmeans(x) )
-    s <- Rfast::colVars(x, std = TRUE) 
+    mx <- Rfast::colmeans(x) 
+    s <- Rfast::colVars(x, std = TRUE)
     x <- ( t(x) - mx ) / s  ## standardize the xnew values
     x <- t(x)
   }
 
-  x <- as.matrix( cbind(1, x) )
-  d <- ncol(y) - 1  ## dimensionality of the simplex
+  x <- cbind(1, x)
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
 
   if ( !is.null(xnew) ) {
     ## if the xnew is the same as the x, the classical fitted values
@@ -57,12 +57,12 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     zz <- mu1^a
     ta <- rowSums(zz)
     za <- zz / ta
-    za <- ( ( d + 1 ) / a ) * za - 1/a
+    za <- ( d + 1 ) / a * za - 1/a
     ma <- za %*% ha
     esa <- ya - ma
     sa <- crossprod(esa) / (n - p)
     su <- solve(sa)
-    f <- ( n/2 ) * log( det(sa) ) + 0.5 * sum( esa %*% su * esa )
+    f <- n/2 * log( det(sa) ) + 0.5 * sum( esa %*% su * esa )
     f
   }
 
@@ -101,14 +101,14 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   if ( !is.null(xnew) ) {
     mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    est <- mu / Rfast::rowsums(mu)
   } else {
     mu <- cbind(1, exp(x %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    est <- mu / Rfast::rowsums(mu) 
   }
 
   if ( is.null( colnames(x) ) ) {
-    p <- ncol(x) - 1
+    p <- dim(x)[2] - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {
@@ -118,4 +118,3 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
   list(runtime = runtime, beta = beta, seb = seb, est = est)
 }
-

@@ -16,12 +16,12 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
 
   x1 <- as.matrix(x1)
   x2 <- as.matrix(x2)
-  p <- ncol(x1)  ## dimensionality of the data
-  n1 <- nrow(x1)  ## size of the first sample
-  n2 <- nrow(x2)  ## size of the second sample
+  p <- dim(x1)[2]  ## dimensionality of the data
+  n1 <- dim(x1)[1]  ## size of the first sample
+  n2 <- dim(x2)[1]  ## size of the second sample
   n <- n1 + n2  ## total sample size
-  xbar1 <- as.vector( Rfast::colmeans(x1) ) ## sample mean vector of the first sample
-  xbar2 <- as.vector( Rfast::colmeans(x1) )  ## sample mean vector of the second sample
+  xbar1 <- Rfast::colmeans(x1)  ## sample mean vector of the first sample
+  xbar2 <- Rfast::colmeans(x1)  ## sample mean vector of the second sample
   dbar <- xbar2 - xbar1  ## difference of the two mean vectors
   mesoi <- rbind(xbar1, xbar2)
   rownames(mesoi) <- c("Sample 1", "Sample 2")
@@ -32,9 +32,9 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   v <- ( (n1 - 1) * cov(x1) + (n2 - 1) * cov(x2) )/(n - 2)
   ## v is the pooled covariance matrix
   t2 <- ( n1 * n2 * (dbar %*% solve(v, dbar) ) )/n
-  test <- as.vector( ( (n - p - 1) * t2 )/( (n - 2) * p ) )  ## test statistic
+  test <- as.vector( (n - p - 1) * t2 / ( (n - 2) * p ) )  ## test statistic
 
-  if (R <= 1) {
+  if ( R <= 1 ) {
     crit <- qf(1 - a, p, n - p - 1)  ## critical value of the F distribution
     pvalue <- pf(test, p, n - p - 1, lower.tail = FALSE)  ## p-value of the test statistic
     info <- c(test, pvalue, crit, p, n - p - 1)
@@ -44,7 +44,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
 
   if (R > 1) {
     ## bootstrap calibration
-    mc <- colMeans( rbind(x1, x2) )  ## the combined sample mean vector
+    mc <- Rfast::colmeans( rbind(x1, x2) )  ## the combined sample mean vector
     ## the next two rows bring the mean vectors of the two sample equal
     ## to the combined mean and thus equal under the null hypothesis
     mc1 <-  - xbar1 + mc
@@ -57,7 +57,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
       b1 <- sample(1:n1, n1, replace = TRUE)
       b2 <- sample(1:n2, n2, replace = TRUE)
       yb1 <- y1[b1, ]    ;   yb2 <- y2[b2, ]
-      db <- as.vector( Rfast::colmeans(yb1) ) - as.vector( Rfast::colmeans(yb2) )  ## difference of the mean vectors
+      db <- Rfast::colmeans(yb1) - Rfast::colmeans(yb2)  ## difference of the mean vectors
       vb <- ( (n1 - 1) * cov(yb1) + (n2 - 1) * cov(y2) ) / (n - 2)
       ## vb is the pooled covariance matrix
       tb[i] <- ( n1 * n2 * (db %*% solve(vb, db) ) ) / n

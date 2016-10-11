@@ -80,7 +80,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:4]
+x <- as.matrix( iris[, 1:4] )
 ina <- iris[, 5]
 mod <- comp.knn(x, x, ina, a = 1, k = 5)
 table(ina, mod)

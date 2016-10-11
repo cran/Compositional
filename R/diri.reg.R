@@ -7,12 +7,12 @@
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## y is the compositional data
   y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) )
+  y <- y / Rfast::rowsums(y) 
   ## the line above makes sure y is compositional data and
-  n <- nrow(y)  ## sample size
-  mat <- model.matrix(y~ ., as.data.frame(x) )
-  x <- as.matrix(mat[1:n, ])  ## the desing matrix is created
-  d <- ncol(y) - 1  ## dimensionality of the simplex
+  n <- dim(y)[1]  ## sample size
+  mat <- model.matrix(y ~ ., as.data.frame(x) )
+  x <- mat[1:n, ]  ## the design matrix is created
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
   z <- list(y = log(y), x = x)
 
     dirireg <- function(param, z = z) {
@@ -23,13 +23,13 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
       y <- z$y
       x <- z$x
       ## y is the compositional data and xa the independent variable(s)
-      n <- nrow(y)  ## sample size
-      d <- ncol(y) - 1  ## dimensionality of  the simplex
+      n <- dim(y)[1]  ## sample size
+      d <- dim(y)[2] - 1  ## dimensionality of  the simplex
       be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
       mu1 <- cbind( 1, exp(x %*% be) )
       ma <- mu1 / rowSums(mu1)  ## the fitted values
       ba <- phi * ma
-      l <-  -( n * lgamma(phi) - sum( lgamma(ba) ) + sum( y * (ba - 1 ) ) )
+      l <-  - n * lgamma(phi) + sum( lgamma(ba) ) - sum( y * (ba - 1 ) )
       ## l is the log-likelihood
     l
   }
@@ -70,15 +70,15 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   } else  colnames(seb) <- paste("Y", 1:d, sep = "")
 
   if ( !is.null(xnew) ) {
-    xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
+    xnew <- model.matrix(y ~ ., as.data.frame(xnew) )
+    xnew <- xnew[1:dim(xnew)[1], ]
     mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    est <- mu / Rfast::rowsums(mu) 
 
   } else {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )  ## fitted values
-    lev <- ( exp(log.phi) + 1 ) * as.vector( Rfast::rowsums( (y - est)^2 / mu ) )
+    est <- mu / Rfast::rowsums(mu)  ## fitted values
+    lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu ) 
 
     if (plot == TRUE) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",
@@ -92,7 +92,7 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   runtime <- proc.time() - runtime
 
   if ( is.null( colnames(x) ) ) {
-    p <- ncol(x) - 1
+    p <- dim(x)[2] - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {

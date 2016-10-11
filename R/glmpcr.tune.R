@@ -20,8 +20,8 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
   ## used (parallel computing)
   x <- as.matrix(x)
   y <- as.vector(y)
-  n <- nrow(x)
-  p <- ncol(x)
+  n <- dim(x)[1]
+  p <- dim(x)[2]
   if ( maxk > p ) maxk <- p  ## just a check
 
   if ( is.null(mat) ) {
@@ -57,7 +57,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
-      mx <- as.vector( Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- (t(xtrain) - mx)/s
       xtrain <- t(xtrain)  ## standardize the independent variables
@@ -75,11 +75,11 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
         es <- as.vector( xnew %*% be ) + b[1]
 
         if (oiko == "binomial") {
-          est <- as.vector(  exp(es)/(1 + exp(es))  )
+          est <- as.vector(  exp(es) / ( 1 + exp(es) )  )
           ri <-  -2 *( ytest * log(est) + (1 - ytest) * log(1 - est) )
         } else {
           est <- as.vector( exp(es) )
-          ri <- 2 * ( ytest * log(ytest / est) )
+          ri <- 2 * ytest * log(ytest / est)
         }
         msp[vim, j] <- sum( ri )
       }
@@ -99,7 +99,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
 
-      mx <- as.vector( Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain) 
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- (t(xtrain) - mx)/s
       xtrain <- t(xtrain)  ## standardize the independent variables
@@ -118,11 +118,11 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
         es <- as.vector( xnew %*% be ) + b[1]
 
         if (oiko == "binomial") {
-          est <- as.vector(  exp(es)/(1 + exp(es))  )
+          est <- as.vector(  exp(es) / ( 1 + exp(es) )  )
           ri <-  -2 *( ytest * log(est) + (1 - ytest) * log(1 - est) )
         } else {
           est <- as.vector( exp(es) )
-          ri <- 2 * ( ytest * log(ytest / est) )
+          ri <- 2 * ytest * log(ytest / est)
         }
         er[j] <- sum( ri )
       }
@@ -132,7 +132,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
     runtime <- proc.time() - runtime
   }
 
-  mpd <- as.vector( Rfast::colmeans(msp) )
+  mpd <- Rfast::colmeans(msp) 
   bias <- msp[ ,which.min(mpd)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 

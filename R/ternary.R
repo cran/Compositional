@@ -10,30 +10,30 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
   x <- as.matrix(x)  ## makers sure x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) ) ## makes sure x is compositional data
+  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
 
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
   } else nam <- paste("X", 1:3, sep = " ")
 
-  n <- nrow(x)
+  n <- dim(x)[1]
   ina <- numeric(n) + 1
   ## m1 is the closed geometric mean
-  g1 <- as.vector( Rfast::colmeans( log(x[, -1] / x[, 1]) ) )
+  g1 <- Rfast::colmeans( log(x[, -1] / x[, 1]) ) 
   g2 <- c( 1, exp(g1) )
   m1 <- g2 / sum(g2)
   ## m2 is the simple arithmetic mean
-  m2 <- as.vector( Rfast::colmeans(x) )
+  m2 <- Rfast::colmeans(x) 
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
   ina[ rowSums(x == 0) > 0 ] <- 3
 
-  b1 <- c(1/2, 0, 1, 1/2)
+  b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
   plot(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ", pty = "s",
   xaxt = "n", yaxt = "n", bty = "n")
-  proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt(3)/2), ncol = 2)
+  proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt(3)/2), ncol = 2)
   d <- x %*% proj
   points( d[1:n, 1], d[1:n, 2], col = ina )
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
@@ -50,15 +50,15 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   if (pca == TRUE  &  min(x) > 0 ) {
     ## should the first principal component appear?
     zx <- log(x[1:n, ])
-    z <- zx - as.vector( Rfast::rowmeans( zx ) ) ## clr transformation
-    m <- as.vector( Rfast::colmeans(z) )  ## mean vector in the clr space
+    z <- zx - Rfast::rowmeans( zx )  ## clr transformation
+    m <- Rfast::colmeans(z)  ## mean vector in the clr space
     a <- eigen( cov(z) )$vectors[, 1] + m  ## move the unit vector a bit
     sc <- z %*% a
     lam <- seq( min(sc) - 1.5, max(sc) + 1.5, length = n )
     x1 <- cbind( a[1] * lam, a[2] * lam, a[3] * lam) + cbind( m[1] * (1 - lam),
     m[2] * (1 - lam), m[3] * (1 - lam) )
     expx1 <- exp(x1)
-    wa1 <- expx1 / as.vector( rowsums( expx1 ) )  ## first principal component in S^2
+    wa1 <- expx1 / Rfast::rowsums( expx1 )  ## first principal component in S^2
     wa <- wa1 %*% proj
     lines(wa, lwd = 2, lty = 2)
   }

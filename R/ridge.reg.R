@@ -24,10 +24,10 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
 
   x <- as.matrix(x)
   n <- length(y)  ## sample size
-  p <- ncol(x)  ## dimensionality of x
+  p <- dim(x)[2]  ## dimensionality of x
   my <- sum(y) / n
   yy <- y - my   ## center the dependent variables
-  mx <- as.vector( Rfast::colmeans(x) )
+  mx <- Rfast::colmeans(x) 
   s <- Rfast::colVars(x, std = TRUE) 
   xx <- ( t(x) - mx )/s  ## standardize the independent variables
   xx <- t(xx)
@@ -59,7 +59,6 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   } else  names(seb) <- names(beta) <- colnames(x)
 
   if ( !is.null(xnew) ) {
-    xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
     xnew <- ( t(xnew) - mx ) / s ## scale the xnew values
     xnew <- t(xnew)

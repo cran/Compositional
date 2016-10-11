@@ -15,11 +15,11 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   ## Bootstrap is used for the p-value
 
   x <- as.matrix(x)
-  M <- as.vector( as.matrix(M) )
-  m <- as.vector( Rfast::colmeans(x) )  ## sample mean vector
+  M <- as.vector( M )
+  m <- Rfast::colmeans(x)  ## sample mean vector
   s <- cov(x)  ## sample covariance matrix
-  n <- nrow(x)  ## sample size
-  p <- ncol(x)  ## dimensionality of the data
+  n <- dim(x)[1]  ## sample size
+  p <- dim(x)[2]  ## dimensionality of the data
   dm <- m - M
   test <- as.vector( (n * (n - p) ) / ( (n - 1) * p ) * dm %*% solve(s, dm) )
 
@@ -43,12 +43,12 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
       b <- sample(1:n, n, replace = TRUE)
       yb <- y[b, ]
       sb <- cov(yb)
-      mb <- as.vector( Rfast::colmeans(yb) )
+      mb <- Rfast::colmeans(yb) 
       dmb <- mb - M
       tb[i] <- dmb %*% solve(sb, dmb)
     }
 
-    tb <- ( n * (n - p) ) / ( (n - 1) * p ) * tb
+    tb <- n * (n - p) / ( (n - 1) * p ) * tb
     pvalue <- ( sum(tb > test) + 1 )/(R + 1)  ## bootstrap p-value
 
     if ( graph == TRUE ) {

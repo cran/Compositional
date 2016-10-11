@@ -12,7 +12,7 @@ mixnorm.contour <- function(x, mod) {
   ## log-ratio is used
 
   x <- as.matrix(x)  ## makes sure x is matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## make sure x compositional data
+  x <- x / Rfast::rowsums(x)  ## make sure x compositional data
   prob <- mod$prob  ## mixing probabilitiy of each cluster
   mu <- mod$mu
   su <- mod$su
@@ -27,7 +27,7 @@ mixnorm.contour <- function(x, mod) {
 
   ldet <- numeric(g)
   for (k in 1:g) {
-    ldet[k] <-  -0.5 * log( det(2 * pi * su[, , k]) )
+    ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
   }
 
   for ( i in 1:c(n/2) ) {
@@ -36,7 +36,7 @@ mixnorm.contour <- function(x, mod) {
       if ( x2[j] < sqrt3 * x1[i] ) {
         ## This checks if the point will lie inside the triangle
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -66,7 +66,7 @@ mixnorm.contour <- function(x, mod) {
       ## This checks if the point will lie inside the triangle
       if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -91,7 +91,7 @@ mixnorm.contour <- function(x, mod) {
   }
 
   contour( x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
-  b1 <- c(1/2, 0, 1, 1/2)
+  b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c( sqrt3/2, 0, 0, sqrt3/2 )
   b <- cbind(b1, b2)
   points(b[ , 1], b[ , 2] , type = "l", xlab = " ", ylab = " ")
@@ -100,7 +100,7 @@ mixnorm.contour <- function(x, mod) {
   if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
-  proj <- matrix( c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2 )
+  proj <- matrix( c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2 )
   xa <- x %*% proj
   points(xa[, 1], xa[, 2])
 

@@ -15,8 +15,8 @@ multivt <- function(y, plot = FALSE) {
     ## degeees of freedom. It's a built-in function
     a <- MASS::cov.trob(y, nu = v)
     se <- a$cov
-    n <- nrow(y)
-    p <- ncol(y)
+    n <- dim(y)[1]
+    p <- dim(y)[2]
     me <- as.vector(a$center)
     f <- n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
     log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) *
@@ -34,7 +34,7 @@ multivt <- function(y, plot = FALSE) {
   ## the classical mean and covariance are given in the results
   ## for comparison pruposes
   apotelesma <- list(center = result$center, scatter = result$cov,
-  df = dof, loglik = loglik, mesos = colMeans(y), covariance = cov(y))
+  df = dof, loglik = loglik, mesos = Rfast::colmeans(y), covariance = cov(y))
 
   if (plot == TRUE) {
     lik <- deg <- seq(max(1, dof - 20), dof + 20, by = 0.1)

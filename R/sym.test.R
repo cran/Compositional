@@ -5,16 +5,17 @@
 ################################
 
 sym.test <- function(x) {
-  ## x contains the data
-  n <- nrow(x)  ## the sample size
-  D <- ncol(x)  ## the dimensionality of the data
-  zx <- log(x) 
+  ## x contains the compositional data
 
-  sym <- function(a, zx) {
-    n * lgamma(D * a) - n * D * lgamma(a) + sum( zx * (a - 1) )
+  n <- dim(x)[1]  ## the sample size
+  D <- dim(x)[2]  ## the dimensionality of the data
+  szx <- sum( log(x) )
+
+  sym <- function(a) {
+    n * lgamma(D * a) - n * D * lgamma(a) + szx * (a - 1)
   }
 
-  t0 <- optimize(sym, c(0, 1000), zx = zx, maximum = TRUE)
+  t0 <- optimize(sym, c(0, 1000), maximum = TRUE)
   t1 <- diri.nr(x)
   a0 <- t0$maximum
   a1 <- t1$param

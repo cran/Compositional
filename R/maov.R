@@ -17,12 +17,12 @@ maov <- function(x, ina) {
   x <- as.matrix(x)  ## makes sure x is a matrix
   ina <- as.numeric(ina)
   ni <- as.vector( table(ina) )  ## group sample sizes
-  n <- nrow(x)  ## total sample size
+  n <- dim(x)[1]  ## total sample size
   g <- max(ina)  ## number of groups
-  p <- ncol(x)  ## dimensionality of the data
+  p <- dim(x)[2]  ## dimensionality of the data
 
   m <- rowsum(x, ina) / ni
-  me <- as.vector( Rfast::colmeans(x) )  ## total mean vector
+  me <- Rfast::colmeans(x)  ## total mean vector
   y <- sqrt(ni) * (m - rep(me, rep(g, p)) )
   B <- crossprod(y)
 
@@ -35,7 +35,7 @@ maov <- function(x, ina) {
     note <- paste("F approximation has been used")
 
   } else if ( g == 3 ) {
-    stat <- (n - p - 2 )/p * (1 - sqrt(lam)) / sqrt(lam)
+    stat <- (n - p - 2 )/p * ( 1 - sqrt(lam) ) / sqrt(lam)
     pvalue <- pf( stat, 2 * p, 2 * (n - p - 2), lower.tail = FALSE )
     note <- paste("F approximation has been used")
 

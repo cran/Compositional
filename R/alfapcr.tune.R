@@ -16,10 +16,10 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   ## "normal" is set by default
 
   x <- as.matrix(x)
-  x <- x / as.vector( Rfast::rowsums(x) )
-  n <- nrow(x)
-  d <- ncol(x) - 1
-  if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
+  x <- x / Rfast::rowsums(x)
+  n <- dim(x)[1]
+  d <- dim(x)[2] - 1
+  if ( min(x) == 0 )   a <- a[ a > 0 ]  ## checks for zero values in the data.
   da <- length(a)
 
   if ( is.null(mat) ) {

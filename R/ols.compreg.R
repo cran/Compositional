@@ -11,23 +11,24 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)
   ## B is the number of bootstrap samples used to obtain
-  ## standard errors for the betas
+  ## standard errors for the bes
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
   ## more are used (parallel computing)
 
   runtime <- proc.time()
   y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) ) ## makes sure y is compositional data
-  x <- as.matrix( cbind(1, x) )
-  d <- ncol(y) - 1  ## dimensionality of the simplex
-  n <- nrow(y)  ## sample size
+  y <- y / Rfast::rowsums(y) ## makes sure y is compositional data
+  mat <- model.matrix(y ~ ., as.data.frame(x) )
+  n <- dim(y)[1]  ## sample size
+  x <- mat[1:n, ]
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
   z <- list(y = y, x = x)
 
   olsreg <- function(para, z) {
     y <- z$y
     x <- z$x
-    d <- ncol(y) - 1
+    d <- dim(y)[2] - 1
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind(1, exp(x %*% be))
     mu <- mu1 / rowSums(mu1)
@@ -89,16 +90,16 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   if ( is.null(xnew) ) {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    est <- mu / Rfast::rowsums(mu)
   } else {
-    xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
-    mu <- cbind(1, exp(x %*% beta))
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    xnew <- model.matrix(y ~ ., as.data.frame(xnew) )
+    xnew <- xnew[1:dim(xnew)[1], ]
+    mu <- cbind(1, exp(xnew %*% beta))
+    est <- mu / Rfast::rowsums(mu)
   }
 
   if ( is.null(colnames(x)) ) {
-    p <- ncol(x) - 1
+    p <- dim(x)[2] - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {

@@ -18,9 +18,9 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   y <- as.vector(y)
   m <- mean(y)
   y <- y - m  ## standardize the dependent variable
-  n <- nrow(x)
-  p <- ncol(x)
-  mx <- as.vector( Rfast::colmeans(x) )
+  n <- dim(x)[1]
+  p <- dim(x)[2]
+  mx <- Rfast::colmeans(x) 
   s <- Rfast::colVars(x, std = TRUE) 
   x <- ( t(x) - m )/ s  ## standardise the x values
   x <- t(x)
@@ -39,9 +39,8 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
 
   mse <- r2 <- NULL
   if ( !is.null(xnew) ) {
-    xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
-    nu <- nrow(xnew)
+    nu <- dim(xnew)[1]
     xnew <- ( t(xnew) - mx) / s  ## standardize the xnew values
     xnew <- t(xnew)
     est <- as.vector( m + xnew %*% b )  ## predicted values for PCA model

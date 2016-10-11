@@ -12,7 +12,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
 
   eel2 <- function(x, y) {
 
-    d <- ncol(x)
+    d <- dim(x)[2]
     ## next is the root finding function
     ### step 1
     lam1 <- numeric(d)
@@ -20,13 +20,13 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     fx1 <- exp( as.vector( x %*% lam1 ) )
     fx2 <- sum(fx1)
     fx2a <- x * fx1
-    fx3 <- colSums( fx2a )
+    fx3 <- Rfast::colsums( fx2a )
     fx4 <- fx3 / fx2
 
     fy1 <- exp( as.vector( - y %*% lam1 ) )
     fy2 <- sum(fy1)
     fy2a <- y * fy1
-    fy3 <- colSums( fy2a )
+    fy3 <- Rfast::colsums( fy2a )
     fy4 <- fy3 / fy2
 
     f <- fx4 - fy4
@@ -51,7 +51,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
       fy1 <- exp( as.vector( - y %*% lam1 ) )
       fy2 <- sum(fy1)
       fy2a <- y * fy1
-      fy3 <- colSums( fy2a )
+      fy3 <- Rfast::colsums( fy2a )
       fy4 <- fy3 / fy2
 
       f <- fx4 - fy4
@@ -64,7 +64,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
 
     p1 <- fx1 / fx2
     p2 <- fy1 / fy2
-    n1 <- nrow(x)   ;   n2 <- nrow(y)
+    n1 <- dim(x)[1]   ;   n2 <- dim(y)[1]
     stat <-  - 2 * sum( log( n1 * p1) ) - 2 * sum( log(n2 * p2) )
     pvalue <- pchisq(stat, d, lower.tail = FALSE)
 
@@ -92,7 +92,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   } else if ( R == 1 ) {
 
     test <- as.numeric( res$info[1] )
-    d <- ncol(x)
+    d <- dim(x)[2]
     delta <- james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(stat, d, lower.tail = FALSE) )
@@ -104,11 +104,11 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   } else if ( R == 2 ) {
 
     test <- as.numeric( res$info[1] )
-    d <- ncol(x)
+    d <- dim(x)[2]
     dof <- james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
-    stat <- as.numeric( ( dof / (v * d) ) * test )
-    pvalue <- as.numeric( pf(stat, d, dof, lower.tail = FALSE) )
+    stat <- ( dof / (v * d) ) * test
+    pvalue <- pf(stat, d, dof, lower.tail = FALSE)
     dof <- c(d, v - d + 1)
     res$info <- c(stat, pvalue, dof)
     names(res$info) <- c("statistic", "p-value", "numer df", "denom df")
@@ -121,10 +121,10 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     test <- as.numeric( res$info[1] )
 
     if ( test < 1e+10 ) {
-      m1 <- colMeans(x)
-      m2 <- colMeans(y)
-      d <- ncol(x)
-      n1 <- nrow(x)   ;   n2 <- nrow(y)
+      m1 <- Rfast::colmeans(x)
+      m2 <- Rfast::colmeans(y)
+      d <- dim(x)[2]
+      n1 <- dim(x)[1]   ;   n2 <- dim(y)[1]
       s1 <- ( (n1 - 1) / n1 ) * cov(x)
       s2 <- ( (n2 - 1) / n2 ) * cov(y)
       v1 <- solve(s1)   ;  v2 <- solve(s2)

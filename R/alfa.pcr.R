@@ -19,7 +19,7 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
 
   z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
 
-  if ( length(unique(y)) == 2 ) {
+  if ( length( unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else if ( sum(y - round(y) ) == 0 ) {
     oiko <- "poisson"

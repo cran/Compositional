@@ -14,9 +14,9 @@ el.test1 <- function(x, mu, R = 1, ncores = 1, graph = FALSE) {
 
     stat <- res$"-2LLR"
     tb <- numeric(R)
-    n <- nrow(x)
-    d <- ncol(x)
-    m <- as.vector( Rfast::colmeans(x) )
+    n <- dim(x)[1]
+    d <- dim(x)[2]
+    m <- Rfast::colmeans(x)
     y <- x - rep( m - mu, rep(n, d) ) ## brings the data under the null hypothesis
 
     if (ncores == 1) {

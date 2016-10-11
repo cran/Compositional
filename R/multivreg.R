@@ -14,18 +14,18 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   y <- as.matrix(y)
   x <- as.matrix(x)
-  n <- nrow(y)  ## sample size
-  d <- ncol(y)  ## dimensionality of y
-  p <- ncol(x)  ## dimensionality of x
+  n <- dim(y)[1]  ## sample size
+  d <- dim(y)[2]  ## dimensionality of y
+  p <- dim(x)[2]  ## dimensionality of x
   mod <- lm(y ~ x)   ## linear regression
   res <- resid(mod)  ## residuals
   s <- cov(res) * (n - 1) / (n - p - 1)
   sxx <- cov(x)  ## covariance of the independent variables
-  dres <- sqrt( rowSums( res %*% solve(s) * res ) ) ## Mahalanobis distances
+  dres <- sqrt( Rfast::rowsums( res %*% solve(s) * res ) ) ## Mahalanobis distances
   ## of the residuals
 
-  mx <- as.vector(Rfast::colmeans(x) )  ## mean vector of the independent variales
-  dx <- sqrt( mahalanobis(x, mx, sxx) )  ## Mahalanobis distances
+  mx <- Rfast::colmeans(x)  ## mean vector of the independent variales
+  dx <- sqrt( Rfast::mahala(x, mx, sxx) )  ## Mahalanobis distances
   ## of the independent variables
   crit.res <- sqrt( qchisq(0.975, d) )
   crit.x <- sqrt( qchisq(0.975, p) )
@@ -46,7 +46,6 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
     est <- fitted(mod)
   } else {
     xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
     est <- xnew %*% coef(mod)
   }
 

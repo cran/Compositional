@@ -11,8 +11,9 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
+  
   x <- as.matrix(x)
-  x <- x / as.vector(Rfast::rowsums(x) )
+  x <- x / Rfast::rowsums(x)
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
@@ -23,12 +24,12 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
     ya <- log(x)
-    ya <- ya - as.vector( Rfast::rowmeans( ya ) )
+    ya <- ya - Rfast::rowmeans( ya ) 
     ya <- as.matrix( ya %*% ha )
   }
 
-  m <- as.vector( Rfast::colmeans(ya) )  ## mean vector
-  s <- var(ya)  ## covariance matrix
+  m <- Rfast::colmeans(ya)  ## mean vector
+  s <- cov(ya)  ## covariance matrix
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)
 
@@ -37,7 +38,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
       if ( x2[j] < sqrt3 * x1[i] ) {
         ## This checks if the point will lie inside the triangle
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -59,7 +60,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
       ## This checks if the point will lie inside the triangle
       if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -77,7 +78,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   }
 
   contour( x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
-  b1 <- c( 1/2, 0, 1, 1/2 )
+  b1 <- c( 0.5, 0, 1, 0.5 )
   b2 <- c( sqrt3/2, 0, 0, sqrt3/2 )
   b <- cbind(b1 ,b2)
   points( b[, 1], b[, 2], type = "l", xlab = " ", ylab = " " )
@@ -87,9 +88,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   text( b[2:3, 1] + 0.01, b[2:3, 2] - 0.01, nam[1:2], cex = 1)
 
   if (appear == TRUE) {
-    proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt(3)/2), ncol = 2)
-    x <- as.matrix(x)
-    x <- x/rowSums(x)
+    proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
   }

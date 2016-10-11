@@ -21,10 +21,10 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
   ## nc is how many cores you want to use, default value is 2
   if ( min(y) == 0 )  a <- a[a>0]
   la <- length(a)
-  n <- nrow(y)
+  n <- dim(y)[1]
   x <- as.matrix(x)
   y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) )
+  y <- y / Rfast::rowsums(y)
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / K) * K ) )
@@ -54,7 +54,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
       }
     }
 
-    kl <- as.vector( Rfast::colmeans(kula) )
+    kl <- Rfast::colmeans(kula) 
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)
@@ -70,29 +70,31 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     ## but with options(warn = -1) you will not see it
     cl <- makePSOCKcluster(nc)
     registerDoParallel(cl)
-    kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast",
-        .export = c("alfa.reg", "alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans",
-                    "colVars") ) %dopar% {
-                      ba <- val[, j]
-                      ww <- matrix(nrow = K, ncol = length(ba) )
-                      for ( l in 1:length(ba) ) {
-                        ytr <- alfa(y, ba[l])$aff
-                        for (i in 1:K) {
-                          xu <- x[ mat[, i], ]
-                          yu <- y[ mat[, i], ]
-                          xa <- x[ -mat[, i], ]
-                          yb <- ytr[ -mat[, i], ]
-                          mod <- alfa.reg(yu, xa, ba[l], xnew = xu, yb = yb)
-                          yest <- mod$est
-                          ww[i, l] <- 2 * sum(yu * log(yu / yest), na.rm = T)
-                        }
-                      }
-                      return(ww)
-                    }
+    kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast", .export = c("alfa.reg", 
+	"alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans", "colVars") ) %dopar% {
+       ba <- val[, j]
+       ww <- matrix(nrow = K, ncol = length(ba) )
+       for ( l in 1:length(ba) ) {
+          ytr <- alfa(y, ba[l])$aff
+          for (i in 1:K) {
+            xu <- x[ mat[, i], ]
+            yu <- y[ mat[, i], ]
+            xa <- x[ -mat[, i], ]
+            yb <- ytr[ -mat[, i], ]
+            mod <- alfa.reg(yu, xa, ba[l], xnew = xu, yb = yb)
+            yest <- mod$est
+            ww[i, l] <- 2 * sum(yu * log(yu / yest), na.rm = TRUE)
+          }
+       }
+		
+       return(ww)
+		
+    }
 
     stopCluster(cl)
+	
     kula <- kula[, 1:la]
-    kl <- as.vector( Rfast::colmeans(kula) )
+    kl <- Rfast::colmeans(kula) 
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)

@@ -11,9 +11,6 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   ## x is the independent variable(s)
   ## type takes three values, either 'classical' or
   ## 'spatial' for spatial median regression.
-  y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
-  x <- as.matrix(x)
 
   ## alr transformation with the first component being the base
   if ( is.null(yb) )  {
@@ -27,7 +24,7 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     mod <- multivreg(z, x, plot = FALSE, xnew = xnew)  ## classical multivariate regression
     res <- mod$suma
     di <- ncol(z)
-    beta <- seb <- matrix(nrow = ncol(x) + 1, ncol = di)
+    beta <- seb <- matrix(nrow = NCOL(x) + 1, ncol = di)
     for (i in 1:di) {
      beta[, i] <- res[, 1, i]
      seb[, i] <- res[, 2, i]
@@ -46,7 +43,8 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     runtime <- mod$runtime
   }
 
-  est2 <- cbind(1, exp(est1))
-  est <- est2 / as.vector( Rfast::rowsums(est2) )
+  est2 <- cbind( 1, exp(est1) )
+  est <- est2 / Rfast::rowsums(est2)
   list(runtime = runtime, beta = beta, seb = seb, est = est)
+
 }

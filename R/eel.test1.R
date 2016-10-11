@@ -5,13 +5,13 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
   ## mu is the hypothesized mean
 
   x <- as.matrix(x)
-  d <- ncol(x)
-  n <- nrow(x)
+  d <- dim(x)[2]
+  n <- dim(x)[1]
 
   eel <- function(x, mu) {
 
-    d <- ncol(x)
-    n <- nrow(x)
+    d <- dim(x)[2]
+    n <- dim(x)[1]
     mu <- as.vector(mu)
     ## next is the root finding function
     ### step 1
@@ -20,7 +20,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     f1 <- exp( as.vector( x %*% lam_old ) )
     f2 <- sum(f1)
     f2a <- x * f1
-    f3 <- as.vector(Rfast::colsums( f2a ) )
+    f3 <- Rfast::colsums( f2a )
     f4 <- f3 / f2
     f <- f4 - mu
     der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
@@ -36,7 +36,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
       f1 <- exp( as.vector( x %*% lam_old ) )
       f2 <- sum(f1)
       f2a <- x * f1
-      f3 <- as.vector( Rfast::colsums( f2a ) )
+      f3 <- Rfast::colsums( f2a )
       f4 <- f3 / f2
       f <- f4 - mu
       der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
@@ -70,7 +70,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     test <- as.numeric( res$info[1] )
 
     if ( test < 1e+10 ) {
-      m <- colMeans(x)
+      m <- Rfast::colmeans(x)
       dm <-  - m + mu
       y <- x + rep(dm, rep(n, d) )
       tb <- numeric(R)

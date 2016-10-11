@@ -20,12 +20,12 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
 
   y1 <- as.matrix(y1)
   y2 <- as.matrix(y2)
-  d <- ncol(y1)  ## number of variables
-  n1 <- nrow(y1)   ;   n2 <- nrow(y2)  ## sample sizes
+  d <- dim(y1)[2]  ## number of variables
+  n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes
   n <- n1 + n2  ## total sample size
   s1 <- ( (n1 - 1) / n1 ) * cov(y1)   ;   s2 <- ( (n2 - 1) / n2 ) * cov(y2)
-  m1 <- as.vector( Rfast::colmeans(y1) )
-  m2 <- as.vector( Rfast::colmeans(y2) )  ## mean vectors
+  m1 <- Rfast::colmeans(y1)
+  m2 <- Rfast::colmeans(y2)  ## mean vectors
   ## mu is the estimate of the common mean vector
   v1 <- solve(s1)    ;   v2 <- solve(s2)
   a1 <- n1 * v1    ;    a2 <-  n2 * v2
@@ -61,8 +61,8 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
 
     ## else bootstrap calibration is implemented
   } else if (R > 2) {
-    ybar1 <- as.vector( Rfast::colmeans(y1) )
-    ybar2 <- as.vector( Rfast::colmeans(y2) )
+    ybar1 <- Rfast::colmeans(y1) 
+    ybar2 <- Rfast::colmeans(y2) 
     z1 <- y1 - rep( ybar1 - muc, rep(n1, d) )
     z2 <- y2 - rep( ybar2 - muc, rep(n2, d) )
 

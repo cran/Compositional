@@ -12,14 +12,14 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   ## a is the grid of values of the power parameter
 
   x <- as.matrix(x)  ## makes the data in a matrix form
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure the data are compositional
-  D <- ncol(x)  ## number of components
+  x <- x / Rfast::rowsums(x)  ## makes sure the data are compositional
+  D <- dim(x)[2]  ## number of components
   d <- D - 1  ## dimensionality of the simplex
-  n <- nrow(x)  ## sample size of the data
+  n <- dim(x)[1]  ## sample size of the data
   f <- (n - 1) / n
   qa <- numeric( length(a) )  ## the log-likelihood values will be stored here
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
-  con <-  - n/2 * d * log(2 * pi * f) - (n - 1) * d/2 + n * (d + 1/2) * log(D)
+  con <-  - n/2 * d * log(2 * pi * f) - (n - 1) * d/2 + n * (d + 0.5) * log(D)
 
   for ( i in 1:length(a) ) {
     trans <- alfa( x, a[i] )

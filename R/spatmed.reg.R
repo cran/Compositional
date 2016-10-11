@@ -10,17 +10,17 @@
 spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
 
   y <- as.matrix(y)
-  n <- nrow(y)
+  n <- dim(y)[1]
   mat <- model.matrix(y ~ ., as.data.frame(x) )
   x <- as.matrix(mat[1:n, ])  ## the desing matrix is created
 
-  p <- ncol(x)
-  d <- ncol(y)
+  p <- dim(x)[2]
+  d <- dim(y)[2]
 
   medi <- function(be, z) {
     y <- z$y
     x <- z$x
-    p <- ncol(x)
+    p <- dim(x)[2]
     be <- matrix(be, nrow = p)
     est <- x %*% be
     sum( sqrt( rowSums( (y - est)^2 ) ) )
@@ -30,7 +30,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
 
   B1 <- coef( lm.fit(x,  y) )
   est <- y - x %*% B1
-  ww <- sqrt( as.vector(Rfast::rowsums( est^2 ) ) )
+  ww <- sqrt( Rfast::rowsums( est^2 ) )
 
   z <- x / ww
   a1 <- crossprod(z, x)
@@ -40,10 +40,10 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
   i <- 2
 
   while ( sum( abs(B2 - B1) ) > tol ) {
-    i <- i +1
+    i <- i + 1
     B1 <- B2
     est <- y - x %*% B1
-    ww <- sqrt( as.vector( Rfast::rowsums( est^2 ) ) )
+    ww <- sqrt( Rfast::rowsums( est^2 ) ) 
     ela <- which( ww == 0 )
     z <- x / ww
 
@@ -74,7 +74,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
     } else  colnames(seb) <- colnames(be) <- colnames(y)
 
     if ( is.null(colnames(x)) ) {
-      p <- ncol(x) - 1
+      p <- dim(x)[2] - 1
       rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
       rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
     } else {
@@ -87,8 +87,8 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
   if ( is.null(xnew) ) {
     est <- x %*% be
   } else {
-    xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
+    mat <- model.matrix(y ~ ., as.data.frame(xnew) )
+    x <- as.matrix( mat[1:dim(xnew)[1], ] ) 
     est <- xnew %*% be
   }
 
@@ -97,7 +97,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
   } else  colnames(be) <- colnames(y)
 
   if ( is.null(colnames(x)) ) {
-    p <- ncol(x) - 1
+    p <- dim(x)[2] - 1
     rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
   } else {
     rownames(be)  <- c("constant", colnames(x)[-1] )

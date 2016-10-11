@@ -12,9 +12,9 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## oiko can be "binomial" or "poisson"
   x <- as.matrix(x)
   y <- as.vector(y)
-  n <- nrow(x)
-  p <- ncol(x)
-  m <- as.vector( Rfast::colmeans(x) )
+  n <- dim(x)[1]
+  p <- dim(x)[2]
+  m <- Rfast::colmeans(x) 
 
   x <- Rfast::standardise(x)  ## standardize the independent variables
   eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
@@ -32,7 +32,6 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   be <- vec[, 1:k] %*% as.matrix( b[-1] )
 
   if ( !is.null(xnew) ) {
-    xnew <- as.matrix(xnew)
     xnew <- matrix(xnew, ncol = p)
     s <- Rfast::colVars(x, std = TRUE) 
     xnew <- ( t(xnew) - m ) / s ## standardize the xnew values

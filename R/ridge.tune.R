@@ -16,11 +16,11 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
 
   y <- as.matrix(y)  ## makes sure y is a matrix
   x <- as.matrix(x)
-  n <- nrow(y)  ## sample size
+  n <- dim(y)[1]  ## sample size
   k <- length(lambda)
 
-  di <- ncol(y)  ## dimensionality of y
-  p <- ncol(x)  ## dimensionality of x
+  di <- dim(y)[2]  ## dimensionality of y
+  p <- dim(x)[2]  ## dimensionality of x
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
     ## It may be the case this new nu is not exactly the same
@@ -48,7 +48,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       yy <- ytrain - my  ## center the dependent variables
 
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
-      mx <- as.vector( Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain) 
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
@@ -81,7 +81,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       yy <- ytrain- my  ## center the dependent variables
 
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
-      mx <- as.vector( Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
@@ -106,7 +106,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     stopCluster(cl)
   }
 
-  mspe <- as.vector( Rfast::colmeans(msp) )
+  mspe <- Rfast::colmeans(msp) 
   bias <- msp[ , which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 

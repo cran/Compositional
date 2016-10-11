@@ -13,7 +13,7 @@ helm <- function(n) {
   r <- 1 / sqrt( i * (i - 1) )
   
   for ( j in 1:(n - 1 ) ) { 
-    mat[j, 1: c(j + 1) ] <- c( rep(r[j], j), -( j * r[j] ) )
+    mat[j, 1: c(j + 1) ] <- c( rep(r[j], j), - j * r[j]  )
   }
   
   mat

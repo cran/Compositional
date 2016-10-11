@@ -18,7 +18,7 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
   y <- as.vector(y)  ## makes sure y is a vector
   x <- as.matrix(x)
   n <- length(y)  ## sample size
-  p <- ncol(x)  ## number of independent variables
+  p <- dim(x)[2]  ## number of independent variables
   if ( maxk > p )  maxk <- p  ## just a check
 
   if ( is.null(mat) ) {
@@ -53,12 +53,12 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
-      mx <- as.vector( Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( as.vector( Rfast::rowsums(mtrain^2) ) )
+      mtrain <- mtrain / sqrt( Rfast::rowsums(mtrain^2) )
       sar <- tcrossprod( mtrain )
 
       eig <- eigen( sar )  ## eigen analysis of the design matrix
@@ -97,12 +97,12 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
-      mx <- as.vector(Rfast::colmeans(xtrain) )
+      mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
 
       mtrain <- t( xtrain )
       mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( as.vector( Rfast::rowsums(mtrain^2) ) )
+      mtrain <- mtrain / sqrt( Rfast::rowsums(mtrain^2) )
       sar <- tcrossprod( mtrain )
 
       eig <- eigen( sar )  ## eigen analysis of the design matrix
@@ -126,7 +126,7 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
     runtime <- proc.time() - runtime
   }
 
-  mspe <- as.vector( Rfast::colmeans(msp) )
+  mspe <- Rfast::colmeans(msp) 
   bias <- msp[ ,which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 

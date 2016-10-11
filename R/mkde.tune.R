@@ -13,21 +13,21 @@
 #### Density estimation for statistics and data analysis, pages 76-78.
 ################################
 
+
 mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
   ## x contains the multivariate data
   ## low and up are the limits within which the
   ## search is conducted
 
-
   x <- as.matrix(x)
-  n <- nrow(x)
-  d <- ncol(x)  ## sample and dimensionality of x
+  n <- dim(x)[1]
+  d <- dim(x)[2]  ## sample and dimensionality of x
   s <- s ## can put a robust covariance matrix here if you want
 
   eig <- eigen(s)
   lam <- eig$values  ## eigenvalues of the covariance matrix
   vec <- eig$vectors  ## eigenvectors of the covariance matrix
-  B <- vec %*% ( t(vec)* ( 1/ sqrt(lam) ) )
+  B <- vec %*% ( t(vec) / sqrt(lam) )
   z <- x %*% B
   a2a <- fields::rdist( z, compact = FALSE )^2
   a2a <- exp(-0.5 * a2a)
@@ -35,12 +35,12 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
 
   tune <- function(h) {
     a <- a2a^( 1 / h^2 )
-    f <- log(ds) -d/2 * log(2 * pi) - d * log(h) - log(n - 1) + log( rowSums( a ) - 1 )
+    f <-  - d * log(h) + log( rowSums( a ) - 1 )
     mean( f )
   }
-  low <- low    ;   up <- up
+  low <- low     ;    up <- up
 
   bar <- optimize(tune, c(low, up), maximum = TRUE)
-  list( hopt = bar$maximum, maximum = bar$objective )
+  list( hopt = bar$maximum, maximum = bar$objective + log(ds) - d/2 * log(2 * pi) - log(n - 1) )
 
 }

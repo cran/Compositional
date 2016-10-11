@@ -38,7 +38,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
 
-  M<- ncol(mat)
+  M <- ncol(mat)
 
   ## if you have zero values, only positive alphas are allowed
   if ( min(x) == 0 )  a = a[ a > 0 ]
@@ -65,7 +65,8 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
 
   confa <- as.vector( which(props == max( props), arr.ind = TRUE )[1, ] )
   bias <- numeric(M)
-  pera <- array( dim = c(length(gam), length(del), length(a)) )
+  pera <- array( dim = c( length(gam), length(del), length(a) ) )
+  
   for (i in 1:M) {
     for ( j in 1:length(a) ) {
       pera[, , j] <- info[[ j ]][, , i]
@@ -77,8 +78,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   seopt <- ser[ confa[1], confa[2], confa[3] ]
   res <- c( opt, mean(bias), seopt, a[ confa[3] ], gam[ confa[1] ],
             del[ confa[2] ] )
-  names(res) <- c( "rate", "bias", "se of rate", "best_a",
-                   "best_gam", "best del" )
+  names(res) <- c( "rate", "bias", "se of rate", "best_a", "best_gam", "best del" )
   runtime <- proc.time() - toc
 
   list(result = res,  percent = percent, se = se, runtime = runtime)

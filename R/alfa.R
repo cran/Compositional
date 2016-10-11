@@ -13,24 +13,24 @@ alfa <- function(x, a, h = TRUE) {
   ## if h is TRUE the multiplication with the Helmert matrix takes place
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  D <- ncol(x) ## number of components
+  D <- dim(x)[2] ## number of components
   if ( D == 1 )   x <- t(x)
-  x <-x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
+  x <-x / Rfast::rowsums(x)  ## makes sure x is compositional data
 
-  if (a != 0) {
+  if ( a != 0 ) {
     z <- x^a
-    ta <- as.vector( Rfast::rowsums(z) )
+    ta <- Rfast::rowsums(z) 
     z <- z / ta
-    z <- (D/a) * z - 1/a
+    z <- D / a * z - 1/a
     sa <- sum( log(ta) )
 
   } else {  ## if a=0 the ilr is calculated
     xa <- log(x)
-    z <- xa - as.vector( Rfast::rowmeans( xa ) )  ## this is the clr
-    sa <- nrow(x) * log(D)
+    z <- xa - Rfast::rowmeans( xa )   ## this is the clr
+    sa <- dim(x)[1] * log(D)
   }
 
-  if (h == TRUE) {
+  if ( h == TRUE ) {
     aff <- tcrossprod(z, helm( D ) ) ## multiply by the Helmert sub-matrix
     res <- list(sa = sa, aff = aff)
 

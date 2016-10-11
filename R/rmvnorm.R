@@ -11,12 +11,11 @@ rmvnorm <- function(n, mu, sigma) {
   ## sigma does not have to be of full rank
 
   p <- length(mu)
-  x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
+  x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )
   eig <- eigen(sigma)
   lam <- eig$values
   vec <- eig$vectors
   B <- vec %*% ( t(vec) * sqrt(lam) )
-  x <- tcrossprod(B, x) +  mu
-  t(x)
+  tcrossprod(x, B) + rep( mu, rep(n, p) )
 
 }

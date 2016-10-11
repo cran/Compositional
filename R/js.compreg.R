@@ -17,11 +17,11 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## more are used (parallel computing)
 
   y <- as.matrix(y)
-  y <- y / as.vector( Rfast::rowsums(y) )  ## makes sure y is compositional data
-  n <- nrow(y)  ## sample size
+  y <- y / Rfast::rowsums(y)  ## makes sure y is compositional data
+  n <- dim(y)[1]  ## sample size
   mat <- model.matrix(y ~ ., as.data.frame(x) )
-  x <- as.matrix(mat[1:n, ])
-  d <- ncol(y) - 1  ## dimensionality of the simplex
+  x <- mat[1:n, ]
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
   z <- list(y = y, x = x)
 
   jsreg <- function(para, z = z){
@@ -90,16 +90,16 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   if ( is.null(xnew) ) {
     mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    est <- mu / Rfast::rowsums(mu)
   } else {
-    xnew <- cbind(1, xnew)
-    xnew <- as.matrix(xnew)
-    mu <- cbind(1, exp(x %*% beta))
-    est <- mu / as.vector( Rfast::rowsums(mu) )
+    xnew <- model.matrix(y ~ ., as.data.frame(xnew) )
+    xnew <- xnew[1:dim(xnew)[1], ]
+    mu <- cbind(1, exp(xnew %*% beta))
+    est <- mu / Rfast::rowsums(mu)
   }
 
   if ( is.null(colnames(x)) ) {
-    p <- ncol(x) - 1
+    p <- dim(x)[2] - 1
     rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {

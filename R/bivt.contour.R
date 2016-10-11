@@ -13,14 +13,15 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
   x <- as.matrix(x)
-  x <- x / as.vector( Rfast::rowsums(x) )
-
+  x <- x / Rfast::rowsums(x)
+  sqrt3 <- sqrt(3)
+  
   if (type == 'alr') {
     y <- log( x[, -3] / x[, 3] ) ## additive log-ratio transformation
   } else {
     ha <- t( helm(3) )
     y <- log(x)
-    y <- y - as.vector( Rfast::rowmeans( y ) )
+    y <- y - Rfast::rowmeans( y ) 
     y <- as.matrix( y %*% ha )
   }
 
@@ -30,18 +31,18 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   v <- mod$df
   p <- 2
   x1 <- seq(0.001, 0.999, length = n)
-  x2 <- seq(0.001, sqrt(3)/2 - 0.001, length = n)
+  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
   st <- solve(s)
 
   for (i in 1:c(n/2) ) {
     for (j in 1:n) {
 
-      if (x2[j] < sqrt(3) * x1[i]) { ## This checks if the point lies
+      if (x2[j] < sqrt3 * x1[i]) { ## This checks if the point lies
       ## inside the triangle
       ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt(3)
-        w2 <- x1[i] - x2[j] / sqrt(3)
+        w3 <- 2 * x2[j] / sqrt3
+        w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
 
@@ -67,10 +68,10 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
     for (j in  1:n) {
 
       ## This checks if the point will lie inside the triangle
-      if (x2[j] < sqrt(3) - sqrt(3) * x1[i]) {
+      if (x2[j] < sqrt3 - sqrt3 * x1[i]) {
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j]) / sqrt(3)
-        w2 <- x1[i] - x2[j] / sqrt(3)
+        w3 <- 2 * x2[j] / sqrt3
+        w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
 
@@ -94,8 +95,8 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
 
   contour(x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n",
   yaxt = "n", bty = "n")
-  b1 <- c(1/2, 0, 1, 1/2)
-  b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
+  b1 <- c(0.5, 0, 1, 0.5)
+  b2 <- c(sqrt3/2, 0, 0, sqrt3/2)
   b <- cbind(b1, b2)
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
 
@@ -104,8 +105,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
     if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
     text(b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1)
     text(b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1)
-    proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt(3)/2), ncol = 2)
-    x <- as.matrix(x)   ;   x <- x/rowSums(x)
+    proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
   }

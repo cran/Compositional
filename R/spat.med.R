@@ -16,14 +16,14 @@
 #### mtsagris@yahoo.gr
 ################################
 
-spat.med <- function(x, tol = 1e-09) {
+spat.med <- function(y, tol = 1e-09) {
   ## contains the data
 
-  y <- t(x)
-  u1 <- Rfast::colMedians(x) 
+  u1 <- Rfast::colMedians(y) 
+  y <- t(y)
 
   z <- y - u1
-  ww <- 1 / sqrt( as.vector( Rfast::colsums(z^2) ) )
+  ww <- 1 / sqrt( Rfast::colsums(z^2) )
 
   wei <- ww / sum(ww)
   u2 <-  as.vector( y %*% wei )
@@ -31,7 +31,7 @@ spat.med <- function(x, tol = 1e-09) {
   while ( sum( abs(u2 - u1) ) > tol ) {
     z <- y - u2
     u1 <- u2
-    ww <- 1 / sqrt( as.vector( Rfast::colsums(z^2) ) )
+    ww <- 1 / sqrt( Rfast::colsums(z^2) )
 
     if ( max( ww ) < Inf ) {
 
@@ -45,3 +45,7 @@ spat.med <- function(x, tol = 1e-09) {
   u2
 
 }
+
+
+
+

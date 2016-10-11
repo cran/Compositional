@@ -13,15 +13,15 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   ## n is the number of points of each axis used
 
   x <- as.matrix(x)
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is a matrix with compositional data
-  nu <- nrow(x)  ## sample size
+  x <- x / Rfast::rowsums(x)  ## makes sure x is a matrix with compositional data
+  nu <- dim(x)[1]  ## sample size
   sqrt3 <- sqrt(3)
   ha <- t( helm(3) )
 
   if (type == "alr")  z <- log(x[, -3]/x[, 3])  ## alr transformation
   if (type == "ilr") {  ## isometric log-ratio transformation
       zx <- log(x)
-      z <- zx - as.vector( Rfast::rowmeans( zx ) )
+      z <- zx - Rfast::rowmeans( zx ) 
       z <- z %*% ha
   }
 
@@ -37,7 +37,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
       if (x2[j] < sqrt3 * x1[i]) {
         ## This checks if the point will lie inside the triangle
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j])/sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -50,7 +50,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         for (l in 1:nu) {
           a[l] <- as.vector( t(z[l, ] - y) %*% ts %*% ( z[l, ] - y ) )
         }
-        can <- 1/(2 * pi) * (1/con) * sum( exp(-0.5 * a) )/nu
+        can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
         if ( abs(can) < Inf ) {
            mat[i, j] <- can
            } else  mat[i, j] <- NA
@@ -63,7 +63,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
       ## This checks if the point will lie inside the triangle
       if (x2[j] < sqrt3 - sqrt3 * x1[i]) {
         ## The next 4 lines calculate the composition
-        w3 <- (2 * x2[j])/sqrt3
+        w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
@@ -75,7 +75,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         a <- numeric(nu)
         for (l in 1:nu) a[l] <- as.vector( t(z[l, ] - y ) %*% ts %*%
           (z[l, ] - y) )
-        can <- 1/(2 * pi) * (1/con) * sum( exp(-0.5 * a) )/nu
+        can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
         if (abs(can) < Inf) {
             mat[i, j] <- can
         } else  mat[i, j] <- NA
@@ -84,10 +84,10 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   }
 
   contour( x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
-  proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2)
+  proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
   da <- x %*% proj
   points(da[, 1], da[, 2])
-  b1 <- c(1/2, 0, 1, 1/2)
+  b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt3/2, 0, 0, sqrt3/2)
   b <- cbind(b1, b2)
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")

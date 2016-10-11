@@ -4,10 +4,10 @@ dirimean.test <- function(x, a) {
   ## a is the hypothesized compositional mean vector
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional data
+  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
   a <- as.vector(a)
-  n <- nrow(x)  ## sample size
-  d <- ncol(x) - 1
+  n <- dim(x)[1]  ## sample size
+  d <- dim(x)[2] - 1
 
   if ( min(x) <= 0 || min(a) <= 0 ) {
     res <- paste("There are zeros in the data")
@@ -20,8 +20,7 @@ dirimean.test <- function(x, a) {
     loglik <- function(phi) {
       phi <- exp(phi)
       ma <- phi * a
-      n * lgamma( phi ) - n * sum( lgamma(ma) ) +
-        sum( z * (ma - 1) )
+      n * lgamma( phi ) - n * sum( lgamma(ma) ) + sum( z * (ma - 1) )
     }
 
     ## phi under Ho
@@ -35,8 +34,7 @@ dirimean.test <- function(x, a) {
 
     } else if ( phi > 1 ) {
 
-      ell0 <-  n * lgamma( phi ) - n * sum( lgamma(a) ) +
-        sum( z * ( a - 1 )  )
+      ell0 <-  n * lgamma( phi ) - n * sum( lgamma(a) ) + sum( z * ( a - 1 )  )
       par0 <- a
     }
 

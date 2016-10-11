@@ -18,10 +18,10 @@ rcompsn <- function(n, xi, Omega, alpha, dp = NULL, type = "alr") {
   if (type == "alr") {
     y <- cbind( 1, exp(x) )
   } else {
-    D <- ncol(x)
+    D <- dim(x)[2]
     y <- x %*% helm(D + 1)
     y < exp(y)
   }
 
-  y / as.vector( Rfast::rowsums(y) )
+  y / Rfast::rowsums(y)
 }

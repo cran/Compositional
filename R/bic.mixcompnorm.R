@@ -12,14 +12,14 @@ bic.mixcompnorm <- function(x, A, type = "alr") {
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
   x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / as.vector( Rfast::rowsums(x) )  ## makes sure x is compositional
-  p <- ncol(x)  ## dimensionality of the data
+  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional
+  p <- dim(x)[2]  ## dimensionality of the data
 
   if (type == "alr") {
     y <- log(x[, -p]/x[, p])
   } else {
     y0 <- log(x)
-    y1 <- y0 - as.vector( Rfast::rowmeans( y0 ) )
+    y1 <- y0 - Rfast::rowmeans( y0 )
     y <- tcrossprod( y1, helm(p) )
 
   }

@@ -13,11 +13,11 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
 
   x <- as.matrix(x)
   ina <- as.numeric(ina)
-  n <- nrow(x)  ## total sample size
+  n <- dim(x)[1]  ## total sample size
   num <- 1:n
   nc <- max(ina) ## number of groups
-  D <- ncol(x)  ## number of variables
-  Ska <- array( dim = c(D, D, nc) )
+  D <- dim(x)[2]  ## number of variables
+  #Ska <- array( dim = c(D, D, nc) )
   ng <- as.vector( table(ina) )
   ci <- log(ng / n)
   sk <- array( dim = c(D, D, nc) )
@@ -47,7 +47,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
 
-    ww <- foreach(vim = 1:M, .combine = cbind ) %dopar% {
+    ww <- foreach(vim = 1:M, .combine = cbind, .export = "mahala", .packages = "Rfast") %dopar% {
 
       test <- as.matrix( x[ mat[, vim], ] )  ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
@@ -61,16 +61,16 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
-      Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
+      Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
         for (k2 in 1:length(del)) {
           Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
-            Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
+            Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
+            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
+              0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
           gr <- gr
           g <- max.col(gr)
@@ -109,16 +109,16 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
-      Sp <- t( colSums( aperm(s) ) ) / (n - nc)  ## pooled covariance matrix
+      Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for (k1 in 1:length(gam)) {
         for (k2 in 1:length(del)) {
           Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
-            Ska[, , j] <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska[, , j] ) ) -
-              0.5 * mahalanobis( test, mesi[j, ], Ska[, , j] )
+            Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
+            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
+              0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
           gr <- gr
           g <- max.col(gr)
@@ -131,7 +131,6 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   }
 
   percent <- t( colMeans( aperm(per) ) )
-  #su <- t( Rfast::colVars(aperm(per), std = TRUE) )
   su <- apply(per, 1:2, sd)
   dimnames(percent) <- dimnames(su) <- list(gamma = gam, delta = del)
 

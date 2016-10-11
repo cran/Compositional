@@ -16,8 +16,8 @@ maovjames <- function(x, ina, a = 0.05) {
   ina <- as.numeric(ina)  ## the group indicator variable
   ni <- as.vector( table(ina) )  ## the group sample sizes
   k <- max(ina)  ## the number of groups
-  p <- ncol(x)  ## the dimensionality
-  n <- nrow(x)  ## the total sample size
+  p <- dim(x)[2]  ## the dimensionality
+  n <- dim(x)[1]  ## the total sample size
   ## the objects below will be used later
   me <- mi <- W <- matrix(nrow = k, ncol = p)
   ta <- numeric(k)
@@ -27,14 +27,14 @@ maovjames <- function(x, ina, a = 0.05) {
   ## mean vector and covariance matrix of each group
   for (i in 1:k) {
     zi <- x[ina == i, ]
-    mi[i, ] <- as.vector( Rfast::colmeans( zi ) )
+    mi[i, ] <- Rfast::colmeans( zi )
     wi[, , i] <- ni[i] * chol2inv( chol( var( zi ) ) )
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
 
-  W <- t( colSums( aperm(wi) ) )
+  W <- colSums( aperm(wi) ) 
   Ws <- solve(W)
-  ma <- as.vector( Rfast::colsums(me) )
+  ma <- Rfast::colsums(me)
   mesi <- Ws %*% ma  ## common mean vector
   t1 <- t2 <- numeric(k)
   Ip <- diag(p)
@@ -48,12 +48,12 @@ maovjames <- function(x, ina, a = 0.05) {
   test <- sum(ta)  ## the test statistic
   r <- p * (k - 1)
   A <- 1 + 1/(2 * r) * sum( t1^2/(ni - 1) )
-  B <- 1/(r * (r + 2)) * sum( t2/(ni - 1) + t1^2/( 2 * (ni - 1) ) )
+  B <- sum( t2/(ni - 1) + t1^2/( 2 * (ni - 1) ) ) / (r * (r + 2))
 
   x2 <- qchisq(1 - a, r)
   delta <- (A + B * x2)
   twoha <- x2 * delta  ## corrected critical value of the chi-square distribution
-  pvalue <- 1 - pchisq(test/delta, r)  ## p-value of the test statistic
+  pvalue <- pchisq(test/delta, r, lower.tail = FALSE)  ## p-value of the test statistic
   result <- c(test, delta, twoha, pvalue)
   names(result) <- c("test", "correction", "corr.critical", "p-value")
   result

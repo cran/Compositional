@@ -9,11 +9,11 @@ Spatial median for Euclidean data.
 }
 
 \usage{
-spat.med(x, tol = 1e-09)
+spat.med(y, tol = 1e-09)
 }
 
 \arguments{
-\item{x}{
+\item{y}{
 A matrix with Euclidean data, continuous variables.
 }
 \item{tol}{

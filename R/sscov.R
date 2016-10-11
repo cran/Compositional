@@ -12,15 +12,15 @@ sscov <- function(x, me = NULL, tol = 1e-09) {
   ## x contains the data
 
   x <- as.matrix(x)  ## makes sure x is a matrix
-  n <- nrow(x)  ## sample size
-  p <- ncol(x)
+  n <- dim(x)[1]  ## sample size
+  p <- dim(x)[2]
 
   if ( is.null(me) ) {
     me <- spat.med(x, tol)  ## spatial median of x
   } 
 
   y <- x - rep( me, rep(n, p) )
-  rs <- sqrt ( as.vector(Rfast::rowsums(y^2) ) )
+  rs <- sqrt ( Rfast::rowsums(y^2) )
   y <- y / rs  ## unit vectors
   crossprod( y ) / n  ## SSCM
 

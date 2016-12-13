@@ -23,8 +23,6 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
   la <- length(a)
   n <- dim(y)[1]
   x <- as.matrix(x)
-  y <- as.matrix(y)
-  y <- y / Rfast::rowsums(y)
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / K) * K ) )
@@ -35,8 +33,8 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     mat <- matrix( nu, ncol = K ) # if the length of nu does not fit
   } else  mat <- mat
 
-  K <- ncol(mat)
-  rmat <- nrow(mat)
+  K <- dim(mat)[2]
+  rmat <- dim(mat)[1]
 
   if (nc == 1) {
     apa <- proc.time()
@@ -54,11 +52,11 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
       }
     }
 
-    kl <- Rfast::colmeans(kula) 
+    kl <- Rfast::colmeans(kula)
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)
-    pera <- apply(kula, 1, min)
+    pera <- Rfast::rowMins(kula, value = TRUE)  ## apply(kula, 1, min)
     bias <- mean( kula[, val] - pera )
     apa <- proc.time() - apa
 
@@ -70,7 +68,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     ## but with options(warn = -1) you will not see it
     cl <- makePSOCKcluster(nc)
     registerDoParallel(cl)
-    kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast", .export = c("alfa.reg", 
+    kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast", .export = c("alfa.reg",
 	"alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans", "colVars") ) %dopar% {
        ba <- val[, j]
        ww <- matrix(nrow = K, ncol = length(ba) )
@@ -86,24 +84,22 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
             ww[i, l] <- 2 * sum(yu * log(yu / yest), na.rm = TRUE)
           }
        }
-		
        return(ww)
-		
     }
 
     stopCluster(cl)
-	
+
     kula <- kula[, 1:la]
-    kl <- Rfast::colmeans(kula) 
+    kl <- Rfast::colmeans(kula)
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
     per <- min(kl)
-    pera <- apply(kula, 1, min)
+    pera <- Rfast::rowMins(kula, value = TRUE)   ## apply(kula, 1, min)
     bias <- mean( kula[, val] - pera )
     apa <- proc.time() - apa
   }
 
-  if (graph == TRUE) {
+  if ( graph ) {
     plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
          ylab = 'Twice the Kullback Leibler divergence')
     for (i in 2:K)  lines(a, kula[i, ])

@@ -1,5 +1,4 @@
 comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) {
-
   ## x contains all the groups together
   ## ina is the group indicator variable
   ## test is the type of test to be used
@@ -20,50 +19,33 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
   ## ncores is the number of cores you want to use
   ## requires(doParallel)
   ## if graph is TRUE, the bootstrap statics are plotted
-
   y <- alfa(x, 1)$aff  ## the alpha-transformation with alpha = 1
   ina <- as.numeric(ina)  ## the group indicator variable
   k <- max(ina)  ## the number of groups
-
   ## default value in the case of MANOVA and bad specification of test
   ## is the James MANOVA
-  if ( k > 2 & ( test != "maovjames" || test != "maov" ) ) {
-    result <- maovjames(x, ina)
-  }
+  if ( k > 2 & ( test != "maovjames" || test != "maov" ) )   result <- maovjames(x, ina)
 
   ## multi-sample case
   if (k > 2) {
 
     if (test == "maov") {
       result <- maov(x, ina)
-    } else if ( test == "maovjames" ) {
-      result <- maovjames(x, ina)
-    }
+    } else if ( test == "maovjames" )  result <- maovjames(x, ina)
 
     ## two sample case
   } else if ( k == 2 ) {
-    y1 <- y[ina == 1, ]
-    y2 <- y[ina == 2, ]
 
     if ( test == "hotel" ) {
-      result <- hotel2T2(y1, y2, R = R, graph = graph)
+      result <- hotel2T2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
 
     } else if ( test == "james" ) {
-      if (R <= 1) {
-        R <- 1
-
-      } else if (R == 2) {
-        R <- 2
-
-      } else R = R
-      result <- james(y1, y2, R = R, graph = graph)
+      result <- james(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
 
     } else if ( test == "el" ) {
-      result <- el.test2(y1, y2, R = R, ncores = ncores, graph = graph)
+      result <- el.test2(y[ina == 1, ], y[ina == 2, ], R = R, ncores = ncores, graph = graph)
 
-    } else if ( test == "eel" ) {
-     result <- eel.test2(y1, y2, R = R, graph = graph)
-    }
+    } else if ( test == "eel" )  result <- eel.test2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
 
   }
 

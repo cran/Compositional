@@ -13,19 +13,15 @@
 maov <- function(x, ina) {
   ## x is a matrix with the data
   ## ina is a grouping  variable indicating the groups
-
-  x <- as.matrix(x)  ## makes sure x is a matrix
   ina <- as.numeric(ina)
-  ni <- as.vector( table(ina) )  ## group sample sizes
+  ni <- tabulate(ina)  ## group sample sizes
   n <- dim(x)[1]  ## total sample size
   g <- max(ina)  ## number of groups
   p <- dim(x)[2]  ## dimensionality of the data
-
   m <- rowsum(x, ina) / ni
   me <- Rfast::colmeans(x)  ## total mean vector
   y <- sqrt(ni) * (m - rep(me, rep(g, p)) )
   B <- crossprod(y)
-
   Tot <- cov(x) * (n - 1)
   lam <- det(Tot - B) / det(Tot)
 

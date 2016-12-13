@@ -72,8 +72,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 1]
-y <- fgl[, 2:9]
+x <- as.vector(fgl[, 1])
+y <- as.matrix(fgl[, 2:9])
+y <- y / rowSums(y)
 mod1 <- ols.compreg(y, x, B = 1, ncores = 1)
 mod2 <- js.compreg(y, x, B = 1, ncores = 1)
 }

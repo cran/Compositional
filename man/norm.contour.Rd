@@ -56,7 +56,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:3]
+x <- as.matrix(iris[, 1:3])
 x <- x / rowSums(x)
 norm.contour(x)
 norm.contour(x, type = "ilr")

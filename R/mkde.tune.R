@@ -13,17 +13,14 @@
 #### Density estimation for statistics and data analysis, pages 76-78.
 ################################
 
-
 mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
   ## x contains the multivariate data
   ## low and up are the limits within which the
   ## search is conducted
 
-  x <- as.matrix(x)
   n <- dim(x)[1]
   d <- dim(x)[2]  ## sample and dimensionality of x
   s <- s ## can put a robust covariance matrix here if you want
-
   eig <- eigen(s)
   lam <- eig$values  ## eigenvalues of the covariance matrix
   vec <- eig$vectors  ## eigenvectors of the covariance matrix
@@ -35,8 +32,7 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
 
   tune <- function(h) {
     a <- a2a^( 1 / h^2 )
-    f <-  - d * log(h) + log( rowSums( a ) - 1 )
-    mean( f )
+    - d * log(h) + mean( log( rowSums( a ) - 1 ) )
   }
   low <- low     ;    up <- up
 

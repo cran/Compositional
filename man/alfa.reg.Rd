@@ -38,16 +38,16 @@ The \eqn{\alpha}-transformation is applied to the compositional data first and t
 
 \value{
 A list including:
-  \item{runtime}{
-  The time required by the regression.
+\item{runtime}{
+The time required by the regression.
 }
-  \item{beta}{
+\item{be}{
 The beta coefficients.
 }
-  \item{seb}{
+\item{seb}{
 The standard error of the beta coefficients.
 }
-  \item{est}{
+\item{est}{
 The fitted or the predicted values (if xnew is not NULL).
 }
 }
@@ -81,8 +81,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[1:40, 1]
-y <- fgl[1:40, 2:9]
+x <- as.vector(fgl[1:40, 1])
+y <- as.matrix(fgl[1:40, 2:9])
+y <- y / rowSums(y)
 mod <- alfa.reg(y, x, 0.2)
 }
 

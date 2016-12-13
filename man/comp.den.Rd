@@ -15,7 +15,7 @@ comp.den(x, type = "alr", dist = "normal", tol = 1e-09)
 
 \arguments{
   \item{x}{
-  A matrix containing the compositional data. No zero values are allowed.
+  A matrix containing compositional data. No zero values are allowed.
 }
   \item{type}{
   A boolean variable indicating the transformation to be used. Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio transformation respectively.
@@ -69,7 +69,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 1:4]
+x <- as.matrix(iris[, 1:4])
 x <- x / rowSums(x)
 comp.den(x)
 comp.den(x, type = "alr", dist = "t")

@@ -53,7 +53,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 2:9]
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
 frechet(x, 0.2)
 frechet(x, 1)
 }

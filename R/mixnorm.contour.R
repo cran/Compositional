@@ -11,8 +11,6 @@ mixnorm.contour <- function(x, mod) {
   ## additive log-ratio transformation is used. If type='ilr', the isometric
   ## log-ratio is used
 
-  x <- as.matrix(x)  ## makes sure x is matrix
-  x <- x / Rfast::rowsums(x)  ## make sure x compositional data
   prob <- mod$prob  ## mixing probabilitiy of each cluster
   mu <- mod$mu
   su <- mod$su
@@ -26,10 +24,8 @@ mixnorm.contour <- function(x, mod) {
   ha <- t( helm(3) )
 
   ldet <- numeric(g)
-  for (k in 1:g) {
-    ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
-  }
-
+  for (k in 1:g)  ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
+  
   for ( i in 1:c(n/2) ) {
     for (j in 1:n) {
 

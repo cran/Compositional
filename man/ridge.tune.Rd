@@ -20,7 +20,7 @@ ncores = 1, graph = FALSE)
   i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
 }
   \item{x}{
-  A numeric matrix containing the variables. Rows are samples and columns are features.
+  A numeric matrix containing the variables.
 }
   \item{M}{
   The number of folds. Set to 10 by default.
@@ -85,8 +85,8 @@ R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and M
 }
 
 \examples{
-y <- iris[, 1]
-x <- iris[, 2:4]
+y <- as.vector(iris[, 1])
+x <- as.matrix(iris[, 2:4])
 ridge.tune( y, x, M = 10, lambda = seq(0, 2, by = 0.1), graph = TRUE )
 }
 

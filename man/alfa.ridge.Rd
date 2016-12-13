@@ -17,7 +17,7 @@
     A numerical vector containing the response variable values. If they are percentages, they are mapped onto \eqn{R} using the logit transformation.
   }
   \item{x}{
-    The predictor variables, the compositional data. Zero values are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha}.
+    A matrix with the predictor variables, the compositional data. Zero values are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha}.
   }
   \item{a}{
     The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
@@ -65,8 +65,9 @@
 
 \examples{
 library(MASS)
-y <- fgl[, 1]
-x <- fgl[, 2:9]
+y <- as.vector(fgl[, 1])
+x <- as.matrix(fgl[, 2:9])
+x <- x/ rowSums(x)
 mod1 <- alfa.ridge(y, x, a = 0.5, lambda = 0.1, B = 1, xnew = NULL)
 mod2 <- alfa.ridge(y, x, a = 0.5, lambda = 1, B = 1, xnew = NULL)
 }

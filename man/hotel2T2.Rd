@@ -1,11 +1,11 @@
-\name{Hotelling's multivariate version of the t-test}
+\name{Hotelling's multivariate version of the 2 sample t-test for Euclidean data}
 \alias{hotel2T2}
 \title{
-Hotelling's multivariate version of the t-test
+Hotelling's multivariate version of the 2 sample t-test for Euclidean data
 }
 
 \description{
-Hotelling's test for testing the equality of two population mean vectors.
+Hotelling's test for testing the equality of two Euclidean population mean vectors.
 }
 
 \usage{
@@ -74,10 +74,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-hotel2T2( iris[1:25, 1:4], iris[26:50, 1:4] )
-hotel2T2( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
-james( iris[1:25, 1:4], iris[26:50, 1:4] )
-james( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
+hotel2T2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]) )
+hotel2T2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 1 )
+james( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]) )
+james( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 1 )
 }
 
 \keyword{ Multivariate analysis of variance }

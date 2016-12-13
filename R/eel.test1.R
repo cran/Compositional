@@ -1,18 +1,11 @@
 eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
-
   ## x is the multivariate data
   ## xa can also be univariate data
   ## mu is the hypothesized mean
-
-  x <- as.matrix(x)
-  d <- dim(x)[2]
-  n <- dim(x)[1]
-
   eel <- function(x, mu) {
 
     d <- dim(x)[2]
     n <- dim(x)[1]
-    mu <- as.vector(mu)
     ## next is the root finding function
     ### step 1
     lam_old <- numeric(d)
@@ -26,10 +19,8 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
     lam_new <- lam_old - solve(der, f)
     i <- 2
-
     difa <- sum( abs(lam_new - lam_old ) )
     ## step 3 and beyond
-
     while ( difa > tol  &  !is.na( difa ) )  {
       i <- i + 1
       lam_old <- lam_new
@@ -47,7 +38,6 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     p <- f1 / f2
     stat <-  - 2 * sum( log( n * p) )
     pvalue <- pchisq(stat, d, lower.tail = FALSE)
-
     info <- c(stat, pvalue)
     names(info) <- c("statistic", "p-value")
     list(p = p, lambda = lam_new, iters = i, info = info)
@@ -58,7 +48,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
   runtime <- proc.time() - runtime
   res$runtime <- runtime
 
-  if ( is.na( as.numeric( res$info[1] ) ) ) {
+  if ( class(res) == "try-error" ) {
     res$info[1] <- 1e10
     res$info[2] <- 0
     res$p <- NA
@@ -68,6 +58,8 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
 
     durat <- proc.time()
     test <- as.numeric( res$info[1] )
+    d <- dim(x)[2]
+    n <- dim(x)[1]
 
     if ( test < 1e+10 ) {
       m <- Rfast::colmeans(x)

@@ -5,7 +5,6 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
   ## If R = 1, the James corrected chi-square distribution is used
   ## If R = 2, the MNV F distribution is used
   ## If R > 2, bootstrap calibration is implemented
-
   ## the next function is for the EL
   elpa <- function(mu) {
     t1 <- emplik::el.test(y1, mu, maxit = 1000)
@@ -18,12 +17,10 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     g
   }
 
-  y1 <- as.matrix(y1)
-  y2 <- as.matrix(y2)
   d <- dim(y1)[2]  ## number of variables
   n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes
   n <- n1 + n2  ## total sample size
-  s1 <- ( (n1 - 1) / n1 ) * cov(y1)   ;   s2 <- ( (n2 - 1) / n2 ) * cov(y2)
+  s1 <- (n1 - 1) / n1 * cov(y1)   ;   s2 <- (n2 - 1) / n2 * cov(y2)
   m1 <- Rfast::colmeans(y1)
   m2 <- Rfast::colmeans(y2)  ## mean vectors
   ## mu is the estimate of the common mean vector
@@ -61,8 +58,8 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
 
     ## else bootstrap calibration is implemented
   } else if (R > 2) {
-    ybar1 <- Rfast::colmeans(y1) 
-    ybar2 <- Rfast::colmeans(y2) 
+    ybar1 <- Rfast::colmeans(y1)
+    ybar2 <- Rfast::colmeans(y2)
     z1 <- y1 - rep( ybar1 - muc, rep(n1, d) )
     z2 <- y2 - rep( ybar2 - muc, rep(n2, d) )
 
@@ -101,7 +98,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     result <- list(test = test, pvalue = pvalue, mu = mu, runtime = runtime,
     note = paste("Bootstrap calibration") )
 
-    if (graph == TRUE) {
+    if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic
     }

@@ -7,20 +7,15 @@
 #### mtsagris@yahoo.gr
 ################################
 
-spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
+spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
 
-  y <- as.matrix(y)
   n <- dim(y)[1]
-  mat <- model.matrix(y ~ ., as.data.frame(x) )
-  x <- as.matrix(mat[1:n, ])  ## the desing matrix is created
-
+  ## the desing matrix is created
+  x <- model.matrix(y ~ ., data.frame(x) )
   p <- dim(x)[2]
   d <- dim(y)[2]
 
-  medi <- function(be, z) {
-    y <- z$y
-    x <- z$x
-    p <- dim(x)[2]
+  medi <- function(be) {
     be <- matrix(be, nrow = p)
     est <- x %*% be
     sum( sqrt( rowSums( (y - est)^2 ) ) )
@@ -31,11 +26,9 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
   B1 <- coef( lm.fit(x,  y) )
   est <- y - x %*% B1
   ww <- sqrt( Rfast::rowsums( est^2 ) )
-
   z <- x / ww
   a1 <- crossprod(z, x)
   a2 <- crossprod(z, y)
-
   B2 <- solve(a1, a2)
   i <- 2
 
@@ -43,52 +36,33 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
     i <- i + 1
     B1 <- B2
     est <- y - x %*% B1
-    ww <- sqrt( Rfast::rowsums( est^2 ) ) 
+    ww <- sqrt( Rfast::rowsums( est^2 ) )
     ela <- which( ww == 0 )
     z <- x / ww
-
-    if ( length(ela) > 0 ) {
-      z[ela, ] <- 0
-    }
-
+    if ( length(ela) > 0 )  z[ela, ] <- 0
     a1 <- crossprod(x, z)
     a2 <- crossprod(z, y)
-
     B2 <- solve(a1, a2)
-
   }
 
   be <- B2
+  seb <- NULL
 
-  seb = NULL
-
-  if ( ses == TRUE ) {
+  if ( ses ) {
     ## we use nlm and optim to obtain the standard errors
-    z <- list(y = y, x = x)
-    qa <- nlm(medi, as.vector(be), z = z, iterlim = 5000, hessian = TRUE)
+    qa <- nlm(medi, as.vector(be), iterlim = 5000, hessian = TRUE)
     seb <- sqrt( diag( solve(qa$hessian) ) )
     seb <- matrix(seb, ncol = d)
 
     if ( is.null(colnames(y)) ) {
       colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
     } else  colnames(seb) <- colnames(be) <- colnames(y)
-
-    if ( is.null(colnames(x)) ) {
-      p <- dim(x)[2] - 1
-      rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
-      rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
-    } else {
-      rownames(be)  <- c("constant", colnames(x)[-1] )
-      rownames(seb) <- c("constant", colnames(x)[-1] )
-    }
-
   }
 
   if ( is.null(xnew) ) {
     est <- x %*% be
   } else {
-    mat <- model.matrix(y ~ ., as.data.frame(xnew) )
-    x <- as.matrix( mat[1:dim(xnew)[1], ] ) 
+    xnew <- model.matrix( ~ ., data.frame(xnew) )
     est <- xnew %*% be
   }
 
@@ -96,12 +70,8 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = TRUE) {
     colnames(be) <- paste("Y", 1:d, sep = "")
   } else  colnames(be) <- colnames(y)
 
-  if ( is.null(colnames(x)) ) {
-    p <- dim(x)[2] - 1
-    rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
-  } else {
-    rownames(be)  <- c("constant", colnames(x)[-1] )
-  }
+  rownames(be)  <- colnames(x)
+  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
 
   runtime <- proc.time() - tic
 

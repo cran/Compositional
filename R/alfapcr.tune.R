@@ -15,8 +15,6 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   ## depending on the type of the independent variable
   ## "normal" is set by default
 
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x)
   n <- dim(x)[1]
   d <- dim(x)[2] - 1
   if ( min(x) == 0 )   a <- a[ a > 0 ]  ## checks for zero values in the data.
@@ -34,7 +32,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   M <- ncol(mat)
   mspe2 <- array( dim = c( M, d, da) )
 
-  if ( length(unique(y)) == 2 ) {
+  if ( length( Rfast::sort_unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else if ( sum( y - round(y) ) == 0 ) {
     oiko <- "poisson"
@@ -72,7 +70,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   bias <- mean(estb)
   rownames(mean.mspe) = a   ;  colnames(mspe) = paste("PC", 1:d, sep = "")
 
-  if (graph == TRUE) {
+  if ( graph ) {
     filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ),
                    ylab = "Number of PCs")
   }

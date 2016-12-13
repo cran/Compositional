@@ -14,11 +14,9 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
   ## lambda is a vector with a grid of values of lambda
   ## ncores is the number of cores to use
 
-  y <- as.matrix(y)  ## makes sure y is a matrix
-  x <- as.matrix(x)
+  y <- as.matrix(y)
   n <- dim(y)[1]  ## sample size
   k <- length(lambda)
-
   di <- dim(y)[2]  ## dimensionality of y
   p <- dim(x)[2]  ## dimensionality of x
   if ( is.null(mat) ) {
@@ -30,15 +28,13 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
 
-  M <- ncol(mat)
-  rmat <- nrow(mat)
+  M <- dim(mat)[2]
+  rmat <- dim(mat)[1]
   msp <- matrix( nrow = M, ncol = k)
-
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
   ## the user can access it though by running
   ## the commands outside this function
-
   if (ncores == 1) {
     runtime <- proc.time()
     for (vim in 1:M) {
@@ -48,23 +44,21 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       yy <- ytrain - my  ## center the dependent variables
 
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
-      mx <- Rfast::colmeans(xtrain) 
+      mx <- Rfast::colmeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
-      xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
-      xtest <- t(xtest)
-      xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
-      xx <- t(xx)
+      xtest <- t( ( t(xtest) - mx ) / s ) ## standardize the xtest
+      xx <- t( ( t(xtrain) - mx ) / s ) ## standardize the independent variables
 
       sa <- svd(xx)
-      tu <- t(sa$u)    ;    d <- sa$d    ;    v <- sa$v
-
-      for ( i in 1:k ) {
-        beta <- ( v %*% (tu *  d / ( d^2 + lambda[i] ) ) ) %*% yy
+      d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
+      d2 <- d^2    ;    A <- d * tu %*% yy
+      for (i in 1:k) {
+        ## beta <- ( v %*% (tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
+        beta <- crossprod( v / ( d2 + lambda[i] ), A )
         est <- xtest %*% beta + my
         msp[vim, i] <- sum( (ytest - est)^2 ) / rmat
       }
-
     }
     runtime <- proc.time() - runtime
 
@@ -84,33 +78,29 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
       mx <- Rfast::colmeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
-      xtest <- ( t(xtest) - mx ) / s ## standardize the xtest
-      xtest <- t(xtest)
-
-      xx <- ( t(xtrain) - mx ) / s  ## standardize the independent variables
-      xx <- t(xx)
+      xtest <- t( ( t(xtest) - mx ) / s ) ## standardize the xtest
+      xx <- t( ( t(xtrain) - mx ) / s ) ## standardize the independent variables
 
       sa <- svd(xx)
-      tu <- t(sa$u)    ;    d <- sa$d    ;    v <- sa$v
-
+      d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
+      d2 <- d^2    ;    A <- d * tu %*% yy
       for ( i in 1:k ) {
-        beta <- ( v %*% (tu *  d / ( d^2 + lambda[i] ) ) ) %*% yy
+        ## beta <- ( v %*% (tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
+        beta <- crossprod( v / ( d2 + lambda[i] ), A )
         est <- xtest %*% beta + my
         pe[i] <- sum( (ytest - est)^2 ) / rmat
       }
-
       return(pe)
     }
-
-    runtime <- proc.time() - runtime
     stopCluster(cl)
+    runtime <- proc.time() - runtime
   }
 
-  mspe <- Rfast::colmeans(msp) 
-  bias <- msp[ , which.min(mspe)] - apply(msp, 1, min)  ## TT estimate of bias
+  mspe <- Rfast::colmeans(msp)
+  bias <- msp[ , which.min(mspe)] - Rfast::rowMins(msp, value = TRUE)   ## apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 
-  if (graph == TRUE) {
+  if ( graph ) {
     plot(lambda, mspe, type = 'b', ylim = c(min(mspe), max(mspe)),
          ylab = "Mean squared error of prediction",
          xlab = expression(paste(lambda, " values")) )

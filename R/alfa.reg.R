@@ -11,11 +11,22 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is the value of alpha
+  ## internal function for the alfa-regression
+  reg <- function(para, ya, x, d, n, D) {
+    be <- matrix(para, byrow = TRUE, ncol = d)
+    mu1 <- cbind( 1, exp(x %*% be) )
+    zz <- mu1^a
+    ta <- rowSums(zz)
+    za <- zz / ta
+    za <- D / a * za - 1/a
+    ma <- za %*% ha
+    esa <- ya - ma
+    sa <- crossprod(esa) / (n - p)
+    su <- solve(sa)
+    n/2 * log( det(sa) ) + 0.5 * sum( esa %*% su * esa )
+  }
 
-  y <- as.matrix(y)
-  y <- y / Rfast::rowsums(y)  ## makes sure y is compositional data
-  x <- as.matrix(x)
-  p <- dim(x)[2]    ;    n <- dim(x)[1]
+  p <- NCOL(x)   ;    n <- NROW(x)
 
   if ( p == 1 ) {
     x <- as.vector(x)
@@ -24,14 +35,15 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     x <- ( x - mx ) / s
 
   } else {
-    mx <- Rfast::colmeans(x) 
+    mx <- Rfast::colmeans(x)
     s <- Rfast::colVars(x, std = TRUE)
-    x <- ( t(x) - mx ) / s  ## standardize the xnew values
-    x <- t(x)
+    x <- t( ( t(x) - mx ) / s )  ## standardize the xnew values
   }
 
   x <- cbind(1, x)
-  d <- dim(y)[2] - 1  ## dimensionality of the simplex
+
+  D <- dim(y)[2]
+  d <- D - 1  ## dimensionality of the simplex
 
   if ( !is.null(xnew) ) {
     ## if the xnew is the same as the x, the classical fitted values
@@ -43,33 +55,16 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
     } else {
       xnew <- as.matrix(xnew)
-      xnew <- ( t(xnew) - mx ) / s  ## standardize the xnew values
-      xnew <- t(xnew)
+      xnew <- t( ( t(xnew) - mx ) / s )  ## standardize the xnew values
     }
 
     xnew <- cbind(1, xnew)
   }
 
-  ## internal function for the alfa-regression
-  reg <- function(para){
-    be <- matrix(para, byrow = TRUE, ncol = d)
-    mu1 <- cbind( 1, exp(x %*% be) )
-    zz <- mu1^a
-    ta <- rowSums(zz)
-    za <- zz / ta
-    za <- ( d + 1 ) / a * za - 1/a
-    ma <- za %*% ha
-    esa <- ya - ma
-    sa <- crossprod(esa) / (n - p)
-    su <- solve(sa)
-    f <- n/2 * log( det(sa) ) + 0.5 * sum( esa %*% su * esa )
-    f
-  }
-
   if ( a == 0 ) {
     ya <- alfa(y, a)$aff
     mod <- comp.reg(y, x[, -1], yb = yb)
-    beta <- mod$beta
+    be <- mod$be
     seb <- mod$seb
     runtime <- mod$runtime
 
@@ -78,21 +73,18 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
 
     if ( is.null(yb) ) {
       ya <- alfa(y, a)$aff
-    } else {
-      ya <- yb
-    }
+    } else  ya <- yb
 
-    ha <- t( helm(d + 1) )
+    ha <- t( helm(D) )
     m0 <- numeric(d)
     ini <- as.vector( coef( lm.fit(x, ya) ) )
 
-    qa <- nlminb( ini, reg, control = list(iter.max = 1000) )
-    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, control = list(maxit = 5000), hessian = TRUE )
+    qa <- nlminb( ini, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(iter.max = 1000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
 
-    beta <- matrix(qa$par, byrow = TRUE, ncol = d)
+    be <- matrix(qa$par, byrow = TRUE, ncol = d)
     seb <- sqrt( diag( solve( qa$hessian) ) )
     seb <- matrix(seb, byrow = TRUE, ncol = d)
 
@@ -100,21 +92,18 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   }
 
   if ( !is.null(xnew) ) {
-    mu <- cbind( 1, exp(xnew %*% beta) )
+    mu <- cbind( 1, exp(xnew %*% be) )
+  } else   mu <- cbind(1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)
-  } else {
-    mu <- cbind(1, exp(x %*% beta) )
-    est <- mu / Rfast::rowsums(mu) 
-  }
 
   if ( is.null( colnames(x) ) ) {
     p <- dim(x)[2] - 1
-    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
+    rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
     if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {
-    rownames(beta)  <- c("constant", colnames(x)[-1] )
+    rownames(be)  <- c("constant", colnames(x)[-1] )
     if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
   }
 
-  list(runtime = runtime, beta = beta, seb = seb, est = est)
+  list(runtime = runtime, be = be, seb = seb, est = est)
 }

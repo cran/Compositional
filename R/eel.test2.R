@@ -1,15 +1,10 @@
 eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
-
   ## y1 and y2 are the two matrices containing the multivariate (or univariate data)
   ## R is the type of calibration
   ## If R = 0, the chi-square distribution is used
   ## If R = 1, the James corrected chi-square distribution is used
   ## If R = 2, the MNV F distribution is used
   ## If R > 2, bootstrap calibration is implemented
-
-  x <- as.matrix(y1)
-  y <- as.matrix(y2)
-
   eel2 <- function(x, y) {
 
     d <- dim(x)[2]
@@ -28,17 +23,12 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     fy2a <- y * fy1
     fy3 <- Rfast::colsums( fy2a )
     fy4 <- fy3 / fy2
-
     f <- fx4 - fy4
-    der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 -
-      tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
-
+    der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
     lam2 <- lam1 - solve(der, f)
     i <- 2
     difa <- sum( abs(lam2 - lam1 ) )
-
     ## step 3 and beyond
-
     while ( difa > tol  &  !is.na( difa ) )  {
       i <- i + 1
       lam1 <- lam2
@@ -53,11 +43,8 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
       fy2a <- y * fy1
       fy3 <- Rfast::colsums( fy2a )
       fy4 <- fy3 / fy2
-
       f <- fx4 - fy4
-      der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 -
-        tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
-
+      der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
       lam2 <- lam1 - solve(der, f)
       difa <- sum( abs(lam2 - lam1 ) )
     }
@@ -74,25 +61,25 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   }
 
   runtime <- proc.time()
-  res <- try( eel2(x, y), silent = TRUE )
+  res <- try( eel2(y1, y2), silent = TRUE )
   runtime <- proc.time() - runtime
   res$runtime <- runtime
   res$note <- paste("Chi-square approximation")
 
-  if ( is.na( as.numeric( res$info[1] ) ) ) {
+  if ( class(res) == "try-error" ) {
     res$info[1] <- 1e10
     res$info[2] <- 0
     res$p1 <- NA
     res$p2 <- NA
   }
 
-  if ( R == 0 || res$info[1] == 1e10 ) {
+  if ( R == 0 || res$info[1] == 1e+10 ) {
     res <- res
 
   } else if ( R == 1 ) {
 
     test <- as.numeric( res$info[1] )
-    d <- dim(x)[2]
+    d <- dim(y1)[2]
     delta <- james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(stat, d, lower.tail = FALSE) )
@@ -104,7 +91,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   } else if ( R == 2 ) {
 
     test <- as.numeric( res$info[1] )
-    d <- dim(x)[2]
+    d <- dim(y1)[2]
     dof <- james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
     stat <- ( dof / (v * d) ) * test
@@ -121,29 +108,28 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     test <- as.numeric( res$info[1] )
 
     if ( test < 1e+10 ) {
-      m1 <- Rfast::colmeans(x)
-      m2 <- Rfast::colmeans(y)
-      d <- dim(x)[2]
-      n1 <- dim(x)[1]   ;   n2 <- dim(y)[1]
-      s1 <- ( (n1 - 1) / n1 ) * cov(x)
-      s2 <- ( (n2 - 1) / n2 ) * cov(y)
+      m1 <- Rfast::colmeans(y1)
+      m2 <- Rfast::colmeans(y2)
+      d <- dim(y1)[2]
+      n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]
+      s1 <- (n1 - 1) / n1 * cov(y1)
+      s2 <- (n2 - 1) / n2 * cov(y2)
       v1 <- solve(s1)   ;  v2 <- solve(s2)
       a1 <- n1 * v1   ;   a2 <-  n2 * v2
       ## mu is the estimate of the common mean vector
       mu <- solve( a1 + a2, a1 %*% m1 + a2 %*% m2 )
-      zx <- x + rep( - m1 + mu, rep(n1, d) )
-      zy <- y + rep( - m2 + mu, rep(n2, d) )
+      zx <- y1 + rep( - m1 + mu, rep(n1, d) )
+      zy <- y2 + rep( - m2 + mu, rep(n2, d) )
 
       tb <- numeric(R)
       for ( i in 1:R ) {
         b1 <- sample(1:n1, n1, replace = TRUE)
         b2 <- sample(1:n2, n2, replace = TRUE)
-        y1 <- zx[b1, ]   ;   y2 <- zy[b2, ]
-        tb[i] <- try( eel2(y1, y2), silent = TRUE )$info[1]
+        tb[i] <- try( eel2(zx[b1, ], zy[b2, ]), silent = TRUE )$info[1]
       }
       pvalue <- ( sum(tb > test ) + 1 ) / (R + 1)
 
-      if (graph == TRUE) {
+      if ( graph ) {
         hist(tb, xlab = "Bootstrapped test statistic", main = " ")
         abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic
       }

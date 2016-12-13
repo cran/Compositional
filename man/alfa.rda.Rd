@@ -73,7 +73,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:4]
+x <- as.matrix(iris[, 1:4])
+x <- x / rowSums(x)
 ina <- iris[, 5]
 mod <- alfa.rda(x, x, ina, 0)
 table(ina, mod$est)

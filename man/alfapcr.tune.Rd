@@ -18,7 +18,7 @@ mat = NULL, ncores = 1, graph = TRUE, col.nu = 15)
   A vector with either continuous, binary or count data.
 }
   \item{x}{
-  The predictor variables, the compositional data. Zero values are allowed.
+  A matrix with the predictor variables, the compositional data. Zero values are allowed.
 }
   \item{M}{
 The number of folds for the K-fold cross validation, set to 10 by default.
@@ -92,10 +92,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-y <- fgl[, 1]
-x <- fgl[, 2:9]
+y <- as.vector(fgl[, 1])
+x <- as.matrix(fgl[, 2:9])
+x <- x/ rowSums(x)
 mod <- alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), mat = NULL, ncores = 1)
 }
 
 \keyword{ \eqn{\alpha}-transformation }
-\keyword{ multivariate regression }
+\keyword{ principal components regression }
+\keyword{ tuning }

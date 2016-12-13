@@ -101,7 +101,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:4]
+x <- as.matrix(iris[, 1:4])
+x <- x/ rowSums(x)
 ina <- iris[, 5]
 mod1 <- compknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
 mod2 <- alfaknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )

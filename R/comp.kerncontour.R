@@ -11,9 +11,6 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x)  ## makes sure x is a matrix with compositional data
   nu <- dim(x)[1]  ## sample size
   sqrt3 <- sqrt(3)
   ha <- t( helm(3) )
@@ -21,7 +18,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   if (type == "alr")  z <- log(x[, -3]/x[, 3])  ## alr transformation
   if (type == "ilr") {  ## isometric log-ratio transformation
       zx <- log(x)
-      z <- zx - Rfast::rowmeans( zx ) 
+      z <- zx - Rfast::rowmeans( zx )
       z <- z %*% ha
   }
 

@@ -24,9 +24,6 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   ## 999 bootstrap resamples are set by default
   ## Bootstrap is used for the p-value
   ## if graph is TRUE, the bootstrap statics are plotted
-
-  y1 <- as.matrix(y1)
-  y2 <- as.matrix(y2)
   p <- dim(y1)[2]  ## dimensionality of the data
   n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes
   n <- n1 + n2  ## the total sample size
@@ -49,10 +46,10 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   trb1 <- sum( diag(b1) )
   trb2 <- sum( diag(b2) )
 
-  if (R == 1) {
+  if (R <= 1) {
     ## James test
     A <- 1 + ( trb1^2/(n1 - 1) + trb2^2/(n2 - 1) ) / (2 * p)
-    B <- ( sum(b1 * b1) / (n1 - 1) + sum(b2 * b2)/(n2 - 1) + 
+    B <- ( sum(b1 * b1) / (n1 - 1) + sum(b2 * b2)/(n2 - 1) +
 	     0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) ) / (p * (p + 2))
     x2 <- qchisq(1 - a, p)
     delta <- (A + B * x2)
@@ -78,7 +75,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   } else  if (R > 2) {
     ## bootstrap calibration
     runtime <- proc.time()
-    a1inv <- chol2inv( chol(A1) )  
+    a1inv <- chol2inv( chol(A1) )
     a2inv <- chol2inv( chol(A2) )
     mc <- solve( a1inv + a2inv ) %*% ( a1inv %*% ybar1 + a2inv %*% ybar2 )
     ## mc is the combined sample mean vector
@@ -101,7 +98,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
 
     pvalue <- ( sum(tb > test) + 1 ) / (R + 1)
 
-    if (graph == TRUE) {
+    if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic
     }

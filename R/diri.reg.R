@@ -5,62 +5,50 @@
 ################################
 
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
-  ## y is the compositional data
-  y <- as.matrix(y)
-  y <- y / Rfast::rowsums(y) 
-  ## the line above makes sure y is compositional data and
-  n <- dim(y)[1]  ## sample size
-  mat <- model.matrix(y ~ ., as.data.frame(x) )
-  x <- mat[1:n, ]  ## the design matrix is created
-  d <- dim(y)[2] - 1  ## dimensionality of the simplex
-  z <- list(y = log(y), x = x)
 
-    dirireg <- function(param, z = z) {
-      ## param contains the parameter values
-      ## z contains the compositional data and independent variable(s)
+  dm <- dim(y)
+  n <- dm[1]  ## sample size
+  ## the design matrix is created
+  x <- model.matrix(y ~ ., data.frame(x) )
+  d <- dm[2] - 1  ## dimensionality of the simplex
+  z <- log(y)
+
+    dirireg <- function(param, z, x, n, d) {
       phi <- exp( param[1] )  ## this avoids negative values in phi
       para <- param[-1]
-      y <- z$y
-      x <- z$x
-      ## y is the compositional data and xa the independent variable(s)
-      n <- dim(y)[1]  ## sample size
-      d <- dim(y)[2] - 1  ## dimensionality of  the simplex
       be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
       mu1 <- cbind( 1, exp(x %*% be) )
       ma <- mu1 / rowSums(mu1)  ## the fitted values
       ba <- phi * ma
-      l <-  - n * lgamma(phi) + sum( lgamma(ba) ) - sum( y * (ba - 1 ) )
-      ## l is the log-likelihood
-    l
-  }
+      - n * lgamma(phi) + sum( lgamma(ba) ) - sum( z * (ba - 1 ) )
+    }
 
   runtime <- proc.time()
-  rla <- log(y[, -1] / y[, 1])  ## additive log-ratio transformation
+  rla <- z[, -1] - z[, 1]   ##  log(y[, -1] / y[, 1])  ## additive log-ratio transformation
   ini <- as.vector( coef( lm.fit(x, rla) ) )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
-
   el <- NULL
   options(warn = -1)
-  qa <- nlm(dirireg, c(3, as.vector( t(ini) ) ), z = z)
+  qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
   el[1] <- -qa$minimum
-  qa <- nlm(dirireg, qa$estimate, z = z)
+  qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
   el[2] <- -qa$minimum
   vim <- 2
 
   while (el[vim] - el[vim - 1] > 1e-06) {
     ## the tolerance value can of course change
     vim <- vim + 1
-    qa <- nlm(dirireg, qa$estimate, z = z)
+    qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
     el[vim] <- -qa$minimum
   }
 
-  qa <- nlm(dirireg, qa$estimate, z = z, hessian = TRUE)
+  qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d, hessian = TRUE)
   log.phi <- qa$estimate[1]
   para <- qa$estimate[-1]  ## estimated parameter values
-  beta <- matrix(para, ncol = d)  ## matrix of the betas
-  colnames(beta) <- colnames(y[, -1])  ## names of the betas
+  be <- matrix(para, ncol = d)  ## matrix of the betas
+  colnames(be) <- colnames(y[, -1])  ## names of the betas
   seb <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated betas
   std.logphi <- seb[1]  ## std of the estimated log of phi
   seb <- matrix(seb[-1], ncol = d)  ## std of the estimated betas
@@ -70,17 +58,16 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   } else  colnames(seb) <- paste("Y", 1:d, sep = "")
 
   if ( !is.null(xnew) ) {
-    xnew <- model.matrix(y ~ ., as.data.frame(xnew) )
-    xnew <- xnew[1:dim(xnew)[1], ]
-    mu <- cbind( 1, exp(xnew %*% beta) )
-    est <- mu / Rfast::rowsums(mu) 
+    xnew <- model.matrix(~., data.frame(xnew) )
+    mu <- cbind( 1, exp(xnew %*% be) )
+    est <- mu / Rfast::rowsums(mu)
 
   } else {
-    mu <- cbind( 1, exp(x %*% beta) )
+    mu <- cbind( 1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)  ## fitted values
-    lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu ) 
+    lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
 
-    if (plot == TRUE) {
+    if ( plot ) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",
       ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
       lines(1:n, lev, type = "h")
@@ -91,16 +78,10 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   runtime <- proc.time() - runtime
 
-  if ( is.null( colnames(x) ) ) {
-    p <- dim(x)[2] - 1
-    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
-    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
-  } else {
-    rownames(beta)  <- c("constant", colnames(x)[-1] )
-    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
-  }
+  rownames(be)  <- colnames(x)
+  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
 
   list(runtime = runtime, loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
-  std.logphi = std.logphi, beta = beta, seb = seb, lev = lev, est = est)
+  std.logphi = std.logphi, be = be, seb = seb, lev = lev, est = est)
 
 }

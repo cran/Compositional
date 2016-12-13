@@ -14,7 +14,7 @@ maovjames(x, ina, a = 0.05)
 
 \arguments{
   \item{x}{
-  A matrix containing the Euclidean data.
+  A matrix containing Euclidean data.
 }
   \item{ina}{
 A numerical or factor variable indicating the groups of the data.
@@ -64,8 +64,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-maov( iris[,1:4], iris[,5] )
-maovjames( iris[,1:4], iris[,5] )
+maov( as.matrix(iris[,1:4]), iris[,5] )
+maovjames( as.matrix(iris[,1:4]), iris[,5] )
 }
 
 \keyword{ Multivariate analysis of variance }

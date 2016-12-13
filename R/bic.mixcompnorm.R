@@ -11,18 +11,13 @@ bic.mixcompnorm <- function(x, A, type = "alr") {
   ## x is the compositional data
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional
   p <- dim(x)[2]  ## dimensionality of the data
 
-  if (type == "alr") {
-    y <- log(x[, -p]/x[, p])
-  } else {
+  if (type == "ilr") {
     y0 <- log(x)
     y1 <- y0 - Rfast::rowmeans( y0 )
     y <- tcrossprod( y1, helm(p) )
-
-  }
+  } else  y <- log(x[, -p] / x[, p])
 
   mod <- mixture::gpcm(y, G = 1:A, start = 0, atol = 0.01)
   bic <- mod$BIC[, , 3]  ## BIC for all models
@@ -31,5 +26,5 @@ bic.mixcompnorm <- function(x, A, type = "alr") {
   ylab = "BIC values", ylim = c(min(bic, na.rm = T), max(bic, na.rm = T)))
   for (i in 2:nrow(bic)) lines(1:A, bic[, i], type = "b", pch = 9, col = i)
   list(mod = mod, BIC = bic)
-  
+
 }

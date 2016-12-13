@@ -62,7 +62,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 1:4]
+x <- as.matrix(iris[, 1:4])
+x <- x / rowSums(x)
 alfa.tune(x)
 alfa.profile(x)
 }

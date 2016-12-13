@@ -23,22 +23,17 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
   ## the non-standard algorithm, that is when type='NS'
   ## apostasi is the type of metric used: 'ESOV' or 'taxicab',
   ## 'Ait', 'Hellinger', 'angular' or 'CS'
-
-  x <- as.matrix(x)  ## makes sure the x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure the the data sum to 1
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
   if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
   ## number  of nearest neighbours to use
   ng <- max(ina)  ## The number of groups
   if ( min(x) == 0 )  a <- a[ a > 0 ]
-
   dis <- matrix(0, n, n)
   ## The next two functions split the sample into R different test
   ## and training datasets
   ## The test dataset is chosen via stratified or simple random sampling
   ## will be stored in the array called per
-
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
     ## It may be the case this new nu is not exactly the same
@@ -48,12 +43,10 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
 
-  M <- ncol(mat)
-  rmat <- nrow(mat)
-
+  M <- dim(mat)[2]
+  rmat <- dim(mat)[1]
   ## The algorithm is repated R times and each time the estimated
   ## percentages are stored in the array per.
-
   if (apostasi == "ESOV" | apostasi == "taxicab" | apostasi == "CS") {
 
     runtime <- proc.time()
@@ -78,8 +71,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
         dis <- dis + t(dis)
 
       } else if (apostasi == "taxicab") {
-        dis <- dist(z, method = "manhattan", diag = TRUE, upper = TRUE)
-        dis <- as.matrix(dis)
+        dis <- as.matrix( dist(z, method = "manhattan", diag = TRUE, upper = TRUE) )
 
       } else if ( apostasi == "CS" ) {
         p <- dim(x)[2]
@@ -93,9 +85,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
         }
         dis <- sqrt(2 * p) * sqrt(dis) / abs( a[i] )
         dis <- dis + t(dis)
-
       }
-
       ## The k-NN algorithm is calculated R times. For every repetition a
       ## test sample is chosen and its observations are classified
       for (vim in 1:M) {
@@ -115,13 +105,11 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
             for (l in 1:ng) {
               dista <- apo[ina2 == l, ]
               dista <- Rfast::sort_mat(dista)
-              if (mesos == TRUE) {
-                ta[, l] <- Rfast::colmeans( dista[1:knn, ] ) 
-              } else {
-                ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] ) 
-              }
+              if ( mesos ) {
+                ta[, l] <- Rfast::colmeans( dista[1:knn, ] )
+              } else  ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] )
             }
-            g <- max.col(-ta)
+            g <- Rfast::rowMins(ta)
             per[vim, j, i] <- sum( g == id ) / rmat
           }
 
@@ -152,9 +140,8 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     ## repetitions over alpha and k
     colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
-
     ## The code for the heat plot of the estimated percentages
-    if ( graph == TRUE ) {
+    if ( graph ) {
       fields::image.plot(a, 2:A, ela, col = grey(1:11/11),
                          ylab = "k nearest-neighbours",
                          xlab = expression(paste(alpha, " values")) )
@@ -163,9 +150,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     opt <- max(ela)
     confa <- which(ela == opt, arr.ind = TRUE)[1, ]
     bias <- numeric(M)
-    for (i in 1:M) {
-      bias[i] <- opt - per[ i, confa[2], confa[1] ]
-    }
+    for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
 
     bias <- mean(bias)
     performance <- c(opt - bias, bias)
@@ -217,13 +202,11 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
           for (l in 1:ng) {
             dista <- apo[ina2 == l, ]
             dista <- Rfast::sort_mat(dista)
-            if (mesos == TRUE) {
-              ta[, l] <- Rfast::colmeans( dista[1:knn, ] ) 
-            } else {
-              ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] ) 
-            }
+            if ( mesos ) {
+              ta[, l] <- Rfast::colmeans( dista[1:knn, ] )
+            } else  ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] )
           }
-          g <- max.col(-ta)
+          g <- Rfast::rowMins(ta)
           per[vim, j] <- sum( g == id )/rmat
         }
 
@@ -247,13 +230,13 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     ela <- Rfast::colmeans(per)
     opt <- max(ela)
     names(ela) <- paste("k=", 2:A, sep = "")
-    best_k = which.max(ela) + 1
-    bias <- apply(per, 1, max) - per[, best_k]
+    best_k <- which.max(ela) + 1
+    bias <- Rfast::rowMaxs(per, value = TRUE) - per[, best_k]  ## apply(per, 1, max) - per[, best_k]
     bias <- mean(bias)
     performance <- c(opt - bias, bias)
     names(performance) <- c( "rate", "bias" )
 
-    if ( graph == TRUE ) {
+    if ( graph ) {
       plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9,
            col = 2, ylab = "Estimated percentage of correct classification")
     }

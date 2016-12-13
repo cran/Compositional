@@ -10,9 +10,6 @@
   ## type is the type of transformation, "alr", "ilr"
   ## dist is the distribution to be fitted,
   ## "normal", "rob", "spatial", "t", "skewnorm"
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
-
   ## if type = "none" or dist = "dirichlet" the Dirichlet is fitted
   if (dist == "normal") {
     if (type == "alr") {  ## additive log-ratio transformation
@@ -23,7 +20,7 @@
       s <- cov(y)
     } else {
       y <- alfa(x, 0)
-      m <- Rfast::colmeans(y) 
+      m <- Rfast::colmeans(y)
       mu <- alfainv(m, 0)
       s <- cov(y)
     }

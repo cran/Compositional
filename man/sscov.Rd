@@ -54,7 +54,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-sscov(iris[, 1:4])
+sscov( as.matrix(iris[, 1:4]) )
 }
 
 \keyword{ covariance matrix }

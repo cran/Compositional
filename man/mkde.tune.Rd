@@ -65,7 +65,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-mkde.tune(iris[, 1:4], c(0.1, 3) )
+mkde.tune(as.matrix(iris[, 1:4]), c(0.1, 3) )
 }
 
 \keyword{ maximum likelihood cross validation }

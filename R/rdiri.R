@@ -10,9 +10,7 @@
 rdiri <- function(n, a) {
   ##  n is the sample size
   ##  a is the parameters vector
-
   D <- length(a)
   y <- matrix( rgamma(n * D, a, 1), ncol = D, byrow = TRUE )
   y / Rfast::rowsums(y)  ## Dirichlet simulated values
-
 }

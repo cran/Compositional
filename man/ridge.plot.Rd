@@ -54,8 +54,8 @@ R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and M
 }
 
 \examples{
-y <- iris[, 1]
-x <- iris[, 2:4]
+y <- as.vector(iris[, 1])
+x <- as.matrix(iris[, 2:4])
 ridge.plot(y, x, lambda = seq(0, 2, by = 0.1) )
 }
 

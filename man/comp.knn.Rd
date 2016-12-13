@@ -81,6 +81,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 x <- as.matrix( iris[, 1:4] )
+x <- x/ rowSums(x)
 ina <- iris[, 5]
 mod <- comp.knn(x, x, ina, a = 1, k = 5)
 table(ina, mod)
@@ -89,5 +90,5 @@ table(ina, mod2)
 
 }
 
-\keyword{ Regularised discriminant analysis }
+\keyword{ k-NN algorithm }
 

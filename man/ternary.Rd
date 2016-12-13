@@ -58,9 +58,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 2:4]
+x <- as.matrix(fgl[, 2:4])
 ternary(x, means = FALSE)
-x <- iris[, 1:3]
+x <- as.matrix(iris[, 1:3])
 ternary(x, pca = TRUE)
 }
 

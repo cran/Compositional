@@ -14,7 +14,7 @@ comp.test(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE)
 
 \arguments{
  \item{x}{
-  A matrix containing the compositional data.
+  A matrix containing compositional data.
 }
   \item{ina}{
 A numerical or factor variable indicating the groups of the data.
@@ -48,8 +48,8 @@ The outcome of each test.
 }
 
 \references{
-Tsagris M., Preston S. and Wood A.T.A. (2016). Nonparametric hypothesis testing for equality of means on the
-simplex. Journal of Statistical Computation and Simulation (To appear).
+Tsagris M., Preston S. and Wood A.T.A. (2017). Nonparametric hypothesis testing for equality of means on the
+simplex. Journal of Statistical Computation and Simulation, 87(2): 406-422.
 
 G.S. James (1954). Tests of Linear Hypothese in Univariate and Multivariate Analysis
 when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19-43
@@ -85,12 +85,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 ina <- rep(1:2, each = 50)
-comp.test( iris[1:100, 1:4], ina, test = "james", R = 0 )
-comp.test( iris[1:100, 1:4], ina, test = "hotel", R = 0 )
-comp.test( iris[1:100, 1:4], ina, test = "el", R = 0 )
-comp.test( iris[1:100, 1:4], ina, test = "eel", R = 0 )
+comp.test( as.matrix(iris[1:100, 1:4]), ina, test = "james", R = 0 )
+comp.test( as.matrix(iris[1:100, 1:4]), ina, test = "hotel", R = 0 )
+comp.test( as.matrix(iris[1:100, 1:4]), ina, test = "el", R = 0 )
+comp.test( as.matrix(iris[1:100, 1:4]), ina, test = "eel", R = 0 )
 }
 
 \keyword{ Multivariate hypothesis testing }
-\keyword{ Non parametric test }
-\keyword{ Compositional data }
+\keyword{ non parametric test }
+\keyword{ compositional data }

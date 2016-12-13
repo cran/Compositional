@@ -55,7 +55,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[1:10, 2:9]
+x <- as.matrix(fgl[1:10, 2:9])
+x <- x / rowSums(x)
 y <- alfa(x, 0.5)$aff
 alfainv(y, 0.5)
 }

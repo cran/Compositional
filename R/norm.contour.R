@@ -11,9 +11,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-  
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x)
+
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
@@ -24,7 +22,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
     ya <- log(x)
-    ya <- ya - Rfast::rowmeans( ya ) 
+    ya <- ya - Rfast::rowmeans( ya )
     ya <- as.matrix( ya %*% ha )
   }
 
@@ -87,7 +85,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   text( b[1, 1], b[1, 2] + 0.01, nam[3], cex = 1)
   text( b[2:3, 1] + 0.01, b[2:3, 2] - 0.01, nam[1:2], cex = 1)
 
-  if (appear == TRUE) {
+  if ( appear ) {
     proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])

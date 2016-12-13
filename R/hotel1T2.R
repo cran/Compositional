@@ -13,18 +13,14 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   ## R is the number of bootstrap replicates set by default to 999
   ## if R=1 no bootstrap will be implemented
   ## Bootstrap is used for the p-value
-
-  x <- as.matrix(x)
-  M <- as.vector( M )
   m <- Rfast::colmeans(x)  ## sample mean vector
   s <- cov(x)  ## sample covariance matrix
   n <- dim(x)[1]  ## sample size
   p <- dim(x)[2]  ## dimensionality of the data
   dm <- m - M
-  test <- as.vector( (n * (n - p) ) / ( (n - 1) * p ) * dm %*% solve(s, dm) )
-
+  test <- as.vector( n * (n - p) / (n - 1) / p * dm %*% solve(s, dm) )
   ## test is the test statistic
-  if (R == 1) {
+  if (R <= 1) {
     pvalue <- pf(test, p, n - p, lower.tail = FALSE)  ## p-value of the test statistic
     crit <- qf(1 - a, p, n - p)  ## critival value of the F distribution
     info <- c(test, pvalue, crit, p, n - p)
@@ -38,20 +34,19 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
     mm <-  - m + M
     y <- x + rep( mm, rep(n, p) ) ## brings the data
     ## under the null hypothesis, i.e. mean vector equal to M
-
     for (i in 1:R) {
       b <- sample(1:n, n, replace = TRUE)
       yb <- y[b, ]
       sb <- cov(yb)
-      mb <- Rfast::colmeans(yb) 
+      mb <- Rfast::colmeans(yb)
       dmb <- mb - M
       tb[i] <- dmb %*% solve(sb, dmb)
     }
 
-    tb <- n * (n - p) / ( (n - 1) * p ) * tb
+    tb <- n * (n - p) / (n - 1) / p * tb
     pvalue <- ( sum(tb > test) + 1 )/(R + 1)  ## bootstrap p-value
 
-    if ( graph == TRUE ) {
+    if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The dotted vertical line
       ## is the test statistic value

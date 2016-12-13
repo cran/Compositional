@@ -15,7 +15,7 @@ mat = NULL, nc = 1, graph = FALSE)
 
 \arguments{
   \item{y}{
-  A matrix with the compositional data. zero values are allowed.
+  A matrix with compositional data. zero values are allowed.
 }
   \item{x}{
   A matrix with the continuous predictor variables.
@@ -93,8 +93,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-y <- fgl[1:40, 2:4]
-x <- fgl[1:40, 1]
+y <- as.matrix(fgl[1:40, 2:4])
+y <- y /rowSums(y)
+x <- as.vector(fgl[1:40, 1])
 mod <- alfareg.tune(y, x, a = c(0.2, 0.35, 0.05), K = 5, nc = 1)
 }
 

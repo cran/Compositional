@@ -10,9 +10,6 @@
 alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   ## x contains the data
   ## a is the grid of values of the power parameter
-
-  x <- as.matrix(x)  ## makes the data in a matrix form
-  x <- x / Rfast::rowsums(x)  ## makes sure the data are compositional
   D <- dim(x)[2]  ## number of components
   d <- D - 1  ## dimensionality of the simplex
   n <- dim(x)[1]  ## sample size of the data
@@ -24,8 +21,7 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   for ( i in 1:length(a) ) {
     trans <- alfa( x, a[i] )
     aff <- trans$aff  ## the alpha-transformation
-    sa <- trans$sa  ## part of the Jacobian determinant as well
-    qa[i] <-  - n/2 * log( abs( det( cov(aff) ) ) ) + (a[i] - 1) * ja - D * sa
+    qa[i] <-  - n/2 * log( abs( det( cov(aff) ) ) ) + (a[i] - 1) * ja - D * trans$sa
   }
 
   qa <- qa + con

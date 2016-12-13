@@ -55,8 +55,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-mkde( iris[, 1:4], thumb = "scott" )
-mkde( iris[, 1:4], thumb = "silverman" )
+mkde( as.matrix(iris[, 1:4]), thumb = "scott" )
+mkde( as.matrix(iris[, 1:4]), thumb = "silverman" )
 }
 
 \keyword{ kernel density estimate }

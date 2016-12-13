@@ -87,10 +87,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-eel.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 0 )
-eel.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
-eel.test2( iris[1:25, 1:4], iris[26:50, 1:4], R = 2 )
+eel.test2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 0 )
+eel.test2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 1 )
+eel.test2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 2 )
 }
 
 \keyword{ Multivariate hypothesis testing }
-\keyword{ Non parametric test }
+\keyword{ non parametric test }

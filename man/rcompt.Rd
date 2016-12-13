@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 x <- as.matrix(iris[, 1:2])
-m <- colMeans(x)
+m <- Rfast::colmeans(x)
 s <- var(x)
 y <- rcompt(100, m, s, 10)
 comp.den(y, dist = "t")

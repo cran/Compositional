@@ -11,14 +11,13 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   ## if a matrix with folds is supplied in mat the results will
   ## always be the same. Leave it NULL otherwise
 
-  x <- as.matrix(x)
   ina <- as.numeric(ina)
   n <- dim(x)[1]  ## total sample size
   num <- 1:n
   nc <- max(ina) ## number of groups
   D <- dim(x)[2]  ## number of variables
   #Ska <- array( dim = c(D, D, nc) )
-  ng <- as.vector( table(ina) )
+  ng <- tabulate(ina)
   ci <- log(ng / n)
   sk <- array( dim = c(D, D, nc) )
   lg <- length(gam)    ;    ld <- length(del)
@@ -36,8 +35,8 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   ## this is stored but not showed in the end
   ## the user can access it though by running
   ## the commands outside this function
-  rmat <- nrow(mat)
-  M <- ncol(mat)
+  rmat <- dim(mat)[1]
+  M <- dim(mat)[2]
   gr <- matrix(nrow = rmat, ncol = nc)
   msp <- array(dim = c(lg, ld, M) )
 
@@ -47,17 +46,15 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
 
-    ww <- foreach(vim = 1:M, .combine = cbind, .export = "mahala", .packages = "Rfast") %dopar% {
+    ww <- foreach(vim = 1:M, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
 
       test <- as.matrix( x[ mat[, vim], ] )  ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
       train <- as.matrix( x[ -mat[, vim], ] )   ## training sample
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
-
       na <- as.vector( table(ida) )
       mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
-
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
@@ -73,7 +70,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
               0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
           gr <- gr
-          g <- max.col(gr)
+          g <- Rfast::rowMaxs(gr)
           group[k1, k2] <- sum( g == id ) / rmat
         }
       }
@@ -83,11 +80,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     stopCluster(cl)
 
     per <- array( dim = c( lg, ld, M ) )
-    index <- matrix( 1:c(lg * ld * M), ncol = M )
-
-    for ( i in 1:M ) {
-      per[, , i] <- matrix( ww[, i], nrow = lg )
-    }
+    for ( i in 1:M )  per[, , i] <- matrix( ww[, i], nrow = lg )
 
     runtime <- proc.time() - runtime
 
@@ -101,11 +94,9 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
       train <- as.matrix( x[ -mat[, vim], ] )   ## training sample
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
-
       na <- as.vector( table(ida) )
       mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
-
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
       s <- na * sk
@@ -120,14 +111,12 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
             gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
               0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
-          gr <- gr
-          g <- max.col(gr)
+          g <- Rfast::rowMaxs(gr)
           per[k1, k2, vim] <- sum( g == id ) / rmat
         }
       }
     }
     runtime <- proc.time() - runtime
-
   }
 
   percent <- t( colMeans( aperm(per) ) )

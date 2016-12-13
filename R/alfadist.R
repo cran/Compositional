@@ -10,9 +10,6 @@
 alfadist <- function(x, a) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
-
-  x <- as.matrix(x)  ## makes sure x is a matric
   y <- alfa(x, a, h = TRUE)$aff
   fields::rdist(y)
-    
 }

@@ -24,7 +24,6 @@ spat.med <- function(y, tol = 1e-09) {
 
   z <- y - u1
   ww <- 1 / sqrt( Rfast::colsums(z^2) )
-
   wei <- ww / sum(ww)
   u2 <-  as.vector( y %*% wei )
 
@@ -34,14 +33,10 @@ spat.med <- function(y, tol = 1e-09) {
     ww <- 1 / sqrt( Rfast::colsums(z^2) )
 
     if ( max( ww ) < Inf ) {
-
       wei <- ww / sum(ww)
       u2 <- as.vector( y %*% wei )
-
     }
-
   }
-
   u2
 
 }

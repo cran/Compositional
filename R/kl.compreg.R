@@ -15,24 +15,16 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## standard errors for the betas
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
-  ## more are used (parallel computing)
-
-  y <- as.matrix(y)
-  y <- y / Rfast::rowsums(y)  ## makes sure y is compositional data
-  n <- dim(y)[1]  ## sample size
-  mat <- model.matrix(y ~ ., as.data.frame(x) )
-  x <- mat[1:n, ]
+  ## more are used (parallel computing)  n <- dim(y)[1]  ## sample size
+  x <- model.matrix( ~ ., data.frame(x) )
   d <- dim(y)[2] - 1  ## dimensionality of the simplex
-  z <- list(y = y, x = x)
+  n <- dim(y)[1]
 
-   klreg <- function(para, z) {
-     y <- z$y
-     x <- z$x
+   klreg <- function(para, y, x, d) {
      be <- matrix(para, byrow = TRUE, ncol = d)
      mu1 <- cbind( 1, exp(x %*% be) )
      mu <- mu1 / rowSums(mu1)
-     f <-  - sum(y * log(mu), na.rm = TRUE)
-     f
+     - sum(y * log(mu), na.rm = TRUE)
    }
 
   ## the next lines minimize the reg function and obtain the estimated betas
@@ -40,10 +32,10 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   runtime <- proc.time()
   options (warn = -1)
-  qa <- nlm(klreg, ini, z = z)
-  qa <- nlm(klreg, qa$estimate, z = z)
-  qa <- nlm(klreg, qa$estimate, z = z)
-  beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
+  qa <- nlm(klreg, ini, y = y, x = x, d = d)
+  qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
+  qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
+  be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   seb <- NULL
   runtime <- proc.time() - runtime
 
@@ -56,14 +48,13 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        zb <- list(y = yb, x = xb)
         ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
-        qa <- nlm(klreg, ini, z = zb)
-        qa <- nlm(klreg, qa$estimate, z = zb)
-        qa <- nlm(klreg, qa$estimate, z = zb)
+        qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
+        qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
+        qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
         betaboot[i, ] <- qa$estimate
       }
-      s <- Rfast::colVars(ww, std = TRUE)
+      s <- Rfast::colVars(betaboot, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime
 
@@ -73,14 +64,13 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
       ww <- foreach::foreach(i = 1:B, .combine = rbind) %dopar% {
-        ida <- sample(1:n, n, replace = T)
+        ida <- sample(1:n, n, replace = TRUE)
           yb <- y[ida, ]
           xb <- x[ida, ]
-          zb <- list(y = yb, x = xb)
           ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
-          qa <- nlm(klreg, ini, z = zb)
-          qa <- nlm(klreg, qa$estimate, z = zb)
-          qa <- nlm(klreg, qa$estimate, z = zb)
+          qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
+          qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
+          qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
           betaboot[i, ] <- qa$estimate
        }
       stopCluster(cl)
@@ -91,24 +81,17 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     }
   }
 
-    if ( is.null(xnew) ) {
-    mu <- cbind( 1, exp(x %*% beta) )
+  if ( is.null(xnew) ) {
+    mu <- cbind( 1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)
   } else {
-    xnew <- model.matrix(y ~ ., as.data.frame(xnew) )
-    xnew <- xnew[1:dim(xnew)[1], ]
+    xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind(1, exp(xnew %*% beta))
     est <- mu / Rfast::rowsums(mu)
   }
 
-  if ( is.null(colnames(x)) ) {
-    p <- dim(x)[2] - 1
-    rownames(beta) <- c("constant", paste("X", 1:p, sep = "") )
-    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
-  } else {
-    rownames(beta)  <- c("constant", colnames(x)[-1] )
-    if  ( !is.null(seb) ) rownames(seb) <- c("constant", colnames(x)[-1] )
-  }
+  rownames(be) <- colnames(x)
+  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
 
-  list(runtime = runtime, beta = beta, seb = seb, est = est)
+  list(runtime = runtime, be = be, seb = seb, est = est)
 }

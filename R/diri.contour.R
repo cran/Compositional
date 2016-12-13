@@ -13,7 +13,7 @@ diri.contour <- function(a, n = 100, x = NULL) {
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 1e-03, length = n)  ## coordinates of y
   mat <- matrix(nrow = n, ncol = n)
-  beta <- prod( gamma(a)) / gamma(sum(a) )  ## beta function
+  be <- prod( gamma(a)) / gamma(sum(a) )  ## beta function
 
   for ( i in 1:c(n/2) ) {
     for (j in 1:n) {
@@ -25,7 +25,7 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        can <- prod( w^(a - 1) ) / beta
+        can <- prod( w^(a - 1) ) / be
         if (abs(can) < Inf)  mat[i, j] <- can  else  mat[i, j] <- NA
       } else  mat[i, j] <- NA
     }
@@ -40,7 +40,7 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- round(c(w1, w2, w3), 6)
-        can <- prod( w^(a - 1) ) / beta
+        can <- prod( w^(a - 1) ) / be
         if (abs(can) < Inf)  mat[i, j] <- can  else  mat[i, j] <- NA
       } else  mat[i, j] <- NA
     }
@@ -54,8 +54,6 @@ diri.contour <- function(a, n = 100, x = NULL) {
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
 
   if ( !is.null(x) ) {
-    x <- as.matrix(x)
-    x <- x / Rfast::rowsums(x)
     proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])

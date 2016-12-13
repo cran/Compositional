@@ -10,11 +10,10 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## x contains the independent variables
   ## k shows the number of components to keep
   ## oiko can be "binomial" or "poisson"
-  x <- as.matrix(x)
-  y <- as.vector(y)
-  n <- dim(x)[1]
+
+  n <- length(y)
   p <- dim(x)[2]
-  m <- Rfast::colmeans(x) 
+  m <- Rfast::colmeans(x)
 
   x <- Rfast::standardise(x)  ## standardize the independent variables
   eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
@@ -23,7 +22,7 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   vec <- eig$vectors  ## eigenvectors, or principal components
   z <- x %*% vec  ## PCA scores
 
-    if ( length( unique(y) ) == 2 ) {
+  if ( length( Rfast::sort_unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else oiko <- "poisson"
 
@@ -33,17 +32,14 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
 
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
-    s <- Rfast::colVars(x, std = TRUE) 
-    xnew <- ( t(xnew) - m ) / s ## standardize the xnew values
-    xnew <- t(xnew)
+    s <- Rfast::colVars(x, std = TRUE)
+    xnew <- t( ( t(xnew) - m ) / s )## standardize the xnew values
     es <- as.vector( xnew %*% be ) + b[1]
-  } else {
-    es <- as.vector( x %*% be ) + b[1]
-  }
+  } else  es <- as.vector( x %*% be ) + b[1]
 
   if (oiko == "binomial") {
-    est <- as.vector(  exp(es) / (1 + exp(es))  )
-  } else est <- as.vector( exp(es) )    ## fitted values for PCA model
+    est <- exp(es) / (1 + exp(es)) 
+  } else est <- exp(es)     ## fitted values for PCA model
 
   list(model = summary(mod), per = per[k], est = est)
 }

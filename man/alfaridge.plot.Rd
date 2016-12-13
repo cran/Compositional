@@ -18,7 +18,7 @@ alfaridge.plot(y, x, a, lambda = seq(0, 5, by = 0.1) )
     i.e. strictly within 0 and 1 they are mapped into R using the logit transformation. In any case, they must be continuous only.
   }
   \item{x}{
-    A numeric matrix containing the continuous variables. Rows are samples and columns are features.
+    A numeric matrix containing the continuous variables.
   }
     \item{a}{
     The value of the \eqn{\alpha}-transformation. It has to be between -1 and 1. If there are zero values in the data, you must use a strictly positive value.
@@ -61,8 +61,9 @@ In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. h
 
 \examples{
 library(MASS)
-y <- fgl[, 1]
-x <- fgl[, 2:9]
+y <- as.vector(fgl[, 1])
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
 alfaridge.plot(y, x, a = 0.5, lambda = seq(0, 5, by = 0.1) )
 }
 

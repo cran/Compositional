@@ -17,7 +17,7 @@ multivreg(y, x, plot = TRUE, xnew = NULL)
   A matrix with the Eucldidean (continuous) data.
 }
   \item{x}{
-  The predictor variable(s), they have to be continuous.
+  A matrix with the predictor variable(s), they have to be continuous.
 }
   \item{plot}{
   Should a plot appear or not?
@@ -74,8 +74,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 1:2]
-y <- iris[, 3:4]
+x <- as.matrix(iris[, 1:2])
+y <- as.matrix(iris[, 3:4])
 multivreg(y, x, plot = TRUE)
 }
 

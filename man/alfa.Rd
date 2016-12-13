@@ -66,7 +66,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 2:9]
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
 y1 <- alfa(x, 0.2)$aff
 y2 <- alfa(x, 1)$aff
 rbind( colMeans(y1), colMeans(y2) )

@@ -12,7 +12,7 @@ rcompt <- function(n, m, s, dof, type = "alr") {
   ## dof is the degrees of freedom
   ## type is either alr or ilr
 
-  x <- rmvt(n, m, s, dof)
+  x <- Rfast::rmvt(n, m, s, dof)
 
   if (type == "alr") {
     y <- cbind( 1, exp(x) )

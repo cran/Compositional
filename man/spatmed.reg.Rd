@@ -9,12 +9,12 @@ Spatial median regression with Euclidean data.
 }
 
 \usage{
-spatmed.reg(y, x, xnew = NULL, tol = 1e-07, ses = TRUE)
+spatmed.reg(y, x, xnew = NULL, tol = 1e-07, ses = FALSE)
 }
 
 \arguments{
 \item{y}{
-A matrix with the compsitional data. Zero values are not allowed.
+A matrix with the compositional data. Zero values are not allowed.
 }
 \item{x}{
 The predictor variable(s), they have to be continuous.
@@ -27,7 +27,7 @@ The threshold upon which to stop the iterations of the Newton-Rapshon algorithm.
 }
 \item{ses}{
 If you want to extract the standard errors of the parameters, set this to TRUE. Be careful though as this can slow down the algorithm dramatically.
-In a run example with 10,000 observations and 10 variables for y and 30 for x, whe ses = FALSE the algorithm can take 0.20 seconds, but when ses = TRUE it can go up to 140 seconds. 
+In a run example with 10,000 observations and 10 variables for y and 30 for x, whe ses = FALSE the algorithm can take 0.20 seconds, but when ses = TRUE it can go up to 140 seconds.
 }
 }
 
@@ -44,7 +44,7 @@ The number of iterations that were required.
 \item{runtime}{
 The time required by the regression.
 }
-\item{beta}{
+\item{be}{
 The beta coefficients.
 }
 \item{seb}{
@@ -76,8 +76,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 3:4]
-y <- iris[, 1:2]
+x <- as.matrix(iris[, 3:4])
+y <- as.matrix(iris[, 1:2])
 mod1 <- spatmed.reg(y, x)
 mod2 <- multivreg(y, x, plot = FALSE)
 }

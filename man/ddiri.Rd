@@ -14,7 +14,7 @@ ddiri(x, a, logged = TRUE)
 
 \arguments{
 \item{x}{
-A matrix containing the compositional data. This can be a vector or a matrix with the data.
+A matrix containing compositional data. This can be a vector or a matrix with the data.
 }
 \item{a}{
 A vector of parameters. Its length must be equal to the number of components, or columns of the matrix with the compositional data and all values must be greater than zero.

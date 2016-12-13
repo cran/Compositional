@@ -17,7 +17,7 @@ glm.pcr(y, x, k = 1, xnew = NULL)
   A numerical vector, either 0 and 1 (binary) or discrete (count) data.
 }
   \item{x}{
-  The predictor variable(s), they have to be continuous.
+  A matrixc with the predictor variable(s), they have to be continuous.
 }
   \item{k}{
     A number at least equal to 1. How many principal components to use.
@@ -68,7 +68,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 1:4]
+x <- as.matrix(iris[, 1:4])
 y<- rbinom(150, 1, 0.6)
 mod<- glm.pcr(y, x, k = 1)
 }

@@ -12,9 +12,6 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   ## g is the number of components to be used
   ## model is the type of model to be used
   ## type is either 'alr' or 'ilr'
-
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional
   p <- dim(x)[2]  ## dimensionality of the data
   n <- dim(x)[1]  ## sample size
 
@@ -22,9 +19,8 @@ mix.compnorm <- function(x, g, model, type = "alr") {
     y <- log(x[, -p]/x[, p])
   } else {
     y0 <- log(x)
-    y1 <- y0 - Rfast::rowmeans( y0 ) 
+    y1 <- y0 - Rfast::rowmeans( y0 )
     y <- tcrossprod( y1, helm(p) )
-
   }
 
   mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, atol = 0.01)
@@ -47,7 +43,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
 
   probexpta <- prob * exp(ta)
   pij <- probexpta / Rfast::rowsums(probexpta)
-  est <- max.col(pij)
+  est <- Rfast::rowMaxs(pij)
 
   list(type = type, mu = mu, su = su, prob = prob, est = est)
 }

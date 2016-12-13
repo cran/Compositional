@@ -24,21 +24,16 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
   ## Both of these apply for the non-standard,
   ## algorithm, that is when type=NS
 
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure the data sum to 1
   n <- dim(x)[1]
   p <- dim(x)[2]
   ina <- as.numeric(ina)
   xnew <- as.matrix(xnew)
   xnew <- matrix( xnew, ncol = p ) ## makes sure xnew is a matrix
-  xnew <- xnew / Rfast::rowsums(xnew)  ## make the data sum to 1
   nc <- max(ina)  ## The number of groups
   nu <- nrow(xnew)
   disa <- matrix(0, n, nu)
 
-  if (apostasi == "CS" & a == 0) {
-    apostasi = "Ait"
-  }
+  if (apostasi == "CS" & a == 0)  apostasi = "Ait"
 
   if (apostasi == "ESOV") {
     xa <- x^a
@@ -117,24 +112,19 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
 
   if (type == "NS") {
     ## Non Standard algorithm
-
     ta <- matrix(nrow = nu, ncol = nc)
 
     for (m in 1:nc) {
       apo <- disa[ina == m, ]
       apo <- Rfast::sort_mat(apo)
-      if (mesos == TRUE) {
+      if ( mesos ) {
         ta[, m] <- Rfast::colmeans( apo[1:k, ] )
-      } else {
-        ta[, m] <- k / Rfast::colsums( 1 / apo[1:k, ] )
-      }
+      } else  ta[, m] <- k / Rfast::colsums( 1 / apo[1:k, ] )
     }
-
-    g <- max.col(-ta)
+    g <- Rfast::rowMins(ta)
 
   } else {   ## if type is "S"
     ## Standard algorithm
-
     g <- numeric(nu)
     for (l in 1:nu) {
       xa <- cbind(ina, disa[, l])

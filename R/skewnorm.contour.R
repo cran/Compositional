@@ -18,8 +18,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='alr' (the default) the additive log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x) 
+
   ha <- t( helm(3) )
 
   if (type == "alr") {
@@ -86,7 +85,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   b <- cbind(b1, b2)
   points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
 
-  if (appear == TRUE) {
+  if ( appear ) {
    nam <- colnames(x)
    if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
    text(b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1)

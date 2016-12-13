@@ -10,21 +10,16 @@
 frechet <- function(x, a) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
-
   if ( a == 0 ) {
      xa <- log(x)
-     y <- xa - Rfast::rowmeans(xa) 
-     m1 <- exp( Rfast::colmeans(y) ) 
+     y <- xa - Rfast::rowmeans(xa)
+     m1 <- exp( Rfast::colmeans(y) )
      m <- m1 / sum( m1 )  ## closed geometric mean
-
   }  else {
      xa <- x^a
      z <- xa / Rfast::rowmeans(xa)
      m1 <- Rfast::colmeans(z) ^ ( 1 / a )
      m <- m1 / sum(m1)  ## frechet mean in general
   }
-
   m
 }

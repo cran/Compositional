@@ -17,7 +17,7 @@ pcr(y, x, k = 1, xnew = NULL)
   A real values vector.
 }
   \item{x}{
-  The predictor variable(s), they have to be continuous.
+  A matrix with the predictor variable(s), they have to be continuous.
 }
   \item{k}{
 The number of principal components to use.
@@ -75,8 +75,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 2:9]
-y <- fgl[, 1]
+x <- as.matrix(fgl[, 2:9])
+y <- as.vector(fgl[, 1])
 mod1 <- pcr(y, x, 1)
 mod2 <- pcr(y, x, 2)
 }

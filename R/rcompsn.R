@@ -12,8 +12,8 @@ rcompsn <- function(n, xi, Omega, alpha, dp = NULL, type = "alr") {
   ## type is either alr or ilr
 
   if ( is.null(dp) ) {
-    x <- rmsn(n = n, xi = xi, Omega = Omega, alpha = alpha)
-  } else  x <- rmsn(n = n, dp = dp)
+    x <- sn::rmsn(n = n, xi = xi, Omega = Omega, alpha = alpha)
+  } else  x <- sn::rmsn(n = n, dp = dp)
 
   if (type == "alr") {
     y <- cbind( 1, exp(x) )

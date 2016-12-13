@@ -18,7 +18,7 @@ mat = NULL, ncores = 1, graph = TRUE)
   A real valued vector.
 }
   \item{x}{
-  The predictor variables, they have to be continuous.
+  A matrix with the predictor variables, they have to be continuous.
 }
   \item{M}{
   The number of folds in the cross validation.
@@ -86,7 +86,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[, 2:9]
+x <- as.matrix(fgl[, 2:9])
 y <- rpois(214, 10)
 glmpcr.tune(y, x, M=10, maxk = 20, mat = NULL, ncores = 1)
 }

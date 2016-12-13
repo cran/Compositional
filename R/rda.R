@@ -21,7 +21,6 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ## the mesi and info are particularly useful for the tuning of the rda, as
   ## they can speed the computations a lot.
 
-  x <- as.matrix(x)
   n <- dim(x)[1]
   D <- dim(x)[2]
   xnew <- as.matrix(xnew)
@@ -29,14 +28,11 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   nu <- dim(xnew)[1]  ## number of the new observations
   ina <- as.numeric(ina)
   nc <- max(ina)
-  #Ska <- array( dim = c(D, D, nc) )
   ta <- matrix(nrow = nu, ncol = nc)
-  ng <- as.vector( table(ina) )
+  ng <- tabulate(ina)
   ci <- log(ng / n)
   sk <- array( dim = c(D, D, nc) )
-
   mesos <- rowsum(x, ina) / ng
-
   ni <- rep(ng - 1, each = D^2)
 
   for (m in 1:nc)  sk[, , m] <- cov( x[ina == m, ] )
@@ -51,7 +47,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
       0.5 * Rfast::mahala( xnew, mesos[j, ], Ska )
   }
 
-  est <- max.col(ta)
+  est <- Rfast::rowMaxs(ta)
   expta <- exp(ta)
   prob <- expta / Rfast::rowsums( expta ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)

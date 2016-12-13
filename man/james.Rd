@@ -78,10 +78,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-james( iris[1:25, 1:4], iris[26:50, 1:4], R = 1 )
-james( iris[1:25, 1:4], iris[26:50, 1:4], R = 2 )
-james( iris[1:25, 1:4], iris[26:50, 1:4] )
-hotel2T2( iris[1:25, 1:4], iris[26:50, 1:4] )
+james( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 1 )
+james( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]), R = 2 )
+james( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]) )
+hotel2T2( as.matrix(iris[1:25, 1:4]), as.matrix(iris[26:50, 1:4]) )
 }
 
 \keyword{ Multivariate analysis of variance }

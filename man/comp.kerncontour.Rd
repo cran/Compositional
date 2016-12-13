@@ -53,7 +53,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:3]
+x <- as.matrix(iris[, 1:3])
 x <- x / rowSums(x)
 comp.kerncontour(x, type = "alr", n = 20)
 comp.kerncontour(x, type = "ilr", n = 20)

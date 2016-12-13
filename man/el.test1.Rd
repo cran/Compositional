@@ -62,11 +62,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- MASS::mvrnorm(100, numeric(10), diag( rexp(10, 0.5) ) )
+x <- Rfast::rmvnorm(100, numeric(10), diag( rexp(10, 0.5) ) )
 el.test1(x, numeric(10), R = 1)
 el.test1(x, numeric(10), R = 499, graph = TRUE)
 eel.test1(x, numeric(10))
 }
 
 \keyword{ Hypothesis test }
-\keyword{ Mean vector }
+\keyword{ mean vector }

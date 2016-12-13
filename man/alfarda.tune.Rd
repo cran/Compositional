@@ -86,7 +86,8 @@ R implementation and documentation: Giorgos Athineou <athineou@csd.uoc.gr> and M
 
 \examples{
 library(MASS)
-x <- fgl[, 2:9]
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
 ina <- fgl[, 10]
 moda <- alfarda.tune(x, ina, a = seq(0.7, 1, by = 0.1), M = 10,
 gam = seq(0.1, 0.3, by = 0.1), del = seq(0.1, 0.3, by = 0.1),
@@ -94,4 +95,4 @@ ncores = 1, mat = NULL)
 }
 
 \keyword{ Regularised discriminant analysis  }
-\keyword{ Cross-validation }
+\keyword{ cross-validation }

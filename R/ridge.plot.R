@@ -11,11 +11,10 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   ## lambda contains a grid of values of the ridge regularization parameter
 
   y <- as.vector(y)
-  if ( all( y > 0 & y< 1 ) ){
-    y <- log(y / ( 1 - y) ) ## logistic normal
-  }
-
   x <- as.matrix(x)
+  
+  if ( all( y > 0 & y < 1 ) )  y <- log(y / ( 1 - y) ) ## logistic normal
+
   n <- length(y)  ## sample size
   p <- dim(x)[2]  ## dimensionality of x
   R <- length(lambda)
@@ -23,11 +22,10 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   yy <- y - sum(y) / n  ## center the dependent variables
   xx <- Rfast::standardise(x)  ## standardize the independent variables
   sa <- svd(xx)
-  tu <- t(sa$u)   ;    d <- sa$d    ;    v <- sa$v
+  d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)  
+  d2 <- d^2    ;    A <- d * tu %*% yy
 
-  for (i in 1:R) {
-    be[, i] <- ( v %*% ( tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
-  }
+  for (i in 1:R)  be[, i] <-  crossprod( v / ( d2 + lambda[i] ), A )  
 
   plot(lambda, be[1,], type = "l", col = 1, lty = 1,
        ylim = c( min(be), max(be) ), xlab = expression(paste(lambda, " values") ),

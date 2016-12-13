@@ -14,7 +14,7 @@ diri.nr(x, type = 1, tol = 1e-07)
 
 \arguments{
 \item{x}{
-A matrix containing the compositional data. Zeros are not allowed.
+A matrix containing compositional data. Zeros are not allowed.
 }
 \item{type}{
 Type can either be 1, so that the Newton-Rapshon is used for the maximisation of the log-likelihood, as Minka (2012) suggested or it can be 1. In the latter case the Newton-Raphson algorithm is implemented involving matrix inversions. In addition an even faster implementation has been implemented (in C++) in the package \bold{Rfast} and is used here.

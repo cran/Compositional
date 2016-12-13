@@ -12,8 +12,6 @@
 alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1),
                            mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
 
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x)
   d <- dim(x)[2] - 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
@@ -28,8 +26,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
 
-  M <- ncol(mat)
-
+  M <- dim(mat)[2]
   mspe2 <- array( dim = c( M, length(lambda), da ) )
 
   if (ncores <= 1 ) {
@@ -57,9 +54,8 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
       mod <- ridge.tune(y, z, M = M, lambda = lambda, mat = mat, ncores = 1, graph = FALSE)
       ms[i] <- as.vector(mod$msp)
     }
-    for (i in 1:da) {
-      mspe2[, , i] <- matrix(ww[, i], nrow = M)
-    }
+	
+    for (i in 1:da)  mspe2[, , i] <- matrix(ww[, i], nrow = M)
     runtime <- proc.time() - tac
   }
 
@@ -74,7 +70,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
   bias <- mean(estb)
   rownames(mean.mspe) = a   ;  colnames(mspe) = lambda
 
-  if (graph == TRUE) {
+  if ( graph ) {
     filled.contour( a, lambda, mean.mspe, xlab = expression( paste(alpha, " values") ),
                    ylab = expression( paste(lambda, " values") ) )
   }

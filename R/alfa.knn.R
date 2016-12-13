@@ -23,16 +23,13 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   ## algorithm, that is when type=NS
   ## xnew is the new dataset. It can be a single vector or a matrix
 
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure the data sum to 1
   n <- dim(x)[1]
   p <- dim(x)[2]
   xnew <- as.matrix(xnew)
   xnew <- matrix(xnew, ncol = p)  ## makes sure xnew is a matrix
-  xnew <- xnew / Rfast::rowsums(xnew)  ## make the data sum to 1
   ina <- as.numeric(ina)
   nc <- max(ina) ## The number of groups
-  nu <- nrow(xnew)
+  nu <- dim(xnew)[1]
   apo <- matrix( 0, n, nu )
 
   znew <- alfa(xnew, a)$aff
@@ -50,13 +47,11 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
     for (m in 1:nc) {
       dista <- apo[ina == m, ]
       dista <- Rfast::sort_mat(dista)
-      if (mesos == TRUE) {
+      if ( mesos ) {
         ta[, m] <- Rfast::colmeans( dista[1:k, ] )
-      } else {
-        ta[, m] <- k / Rfast::colsums( 1 / dista[1:k, ] )
-      }
+      } else  ta[, m] <- k / Rfast::colsums( 1 / dista[1:k, ] )
     }
-    g <- max.col(-ta)
+    g <- Rfast::rowMins(ta)
 
   } else if (type == "S") {
     ## Standard algorithm

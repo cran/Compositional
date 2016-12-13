@@ -1,6 +1,5 @@
 el.test1 <- function(x, mu, R = 1, ncores = 1, graph = FALSE) {
 
-  x <- as.matrix(x)
   mu <- as.vector(mu)
 
   runtime <- proc.time()

@@ -14,7 +14,7 @@ diri.est(x, type = "mle")
 
 \arguments{
 \item{x}{
-A matrix containing the compositional data.
+A matrix containing compositional data.
 }
 \item{type}{
 If you want to estimate the parameters use type="mle". If you want to estimate the mean vector along with the precision parameter,
@@ -67,7 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x = rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
+x <- rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
 diri.est(x)
 diri.est(x, type = "prec")
 }

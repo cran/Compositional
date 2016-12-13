@@ -1,11 +1,6 @@
 dirimean.test <- function(x, a) {
-
   ## x is the compositional data
   ## a is the hypothesized compositional mean vector
-
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
-  a <- as.vector(a)
   n <- dim(x)[1]  ## sample size
   d <- dim(x)[2] - 1
 
@@ -13,9 +8,7 @@ dirimean.test <- function(x, a) {
     res <- paste("There are zeros in the data")
 
   } else {
-
     z <- t( log(x) )
-
     ## loglik is for the 'mle' type
     loglik <- function(phi) {
       phi <- exp(phi)
@@ -24,7 +17,6 @@ dirimean.test <- function(x, a) {
     }
 
     ## phi under Ho
-
     phi <- sum(a)
     if ( phi == 1 ) {
       mod0 <- optimize(loglik, c(-20, 20), maximum = TRUE )
@@ -33,19 +25,15 @@ dirimean.test <- function(x, a) {
       par0 <- phi0 * a
 
     } else if ( phi > 1 ) {
-
       ell0 <-  n * lgamma( phi ) - n * sum( lgamma(a) ) + sum( z * ( a - 1 )  )
       par0 <- a
     }
-
     ## parameters under H1
     mod1 <- diri.nr(x)
     ell1 <- mod1$loglik
-
     ## test statistic and p-value
     test <- 2 * (ell1 - ell0)
     pvalue <- pchisq(test, d, lower.tail = FALSE)
-
     param <- rbind(par0, mod1$param)
     rownames(param) <- c("Null", "Alternative")
     if ( is.null( colnames(x) ) ) {
@@ -54,10 +42,8 @@ dirimean.test <- function(x, a) {
 
     lik <- c(ell0, ell1)
     names(lik) <- c("Null loglik", "Alternative loglik")
-
     info <- c(test, pvalue)
     names(info) <- c("Test", "p-value")
-
     res <- list(param = param, loglik = lik, info = info)
 
   }

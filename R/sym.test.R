@@ -11,9 +11,7 @@ sym.test <- function(x) {
   D <- dim(x)[2]  ## the dimensionality of the data
   szx <- sum( log(x) )
 
-  sym <- function(a) {
-    n * lgamma(D * a) - n * D * lgamma(a) + szx * (a - 1)
-  }
+  sym <- function(a)  n * lgamma(D * a) - n * D * lgamma(a) + szx * (a - 1)
 
   t0 <- optimize(sym, c(0, 1000), maximum = TRUE)
   t1 <- diri.nr(x)

@@ -17,10 +17,10 @@ ridge.reg(y, x, lambda, B = 1, xnew = NULL)
     A real valued vector. If it contains percentages, the logit transformation is applied.
   }
   \item{x}{
-    The predictor variable(s), they have to be continuous.
+    A matrix with the predictor variable(s), they have to be continuous.
   }
   \item{lambda}{
-    The vlaue of the regularisation parameter \eqn{\lambda}.
+    The value of the regularisation parameter \eqn{\lambda}.
   }
   \item{B}{
     If B = 1 (default value) no bootstrpa is performed. Otherwise bootstrap standard errors are returned.
@@ -69,8 +69,8 @@ Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publ
 }
 
 \examples{
-y <- iris[, 1]
-x <- iris[, 2:4]
+y <- as.vector(iris[, 1])
+x <- as.matrix(iris[, 2:4])
 mod1 <- ridge.reg(y, x, lambda = 0.1)
 mod2 <- ridge.reg(y, x, lambda = 0)
 }

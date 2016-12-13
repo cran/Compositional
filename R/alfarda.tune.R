@@ -25,7 +25,6 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   ## gam * Spooled+(1 - gam) * diagonal
   ## del is between QDA and LDA
   ## del * QDa + (1 - del) * LDA
-
   toc <- proc.time()
 
   n <- length(ina)
@@ -38,11 +37,10 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
 
-  M <- ncol(mat)
+  M <- dim(mat)[2]
 
   ## if you have zero values, only positive alphas are allowed
   if ( min(x) == 0 )  a = a[ a > 0 ]
-
   info <- list()
   props <- ser <- array( dim = c( length(gam), length(del), length(a) ) )
 
@@ -68,9 +66,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   pera <- array( dim = c( length(gam), length(del), length(a) ) )
   
   for (i in 1:M) {
-    for ( j in 1:length(a) ) {
-      pera[, , j] <- info[[ j ]][, , i]
-    }
+    for ( j in 1:length(a) )  pera[, , j] <- info[[ j ]][, , i]
     bias[i] <- max(pera) - pera[ confa[1], confa[2], confa[3] ]
   }
 

@@ -1,11 +1,11 @@
-\name{hotel1T2}
+\name{Hotelling's multivariate version of the 1 sample t-test for Euclidean data}
 \alias{hotel1T2}
 \title{
-Hotelling's multivariate version of the t-test
+Hotelling's multivariate version of the 1 sample t-test for Euclidean data
 }
 
 \description{
-Hotelling's test for testing one population mean vector.
+Hotelling's test for testing one Euclidean population mean vector.
 }
 
 \usage{
@@ -71,10 +71,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- MASS::mvrnorm(100, numeric(10), diag( rexp(10,0.5) ) )
+x <- Rfast::rmvnorm(100, numeric(10), diag( rexp(10,0.5) ) )
 hotel1T2(x, numeric(10), R = 1)
 hotel1T2(x, numeric(10), R = 999, graph = TRUE)
 }
 
 \keyword{ Hypothesis test }
-\keyword{ Mean vector }
+\keyword{ mean vector }

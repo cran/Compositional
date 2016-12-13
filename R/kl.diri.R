@@ -11,13 +11,11 @@ kl.diri <- function(a, b, type = "KL") {
   ## if type == "KL" the KL-Divergence between Dir(a) and Dir(b) is calculated
   ## if type == "bhatt" the Bhattacharyya distance between Dir(a) and
   ## Dir(b) is calculated
-
   if ( type == "KL" ) {
     a0 <- sum(a)
     b0 <- sum(b)
     f <- sum( (a - b) * ( digamma(a) - digamma(a0) ) ) + sum( lgamma(b) -
          lgamma(a) ) + lgamma(a0) - lgamma(b0)
-
   } else {
     f <- lgamma( 0.5 * sum(a + b) ) + 0.5 * sum( lgamma(a) + lgamma(b) ) -
   	     sum( lgamma( 0.5 * (a + b) ) ) - 0.5 * ( lgamma(sum(a) ) + lgamma( sum(b) ) )

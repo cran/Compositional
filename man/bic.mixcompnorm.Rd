@@ -1,4 +1,4 @@
-\name{bMixture model selection via BIC}
+\name{Mixture model selection via BIC}
 \alias{bic.mixcompnorm}
 \title{
 Mixture model selection via BIC
@@ -14,7 +14,7 @@ bic.mixcompnorm(x, A, type = "alr")
 
 \arguments{
   \item{x}{
-  A matrix with the compositional data.
+  A matrix with compositional data.
 }
   \item{A}{
   The maximum number of components, clusters, to be considered.
@@ -65,7 +65,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- iris[, 1:4]
+x <- as.matrix( iris[, 1:4] )
+x <- x/ rowSums(x)
 bic.mixcompnorm(x, 6, type = "alr")
 bic.mixcompnorm(x, 6, type = "ilr")
 }

@@ -9,21 +9,16 @@
 ################################
 
 diri.nr <- function(x, type = 1, tol = 1e-07) {
-  ## x is compositional data
-  ## x can be either "lik" or "ent"
 
   if (type == 1) {
 
     runtime <- proc.time()
-    x <- as.matrix(x)  ## makes sure x is a matrix
-    x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
     n <- dim(x)[1]  ## the sample size
     p <- dim(x)[2]  ## dimensionality
     m <- Rfast::colmeans(x)
     zx <- t( log(x) )
 
     down <-  - sum( m * ( Rfast::rowmeans( zx ) - log(m) ) )
-
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
     gm <- Rfast::rowsums(zx)
@@ -56,12 +51,7 @@ diri.nr <- function(x, type = 1, tol = 1e-07) {
 
     res <- list(iter = i, loglik = loglik, param = a2, runtime = runtime)
 
-  } else if (type == 2) {
-
-    res <- Rfast::diri.nr2(x, tol = tol)
-
-  }
+  } else if (type == 2)  res <- Rfast::diri.nr2(x, tol = tol)
 
   res
-
 }

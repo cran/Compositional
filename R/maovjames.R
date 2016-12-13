@@ -12,9 +12,8 @@ maovjames <- function(x, ina, a = 0.05) {
 
   ## x contains all the groups together
   ## a is the significance level
-  x <- as.matrix(x)  ## makes sure x is a matrix
   ina <- as.numeric(ina)  ## the group indicator variable
-  ni <- as.vector( table(ina) )  ## the group sample sizes
+  ni <- tabulate(ina)  ## the group sample sizes
   k <- max(ina)  ## the number of groups
   p <- dim(x)[2]  ## the dimensionality
   n <- dim(x)[1]  ## the total sample size
@@ -32,7 +31,7 @@ maovjames <- function(x, ina, a = 0.05) {
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
 
-  W <- colSums( aperm(wi) ) 
+  W <- t( colSums( aperm(wi) ) )
   Ws <- solve(W)
   ma <- Rfast::colsums(me)
   mesi <- Ws %*% ma  ## common mean vector
@@ -47,8 +46,8 @@ maovjames <- function(x, ina, a = 0.05) {
 
   test <- sum(ta)  ## the test statistic
   r <- p * (k - 1)
-  A <- 1 + 1/(2 * r) * sum( t1^2/(ni - 1) )
-  B <- sum( t2/(ni - 1) + t1^2/( 2 * (ni - 1) ) ) / (r * (r + 2))
+  A <- 1 + sum( t1^2/(ni - 1) ) / 2 / r
+  B <- sum( t2 / (ni - 1) + t1^2 / 2 / (ni - 1) ) / r / (r + 2)
 
   x2 <- qchisq(1 - a, r)
   delta <- (A + B * x2)

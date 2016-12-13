@@ -9,14 +9,11 @@ multivt <- function(y, plot = FALSE) {
   ## degrees of freedom
   ## y contains the data
 
-  y <- as.matrix(y)  ## makes sure y is a matrix
-   mvt <- function(y, v) {
+   mvt <- function(y, v, n, p) {
     ## the next function 'a' estimates the mean and covariance for given
     ## degeees of freedom. It's a built-in function
     a <- MASS::cov.trob(y, nu = v)
     se <- a$cov
-    n <- dim(y)[1]
-    p <- dim(y)[2]
     me <- as.vector(a$center)
     f <- n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
     log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) *
@@ -24,9 +21,9 @@ multivt <- function(y, plot = FALSE) {
     f
    }
 
-  b <- optimize(mvt, c(0.9, 20000), y = y, maximum = TRUE)
-  dof <- b$maximum
-  loglik <- b$objective
+  mod <- optimize(mvt, c(0.9, 20000), y = y, n = dim(y)[1], p = dim(y)[2], maximum = TRUE)
+  dof <- mod$maximum
+  loglik <- mod$objective
   ## df is the optimal degrees of freedom
   ## if the df is a big number, then a multivariate normal is fine as well
   result <- cov.trob(y, nu = dof)  ## the center and covariance matrix
@@ -36,7 +33,7 @@ multivt <- function(y, plot = FALSE) {
   apotelesma <- list(center = result$center, scatter = result$cov,
   df = dof, loglik = loglik, mesos = Rfast::colmeans(y), covariance = cov(y))
 
-  if (plot == TRUE) {
+  if ( plot ) {
     lik <- deg <- seq(max(1, dof - 20), dof + 20, by = 0.1)
     for ( i in 1:length(deg) )  lik[i] <- mvt(y, deg[i])
     plot(deg, lik, type = "l", xlab = "Degrees of freedom",
@@ -50,8 +47,8 @@ multivt <- function(y, plot = FALSE) {
     conf <- c(a1, a2)
     names(conf) <- c("2.5%", "97.5%")
     apotelesma <- list(center = result$center, scatter = result$cov,
-    df = dof, conf = conf, loglik = loglik, mesos = colMeans(y),
-    covariance = cov(y))
+    df = dof, conf = conf, loglik = loglik, mesos = Rfast::colmeans(y),
+    covariance = cov(y) )
   }
 
   apotelesma

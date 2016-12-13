@@ -54,7 +54,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-x <- fgl[1:20, 2:9]
+x <- as.matrix(fgl[1:20, 2:9])
+x <- x / rowSums(x)
 alfadist(x, 0.1)
 alfadist(x, 1)
 }

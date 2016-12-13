@@ -14,8 +14,6 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   ## if R=1 no bootstrap will be implemented
   ## Bootstrap is used for the p-value
 
-  x1 <- as.matrix(x1)
-  x2 <- as.matrix(x2)
   p <- dim(x1)[2]  ## dimensionality of the data
   n1 <- dim(x1)[1]  ## size of the first sample
   n2 <- dim(x2)[1]  ## size of the second sample
@@ -65,7 +63,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
     tb <- ( (n - p - 1) * tb ) / ( (n - 2) * p )
     pvalue <- ( sum(tb > test) + 1 )/(R + 1)
 
-    if ( graph == TRUE ) {
+    if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic
     }

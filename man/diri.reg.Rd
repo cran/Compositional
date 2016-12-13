@@ -57,7 +57,7 @@ The logarithm of the precision parameter.
 \item{std.logphi}{
 The standard error of the logarithm of the precision parameter.
 }
-\item{beta}{
+\item{be}{
 The beta coefficients.
 }
 \item{seb}{
@@ -98,8 +98,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 4]
-y <- iris[, 1:3]
+x <- as.vector(iris[, 4])
+y <- as.matrix(iris[, 1:3])
+y <- y / rowSums(y)
 mod1 <- diri.reg(y, x)
 mod2 <-diri.reg2(y, x)
 mod3 <- comp.reg(y, x)

@@ -11,9 +11,6 @@
 alfa.tune <- function(x, B = 1, ncores = 1) {
   ## x is the compositional data
   ## x must not contain any zeros
-
-  x <- as.matrix(x)
-  x <- x / Rfast::rowsums(x)
   n <- dim(x)[1]  ## sample size
   f <- (n - 1) / n
   D <- dim(x)[2]  ## number of components
@@ -24,8 +21,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   pa <- function(a, x) {
     trans <- alfa(x, a)
     z <- trans$aff  ## the alpha-transformation
-    sa <- trans$sa  ## part of the Jacobian determinant as well
-    -n/2 * log( abs( det( f * cov(z) ) ) ) + (a - 1) * ja - D * sa
+    -n/2 * log( abs( det( f * cov(z) ) ) ) + (a - 1) * ja - D * trans$sa
   }
 
   if (B == 1) {

@@ -9,8 +9,6 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   ## if means==TRUE it will plot the arithmetic and the
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
-  x <- as.matrix(x)  ## makers sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
 
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
@@ -19,11 +17,11 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   n <- dim(x)[1]
   ina <- numeric(n) + 1
   ## m1 is the closed geometric mean
-  g1 <- Rfast::colmeans( log(x[, -1] / x[, 1]) ) 
+  g1 <- Rfast::colmeans( log(x[, -1] / x[, 1]) )
   g2 <- c( 1, exp(g1) )
   m1 <- g2 / sum(g2)
   ## m2 is the simple arithmetic mean
-  m2 <- Rfast::colmeans(x) 
+  m2 <- Rfast::colmeans(x)
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
   ina[ rowSums(x == 0) > 0 ] <- 3
@@ -39,7 +37,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
 
-  if (means == TRUE) {
+  if ( means ) {
     ## should the means appear in the plot?
     points( d[c(n + 1), 1], d[c(n + 1), 2], pch = 2, col = 2 )
     points( d[c(n + 2), 1], d[c(n + 2), 2], pch = 3, col = 3 )
@@ -47,7 +45,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     pch = c(2, 3), col = c(2, 3), bg = 'gray90')
   }
 
-  if (pca == TRUE  &  min(x) > 0 ) {
+  if (pca  &  min(x) > 0 ) {
     ## should the first principal component appear?
     zx <- log(x[1:n, ])
     z <- zx - Rfast::rowmeans( zx )  ## clr transformation

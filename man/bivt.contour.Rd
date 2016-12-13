@@ -14,7 +14,7 @@ bivt.contour(x, type = "alr", n = 100, appear = TRUE)
 
 \arguments{
   \item{x}{
-  A matrix with the compositional data. It has to be a 3 column matrix.
+  A matrix with compositional data. It has to be a 3 column matrix.
 }
   \item{type}{
   This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- iris[, 1:3]
+x <- as.matrix( iris[, 1:3] )
 x <- x / rowSums(x)
 bivt.contour(x)
 bivt.contour(x, type = "ilr")

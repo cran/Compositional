@@ -10,12 +10,10 @@
 alfainv <- function(x, a, h = TRUE) {
   ## x is the data, not compositional
   ## a is the power parameter
-
-  x <- as.matrix(x)
   D <- dim(x)[2]
   if ( D == 1)   x <- t(x)
 
-  if ( h == TRUE )  {
+  if ( h )  {
     h <- helm( D + 1 )  ## multiply with the Helmert
     ## sub-matrix to bring them onto Q^D
     y <- x %*% h
@@ -23,13 +21,13 @@ alfainv <- function(x, a, h = TRUE) {
 
   if ( a != 0 ) {
     z <- ( a * y + 1 )^( 1/a )
-    z <- z / Rfast::rowsums(z) 
+    z <- z / Rfast::rowsums(z)
 
-    } else {
+  } else {
     ## is a=0, the inverse of the clr is calculated
     ey <- exp(y)
     z <- ey / Rfast::rowsums( ey )
-    }
+  }
 
   z
 

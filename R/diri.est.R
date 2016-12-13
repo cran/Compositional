@@ -10,36 +10,29 @@ diri.est <- function(x, type = 'mle') {
   ## type = 'mle' means the classical mle case
   ## type = 'prec' means to use the precision parameter phi
   ## type = 'ent' means to use the entropy for the estimation
-
-  x <- as.matrix(x)  ## makes sure x is a matrix
-  x <- x / Rfast::rowsums(x)  ## makes sure x is compositional data
   n <- dim(x)[1]  ## sample size
   z <- log(x)
-
   ## loglik is for the 'mle' type
-  loglik <- function(param, z) {
-     param <- exp(param)
+  loglik <- function(param, z, n) {
+    param <- exp(param)
     - n * lgamma( sum(param) ) + n * sum( lgamma(param) ) -
-     sum( z %*% (param - 1) )
+    sum( z %*% (param - 1) )
   }
-
   ## diri is for the 'prec' type
-  diriphi <- function(param, z) {
+  diriphi <- function(param, z, n) {
    phi <- exp(param[1])
    b <- c(1, exp(param[-1]) )
    b <- b / sum(b)
-   f <-  - n * lgamma(phi) + n * sum( lgamma(phi * b) ) -
+   - n * lgamma(phi) + n * sum( lgamma(phi * b) ) -
    sum( z %*% (phi * b - 1) )
-   f
   }
 
   if (type == 'mle') {
     runtime <- proc.time()
     options(warn = -1)
-    da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, iterlim = 10000)
-    da <- nlm(loglik, da$estimate, z = z, iterlim = 10000)
-    da <- nlm(loglik, da$estimate, z = z, iterlim = 10000)
-    da <- optim(da$estimate, loglik, z = z, control = list(maxit = 2000),
+    da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, n = n, iterlim = 10000)
+    da <- nlm(loglik, da$estimate, z = z, n = n, iterlim = 10000)
+    da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 2000),
     hessian = TRUE)
 
     runtime <- proc.time() - runtime
@@ -50,10 +43,9 @@ diri.est <- function(x, type = 'mle') {
   if (type == 'prec') {
     runtime <- proc.time()
     options(warn = -1)
-    da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, iterlim = 2000)
-    da <- nlm(diriphi, da$estimate, z = z, iterlim = 2000)
-    da <- nlm(diriphi, da$estimate, z = z, iterlim = 2000, hessian = TRUE)
-    da <- optim(da$estimate, diriphi, z = z, control = list(maxit = 3000),
+    da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, n = n, iterlim = 2000)
+    da <- nlm(diriphi, da$estimate, z = z, n = n, iterlim = 2000)
+    da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 3000),
     hessian = TRUE)
     phi <- exp(da$par[1])
     a <- c( 1, exp(da$par[-1]) )

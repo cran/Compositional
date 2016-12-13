@@ -17,7 +17,7 @@ alfa.pcr(y, x, a, k, xnew = NULL)
   A numerical vector containing the response variable values. They can be continuous,  binary or discrete (counts).
 }
   \item{x}{
-  The predictor variables, the compositional data.
+  A matrix with the predictor variables, the compositional data.
 }
   \item{a}{
   The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
@@ -63,8 +63,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 library(MASS)
-y <- fgl[, 1]
-x <- fgl[, 2:9]
+y <- as.vector(fgl[, 1])
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
 mod <- alfa.pcr(y = y, x = x, 0.7, 1)
 mod
 }

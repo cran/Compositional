@@ -10,14 +10,10 @@
 
 sscov <- function(x, me = NULL, tol = 1e-09) {
   ## x contains the data
-
   n <- dim(x)[1]  ## sample size
   p <- dim(x)[2]
-
-  if ( is.null(me) )  me <- spat.med(x, tol)  ## spatial median of x
-
+  if ( is.null(me) )  me <- Rfast::spat.med(x, tol)  ## spatial median of x
   y <- x - rep( me, rep(n, p) )
   rs <- sqrt ( Rfast::rowsums(y^2) )
   crossprod( y / rs ) / n  ## SSCM
-
 }

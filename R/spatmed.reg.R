@@ -22,8 +22,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
   }
 
   tic <- proc.time()
-
-  B1 <- coef( lm.fit(x,  y) )
+  B1 <- solve(crossprod(x), crossprod(x, y) )
   est <- y - x %*% B1
   ww <- sqrt( Rfast::rowsums( est^2 ) )
   z <- x / ww
@@ -31,7 +30,6 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
   a2 <- crossprod(z, y)
   B2 <- solve(a1, a2)
   i <- 2
-
   while ( sum( abs(B2 - B1) ) > tol ) {
     i <- i + 1
     B1 <- B2
@@ -44,7 +42,6 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
     a2 <- crossprod(z, y)
     B2 <- solve(a1, a2)
   }
-
   be <- B2
   seb <- NULL
 
@@ -53,28 +50,21 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
     qa <- nlm(medi, as.vector(be), iterlim = 5000, hessian = TRUE)
     seb <- sqrt( diag( solve(qa$hessian) ) )
     seb <- matrix(seb, ncol = d)
-
     if ( is.null(colnames(y)) ) {
       colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
     } else  colnames(seb) <- colnames(be) <- colnames(y)
   }
 
-  if ( is.null(xnew) ) {
-    est <- x %*% be
-  } else {
+  if ( !is.null(xnew) ) {
     xnew <- model.matrix( ~ ., data.frame(xnew) )
     est <- xnew %*% be
   }
-
   if ( is.null(colnames(y)) ) {
     colnames(be) <- paste("Y", 1:d, sep = "")
   } else  colnames(be) <- colnames(y)
-
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
 
   runtime <- proc.time() - tic
-
   list(iter = i, runtime = runtime, be = be, seb = seb, est = est)
-
 }

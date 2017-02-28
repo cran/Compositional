@@ -1,25 +1,26 @@
 #useDynLib(Compositional, .registration = TRUE)
 
-importFrom("MASS", "cov.rob", "cov.trob")
-importFrom("graphics", "filled.contour", "contour", "lines", "plot",
-           "points", "abline", "hist", "legend", "text", "image")
+importFrom("MASS", cov.rob, cov.trob)
+importFrom("graphics", filled.contour, contour, lines, plot,
+           points, abline, hist, legend, text, image)
 
-importFrom("stats", "coef", "cor", "dist", "lm", "cov", "optim", "optimize",
-           "quantile", "sd", "rnorm", "qnorm", "nlminb", "nlm", "lm.fit", "rchisq", "deviance",
-           "fitted", "glm", "pchisq", "qchisq", "resid", "rgamma", "mahalanobis",
-           "runif", "var", "qt", "qf", "pf", "model.matrix")
+importFrom("stats", coef, cor, lm, cov, optim, optimize,
+           quantile, sd, rnorm, qnorm, nlminb, nlm, lm.fit, rchisq, deviance,
+           fitted, glm, pchisq, qchisq, resid, rgamma, mahalanobis,
+           runif, var, qt, qf, pf, model.matrix)
 
-importFrom("grDevices", "terrain.colors", "grey")
-importFrom("Rfast", "colVars", "colMedians", "colmeans", "colsums", "rowmeans", "rowsums",
-           "diri.nr2", "sort_mat", "mahala", "rmvnorm", "rmvt", "sort_unique", "rowMins", "rowMaxs")
+importFrom("grDevices", terrain.colors, grey)
+importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
+           diri.nr2, sort_mat, mahala, rmvnorm, rmvt, sort_unique, rowMins,
+           rowMaxs, Dist, spat.med)
 
 import("doParallel")
 import("parallel")
 import("foreach")
-importFrom("sn", "msn.mle", "rmsn")
-importFrom("mixture", "gpcm")
-importFrom("fields", "image.plot", "rdist")
-importFrom("emplik", "el.test")
+importFrom("sn", msn.mle, rmsn)
+importFrom("mixture", gpcm)
+importFrom("fields", image.plot)
+importFrom("emplik", el.test)
 exportPattern("^[[:alpha:]]+")
 exportPattern("^[^\\.]")
 

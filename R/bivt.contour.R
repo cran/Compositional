@@ -52,7 +52,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
         }  ## isometric log-ratio transformation
 
         ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) )-
-        0.5 * (v + p) * ( log( 1 + ( y - m ) %*% st %*% ( y - m) )/v )
+        0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
         can <- exp(ca)
   	    if (abs(can) < Inf) {
 	        mat[i, j] <- can
@@ -81,7 +81,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
         }  ## isometric log-ratio transformation
 
         ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) )-
-        0.5 * (v + p) * ( log( 1 + ( y - m ) %*% st %*% ( y - m) )/v )
+        0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
         can <- exp(ca)
         if (abs(can) < Inf) {
 	         mat[i, j] <- can

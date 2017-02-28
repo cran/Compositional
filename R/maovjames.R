@@ -21,7 +21,6 @@ maovjames <- function(x, ina, a = 0.05) {
   me <- mi <- W <- matrix(nrow = k, ncol = p)
   ta <- numeric(k)
   wi <- array( dim = c(p, p, k) )
-
   ## the next for function calculates the
   ## mean vector and covariance matrix of each group
   for (i in 1:k) {
@@ -48,7 +47,6 @@ maovjames <- function(x, ina, a = 0.05) {
   r <- p * (k - 1)
   A <- 1 + sum( t1^2/(ni - 1) ) / 2 / r
   B <- sum( t2 / (ni - 1) + t1^2 / 2 / (ni - 1) ) / r / (r + 2)
-
   x2 <- qchisq(1 - a, r)
   delta <- (A + B * x2)
   twoha <- x2 * delta  ## corrected critical value of the chi-square distribution
@@ -56,5 +54,4 @@ maovjames <- function(x, ina, a = 0.05) {
   result <- c(test, delta, twoha, pvalue)
   names(result) <- c("test", "correction", "corr.critical", "p-value")
   result
-
 }

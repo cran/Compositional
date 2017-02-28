@@ -10,7 +10,6 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   ## used (parallel computing)
   ## if a matrix with folds is supplied in mat the results will
   ## always be the same. Leave it NULL otherwise
-
   ina <- as.numeric(ina)
   n <- dim(x)[1]  ## total sample size
   num <- 1:n
@@ -30,7 +29,6 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
     options(warn = -1)
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
-
   ## mat contains the positions of the test set
   ## this is stored but not showed in the end
   ## the user can access it though by running
@@ -74,14 +72,12 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
           group[k1, k2] <- sum( g == id ) / rmat
         }
       }
-      a <- as.vector( group )
-      return(a)
+      return( as.vector( group ) )
     }
     stopCluster(cl)
 
     per <- array( dim = c( lg, ld, M ) )
     for ( i in 1:M )  per[, , i] <- matrix( ww[, i], nrow = lg )
-
     runtime <- proc.time() - runtime
 
   } else {
@@ -122,17 +118,13 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
   percent <- t( colMeans( aperm(per) ) )
   su <- apply(per, 1:2, sd)
   dimnames(percent) <- dimnames(su) <- list(gamma = gam, delta = del)
-
   confa <- as.vector( which(percent == max( percent ), arr.ind = TRUE )[1, ] )
   bias <- numeric(M)
   for (i in 1:M) {
     confi <- as.vector( which(per[, , i] == max( per[, , i] ), arr.ind = TRUE )[1, ] )
     bias[i] <- per[ confi[1], confi[2], i] - per[ confa[1], confa[2], i]
   }
-
   result <- cbind( max(percent) - mean(bias), gam[ confa[1] ], del[ confa[2] ] )
   colnames(result) <- c('optimal', 'best gamma', 'best delta')
-
   list(per = per, percent = percent, se = su, result = result, runtime = runtime)
-
 }

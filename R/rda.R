@@ -51,5 +51,4 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   expta <- exp(ta)
   prob <- expta / Rfast::rowsums( expta ) ## the probability of classification
   list(prob = prob, scores = ta, est = est)
-
 }

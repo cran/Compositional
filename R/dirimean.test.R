@@ -6,7 +6,6 @@ dirimean.test <- function(x, a) {
 
   if ( min(x) <= 0 || min(a) <= 0 ) {
     res <- paste("There are zeros in the data")
-
   } else {
     z <- t( log(x) )
     ## loglik is for the 'mle' type
@@ -15,7 +14,6 @@ dirimean.test <- function(x, a) {
       ma <- phi * a
       n * lgamma( phi ) - n * sum( lgamma(ma) ) + sum( z * (ma - 1) )
     }
-
     ## phi under Ho
     phi <- sum(a)
     if ( phi == 1 ) {
@@ -23,7 +21,6 @@ dirimean.test <- function(x, a) {
       ell0 <- mod0$objective
       phi0 <- exp( mod0$maximum )
       par0 <- phi0 * a
-
     } else if ( phi > 1 ) {
       ell0 <-  n * lgamma( phi ) - n * sum( lgamma(a) ) + sum( z * ( a - 1 )  )
       par0 <- a
@@ -45,9 +42,7 @@ dirimean.test <- function(x, a) {
     info <- c(test, pvalue)
     names(info) <- c("Test", "p-value")
     res <- list(param = param, loglik = lik, info = info)
-
   }
 
   res
-
 }

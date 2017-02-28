@@ -42,7 +42,6 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
       dmb <- mb - M
       tb[i] <- dmb %*% solve(sb, dmb)
     }
-
     tb <- n * (n - p) / (n - 1) / p * tb
     pvalue <- ( sum(tb > test) + 1 )/(R + 1)  ## bootstrap p-value
 
@@ -51,7 +50,6 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
       abline(v = test, lty = 2, lwd = 2)  ## The dotted vertical line
       ## is the test statistic value
     }
-
     result <- list(m = m, pvalue = pvalue)
   }
 

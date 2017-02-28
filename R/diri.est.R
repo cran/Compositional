@@ -34,7 +34,6 @@ diri.est <- function(x, type = 'mle') {
     da <- nlm(loglik, da$estimate, z = z, n = n, iterlim = 10000)
     da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 2000),
     hessian = TRUE)
-
     runtime <- proc.time() - runtime
     result <- list( loglik = -da$value, param = exp(da$par),
     std = sqrt( diag( solve(da$hessian) ) ), runtime = runtime  )
@@ -50,7 +49,6 @@ diri.est <- function(x, type = 'mle') {
     phi <- exp(da$par[1])
     a <- c( 1, exp(da$par[-1]) )
     a <- a / sum(a)
-
     runtime <- proc.time() - runtime
     result <- list( loglik = -da$value, phi = phi, a = a,
     b = phi * a, runtime = runtime )

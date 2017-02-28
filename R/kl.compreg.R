@@ -28,9 +28,8 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
    }
 
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef( lm.fit(x, y[, -1]) ) ) )  ## initial values
-
   runtime <- proc.time()
+  ini <- as.vector( t( coef( lm.fit(x, y[, -1]) ) ) )  ## initial values
   options (warn = -1)
   qa <- nlm(klreg, ini, y = y, x = x, d = d)
   qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
@@ -92,6 +91,5 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   rownames(be) <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-
   list(runtime = runtime, be = be, seb = seb, est = est)
 }

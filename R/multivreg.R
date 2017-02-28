@@ -11,7 +11,6 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## with at least two columns
   ## x contains the independent variable(s) which have to be
   ## in a matrix format or a vector if you have just one
-
   n <- dim(y)[1]  ## sample size
   d <- dim(y)[2]  ## dimensionality of y
   x <- as.matrix(x)
@@ -72,6 +71,5 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   list(suma = suma, r.squared = r.squared, resid.out  = resid.out,
        x.leverage = x.leverage, out = out.and.lever, est = est)
-
 }
 

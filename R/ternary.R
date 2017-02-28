@@ -65,5 +65,4 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   rownames(mu) <- c("closed geometric", "arithmetic mean")
   colnames(mu) <- nam
   mu
-
 }

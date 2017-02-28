@@ -29,12 +29,10 @@ maov <- function(x, ina) {
     stat <- (n - p - 1 ) / p * (1 - lam)/lam
     pvalue <- pf( stat, p, n - p - 1, lower.tail = FALSE )
     note <- paste("F approximation has been used")
-
   } else if ( g == 3 ) {
     stat <- (n - p - 2 )/p * ( 1 - sqrt(lam) ) / sqrt(lam)
     pvalue <- pf( stat, 2 * p, 2 * (n - p - 2), lower.tail = FALSE )
     note <- paste("F approximation has been used")
-
   } else {
     stat <-  -( n - 1 - (p + g)/2 ) * log(lam)
     pvalue <- pchisq( stat, p * (g - 1), lower.tail = FALSE )
@@ -44,5 +42,4 @@ maov <- function(x, ina) {
   result <- c(stat, pvalue)
   names(result) <- c('stat', 'p-value')
   list(note = note, result = result)
-
 }

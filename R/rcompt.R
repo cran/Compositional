@@ -11,9 +11,7 @@ rcompt <- function(n, m, s, dof, type = "alr") {
   ## s is the covariance matrix in R^d
   ## dof is the degrees of freedom
   ## type is either alr or ilr
-
   x <- Rfast::rmvt(n, m, s, dof)
-
   if (type == "alr") {
     y <- cbind( 1, exp(x) )
   } else {
@@ -21,6 +19,5 @@ rcompt <- function(n, m, s, dof, type = "alr") {
     y <- x %*% helm(D + 1)
     y < exp(y)
   }
-
   y / Rfast::rowsums(y)
 }

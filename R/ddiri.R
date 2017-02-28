@@ -16,6 +16,5 @@ ddiri <- function(x, a, logged = TRUE) {
   } else   f <- exp(f)
 
   f
-
 }
 

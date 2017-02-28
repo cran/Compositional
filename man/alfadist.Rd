@@ -9,20 +9,26 @@ This is the Euclidean distance after the \eqn{\alpha}-transformation has been ap
 }
 
 \usage{
-alfadist(x, a)
+alfadist(x, a, type = "euclidean", square = FALSE)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data.
+\item{x}{
+A matrix with the compositional data.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0}, the isometric log-ratio transformation is applied.
+}
+\item{type}{
+Which type distance do you want to calculate after the \eqn{\alpha}-transformation, "euclidean", or "manhattan".
+}
+\item{square}{
+In the case of the Euclidean distance, you can choose to return the squared distance by setting this TRUE.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then the Euclidean distance is calculated.
+The \eqn{\alpha}-transformation is applied to the compositional data first and then the Euclidean or the Manhattan distance is calculated.
 }
 
 \value{
@@ -32,7 +38,7 @@ The pairwise distances of all observations.
 
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of Classification (to appear). http://arxiv.org/pdf/1506.04976v2.pdf
+Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of Classification. 33(2):243--261. http://arxiv.org/pdf/1506.04976v2.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
 }
@@ -62,3 +68,5 @@ alfadist(x, 1)
 
 \keyword{ \eqn{\alpha}-transformation }
 \keyword{ Euclidean distance }
+\keyword{ Manhattan distance }
+

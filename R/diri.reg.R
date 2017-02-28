@@ -36,7 +36,6 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
   el[2] <- -qa$minimum
   vim <- 2
-
   while (el[vim] - el[vim - 1] > 1e-06) {
     ## the tolerance value can of course change
     vim <- vim + 1
@@ -61,27 +60,21 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
-
   } else {
     mu <- cbind( 1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)  ## fitted values
     lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
-
     if ( plot ) {
       plot(1:n, lev, main = "Influence values", xlab = "Observations",
       ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
       lines(1:n, lev, type = "h")
       abline(h = qchisq(0.95, d), lty = 2, col = 2)
     }
-
   }
 
   runtime <- proc.time() - runtime
-
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-
   list(runtime = runtime, loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
   std.logphi = std.logphi, be = be, seb = seb, lev = lev, est = est)
-
 }

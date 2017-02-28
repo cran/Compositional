@@ -6,13 +6,11 @@
 
 sym.test <- function(x) {
   ## x contains the compositional data
+  sym <- function(a)  n * lgamma(D * a) - n * D * lgamma(a) + szx * (a - 1)
 
   n <- dim(x)[1]  ## the sample size
   D <- dim(x)[2]  ## the dimensionality of the data
   szx <- sum( log(x) )
-
-  sym <- function(a)  n * lgamma(D * a) - n * D * lgamma(a) + szx * (a - 1)
-
   t0 <- optimize(sym, c(0, 1000), maximum = TRUE)
   t1 <- diri.nr(x)
   a0 <- t0$maximum
@@ -29,5 +27,4 @@ sym.test <- function(x) {
 
   names(res) <- c('loglik1', 'loglik0', 'test', 'pvalue', 'df')
   list(est.par = a1, one.par = a0, res = res )
-
 }

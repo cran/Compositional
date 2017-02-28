@@ -27,7 +27,6 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
   v1 <- solve(s1)    ;   v2 <- solve(s2)
   a1 <- n1 * v1    ;    a2 <-  n2 * v2
   muc <- solve( a1 + a2, a1 %*% m1 + a2 %*% m2 )
-
   runtime <- proc.time()
   apot <- nlm( elpa, muc )
   test <- apot$minimum
@@ -38,14 +37,12 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     pvalue <- pchisq(test, d, lower.tail = FALSE)
     result <- list( test = test, dof = d, pvalue = pvalue, mu = mu, runtime = runtime,
     note = paste("Chi-square approximation") )
-
   } else if ( R == 1 ) {
     delta <- james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(test / delta, d, lower.tail = FALSE) )
     result <- list(test = test, modif.test = stat, dof = d, pvalue = pvalue, mu = mu,
     runtime = runtime, note = paste("James corrected chi-square approximation"))
-
   } else if ( R == 2 ) {
     dof <- james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
@@ -53,9 +50,8 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     pvalue <- as.numeric( pf(stat, d, dof, lower.tail = FALSE) )
     dof <- c(d, v - d + 1)
     names(dof) <- c("numer df", "denom df")
-    result <- list(test = test, modif.test = stat, dof = dof, pvalue = pvalue,
-    mu = mu, runtime = runtime, note = paste("F approximation"))
-
+    result <- list( test = test, modif.test = stat, dof = dof, pvalue = pvalue,
+    mu = mu, runtime = runtime, note = paste("F approximation") )
     ## else bootstrap calibration is implemented
   } else if (R > 2) {
     ybar1 <- Rfast::colmeans(y1)
@@ -88,7 +84,6 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
             apot <- nlm( elpa, muc )
             tb[i] <- apot$minimum
       }
-
       stopCluster(cl) ## stop the cluster
       tb <- as.vector(ww)
       runtime <- proc.time() - runtime
@@ -97,7 +92,6 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     pvalue <- ( sum(tb > test) + 1 ) / (R + 1)
     result <- list(test = test, pvalue = pvalue, mu = mu, runtime = runtime,
     note = paste("Bootstrap calibration") )
-
     if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic

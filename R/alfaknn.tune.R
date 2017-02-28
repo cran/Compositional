@@ -46,7 +46,6 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     options(warn = -1)
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
-
   M <- dim(mat)[2]
   rmat <- dim(mat)[1]
   ## The algorithm is repeated R times and each time the estimated
@@ -60,7 +59,6 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     ## The k-NN algorith is calculated R times. For every repetition a
     ## test sample is chosen and its observations are classified
     for (vim in 1:M) {
-
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
       ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
       aba <- as.vector( mat[, vim] )
@@ -122,8 +120,6 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
   performance <- c(opt - bias, bias)
   names(performance) <- c( "rate", "bias" )
   runtime <- proc.time() - runtime
-
   list( ela = ela, performance = performance, best_a = a[ confa[1] ],
         best_k = confa[2] + 1, runtime = runtime )
-
 }

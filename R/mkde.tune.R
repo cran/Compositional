@@ -26,7 +26,7 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
   vec <- eig$vectors  ## eigenvectors of the covariance matrix
   B <- vec %*% ( t(vec) / sqrt(lam) )
   z <- x %*% B
-  a2a <- fields::rdist( z, compact = FALSE )^2
+  a2a <- Rfast::Dist( z, method = "euclidean", square = TRUE )
   a2a <- exp(-0.5 * a2a)
   ds <- 1 / prod(lam)^0.5
 
@@ -38,5 +38,4 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
 
   bar <- optimize(tune, c(low, up), maximum = TRUE)
   list( hopt = bar$maximum, maximum = bar$objective + log(ds) - d/2 * log(2 * pi) - log(n - 1) )
-
 }

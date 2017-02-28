@@ -4,18 +4,13 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-
 ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
                        mat = NULL, ncores = 1, graph = FALSE) {
-
-  ## y is the univariate or multivariate dependent variable
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default
   ## lambda is a vector with a grid of values of lambda
   ## ncores is the number of cores to use
-
-  y <- as.matrix(y)
-  n <- dim(y)[1]  ## sample size
+  n <- length(y)  ## sample size
   k <- length(lambda)
   di <- dim(y)[2]  ## dimensionality of y
   p <- dim(x)[2]  ## dimensionality of x
@@ -39,17 +34,15 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     runtime <- proc.time()
     for (vim in 1:M) {
       ytest <- y[ mat[, vim] ]   ## test set dependent vars
-      ytrain <- y[ -mat[, vim], ]   ## train set dependent vars
+      ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
       my <- sum(ytrain) / rmat
       yy <- ytrain - my  ## center the dependent variables
-
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- Rfast::colmeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- t( ( t(xtest) - mx ) / s ) ## standardize the xtest
       xx <- t( ( t(xtrain) - mx ) / s ) ## standardize the independent variables
-
       sa <- svd(xx)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
       d2 <- d^2    ;    A <- d * tu %*% yy
@@ -67,13 +60,11 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     pe <- numeric(k)
-
     msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("colmeans", "colVars") ) %dopar% {
-      ytest <- y[ mat[, vim], ]   ## test set dependent vars
-      ytrain <- y[ -mat[, vim], ]   ## train set dependent vars
+      ytest <- y[ mat[, vim] ]   ## test set dependent vars
+      ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
       my <- sum(ytrain) / rmat
       yy <- ytrain- my  ## center the dependent variables
-
       xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
       mx <- Rfast::colmeans(xtrain)
       xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
@@ -111,5 +102,4 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
   names(performance) <- c("MSPE", "Estimated bias")
   list(msp = msp, mspe = mspe, lambda = which.min(mspe), performance = performance,
        runtime = runtime)
-
 }

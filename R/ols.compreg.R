@@ -15,19 +15,17 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
   ## more are used (parallel computing)
-
-  runtime <- proc.time()
-  x <- model.matrix(y ~ ., data.frame(x) )
-  n <- dim(y)[1]  ## sample size
-  d <- dim(y)[2] - 1  ## dimensionality of the simplex
-  z <- list(y = y, x = x)
-
   olsreg <- function(para, y, x, d) {
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind(1, exp(x %*% be))
     mu <- mu1 / rowSums(mu1)
     sum( (y - mu)^2 )
   }
+  
+  runtime <- proc.time()
+  x <- model.matrix(y ~ ., data.frame(x) )
+  n <- dim(y)[1]  ## sample size
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
   ## the next lines minimize the reg function and obtain the estimated betas
   ini <- as.vector( t( coef(lm.fit(x, y[, -1]) ) ) )  ## initial values
   options (warn = -1)
@@ -90,6 +88,5 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   rownames(beta)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-
   list(runtime = runtime, beta = beta, seb = seb, est = est)
 }

@@ -24,13 +24,12 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     mu1 <- cbind( 1, exp(x %*% be) )
     mu <- mu1 / rowSums(mu1)
     M <- ( mu + y ) / 2
-    sum( - y * log(1 + mu / y) + mu * log(mu / M), na.rm = TRUE )
+    sum( - y * log1p(mu / y) + mu * log(mu / M), na.rm = TRUE )
   }
 
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
-  ini <- as.vector( t( kl.compreg(y, x[, -1])$be ) )
-
   runtime <- proc.time()
+  ini <- as.vector( t( kl.compreg(y, x[, -1])$be ) )
   options (warn = -1)
   qa <- nlm(jsreg, ini, y = y, x = x, d = d)
   qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
@@ -90,6 +89,5 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-
   list(runtime = runtime, be = be, seb = seb, est = est)
 }

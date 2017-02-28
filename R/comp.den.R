@@ -67,17 +67,17 @@
   } else if (dist == "spatial") {
       if (type == "alr") {  ## additive log-ratio transformation
         y <- log(x[, -1]/ x[, 1])
-        delta <- spat.med(y, tol = tol)
+        delta <- Rfast::spat.med(y, tol = tol)
         comp.delta <- c( 1, exp( delta ) )
         comp.delta <- delta / sum( delta )
         s <- sscov(y, delta)
       } else {
         y <- alfa(x, 0)
-        delta <- spat.med(y)
+        delta <- Rfast::spat.med(y)
         comp.delta <- alfainv(delta, 0)
         s <- sscov(y, delta)
       }
-      result <- list(spat.med = delta, comp.spat.med = comp.delta, ssc = s)
+      result <- list(spatmed = delta, comp.spat.med = comp.delta, ssc = s)
 
   } else if (dist == "skewnorm") {
       if (type == "alr") {  ## additive log-ratio transformation

@@ -22,7 +22,6 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   ## Both of these apply for the non-standard,
   ## algorithm, that is when type=NS
   ## xnew is the new dataset. It can be a single vector or a matrix
-
   n <- dim(x)[1]
   p <- dim(x)[2]
   xnew <- as.matrix(xnew)
@@ -31,7 +30,6 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   nc <- max(ina) ## The number of groups
   nu <- dim(xnew)[1]
   apo <- matrix( 0, n, nu )
-
   znew <- alfa(xnew, a)$aff
   z <- alfa(x, a)$aff
   tz <- t(z)

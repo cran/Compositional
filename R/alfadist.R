@@ -6,10 +6,9 @@
 #### compositional data. In Proceedings of the 4rth Compositional Data Analysis Workshop, Girona, Spain.
 #### mtsagris@yahoo.gr
 ################################
-
-alfadist <- function(x, a) {
+alfadist <- function(x, a, type = "euclidean", square = FALSE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
   y <- alfa(x, a, h = TRUE)$aff
-  fields::rdist(y)
+  Rfast::Dist(y, method = type, square = square)
 }

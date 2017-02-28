@@ -55,7 +55,6 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   std.phi <- s[1:p]  ## std of the estimated beta parameters of the phi
   seb <- matrix( s[-c(1:p)], ncol = d )  ## std of the estimated betas
   V <- solve(qa$hessian)  ## covariance matrix of the parameters
-
   runtime <- proc.time() - runtime
 
   if ( !is.null( colnames(y) ) ) {
@@ -70,8 +69,6 @@ diri.reg2 <- function(y, x, xnew = NULL) {
 
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-
   list(runtime = runtime, loglik = -qa$minimum, phipar = phipar,
        std.phi = std.phi, be = be, seb = seb, sigma = V, phi = phi, est = est)
-
 }

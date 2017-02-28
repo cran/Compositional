@@ -7,7 +7,6 @@
 #### Journal of Data Science, 12(3):519-534
 #### mtsagris@yahoo.gr
 ################################
-
 compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
                          a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
 
@@ -71,7 +70,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
         dis <- dis + t(dis)
 
       } else if (apostasi == "taxicab") {
-        dis <- as.matrix( dist(z, method = "manhattan", diag = TRUE, upper = TRUE) )
+        dis <- Rfast::Dist(z, method = "manhattan")
 
       } else if ( apostasi == "CS" ) {
         p <- dim(x)[2]
@@ -89,7 +88,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
       ## The k-NN algorithm is calculated R times. For every repetition a
       ## test sample is chosen and its observations are classified
       for (vim in 1:M) {
-
         id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
         ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
         aba <- as.vector( mat[, vim] )
@@ -99,7 +97,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
         if (type == "NS") {
           ## Non Standard algorithm
           ta <- matrix(nrow = rmat, ncol = ng)
-
           for ( j in 1:c(A - 1) ) {
             knn <- j + 1
             for (l in 1:ng) {
@@ -127,7 +124,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
             }
             per[vim, j, i] <- sum( g == id ) / rmat
           }
-
         }
 
       }
@@ -159,7 +155,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     results <- list( ela = ela, performance = performance,
                      best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
 
-
   } else if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular" ) {
 
     runtime <- proc.time()
@@ -168,26 +163,19 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     if (apostasi == "Ait") {
       xa <- log(x)
       z <- xa - Rfast::rowmeans( xa )
-      dis <- fields::rdist(z)
-
+      dis <- Rfast::Dist(z)
     } else if (apostasi == "Hellinger") {
       z <- sqrt(x)
-      dis <- fields::rdist(z)
-      dis <- dis / sqrt(2)
-
+      dis <- Rfast::Dist(z) / sqrt(2)
     } else if (apostasi == "angular") {
-      z <- sqrt(x)
-      dis <- tcrossprod( z )
+      dis <- tcrossprod( sqrt(x) )
       diag(dis) <- 1
       dis[ dis > 1 ] <- 1
       dis <- acos(dis)
-
     }
-
     diag(dis) <- 0
 
     for (vim in 1:M) {
-
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
       ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
       aba <- as.vector( mat[, vim] )

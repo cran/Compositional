@@ -23,8 +23,8 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     di <- ncol(z)
     be <- seb <- matrix(nrow = NCOL(x) + 1, ncol = di)
     for (i in 1:di) {
-     be[, i] <- res[, 1, i]
-     seb[, i] <- res[, 2, i]
+      be[, i] <- res[, 1, i]
+      seb[, i] <- res[, 2, i]
     }
     rownames(seb) <- rownames(be) <- rownames(res[, , 1])
     colnames(seb) <- colnames(be) <- colnames(mod$fitted)
@@ -43,5 +43,4 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   est2 <- cbind( 1, exp(est1) )
   est <- est2 / Rfast::rowsums(est2)
   list(runtime = runtime, be = be, seb = seb, est = est)
-
 }

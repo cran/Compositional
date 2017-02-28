@@ -18,6 +18,5 @@ rcompnorm <- function(n, m, s, type = "alr") {
     y <- x %*% helm(D + 1)
     y < exp(y)
   }
-
   y / Rfast::rowsums(y)
 }

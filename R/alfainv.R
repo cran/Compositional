@@ -12,23 +12,18 @@ alfainv <- function(x, a, h = TRUE) {
   ## a is the power parameter
   D <- dim(x)[2]
   if ( D == 1)   x <- t(x)
-
   if ( h )  {
     h <- helm( D + 1 )  ## multiply with the Helmert
     ## sub-matrix to bring them onto Q^D
     y <- x %*% h
   }	 else y <- x
-
   if ( a != 0 ) {
     z <- ( a * y + 1 )^( 1/a )
     z <- z / Rfast::rowsums(z)
-
   } else {
     ## is a=0, the inverse of the clr is calculated
     ey <- exp(y)
     z <- ey / Rfast::rowsums( ey )
   }
-
   z
-
 }

@@ -86,7 +86,6 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     x1 <- y1 + rep( mc1, rep(n1, p) )
     x2 <- y2 + rep( mc2, rep(n2, p) )
     tb <- numeric(R)
-
     for (i in 1:R) {
       b1 <- sample(1:n1, n1, replace = TRUE)
       b2 <- sample(1:n2, n2, replace = TRUE)
@@ -95,14 +94,12 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
       Vb <- cov(xb1) / n1 + cov(xb2) / n2  ## covariance matrix of the difference
       tb[i] <- sum( db %*% solve(Vb, db ) )
     }
-
     pvalue <- ( sum(tb > test) + 1 ) / (R + 1)
 
     if ( graph ) {
       hist(tb, xlab = "Bootstrapped test statistic", main = " ")
       abline(v = test, lty = 2, lwd = 2)  ## The line is the test statistic
     }
-
     note <- paste("Bootstrap calibration")
     runtime <- proc.time() - runtime
     result <- list(note = note, mesoi = mesoi, pvalue = pvalue, runtime = runtime)

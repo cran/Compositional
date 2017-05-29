@@ -7,7 +7,6 @@
 #### http://arxiv.org/pdf/1307.5706v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
 sscov <- function(x, me = NULL, tol = 1e-09) {
   ## x contains the data
   n <- dim(x)[1]  ## sample size

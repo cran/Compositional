@@ -6,7 +6,6 @@
 #### http://xxx.tau.ac.il/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
 alfainv <- function(x, a, h = TRUE) {
   ## x is the data, not compositional
   ## a is the power parameter

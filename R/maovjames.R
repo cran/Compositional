@@ -9,7 +9,6 @@
 ################################
 
 maovjames <- function(x, ina, a = 0.05) {
-
   ## x contains all the groups together
   ## a is the significance level
   ina <- as.numeric(ina)  ## the group indicator variable

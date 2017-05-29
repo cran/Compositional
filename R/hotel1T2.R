@@ -5,7 +5,6 @@
 #### References: Mardia K.V., kent J.T. & Bibby J.M. (1979)
 #### Multivariate Analysis p. 126. Academic Press
 ################################
-
 hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   ## x is the data set
   ## a is the level of significance set by default to 0.05

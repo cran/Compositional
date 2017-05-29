@@ -1,6 +1,4 @@
-rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
-                     del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
-
+rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
   ## x contains the data
   ## gam is between pooled covariance and diagonal
   ## gam*Spooled+(1-gam)*diagonal
@@ -46,9 +44,9 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
 
     ww <- foreach(vim = 1:M, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
 
-      test <- as.matrix( x[ mat[, vim], ] )  ## test sample
+      test <- x[ mat[, vim], , drop = FALSE]  ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-      train <- as.matrix( x[ -mat[, vim], ] )   ## training sample
+      train <- x[ -mat[, vim], ]   ## training sample
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
       na <- as.vector( table(ida) )
       mesi <- rowsum(train, ida) / na
@@ -59,13 +57,12 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
-      for (k1 in 1:length(gam)) {
-        for (k2 in 1:length(del)) {
+      for ( k1 in 1:length(gam) ) {
+        for ( k2 in 1:length(del) ) {
           Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
-              0.5 * Rfast::mahala( test, mesi[j, ], Ska )
+            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
           gr <- gr
           g <- Rfast::rowMaxs(gr)
@@ -86,9 +83,9 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
 
     for (vim in 1:M) {
 
-      test <- as.matrix( x[ mat[, vim], ] )  ## test sample
+      test <- x[ mat[, vim], , drop = FALSE ]   ## test sample
       id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-      train <- as.matrix( x[ -mat[, vim], ] )   ## training sample
+      train <- x[ -mat[, vim], , drop = FALSE]  ## training sample
       ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
       na <- as.vector( table(ida) )
       mesi <- rowsum(train, ida) / na
@@ -99,13 +96,12 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1),
       Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
-      for (k1 in 1:length(gam)) {
-        for (k2 in 1:length(del)) {
+      for ( k1 in 1:length(gam) ) {
+        for ( k2 in 1:length(del) ) {
           Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
-              0.5 * Rfast::mahala( test, mesi[j, ], Ska )
+            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( test, mesi[j, ], Ska )
           }
           g <- Rfast::rowMaxs(gr)
           per[k1, k2, vim] <- sum( g == id ) / rmat

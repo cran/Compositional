@@ -6,7 +6,6 @@
 #### References: Jolliffe I.T. (2002)
 #### Principal Component Analysis p. 167-188.
 ################################
-
 pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TRUE) {
   ## y is the univariate dependent variable
   ## x contains the independent variables(s)
@@ -49,12 +48,13 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
-      mtrain <- t( xtrain )
-      mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( Rfast::rowsums(mtrain^2) )
-      sar <- tcrossprod( mtrain )
-      eig <- eigen( sar )  ## eigen analysis of the design matrix
-      vec <- eig$vectors  ## eigenvectors, or principal components
+      #mtrain <- t( xtrain )
+      #mtrain <- mtrain - mx
+      #mtrain <- t( mtrain / sqrt( Rfast::rowsums(mtrain^2) ) )
+      #sar <- tcrossprod( mtrain )
+      #eig <- eigen( sar )  ## eigen analysis of the design matrix
+      #vec <- eig$vectors  ## eigenvectors, or principal components
+	  vec <- prcomp(xtrain, center = TRUE, scale = TRUE)$rotation
       z <- xtrain %*% vec  ## PCA scores
       xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
 
@@ -84,17 +84,17 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
       xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
-
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
-      mtrain <- t( xtrain )
-      mtrain <- mtrain - mx
-      mtrain <- mtrain / sqrt( Rfast::rowsums(mtrain^2) )
-      sar <- tcrossprod( mtrain )
-      eig <- eigen( sar )  ## eigen analysis of the design matrix
-      vec <- eig$vectors  ## eigenvectors, or principal components
+      #mtrain <- t( xtrain )
+      #mtrain <- mtrain - mx
+      #mtrain <- t( mtrain / sqrt( Rfast::rowsums(mtrain^2) ) )
+      #sar <- tcrossprod( mtrain )
+      #eig <- eigen( sar )  ## eigen analysis of the design matrix
+      #vec <- eig$vectors  ## eigenvectors, or principal components
+ 	  vec <- prcomp(xtrain, center = TRUE, scale = TRUE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
       for ( j in 1:maxk ) {
@@ -113,14 +113,10 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
   }
 
   mspe <- Rfast::colmeans(msp)
-  bias <- msp[ ,which.min(mspe)] - Rfast::rowMins(msp, value = TRUE)   ## apply(msp, 1, min)  ## TT estimate of bias
+  bias <- msp[, which.min(mspe)] - Rfast::rowMins(msp, value = TRUE)   ## apply(msp, 1, min)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 
-  if ( graph ) {
-    plot(1:maxk, mspe, xlab = "Number of principal components",
-    ylab = "MSPE", type = "b")
-  }
-
+  if ( graph )  plot(1:maxk, mspe, xlab = "Number of principal components", ylab = "MSPE", type = "b")
   names(mspe) <- paste("PC", 1:maxk, sep = " ")
   performance <- c( min(mspe) + estb, estb)
   names(performance) <- c("MSPE", "Estimated bias")

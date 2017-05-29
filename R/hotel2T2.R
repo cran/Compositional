@@ -5,7 +5,6 @@
 #### References: Everitt Brian (2005)
 #### An R and S-Plus Companion to Multivariate Analysis p. 139-140. Springer
 ################################
-
 hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   ## x1 and x2 are the two multivariate samples a is the level
   ## of significance, which by default is set to to 0.05
@@ -18,7 +17,7 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
   n2 <- dim(x2)[1]  ## size of the second sample
   n <- n1 + n2  ## total sample size
   xbar1 <- Rfast::colmeans(x1)  ## sample mean vector of the first sample
-  xbar2 <- Rfast::colmeans(x1)  ## sample mean vector of the second sample
+  xbar2 <- Rfast::colmeans(x2)  ## sample mean vector of the second sample
   dbar <- xbar2 - xbar1  ## difference of the two mean vectors
   mesoi <- rbind(xbar1, xbar2)
   rownames(mesoi) <- c("Sample 1", "Sample 2")

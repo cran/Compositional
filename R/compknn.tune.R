@@ -7,9 +7,7 @@
 #### Journal of Data Science, 12(3):519-534
 #### mtsagris@yahoo.gr
 ################################
-compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
-                         a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
-
+compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
   ## x is the matrix containing the data
   ## M is the number of folds, set to 10 by default
   ## A is the maximum number of neighbours to use
@@ -63,8 +61,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
           for ( m2 in c(m1 + 1):n ) {
             z2 <- z[m2, ]
             ma <- z1 + z2
-            dis[m1, m2] <- sqrt( sum( z1 * log( 2 * z1 / ma ) +
-                                        z2 * log( 2 * z2 / ma ), na.rm = TRUE ) )
+            dis[m1, m2] <- sqrt( sum( z1 * log( 2 * z1 / ma ) + z2 * log( 2 * z2 / ma ), na.rm = TRUE ) )
           }
         }
         dis <- dis + t(dis)
@@ -125,9 +122,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
             per[vim, j, i] <- sum( g == id ) / rmat
           }
         }
-
       }
-
     }
 
     ela <- matrix(nrow = length(a), ncol = A - 1)
@@ -137,23 +132,17 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     ## The code for the heat plot of the estimated percentages
-    if ( graph ) {
-      fields::image.plot(a, 2:A, ela, col = grey(1:11/11),
-                         ylab = "k nearest-neighbours",
-                         xlab = expression(paste(alpha, " values")) )
-    }
+    if (graph)  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
 
     opt <- max(ela)
     confa <- which(ela == opt, arr.ind = TRUE)[1, ]
     bias <- numeric(M)
     for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
-
     bias <- mean(bias)
     performance <- c(opt - bias, bias)
     names(performance) <- c( "rate", "bias" )
     runtime <- proc.time() - runtime
-    results <- list( ela = ela, performance = performance,
-                     best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    results <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
 
   } else if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular" ) {
 
@@ -165,8 +154,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
       z <- xa - Rfast::rowmeans( xa )
       dis <- Rfast::Dist(z)
     } else if (apostasi == "Hellinger") {
-      z <- sqrt(x)
-      dis <- Rfast::Dist(z) / sqrt(2)
+      dis <- Rfast::Dist(z, "hellinger")
     } else if (apostasi == "angular") {
       dis <- tcrossprod( sqrt(x) )
       diag(dis) <- 1
@@ -224,16 +212,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
     performance <- c(opt - bias, bias)
     names(performance) <- c( "rate", "bias" )
 
-    if ( graph ) {
-      plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9,
-           col = 2, ylab = "Estimated percentage of correct classification")
-    }
-
+    if (graph)  plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2, ylab = "Estimated percentage of correct classification")
     runtime <- proc.time() - runtime
-
-    results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1,
-                    runtime = runtime)
+    results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1, runtime = runtime)
   }
-
   results
 }

@@ -3,7 +3,6 @@
 #### Tsagris Michail 2/2013
 #### mtsagris@yahoo.gr
 ################################
-
 bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## x is the compositional data
   ## the type parameter determines whether the additive
@@ -37,8 +36,8 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
     for (j in 1:n) {
 
       if (x2[j] < sqrt3 * x1[i]) { ## This checks if the point lies
-      ## inside the triangle
-      ## The next 4 lines calculate the composition
+        ## inside the triangle
+        ## The next 4 lines calculate the composition
         w3 <- 2 * x2[j] / sqrt3
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
@@ -50,15 +49,10 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
-
-        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) )-
-        0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
+        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) ) - 0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
         can <- exp(ca)
-  	    if (abs(can) < Inf) {
-	        mat[i, j] <- can
-	      }  else mat[i, j] <- NA
-
-	    }
+  	    if (abs(can) < Inf)   mat[i, j] <- can
+	  }
     }
   }
 
@@ -80,14 +74,10 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
 
-        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) )-
-        0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
+        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) ) - 0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
         can <- exp(ca)
-        if (abs(can) < Inf) {
-	         mat[i, j] <- can
-	       } else mat[i, j] <- NA
+        if (abs(can) < Inf)  mat[i, j] <- can
       }
-
     }
   }
 

@@ -7,7 +7,6 @@
 #### Thomas P. Minka
 #### http://research.microsoft.com/en-us/um/people/minka/papers/dirichlet/minka-dirichlet.pdf
 ################################
-
 diri.nr <- function(x, type = 1, tol = 1e-07) {
 
   if (type == 1) {

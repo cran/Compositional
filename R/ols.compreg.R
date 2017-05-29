@@ -6,7 +6,6 @@
 #### Regression analysis of multivariate fractional data
 #### Econometric Reviews (to appear)
 ################################
-
 ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)
@@ -60,7 +59,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export="olsreg") %dopar% {
+      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export = "olsreg") %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]

@@ -3,14 +3,12 @@
 #### Tsagris Michail 5/2015
 #### mtsagris@yahoo.gr
 ################################
-
 mixnorm.contour <- function(x, mod) {
   ## mod is a mixture model containing all the parameters
   ## the type parameter determines whether the additive or the isometric
   ## log-ratio transformation will be used. If type='alr' (the default) the
   ## additive log-ratio transformation is used. If type='ilr', the isometric
   ## log-ratio is used
-
   prob <- mod$prob  ## mixing probabilitiy of each cluster
   mu <- mod$mu
   su <- mod$su
@@ -22,7 +20,6 @@ mixnorm.contour <- function(x, mod) {
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
   ha <- t( helm(3) )
-
   ldet <- numeric(g)
   for (k in 1:g)  ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
   
@@ -43,14 +40,9 @@ mixnorm.contour <- function(x, mod) {
         }
 
         ta <- numeric(g)
-        for (k in 1:g) {
-          ta[k] <- ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
-        }
-
+        for (k in 1:g)  ta[k] <- ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
         can <- sum( prob * exp(ta) )
-        if ( abs(can) < Inf ) {
-          mat[i, j] <- can
-        } else  mat[i, j] <- NA
+        if ( abs(can) < Inf )  mat[i, j] <- can
       }
 
     }
@@ -58,7 +50,6 @@ mixnorm.contour <- function(x, mod) {
 
   for ( i in c(n/2 + 1):n ) {
     for ( j in 1:n ) {
-
       ## This checks if the point will lie inside the triangle
       if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
         ## The next 4 lines calculate the composition
@@ -73,14 +64,9 @@ mixnorm.contour <- function(x, mod) {
         }
 
         ta <- numeric(g)
-        for (k in 1:g) {
-          ta[k] <-  ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
-        }
-
+        for (k in 1:g)  ta[k] <-  ldet[k] - 0.5 * mahalanobis(y, mu[k, ], su[, , k])
         can <- sum( prob * exp(ta) )
-        if ( abs(can) < Inf ) {
-          mat[i, j] <- can
-        } else  mat[i, j] <- NA
+        if ( abs(can) < Inf )  mat[i, j] <- can
       }
 
     }
@@ -99,5 +85,4 @@ mixnorm.contour <- function(x, mod) {
   proj <- matrix( c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2 )
   xa <- x %*% proj
   points(xa[, 1], xa[, 2])
-
 }

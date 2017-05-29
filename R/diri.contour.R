@@ -3,7 +3,6 @@
 #### Tsagris Michail 1/2013
 #### mtsagris@yahoo.gr
 ################################
-
 diri.contour <- function(a, n = 100, x = NULL) {
   ## a are the estimated Dirichlet parameters
   ## n shows the number of points at which the density is calculated
@@ -26,8 +25,8 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
         can <- prod( w^(a - 1) ) / be
-        if (abs(can) < Inf)  mat[i, j] <- can  else  mat[i, j] <- NA
-      } else  mat[i, j] <- NA
+        if (abs(can) < Inf)  mat[i, j] <- can 
+      }
     }
   }
   for (i in c(n/2 + 1):n) {
@@ -41,8 +40,8 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w1 <- 1 - w2 - w3
         w <- round(c(w1, w2, w3), 6)
         can <- prod( w^(a - 1) ) / be
-        if (abs(can) < Inf)  mat[i, j] <- can  else  mat[i, j] <- NA
-      } else  mat[i, j] <- NA
+        if (abs(can) < Inf)  mat[i, j] <- can  
+      }
     }
   }
 

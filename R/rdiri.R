@@ -6,7 +6,6 @@
 #### References: Ng Kan W. and Tian Ge L. and Tang Mi L. (2011)
 #### Dirichlet and Related Distributions: Theory, Methods and Applications, p.g. 177
 ################################
-
 rdiri <- function(n, a) {
   ##  n is the sample size
   ##  a is the parameters vector

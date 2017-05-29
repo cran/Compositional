@@ -11,9 +11,7 @@
 #### A bias correction for the minimum error rate in cross-validation
 #### The Annals of Applied Statistics, 3(1):822-829
 ################################
-
-alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
-                         nc = 1, graph = FALSE) {
+alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc = 1, graph = FALSE) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is a range of values of alpha
@@ -69,7 +67,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
     cl <- makePSOCKcluster(nc)
     registerDoParallel(cl)
     kula <- foreach(j = 1:nc, .combine = cbind, .packages = "Rfast", .export = c("alfa.reg",
-	"alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans", "colVars") ) %dopar% {
+	        "alfa", "helm", "comp.reg", "multivreg", "rowsums", "colmeans", "colVars") ) %dopar% {
        ba <- val[, j]
        ww <- matrix(nrow = K, ncol = length(ba) )
        for ( l in 1:length(ba) ) {
@@ -86,7 +84,6 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
        }
        return(ww)
     }
-
     stopCluster(cl)
 
     kula <- kula[, 1:la]
@@ -100,8 +97,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL,
   }
 
   if ( graph ) {
-    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
-         ylab = 'Twice the Kullback Leibler divergence')
+    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha), ylab = 'Twice the Kullback Leibler divergence')
     for (i in 2:K)  lines(a, kula[i, ])
     lines(a, kl, col = 2, lty = 2, lwd = 2)
   }

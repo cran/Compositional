@@ -8,13 +8,10 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-
-alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-                         mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
+alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
   ## oiko can be either "normal", "binomial" or "poisson"
   ## depending on the type of the independent variable
   ## "normal" is set by default
-
   n <- dim(x)[1]
   d <- dim(x)[2] - 1
   if ( min(x) == 0 )   a <- a[ a > 0 ]  ## checks for zero values in the data.
@@ -42,8 +39,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
     tic <- proc.time()
     for ( i in 1:da ) {
       z <- alfa(x, a[i])$aff
-      mod <- pcr.tune(y, z, M = M, maxk = maxk, mat = mat,
-                      ncores = ncores, graph = FALSE)
+      mod <- pcr.tune(y, z, M = M, maxk = maxk, mat = mat, ncores = ncores, graph = FALSE)
       mspe2[, , i] <- mod$msp
     }
     toc <- proc.time() - tic
@@ -52,8 +48,7 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
     tic <- proc.time()
     for ( i in 1:da ) {
       z <- alfa(x, a[i])$aff
-      mod <- glmpcr.tune(y, z, M = M, maxk = maxk,
-                         mat = mat, ncores = ncores, graph = FALSE)
+      mod <- glmpcr.tune(y, z, M = M, maxk = maxk, mat = mat, ncores = ncores, graph = FALSE)
       mspe2[, , i] <- mod$msp
     }
     toc <- proc.time() - tic
@@ -69,12 +64,8 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
   estb <- mspe[ best.par[1], best.par[2], 1:M ] - apply(mspe, 3, min)
   bias <- mean(estb)
   rownames(mean.mspe) = a   ;  colnames(mspe) = paste("PC", 1:d, sep = "")
-
-  if ( graph ) {
-    filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ),
-                   ylab = "Number of PCs")
-  }
-
+  
+  if ( graph )  filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ), ylab = "Number of PCs")
   best.par <- c( a[ best.par[1] ], best.par[2] )
   names(best.par) <- c("alpha", "PC")
   performance <- c(opt.mspe, bias)

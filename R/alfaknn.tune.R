@@ -8,10 +8,7 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
-alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
-                          a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE) {
-
+alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE) {
   ## x is the matrix containing the data
   ## A is the maximum number of neighbours to use
   ## ina indicates the groups, numerical variable
@@ -106,12 +103,7 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
   colnames(ela) <- paste("k=", 2:A, sep = "")
   rownames(ela) <- paste("alpha=", a, sep = "")
   ## The code for the heat plot of the estimated percentages
-  if ( graph ) {
-    fields::image.plot(a, 2:A, ela, col = grey(1:11/11),
-                       ylab = "k nearest-neighbours",
-                       xlab = expression(paste(alpha, " values")) )
-  }
-
+  if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
   opt <- max(ela)
   confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
   bias <- numeric(M)
@@ -120,6 +112,5 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
   performance <- c(opt - bias, bias)
   names(performance) <- c( "rate", "bias" )
   runtime <- proc.time() - runtime
-  list( ela = ela, performance = performance, best_a = a[ confa[1] ],
-        best_k = confa[2] + 1, runtime = runtime )
+  list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
 }

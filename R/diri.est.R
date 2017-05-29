@@ -3,7 +3,6 @@
 #### Tsagris Michail 3/2012
 #### mtsagris@yahoo.gr
 ################################
-
 diri.est <- function(x, type = 'mle') {
   ## x is the compositional data
   ## type indicates how to estimate parameters
@@ -32,8 +31,7 @@ diri.est <- function(x, type = 'mle') {
     options(warn = -1)
     da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, n = n, iterlim = 10000)
     da <- nlm(loglik, da$estimate, z = z, n = n, iterlim = 10000)
-    da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 2000),
-    hessian = TRUE)
+    da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 2000), hessian = TRUE)
     runtime <- proc.time() - runtime
     result <- list( loglik = -da$value, param = exp(da$par),
     std = sqrt( diag( solve(da$hessian) ) ), runtime = runtime  )
@@ -44,8 +42,7 @@ diri.est <- function(x, type = 'mle') {
     options(warn = -1)
     da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, n = n, iterlim = 2000)
     da <- nlm(diriphi, da$estimate, z = z, n = n, iterlim = 2000)
-    da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 3000),
-    hessian = TRUE)
+    da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 3000), hessian = TRUE)
     phi <- exp(da$par[1])
     a <- c( 1, exp(da$par[-1]) )
     a <- a / sum(a)

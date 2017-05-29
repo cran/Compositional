@@ -5,7 +5,6 @@
 #### References: Jolliffe I.T. (2002)
 #### Principal Component Analysis p. 167-188.
 ################################
-
 pcr <- function(y, x, k = 1, xnew = NULL) {
   ## xnew is the new independent variables values
   ## whose values of y you want to estimate
@@ -13,7 +12,6 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   ## y is the univariate dependent variable
   ## x contains the independent variables
   ## k shows the number of components to keep
-
   m <- mean(y)
   y <- y - m  ## standardize the dependent variable
   n <- dim(x)[1]
@@ -21,19 +19,20 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   mx <- Rfast::colmeans(x)
   s <- Rfast::colVars(x, std = TRUE)
   x <- t( ( t(x) - m )/ s )  ## standardise the x values
-
-  eig <- eigen( crossprod(x) )  ## eigen analysis of the design matrix
-  values <- eig$values  ## eigenvalues
+  #eig <- eigen( crossprod(x) )  ## eigen analysis of the design matrix
+  #values <- eig$values  ## eigenvalues
+  eig <- prcomp(x, center = FALSE) 
+  values <- eig$sdev^2 
   per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
-  vec <- eig$vectors  ## eigenvectors, or principal components
+  #vec <- eig$vectors  ## eigenvectors, or principal components
+  vec <- eig$rotation 
   z <- x %*% vec  ## PCA scores
-  mod <- lm.fit(x, y)  ## lm.fit is an internal of lm and thus faster
+  mod <- Rfast::lmfit(x, y)  ## lm.fit is an internal of lm and thus faster
   sigma <- sum( mod$residuals^2 ) / (n - p - 1)  ## estimated variance
   zzk <- crossprod( z[, 1:k] )
   A <- vec[, 1:k] %*% chol2inv( chol(zzk) )
   b <- A %*% crossprod( z[, 1:k], y )
   ## b is the PCA based coefficients
-
   mse <- r2 <- NULL
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
@@ -53,5 +52,4 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   param <- cbind(b, vara)
   colnames(param) <- c("beta", "std.error")
   list(parameters = param, mse = mse, adj.rsq = r2, per = per[k], est = est)
-
 }

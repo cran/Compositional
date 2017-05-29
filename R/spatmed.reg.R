@@ -26,9 +26,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
   est <- y - x %*% B1
   ww <- sqrt( Rfast::rowsums( est^2 ) )
   z <- x / ww
-  a1 <- crossprod(z, x)
-  a2 <- crossprod(z, y)
-  B2 <- solve(a1, a2)
+  B2 <- solve(crossprod(z, x), crossprod(z, y))
   i <- 2
   while ( sum( abs(B2 - B1) ) > tol ) {
     i <- i + 1
@@ -38,9 +36,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
     ela <- which( ww == 0 )
     z <- x / ww
     if ( length(ela) > 0 )  z[ela, ] <- 0
-    a1 <- crossprod(x, z)
-    a2 <- crossprod(z, y)
-    B2 <- solve(a1, a2)
+    B2 <- solve(crossprod(z, x), crossprod(z, y))
   }
   be <- B2
   seb <- NULL

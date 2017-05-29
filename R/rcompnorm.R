@@ -4,7 +4,6 @@
 #### Tsagris Michail 02/2016
 #### mtsagris@yahoo.gr
 ################################
-
 rcompnorm <- function(n, m, s, type = "alr") {
   ## n is the sample size
   ## m is the mean vector in R^d

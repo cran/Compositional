@@ -7,7 +7,6 @@
 #### compositional data. In Proceedings of the 4rth Compositional Data Analysis Workshop, Girona, Spain.
 #### mtsagris@yahoo.gr
 ################################
-
 alfa.tune <- function(x, B = 1, ncores = 1) {
   ## x is the compositional data
   ## x must not contain any zeros
@@ -29,8 +28,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
     aff0 <- alfa(x, 0)
     z0 <- aff0$aff
     sa <- aff0$sa  ## part of the Jacobian determinant as well
-    lik0 <- con -  n/2 * log( abs( det( f * cov(z0) ) ) ) -
-            ja - D * sa
+    lik0 <- con -  n/2 * log( abs( det( f * cov(z0) ) ) ) - ja - D * sa
     result <- c(ell$maximum, ell$objective + con, lik0)
     names(result) <- c("best alpha", "max log-lik", "log-lik at 0")
 
@@ -50,25 +48,20 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
       runtime <- proc.time()
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
-      ww <- foreach::foreach( i = 1:B, .combine = rbind,
-                              .export = c("alfa", "helm") ) %dopar% {
-                                ind <- sample(1:n, n, replace = TRUE)
-                                ab[i] <- optimize(pa, c(-1, 1), x = x[ind, ], maximum = TRUE )$maximum
-                              }
+      ab <- foreach::foreach( i = 1:B, .combine = rbind, .export = c("alfa", "helm") ) %dopar% {
+        ind <- sample(1:n, n, replace = TRUE)
+        return( optimize(pa, c(-1, 1), x = x[ind, ], maximum = TRUE )$maximum )
+      }
       stopCluster(cl)
-      ab <- as.vector( ww )
       runtime <- proc.time() - runtime
     }
 
     param <- c(ell$maximum, ell$objective + con, quantile( ab, c(0.025, 0.975) ) )
     names(param)[1:2] <- c("best alpha", "max log-lik")
-    hist(ab, main = "Bootstrapped alpha values",
-         xlab = expression( paste(alpha, " values", sep = "") ) )
+    hist(ab, main = "Bootstrapped alpha values", xlab = expression( paste(alpha, " values", sep = "") ) )
     abline(v = ell$maximum, col = 3)
     abline(v = mean(ab), lty = 2, col = 4)
-    message <- paste("The green is the best alpha value. The blue line is the
-                     bootstrap mean value of alpha.")
-
+    message <- paste("The green is the best alpha value. The blue line is the bootstrap mean value of alpha.")
     result <- list(param = param, message = message, runtime = runtime )
   }
   result

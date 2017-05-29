@@ -6,7 +6,6 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean Journal of Statistics, 6(2): 47-57
 ################################
-
 alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
@@ -33,7 +32,6 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     mx <- mean(x)
     s <- sd(x)
     x <- ( x - mx ) / s
-
   } else {
     mx <- Rfast::colmeans(x)
     s <- Rfast::colVars(x, std = TRUE)
@@ -41,7 +39,6 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   }
 
   x <- cbind(1, x)
-
   D <- dim(y)[2]
   d <- D - 1  ## dimensionality of the simplex
 
@@ -52,12 +49,10 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     if ( p == 1 ) {
       xnew <- as.vector(xnew)
       xnew <- ( xnew - mx ) / s
-
     } else {
       xnew <- as.matrix(xnew)
       xnew <- t( ( t(xnew) - mx ) / s )  ## standardize the xnew values
     }
-
     xnew <- cbind(1, xnew)
   }
 
@@ -78,16 +73,13 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     ha <- t( helm(D) )
     m0 <- numeric(d)
     ini <- as.vector( coef( lm.fit(x, ya) ) )
-
-    qa <- nlminb( ini, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(iter.max = 1000) )
+    qa <- nlminb( ini, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(iter.max = 2000) )
     qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
     qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
     qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
-
     be <- matrix(qa$par, byrow = TRUE, ncol = d)
     seb <- sqrt( diag( solve( qa$hessian) ) )
     seb <- matrix(seb, byrow = TRUE, ncol = d)
-
     runtime <- proc.time() - runtime
   }
 

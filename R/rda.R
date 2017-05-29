@@ -5,7 +5,6 @@
 #### References: Hastie T., Tibshirani R. & Friedman J. (2008)
 #### Elements of Statistical Learning (2nd edition) p. 112-113. Springer
 ################################
-
 rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ## xnew is the new observation
   ## x contains the data
@@ -20,7 +19,6 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ## and the spherical covariance matrix (this order must be followed)
   ## the mesi and info are particularly useful for the tuning of the rda, as
   ## they can speed the computations a lot.
-
   n <- dim(x)[1]
   D <- dim(x)[2]
   xnew <- as.matrix(xnew)
@@ -43,8 +41,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
 
   for (j in 1:nc) {
     Ska <- del * sk[, , j] + (1 - del) * Sa
-    ta[, j] <- ci[j] - 0.5 * log( det( Ska ) ) -
-      0.5 * Rfast::mahala( xnew, mesos[j, ], Ska )
+    ta[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( xnew, mesos[j, ], Ska )
   }
 
   est <- Rfast::rowMaxs(ta)

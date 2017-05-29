@@ -3,7 +3,6 @@
 ####  2/2015
 #### mtsagris@yahoo.gr
 ################################
-
 diri.reg2 <- function(y, x, xnew = NULL) {
 
   n <- dim(y)[1]  ## sample size
@@ -41,13 +40,12 @@ diri.reg2 <- function(y, x, xnew = NULL) {
     ## the tolerance value can of course change
     vim <- vim + 1
     qa <- nlm(dirireg2, qa$estimate)
-    el[vim] <- -qa$minimum
+    el[vim] <-  -qa$minimum
   }
 
-  qa <- nlm(dirireg2, qa$estimate, hessian = TRUE)
-  phipar <- qa$estimate[1:p]
-  para <- qa$estimate[-c(1:p)]  ## estimated parameter values
-  be <- matrix(para, nrow = p)  ## matrix of the betas
+  qa <- optim(qa$estimate, dirireg2, hessian = TRUE)
+  phipar <- qa$par[1:p]
+  be <- matrix(qa$par[-c(1:p)], nrow = p)  ## matrix of the betas
   mu1 <- cbind( 1, exp(x %*% be) )
   ma <- mu1 / Rfast::rowsums(mu1)  ## fitted values
   phi <- as.numeric( exp(x %*% phipar) )  ## estimated beta parameters of phi
@@ -69,6 +67,6 @@ diri.reg2 <- function(y, x, xnew = NULL) {
 
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-  list(runtime = runtime, loglik = -qa$minimum, phipar = phipar,
+  list(runtime = runtime, loglik = -qa$value, phipar = phipar,
        std.phi = std.phi, be = be, seb = seb, sigma = V, phi = phi, est = est)
 }

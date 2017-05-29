@@ -9,7 +9,6 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   ## if means==TRUE it will plot the arithmetic and the
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
-
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
   } else nam <- paste("X", 1:3, sep = " ")
@@ -25,7 +24,6 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
   ina[ rowSums(x == 0) > 0 ] <- 3
-
   b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)

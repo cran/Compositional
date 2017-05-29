@@ -7,7 +7,6 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-
 alfa.ridge <- function(y, x, a, lambda, B = 1, xnew = NULL) {
   ## y is dependent univariate variable. It can be matrix or vector
   ## x are compositional data, the covariates

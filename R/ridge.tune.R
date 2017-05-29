@@ -4,8 +4,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
-                       mat = NULL, ncores = 1, graph = FALSE) {
+ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, ncores = 1, graph = FALSE) {
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default
   ## lambda is a vector with a grid of values of lambda
@@ -22,7 +21,6 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1),
     options(warn = -1)
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
-
   M <- dim(mat)[2]
   rmat <- dim(mat)[1]
   msp <- matrix( nrow = M, ncol = k)

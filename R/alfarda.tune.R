@@ -8,11 +8,7 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
-alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
-                         gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
-                         ncores = 1, mat = NULL) {
-
+alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
   ## x contains the compositonal data
   ## ina is the grouping variable
   ## a is the grid of values of a
@@ -26,7 +22,6 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   ## del is between QDA and LDA
   ## del * QDa + (1 - del) * LDA
   toc <- proc.time()
-
   n <- length(ina)
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
@@ -36,9 +31,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
     options(warn = -1)
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
-
   M <- dim(mat)[2]
-
   ## if you have zero values, only positive alphas are allowed
   if ( min(x) == 0 )  a = a[ a > 0 ]
   info <- list()
@@ -46,8 +39,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
 
   for ( k in 1:length(a) ) {
     z <- alfa(x, a[k])$aff  ## apply the alpha-transformation
-    mod <- rda.tune(x = z, ina = ina, M = M, gam = gam, del = del,
-                    ncores = ncores, mat = mat)
+    mod <- rda.tune(x = z, ina = ina, M = M, gam = gam, del = del, ncores = ncores, mat = mat)
     ## since seed is TRUE, for every value of alpha, the same splits will occur
     ## thus, the percentages for all values of alpha are comparable
     props[, , k] <- mod$percent
@@ -60,7 +52,6 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
   names(opt) <- a
   percent <- props[ , , which.max(opt)]
   se <- ser[, , which.max(opt)]
-
   confa <- as.vector( which(props == max( props), arr.ind = TRUE )[1, ] )
   bias <- numeric(M)
   pera <- array( dim = c( length(gam), length(del), length(a) ) )
@@ -72,8 +63,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10,
 
   opt <- props[ confa[1], confa[2], confa[3] ] - mean(bias)
   seopt <- ser[ confa[1], confa[2], confa[3] ]
-  res <- c( opt, mean(bias), seopt, a[ confa[3] ], gam[ confa[1] ],
-            del[ confa[2] ] )
+  res <- c( opt, mean(bias), seopt, a[ confa[3] ], gam[ confa[1] ], del[ confa[2] ] )
   names(res) <- c( "rate", "bias", "se of rate", "best_a", "best_gam", "best del" )
   runtime <- proc.time() - toc
 

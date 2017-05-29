@@ -4,7 +4,6 @@
 #### Tsagris Michail 02/2016
 #### mtsagris@yahoo.gr
 ################################
-
 rcompsn <- function(n, xi, Omega, alpha, dp = NULL, type = "alr") {
   ## n is the sample size
   ## m is the mean vector in R^d

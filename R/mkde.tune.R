@@ -12,12 +12,10 @@
 #### B.W. Silverman (1986)
 #### Density estimation for statistics and data analysis, pages 76-78.
 ################################
-
 mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
   ## x contains the multivariate data
   ## low and up are the limits within which the
   ## search is conducted
-
   n <- dim(x)[1]
   d <- dim(x)[2]  ## sample and dimensionality of x
   s <- s ## can put a robust covariance matrix here if you want
@@ -35,7 +33,6 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
     - d * log(h) + mean( log( rowSums( a ) - 1 ) )
   }
   low <- low     ;    up <- up
-
   bar <- optimize(tune, c(low, up), maximum = TRUE)
   list( hopt = bar$maximum, maximum = bar$objective + log(ds) - d/2 * log(2 * pi) - log(n - 1) )
 }

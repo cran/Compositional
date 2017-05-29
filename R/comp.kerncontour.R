@@ -3,7 +3,6 @@
 #### Tsagris Michail 2/2015
 #### mtsagris@yahoo.gr
 ################################
-
 comp.kerncontour <- function(x, type = "alr", n = 100) {
   ## x contains the compositional data
   ## type determines which log-ratio transformation will be used.
@@ -44,16 +43,12 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
             y <- as.vector(y %*% ha )
         }
         a <- numeric(nu)
-        for (l in 1:nu) {
-          a[l] <- as.vector( t(z[l, ] - y) %*% ts %*% ( z[l, ] - y ) )
-        }
+        for (l in 1:nu)   a[l] <- as.vector( t(z[l, ] - y) %*% ts %*% ( z[l, ] - y ) )
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
-        if ( abs(can) < Inf ) {
-           mat[i, j] <- can
-           } else  mat[i, j] <- NA
-        }
+        if ( abs(can) < Inf )  mat[i, j] <- can        
       }
     }
+  }
 
   for ( i in c(n/2 + 1):n ) {
     for ( j in 1:n ) {
@@ -70,12 +65,9 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
           y <- as.vector( y %*% ha )
         }
         a <- numeric(nu)
-        for (l in 1:nu) a[l] <- as.vector( t(z[l, ] - y ) %*% ts %*%
-          (z[l, ] - y) )
+        for (l in 1:nu) a[l] <- as.vector( t(z[l, ] - y ) %*% ts %*% (z[l, ] - y) )
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
-        if (abs(can) < Inf) {
-            mat[i, j] <- can
-        } else  mat[i, j] <- NA
+        if (abs(can) < Inf)  mat[i, j] <- can 
       }
     }
   }
@@ -92,5 +84,4 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
-
 }

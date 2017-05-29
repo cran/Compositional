@@ -6,7 +6,6 @@
 #### compositional data. In Proceedings of the 4rth Compositional Data Analysis Workshop, Girona, Spain.
 #### mtsagris@yahoo.gr
 ################################
-
 frechet <- function(x, a) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1

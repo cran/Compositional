@@ -5,9 +5,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-
-glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
-                        ncores = 1, graph = TRUE) {
+glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)
@@ -53,9 +51,10 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
-      xtrain <- t( (t(xtrain) - mx) / s )  ## standardize the independent variables
-      eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
-      vec <- eig$vectors  ## eigenvectors, or principal components
+      xtrain <- t( (t(xtrain) - mx) / s )  ## standardize the independent variables 
+      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
+      # vec <- eig$vectors  ## eigenvectors, or principal components
+	  vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
       xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
 
@@ -92,8 +91,9 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL,
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- t( (t(xtrain) - mx) / s ) ## standardize the independent variables
-      eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
-      vec <- eig$vectors  ## eigenvectors, or principal components
+      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix 
+      # vec <- eig$vectors  ## eigenvectors, or principal components
+	  vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
       xnew <- t( ( t(xtest) - mx ) / s )  ## standardize the xnew values
       xnew <- cbind(1, xnew %*% vec)

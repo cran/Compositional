@@ -3,23 +3,21 @@
 #### Tsagris Michail 8/2015
 #### mtsagris@yahoo.gr
 ################################
-
 glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## y is either a binary variable 0, 1 (binomial) or
   ## a numerical variable with counts (poisson)
   ## x contains the independent variables
   ## k shows the number of components to keep
   ## oiko can be "binomial" or "poisson"
-
   n <- length(y)
   p <- dim(x)[2]
   m <- Rfast::colmeans(x)
-
   x <- Rfast::standardise(x)  ## standardize the independent variables
-  eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
-  values <- eig$values  ## eigenvalues
+  ## eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
+  eig <- prcomp(x, center = FALSE)
+  values <- eig$sdev^2  ## eigenvalues
   per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
-  vec <- eig$vectors  ## eigenvectors, or principal components
+  vec <- eig$rotation  ## eigenvectors, or principal components
   z <- x %*% vec  ## PCA scores
 
   if ( length( Rfast::sort_unique(y) ) == 2 ) {

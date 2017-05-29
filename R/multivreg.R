@@ -5,7 +5,6 @@
 #### References: Mardia K.V., kent J.T. & Bibby J.M. (1979)
 #### Multivariate Analysis p. 318-320. Academic Press
 ################################
-
 multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## y is the dependent variable and must be a matrix
   ## with at least two columns
@@ -29,8 +28,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   if ( plot ) {
     plot(dx, dres, xlim = c(0, max(dx) + 0.5), ylim = c(0, max(dres) + 0.5),
-         xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance
-         of residuals")
+         xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance of residuals")
     abline(h = crit.res)
     abline(v = crit.x)
   }

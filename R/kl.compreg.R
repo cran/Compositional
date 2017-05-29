@@ -7,7 +7,6 @@
 #### Regression analysis of multivariate fractional data
 #### Econometric Reviews (to appear)
 ################################
-
 kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)

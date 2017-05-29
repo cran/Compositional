@@ -8,7 +8,6 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
 alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   ## x is the matrix containing the data
   ## ina indicates the groups
@@ -33,11 +32,7 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   znew <- alfa(xnew, a)$aff
   z <- alfa(x, a)$aff
   tz <- t(z)
-
-  for (i in 1:nu) {
-    zz <- tz - znew[i, ]
-    apo[, i] <- sqrt( Rfast::colsums( zz^2 ) )
-  }
+  apo <- Rfast::dista(znew, z, trans = FALSE)
 
   if (type == "NS") {
     ## Non Standard algorithm

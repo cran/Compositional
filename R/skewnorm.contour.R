@@ -18,9 +18,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='alr' (the default) the additive log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-
   ha <- t( helm(3) )
-
   if (type == "alr") {
     ya <- log( x[, -3] / x[, 3] )
   } else {
@@ -28,7 +26,6 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
     ya <- ya - Rfast::rowmeans( ya )
     ya <- as.matrix( ya %*% ha )
   }
-
   sqrt3 <- sqrt(3)
   mod <- sn::msn.mle(y = ya)
   param <- mod$dp
@@ -52,7 +49,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
        y <- as.vector( y %*% ha )
 	 }  ## isometric log-ratio transformation
      can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can  else mat[i, j] = NA
+     if ( abs(can) < Inf )  mat[i, j] <- can  
     }
    }
   }
@@ -73,7 +70,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
        y <- as.vector( y %*% ha )
 	 }  ## isometric log-ratio transformation
      can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can  else mat[i, j] <- NA
+     if ( abs(can) < Inf )  mat[i, j] <- can  
 	}
    }
   }

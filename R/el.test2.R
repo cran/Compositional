@@ -66,8 +66,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
         b1 <- sample(1:n1, n1, replace = TRUE)
         b2 <- sample(1:n2, n2, replace = TRUE)
         y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
-        apot <- nlm( elpa, muc )
-        tb[i] <- apot$minimum
+        tb[i] <- nlm( elpa, muc )$minimum
       }
       runtime <- proc.time() - runtime
 
@@ -75,17 +74,13 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
       runtime <- proc.time()
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl) ## make the cluster
-
-      ww <- foreach( i = 1:R, .combine = cbind, .packages = "emplik",
-          .export = "el.test" ) %dopar% {
+      tb <- foreach( i = 1:R, .combine = rbind, .packages = "emplik", .export = "el.test" ) %dopar% {
             b1 <- sample(1:n1, n1, replace = TRUE)
             b2 <- sample(1:n2, n2, replace = TRUE)
             y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
-            apot <- nlm( elpa, muc )
-            tb[i] <- apot$minimum
+            ww <- nlm( elpa, muc )$minimum
       }
       stopCluster(cl) ## stop the cluster
-      tb <- as.vector(ww)
       runtime <- proc.time() - runtime
     }
 

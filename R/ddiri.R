@@ -3,7 +3,6 @@
 #### Tsagris Michail 3/2012
 #### mtsagris@yahoo.gr
 ################################
-
 ddiri <- function(x, a, logged = TRUE) {
   ## x is the compositional data
   ## a is a vector with the parameters

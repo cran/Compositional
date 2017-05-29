@@ -9,7 +9,6 @@
 #### Robust Statistic for the One-way MANOVA
 #### Computational Statistics \& Data Analysis 54(1):37-48
 ################################
-
 maov <- function(x, ina) {
   ## x is a matrix with the data
   ## ina is a grouping  variable indicating the groups

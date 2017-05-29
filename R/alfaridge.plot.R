@@ -8,7 +8,6 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-
 alfaridge.plot <- function(y, x, a, lambda = seq(0, 5, by = 0.1) ){
   ## y is dependent univariate variable. It can be matrix or vector
   ## x are compositional data, the covariates

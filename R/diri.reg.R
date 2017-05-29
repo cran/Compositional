@@ -3,7 +3,6 @@
 #### Tsagris Michail 6/2014
 #### mtsagris@yahoo.gr
 ################################
-
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   dm <- dim(y)
@@ -43,10 +42,9 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     el[vim] <- -qa$minimum
   }
 
-  qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d, hessian = TRUE)
-  log.phi <- qa$estimate[1]
-  para <- qa$estimate[-1]  ## estimated parameter values
-  be <- matrix(para, ncol = d)  ## matrix of the betas
+  qa <- optim(qa$estimate, dirireg, z = z, x = x, n = n, d = d, hessian = TRUE)
+  log.phi <- qa$par[1]
+  be <- matrix(qa$par[-1], ncol = d)  ## matrix of the betas
   colnames(be) <- colnames(y[, -1])  ## names of the betas
   seb <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated betas
   std.logphi <- seb[1]  ## std of the estimated log of phi
@@ -75,6 +73,6 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   runtime <- proc.time() - runtime
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-  list(runtime = runtime, loglik = -qa$minimum, phi = exp(log.phi), log.phi = log.phi,
+  list(runtime = runtime, loglik = -qa$value, phi = exp(log.phi), log.phi = log.phi,
   std.logphi = std.logphi, be = be, seb = seb, lev = lev, est = est)
 }

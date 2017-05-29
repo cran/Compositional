@@ -4,7 +4,6 @@
 #### Tsagris Michail 02/2016
 #### mtsagris@yahoo.gr
 ################################
-
 rcompt <- function(n, m, s, dof, type = "alr") {
   ## n is the sample size
   ## m is the mean vector in R^d

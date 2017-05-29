@@ -3,22 +3,18 @@
 #### Tsagris Michail 10/2012
 #### mtsagris@yahoo.gr
 ################################
-
 multivt <- function(y, plot = FALSE) {
   ## the next mvt function is for the appropriate
   ## degrees of freedom
   ## y contains the data
-
    mvt <- function(y, v, n, p) {
     ## the next function 'a' estimates the mean and covariance for given
     ## degeees of freedom. It's a built-in function
     a <- MASS::cov.trob(y, nu = v)
     se <- a$cov
     me <- as.vector(a$center)
-    f <- n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
-    log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) *
-    sum( log1p( mahalanobis(y, me, se)/v ) )
-    f
+    n * lgamma( (v + p)/2 ) - n * lgamma(v/2) - 0.5 * n * p *
+    log(pi * v) - 0.5 * n * log( det(se) ) - 0.5 * (v + p) * sum( log1p( mahalanobis(y, me, se)/v ) )
    }
 
   mod <- optimize(mvt, c(0.9, 20000), y = y, n = dim(y)[1], p = dim(y)[2], maximum = TRUE)
@@ -47,8 +43,7 @@ multivt <- function(y, plot = FALSE) {
     conf <- c(a1, a2)
     names(conf) <- c("2.5%", "97.5%")
     apotelesma <- list(center = result$center, scatter = result$cov,
-    df = dof, conf = conf, loglik = loglik, mesos = Rfast::colmeans(y),
-    covariance = cov(y) )
+    df = dof, conf = conf, loglik = loglik, mesos = Rfast::colmeans(y), covariance = cov(y) )
   }
 
   apotelesma

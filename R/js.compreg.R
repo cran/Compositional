@@ -6,7 +6,6 @@
 #### A novel, divergence based, regression for compositional data
 #### Proceedings of the 28th Panhellenic Statistics Conference
 ################################
-
 js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)

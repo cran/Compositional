@@ -5,7 +5,6 @@
 #### References: John Aitchison (2003)
 #### The Statistical Analysis of Compositional Data p. 158-160 Blackburn Press
 ################################
-
 comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)

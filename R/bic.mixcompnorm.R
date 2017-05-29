@@ -6,13 +6,11 @@
 #### Paul D. McNicholas (2015)
 #### R package mixture: Mixture Models for Clustering and Classification
 ################################
-
 bic.mixcompnorm <- function(x, A, type = "alr") {
   ## x is the compositional data
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
   p <- dim(x)[2]  ## dimensionality of the data
-
   if (type == "ilr") {
     y0 <- log(x)
     y1 <- y0 - Rfast::rowmeans( y0 )
@@ -26,5 +24,4 @@ bic.mixcompnorm <- function(x, A, type = "alr") {
   ylab = "BIC values", ylim = c(min(bic, na.rm = T), max(bic, na.rm = T)))
   for (i in 2:nrow(bic)) lines(1:A, bic[, i], type = "b", pch = 9, col = i)
   list(mod = mod, BIC = bic)
-
 }

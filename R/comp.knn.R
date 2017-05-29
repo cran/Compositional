@@ -7,9 +7,7 @@
 #### Journal of Data Science, 12(3):519-534
 #### mtsagris@yahoo.gr
 ################################
-
-comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
-                     apostasi = "ESOV", mesos = TRUE) {
+comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", mesos = TRUE) {
   ## xnew is the new dataset. It can be a single vector or a matrix
   ## x is the matrix containing the data
   ## ina indicates the groups
@@ -23,7 +21,6 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
   ## If not, then the harmonic mean will be used.
   ## Both of these apply for the non-standard,
   ## algorithm, that is when type=NS
-
   n <- dim(x)[1]
   p <- dim(x)[2]
   ina <- as.numeric(ina)
@@ -46,8 +43,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
       for (j in 1:n) {
         zxj <- zx[j, ]
         ma <- zan + zxj
-        disa[j, i] <- sqrt( sum( zan * log( 2 * zan / ma ) +
-                                   zxj * log( 2 * zxj/ma ), na.rm = TRUE ) )
+        disa[j, i] <- sqrt( sum( zan * log( 2 * zan / ma ) + zxj * log( 2 * zxj/ma ), na.rm = TRUE ) )
       }
     }
 
@@ -56,11 +52,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
     zx <- xa / Rfast::rowsums( xa )  ## The power transformation is applied
     za <- xnew^a
     znew <- za / Rfast::rowsums( za )  ## The power transformation is applied
-
-    for (i in 1:nu) {
-      b <- t(zx) - znew[i, ]
-      disa[, i] <- Rfast::colsums( abs(b) )
-    }
+    disa <- Rfast::dista(znew, zx, "manhattan", trans = FALSE)
 
   } else if ( apostasi == "Ait" ) {
     ## this requires non zero data ## be careful
@@ -68,12 +60,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S",
     zx <- xa - Rfast::rowmeans( xa )
     za <- log(xnew)
     znew <- za - Rfast::rowmeans( za )
-    tzx <- t(zx)
-
-    for (i in 1:nu) {
-      zz <- tzx - znew[i, ]
-      disa[, i] <-  sqrt( Rfast::colsums( zz^2 ) )
-    }
+    disa <- Rfast::dista(znew, zx, trans = FALSE)
 
   } else if ( apostasi == "Hellinger" ) {
     zx <- sqrt(x)

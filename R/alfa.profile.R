@@ -17,13 +17,11 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   qa <- numeric( length(a) )  ## the log-likelihood values will be stored here
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
   con <-  - n/2 * d * log(2 * pi * f) - (n - 1) * d/2 + n * (d + 0.5) * log(D)
-
   for ( i in 1:length(a) ) {
     trans <- alfa( x, a[i] )
     aff <- trans$aff  ## the alpha-transformation
     qa[i] <-  - n/2 * log( abs( det( cov(aff) ) ) ) + (a[i] - 1) * ja - D * trans$sa
   }
-
   qa <- qa + con
   ## the green lines show a 95% CI for the true value of
   ## alpha using a chi-square distribution
@@ -35,7 +33,6 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   names(ci) <- paste(c("2.5", "97.5"), "%", sep = "")
   abline(v = ci[1], col = 3, lty = 2)
   abline(v = ci[2], col = 3, lty = 2)
-
   res <- c(a[which.max(qa)], max(qa), qa[a == 0])
   names(res) <- c('alfa', 'max.log.lik', 'log.lik0')
   list(result = res, ci = ci)

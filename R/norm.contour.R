@@ -3,7 +3,6 @@
 #### Tsagris Michail 2/2013
 #### mtsagris@yahoo.gr
 ################################
-
 norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## the type parameter determines whether the additive or
   ## the isometric log-ratio transformation will be used.
@@ -11,7 +10,6 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ## log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
@@ -47,8 +45,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if (abs(can) < Inf)
-          mat[i, j] <- can else mat[i, j] <- NA
+        if (abs(can) < Inf)  mat[i, j] <- can 
       }
     }
   }
@@ -69,8 +66,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if (abs(can) < Inf)
-          mat[i, j] <- can else mat[i, j] <- NA
+        if (abs(can) < Inf)   mat[i, j] <- can 
       }
     }
   }

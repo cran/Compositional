@@ -16,9 +16,7 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   ## oiko can be either "normal", "binomial" or "poisson"
   ## depending on the type of the independent variable
   ## "normal" is set by default
-
   z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
-
   if ( length( unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else if ( sum(y - round(y) ) == 0 ) {
@@ -28,9 +26,5 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   if (oiko == 'normal') {
     mod <- pcr(y, z, k, xnew = xnew)
   } else  mod <- glm.pcr(y, z, k, xnew = xnew)
-
   mod
-  ## principal component regression with the alpha-transformed
-  ## compositional data
-
 }

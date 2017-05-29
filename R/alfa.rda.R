@@ -7,7 +7,6 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-
 alfa.rda <- function(xnew, x, ina, a, gam = 1, del = 0) {
   ## xnew is the new compositional observation
   ## x contains the compositional data

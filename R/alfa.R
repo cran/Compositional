@@ -6,19 +6,16 @@
 #### compositional data. In Proceedings of the 4rth Compositional Data Analysis Workshop, Girona, Spain.
 #### mtsagris@yahoo.gr
 ################################
-
 alfa <- function(x, a, h = TRUE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
   ## if h is TRUE the multiplication with the Helmert matrix takes place
   D <- dim(x)[2] ## number of components
   if ( D == 1 )   x <- t(x)
-
   if ( a != 0 ) {
     z <- x^a
     ta <- Rfast::rowsums(z)
-    z <- z / ta
-    z <- D / a * z - 1/a
+    z <- D / a * z / ta - 1/a
     sa <- sum( log(ta) )
   } else {  ## if a=0 the ilr is calculated
     xa <- log(x)

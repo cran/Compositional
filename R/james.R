@@ -14,7 +14,6 @@
 #### On Selecting Tests for Equality of Two Normal Mean Vectors (2006)
 #### Multivariate Behavioral Research 41(4) 533-548
 ################################
-
 james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   ## y1 and y2 are the two samples
   ## a is the significance level and
@@ -49,8 +48,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   if (R <= 1) {
     ## James test
     A <- 1 + ( trb1^2/(n1 - 1) + trb2^2/(n2 - 1) ) / (2 * p)
-    B <- ( sum(b1 * b1) / (n1 - 1) + sum(b2 * b2)/(n2 - 1) +
-	     0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) ) / (p * (p + 2))
+    B <- ( sum(b1 * b1) / (n1 - 1) + sum(b2 * b2)/(n2 - 1) + 0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) ) / (p * (p + 2))
     x2 <- qchisq(1 - a, p)
     delta <- (A + B * x2)
     twoha <- x2 * delta  ## corrected critical value of the chi-square

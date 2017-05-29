@@ -4,13 +4,11 @@
 #### Tsagris Michail 8/2015
 #### mtsagris@yahoo.gr
 ################################
-
 ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   ## if y is a vector only
   ## x contains the independent, continuous only, variables
   ## lambda contains a grid of values of the ridge regularization parameter
   if ( all( y > 0 & y < 1 ) )  y <- log(y / ( 1 - y) ) ## logistic normal
-
   n <- length(y)  ## sample size
   p <- dim(x)[2]  ## dimensionality of x
   R <- length(lambda)

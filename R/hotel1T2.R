@@ -13,7 +13,7 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
   ## if R=1 no bootstrap will be implemented
   ## Bootstrap is used for the p-value
   m <- Rfast::colmeans(x)  ## sample mean vector
-  s <- cov(x)  ## sample covariance matrix
+  s <- Rfast::cova(x)  ## sample covariance matrix
   n <- dim(x)[1]  ## sample size
   p <- dim(x)[2]  ## dimensionality of the data
   dm <- m - M
@@ -36,7 +36,7 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
     for (i in 1:R) {
       b <- sample(1:n, n, replace = TRUE)
       yb <- y[b, ]
-      sb <- cov(yb)
+      sb <- Rfast::cova(yb)
       mb <- Rfast::colmeans(yb)
       dmb <- mb - M
       tb[i] <- dmb %*% solve(sb, dmb)

@@ -14,25 +14,25 @@ mat = NULL, nc = 1, graph = FALSE)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with compositional data. zero values are allowed.
+\item{y}{
+A matrix with compositional data. zero values are allowed.
 }
-  \item{x}{
-  A matrix with the continuous predictor variables.
+\item{x}{
+A matrix with the continuous predictor variables or a data frame including categorical predictor variables.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
-  \item{K}{
+\item{K}{
 The number of folds to split the data.
 }
-  \item{mat}{
+\item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
- \item{nc}{
+\item{nc}{
 The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
- \item{graph}{
+\item{graph}{
 If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }

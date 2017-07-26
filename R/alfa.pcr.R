@@ -7,7 +7,6 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-
 alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   ## y is dependent univariate variable. It can be matrix or vector
   ## x are compositional data, the covariates

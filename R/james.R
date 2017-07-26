@@ -35,8 +35,8 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   if ( is.null(colnames(y1)) ) {
     colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(y1)
-  A1 <- cov(y1)/n1
-  A2 <- cov(y2)/n2
+  A1 <- Rfast::cova(y1)/n1
+  A2 <- Rfast::cova(y2)/n2
   V <- A1 + A2  ## covariance matrix of the difference
   Vinv <- chol2inv( chol(V) )   ## same as solve(V), but faster
   test <- sum( dbar %*% Vinv * dbar )
@@ -89,7 +89,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
       b2 <- sample(1:n2, n2, replace = TRUE)
       xb1 <- x1[b1, ]     ;      xb2 <- x2[b2, ]
       db <- Rfast::colmeans(xb1) - Rfast::colmeans(xb2)  ## difference of the two mean vectors
-      Vb <- cov(xb1) / n1 + cov(xb2) / n2  ## covariance matrix of the difference
+      Vb <- Rfast::cova(xb1) / n1 + Rfast::cova(xb2) / n2  ## covariance matrix of the difference
       tb[i] <- sum( db %*% solve(Vb, db ) )
     }
     pvalue <- ( sum(tb > test) + 1 ) / (R + 1)

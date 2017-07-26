@@ -9,7 +9,6 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## x contains the independent variables
   ## k shows the number of components to keep
   ## oiko can be "binomial" or "poisson"
-  n <- length(y)
   p <- dim(x)[2]
   m <- Rfast::colmeans(x)
   x <- Rfast::standardise(x)  ## standardize the independent variables
@@ -22,11 +21,14 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
 
   if ( length( Rfast::sort_unique(y) ) == 2 ) {
     oiko <- "binomial"
-  } else oiko <- "poisson"
-
-  mod <- glm(y ~ z[, 1:k], family = oiko )
-  b <- coef(mod)
-  be <- vec[, 1:k] %*% as.matrix( b[-1] )
+    mod <- Rfast::glm_logistic(z[, 1:k], y, full = TRUE)
+    b <- mod$info[, 1]
+  } else {
+    oiko <- "poisson"
+    mod <- Rfast::glm_poisson(z[, 1:k], y, full = TRUE)
+    b <- mod$info[, 1]
+  }
+  be <- vec[, 1:k, drop = FALSE] %*% b[-1]
 
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
@@ -36,8 +38,8 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   } else  es <- as.vector( x %*% be ) + b[1]
 
   if (oiko == "binomial") {
-    est <- exp(es) / (1 + exp(es)) 
+    est <- exp(es) / (1 + exp(es))
   } else est <- exp(es)     ## fitted values for PCA model
 
-  list(model = summary(mod), per = per[k], est = est)
+  list(model = mod, per = per[k], est = est)
 }

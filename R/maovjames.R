@@ -25,7 +25,7 @@ maovjames <- function(x, ina, a = 0.05) {
   for (i in 1:k) {
     zi <- x[ina == i, ]
     mi[i, ] <- Rfast::colmeans( zi )
-    wi[, , i] <- ni[i] * chol2inv( chol( var( zi ) ) )
+    wi[, , i] <- ni[i] * chol2inv( chol( cov( zi ) ) )
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
 

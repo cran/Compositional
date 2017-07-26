@@ -64,10 +64,10 @@ The runtime of the cross-validation procedure.
 \references{
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew TA Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
-http://arxiv.org/pdf/1106.1451.pdf
+Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
+\eqn{\alpha}-transformation. Journal of classification, 33(2): 243-261.
 
-Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics 3(2): 822-829.
+Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(2): 822-829.
 }
 
 \author{

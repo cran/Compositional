@@ -26,7 +26,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   n <- dim(y)[1]  ## sample size
   d <- dim(y)[2] - 1  ## dimensionality of the simplex
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( coef(lm.fit(x, y[, -1]) ) ) )  ## initial values
+  ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
   options (warn = -1)
   qa <- nlm(olsreg, ini, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
@@ -44,7 +44,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( coef(lm.fit(xb, yb[, -1]) ) ) )  ## initial values
+        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
         qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
@@ -63,7 +63,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( coef(lm.fit(xb, yb[, -1]) ) ) )  ## initial values
+        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
         qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)

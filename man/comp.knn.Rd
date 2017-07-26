@@ -57,8 +57,8 @@ Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised ap
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew TA Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification (to appear).
-http://arxiv.org/pdf/1106.1451.pdf
+Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the 
+\eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
 Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
 Journal of Applied Statistics. http://www.tandfonline.com/doi/full/10.1080/02664763.2016.1193846

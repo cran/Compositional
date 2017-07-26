@@ -20,7 +20,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
   if ( min(y) == 0 )  a <- a[a>0]
   la <- length(a)
   n <- dim(y)[1]
-  x <- as.matrix(x)
+  x <- model.matrix(y ~., data.frame(x) )
 
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / K) * K ) )
@@ -32,7 +32,6 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
   } else  mat <- mat
 
   K <- dim(mat)[2]
-  rmat <- dim(mat)[1]
 
   if (nc == 1) {
     apa <- proc.time()
@@ -40,9 +39,9 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     for (j in 1:la) {
       ytr <- alfa(y, a[j])$aff
       for (i in 1:K) {
-        xu <- x[ mat[, i], ]
+        xu <- x[ mat[, i], -1 , drop = FALSE]
         yu <- y[ mat[, i], ]
-        xa <- x[ -mat[, i], ]
+        xa <- x[ -mat[, i], -1]
         yb <- ytr[ -mat[, i], ]
         mod <- alfa.reg(yu, xa, a[j], xnew = xu, yb = yb)
         yest <- mod$est
@@ -73,9 +72,9 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
        for ( l in 1:length(ba) ) {
           ytr <- alfa(y, ba[l])$aff
           for (i in 1:K) {
-            xu <- x[ mat[, i], ]
+            xu <- x[ mat[, i], -1, drop = FALSE]
             yu <- y[ mat[, i], ]
-            xa <- x[ -mat[, i], ]
+            xa <- x[ -mat[, i], -1]
             yb <- ytr[ -mat[, i], ]
             mod <- alfa.reg(yu, xa, ba[l], xnew = xu, yb = yb)
             yest <- mod$est
@@ -97,7 +96,8 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
   }
 
   if ( graph ) {
-    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha), ylab = 'Twice the Kullback Leibler divergence')
+    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
+	ylab = 'Twice the Kullback Leibler divergence')
     for (i in 2:K)  lines(a, kula[i, ])
     lines(a, kl, col = 2, lty = 2, lwd = 2)
   }

@@ -20,7 +20,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   pa <- function(a, x) {
     trans <- alfa(x, a)
     z <- trans$aff  ## the alpha-transformation
-    -n/2 * log( abs( det( f * cov(z) ) ) ) + (a - 1) * ja - D * trans$sa
+    -0.5 * n * log( abs( det( cov(z) ) ) ) + (a - 1) * ja - D * trans$sa
   }
 
   if (B == 1) {
@@ -28,7 +28,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
     aff0 <- alfa(x, 0)
     z0 <- aff0$aff
     sa <- aff0$sa  ## part of the Jacobian determinant as well
-    lik0 <- con -  n/2 * log( abs( det( f * cov(z0) ) ) ) - ja - D * sa
+    lik0 <- con -  n/2 * log( abs( det( Rfast::cova(z0) ) ) ) - ja - D * sa - 0.5 * n * d * log(f) 
     result <- c(ell$maximum, ell$objective + con, lik0)
     names(result) <- c("best alpha", "max log-lik", "log-lik at 0")
 

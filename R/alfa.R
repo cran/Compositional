@@ -1,11 +1,3 @@
-################################
-#### alpha-transformation
-#### Tsagris Michail 5/2013
-#### References: Tsagris M. T., Preston, S. and Wood A. T. A. (2011).
-#### A data-based power transformation for
-#### compositional data. In Proceedings of the 4rth Compositional Data Analysis Workshop, Girona, Spain.
-#### mtsagris@yahoo.gr
-################################
 alfa <- function(x, a, h = TRUE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1

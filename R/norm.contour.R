@@ -25,7 +25,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   }
 
   m <- Rfast::colmeans(ya)  ## mean vector
-  s <- cov(ya)  ## covariance matrix
+  s <- Rfast::cova(ya)  ## covariance matrix
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)
 

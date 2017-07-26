@@ -9,7 +9,7 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   x <- model.matrix(y ~ ., data.frame(x) )
   p <- dim(x)[2]  ## dimensionality of x
   d <- dim(y)[2] - 1
-  ly <- log(y)  ## dimensionality of the simplex
+  ly <- Rfast::Log(y)  ## dimensionality of the simplex
 
     dirireg2 <- function(param) {
       ## param contains the parameter values
@@ -25,22 +25,21 @@ diri.reg2 <- function(y, x, xnew = NULL) {
 
   runtime <- proc.time()
   rla <- ly[, -1] - ly[, 1]    ##  log( y[, -1] / y[, 1] )  ## additive log-ratio transformation
-  ini <- as.vector( coef( lm.fit(x, rla) ) )  ## initial values
+  ini <- as.vector( lm.fit(x, rla)$coefficients )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg2 function and
   ## estimate the parameter values
 
   el <- NULL
   qa <- nlm(dirireg2, c(rnorm(p, 0, 0.1), as.vector( t(ini) ) ) )
-  el[1] <- -qa$minimum
+  el1 <-  -qa$minimum
   qa <- nlm(dirireg2, qa$estimate)
-  el[2] <- -qa$minimum
-  vim <- 2
-  while (el[vim] - el[vim - 1] > 1e-06) {
+  el2 <- -qa$minimum
+  while (el2 - el1 > 1e-06) {
     ## the tolerance value can of course change
-    vim <- vim + 1
+    el1 < -el2
     qa <- nlm(dirireg2, qa$estimate)
-    el[vim] <-  -qa$minimum
+    el2 <-  -qa$minimum
   }
 
   qa <- optim(qa$estimate, dirireg2, hessian = TRUE)

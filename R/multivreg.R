@@ -15,9 +15,9 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   x <- as.matrix(x)
   p <- dim(x)[2]  ## dimensionality of x
   mod <- lm(y ~ x)   ## linear regression
-  res <- resid(mod)  ## residuals
-  s <- cov(res) * (n - 1) / (n - p - 1)
-  sxx <- cov(x)  ## covariance of the independent variables
+  res <- mod$residuals  ## residuals
+  s <- Rfast::cova(res) * (n - 1) / (n - p - 1)
+  sxx <- Rfast::cova(x)  ## covariance of the independent variables
   dres <- sqrt( Rfast::mahala( res, numeric(d), s ) ) ## Mahalanobis distances
   ## of the residuals
   mx <- Rfast::colmeans(x)  ## mean vector of the independent variales
@@ -38,10 +38,10 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   out.and.lever <- which(dx > crit.x & dres > crit.res)
 
   if ( is.null(xnew) ) {
-    est <- fitted(mod)
+    est <- mod$fitted
   } else {
     xnew <- cbind(1, xnew)
-    est <- xnew %*% coef(mod)
+    est <- xnew %*% mod$coefficients
   }
 
   moda <- summary(mod)
@@ -50,7 +50,7 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   mse <- deviance(mod)/( n - p - 1 )
 
   for (i in 1:d) {
-    wa <- as.matrix( coef(moda[[i]]) )
+    wa <- as.matrix( moda[[i]]$coefficients )
     wa <- cbind( wa, wa[, 1] - qt(0.975, n - p - 1) * mse[i], wa[, 1] + qt(0.975, n - p - 1) * mse[i] )
     colnames(wa)[5:6] <- paste(c(2.5, 97.5), "%", sep = "")
     suma[, , i] <- wa

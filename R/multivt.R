@@ -27,7 +27,7 @@ multivt <- function(y, plot = FALSE) {
   ## the classical mean and covariance are given in the results
   ## for comparison pruposes
   apotelesma <- list(center = result$center, scatter = result$cov,
-  df = dof, loglik = loglik, mesos = Rfast::colmeans(y), covariance = cov(y))
+  df = dof, loglik = loglik, mesos = Rfast::colmeans(y), covariance = Rfast::cova(y))
 
   if ( plot ) {
     lik <- deg <- seq(max(1, dof - 20), dof + 20, by = 0.1)
@@ -43,7 +43,7 @@ multivt <- function(y, plot = FALSE) {
     conf <- c(a1, a2)
     names(conf) <- c("2.5%", "97.5%")
     apotelesma <- list(center = result$center, scatter = result$cov,
-    df = dof, conf = conf, loglik = loglik, mesos = Rfast::colmeans(y), covariance = cov(y) )
+    df = dof, conf = conf, loglik = loglik, mesos = Rfast::colmeans(y), covariance = Rfast::cova(y) )
   }
 
   apotelesma

@@ -21,7 +21,7 @@ maov <- function(x, ina) {
   me <- Rfast::colmeans(x)  ## total mean vector
   y <- sqrt(ni) * (m - rep(me, rep(g, p)) )
   B <- crossprod(y)
-  Tot <- cov(x) * (n - 1)
+  Tot <- Rfast::cova(x) * (n - 1)
   lam <- det(Tot - B) / det(Tot)
 
   if ( g == 2 ) {

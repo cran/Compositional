@@ -28,7 +28,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   ## the next lines minimize the reg function and obtain the estimated betas
   runtime <- proc.time()
-  ini <- as.vector( t( coef( lm.fit(x, y[, -1]) ) ) )  ## initial values
+  ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
   options (warn = -1)
   qa <- nlm(klreg, ini, y = y, x = x, d = d)
   qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
@@ -46,7 +46,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
+        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
         qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
@@ -65,7 +65,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample(1:n, n, replace = TRUE)
           yb <- y[ida, ]
           xb <- x[ida, ]
-          ini <- as.vector( t( coef( lm.fit(xb, yb[, -1]) ) ) )  ## initial values
+          ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
           qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
           qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
           qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
@@ -84,7 +84,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     est <- mu / Rfast::rowsums(mu)
   } else {
     xnew <- model.matrix(~., data.frame(xnew) )
-    mu <- cbind(1, exp(xnew %*% beta))
+    mu <- cbind(1, exp(xnew %*% be))
     est <- mu / Rfast::rowsums(mu)
   }
 

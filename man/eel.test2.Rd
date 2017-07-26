@@ -69,6 +69,9 @@ Owen A. B. (2001). Empirical likelihood. Chapman and Hall/CRC Press.
 Amaral G.J.A., Dryden I.L. and Wood A.T.A. (2007). Pivotal bootstrap methods for k-sample problems in directional statistics and shape analysis. Journal of the American Statistical Association 102(478): 695-707.
 
 Preston S.P. and Wood A.T.A. (2010). Two-Sample Bootstrap Hypothesis Tests for Three-Dimensional Labelled Landmark Data. Scandinavian Journal of Statistics 37(4): 568-587.
+
+Tsagris M., Preston S. and Wood A.T.A. (2017). Nonparametric hypothesis testing for equality of means on the
+simplex. Journal of Statistical Computation and Simulation, 87(2): 406-422.
 }
 
 \author{

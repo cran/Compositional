@@ -1,25 +1,4 @@
-################################
-#### Classification for compositional data using a power transformation
-#### Tuning the k-NN algorithm via M-fold cross-validation
-#### Tsagris Michail 7/2015
-#### References: Tsagris, M. T. (2014).
-#### The k-NN algorithm for compositional data: a revised approach with and without zero values present
-#### Journal of Data Science, 12(3):519-534
-#### mtsagris@yahoo.gr
-################################
 compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
-  ## x is the matrix containing the data
-  ## M is the number of folds, set to 10 by default
-  ## A is the maximum number of neighbours to use
-  ## ina indicates the groups, numerical variable
-  ## a is a vector containing the values of the power parameter
-  ## type is either 'S' or 'NS'. Should the standard k-NN be use or not
-  ## if mesos is TRUE, then the arithmetic mean distange of the k nearest
-  ## points will be used.
-  ## If not, then the harmonic mean will be used. Both of these apply for
-  ## the non-standard algorithm, that is when type='NS'
-  ## apostasi is the type of metric used: 'ESOV' or 'taxicab',
-  ## 'Ait', 'Hellinger', 'angular' or 'CS'
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
   if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
@@ -27,10 +6,6 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   ng <- max(ina)  ## The number of groups
   if ( min(x) == 0 )  a <- a[ a > 0 ]
   dis <- matrix(0, n, n)
-  ## The next two functions split the sample into R different test
-  ## and training datasets
-  ## The test dataset is chosen via stratified or simple random sampling
-  ## will be stored in the array called per
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
     ## It may be the case this new nu is not exactly the same
@@ -79,14 +54,14 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
             dis[m1, m2] <- sum( sa[ abs(sa) < Inf ] )
           }
         }
-        dis <- sqrt(2 * p) * sqrt(dis) / abs( a[i] )
+        dis <- sqrt(dis) / abs( a[i] )  ## * sqrt(2 * p)  not necessary to multiply with constant everything
         dis <- dis + t(dis)
       }
       ## The k-NN algorithm is calculated R times. For every repetition a
       ## test sample is chosen and its observations are classified
       for (vim in 1:M) {
-        id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-        ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
+        id <- ina[ mat[, vim] ]  ## groups of test sample
+        ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
         aba <- as.vector( mat[, vim] )
         aba <- aba[aba > 0]
         apo <- dis[-aba, aba]
@@ -150,7 +125,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     per <- matrix(nrow = M, ncol = A - 1)
 
     if (apostasi == "Ait") {
-      xa <- log(x)
+      xa <- Rfast::Log(x)
       z <- xa - Rfast::rowmeans( xa )
       dis <- Rfast::Dist(z)
     } else if (apostasi == "Hellinger") {
@@ -164,8 +139,8 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     diag(dis) <- 0
 
     for (vim in 1:M) {
-      id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-      ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
+      id <- ina[ mat[, vim] ]  ## groups of test sample
+      ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
       aba <- as.vector( mat[, vim] )
       aba <- aba[aba > 0]
       apo <- dis[-aba, aba]

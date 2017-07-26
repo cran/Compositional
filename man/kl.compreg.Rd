@@ -53,7 +53,8 @@ The fitted or the predicted values (if xnew is not NULL).
 }
 
 \references{
-Murteira, Jose MR, and Joaquim JS Ramalho. Regression analysis of multivariate fractional data. Econometric Reviews (To appear).
+Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. 
+Econometric Reviews 35(4): 515-552.
 }
 
 \author{

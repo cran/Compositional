@@ -20,7 +20,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
   d <- dim(y1)[2]  ## number of variables
   n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes
   n <- n1 + n2  ## total sample size
-  s1 <- (n1 - 1) / n1 * cov(y1)   ;   s2 <- (n2 - 1) / n2 * cov(y2)
+  s1 <- (n1 - 1) / n1 * Rfast::cova(y1)   ;   s2 <- (n2 - 1) / n2 * Rfast::cova(y2)
   m1 <- Rfast::colmeans(y1)
   m2 <- Rfast::colmeans(y2)  ## mean vectors
   ## mu is the estimate of the common mean vector

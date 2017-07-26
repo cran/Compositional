@@ -27,9 +27,8 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
     lam2 <- lam1 - solve(der, f)
     i <- 2
-    difa <- sum( abs(lam2 - lam1 ) )
     ## step 3 and beyond
-    while ( difa > tol  &  !is.na( difa ) )  {
+    while ( sum( abs(lam2 - lam1 ) ) > tol )  {
       i <- i + 1
       lam1 <- lam2
       fx1 <- exp( as.vector( x %*% lam1 ) )
@@ -45,12 +44,10 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
       f <- fx4 - fy4
       der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
       lam2 <- lam1 - solve(der, f)
-      difa <- sum( abs(lam2 - lam1 ) )
     }
 
     p1 <- fx1 / fx2
     p2 <- fy1 / fy2
-    n1 <- dim(x)[1]   ;   n2 <- dim(y)[1]
     stat <-  - 2 * sum( log( n1 * p1) ) - 2 * sum( log(n2 * p2) )
     pvalue <- pchisq(stat, d, lower.tail = FALSE)
     info <- c(stat, pvalue, d)
@@ -89,7 +86,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
     d <- dim(y1)[2]
     dof <- james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
-    stat <- ( dof / (v * d) ) * test
+    stat <- dof / (v * d) * test
     pvalue <- pf(stat, d, dof, lower.tail = FALSE)
     dof <- c(d, v - d + 1)
     res$info <- c(stat, pvalue, dof)
@@ -107,8 +104,8 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
       m2 <- Rfast::colmeans(y2)
       d <- dim(y1)[2]
       n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]
-      s1 <- (n1 - 1) / n1 * cov(y1)
-      s2 <- (n2 - 1) / n2 * cov(y2)
+      s1 <- (n1 - 1) / n1 * Rfast::cova(y1)
+      s2 <- (n2 - 1) / n2 * Rfast::cova(y2)
       v1 <- solve(s1)   ;  v2 <- solve(s2)
       a1 <- n1 * v1   ;   a2 <-  n2 * v2
       ## mu is the estimate of the common mean vector

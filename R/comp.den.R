@@ -16,7 +16,7 @@
       m <- Rfast::colmeans(y)
       mu <- c( 1, exp(m) )
       mu <- mu / sum(mu)
-      s <- cov(y)
+      s <- Rfast::cova(y)
     } else {
       y <- alfa(x, 0)
       m <- Rfast::colmeans(y)

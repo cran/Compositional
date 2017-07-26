@@ -31,11 +31,10 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
   apo <- matrix( 0, n, nu )
   znew <- alfa(xnew, a)$aff
   z <- alfa(x, a)$aff
-  tz <- t(z)
-  apo <- Rfast::dista(znew, z, trans = FALSE)
 
   if (type == "NS") {
     ## Non Standard algorithm
+    apo <- Rfast::dista(znew, z, trans = FALSE)
     ta <- matrix(nrow = nu, ncol = nc)
     for (m in 1:nc) {
       dista <- apo[ina == m, ]
@@ -48,15 +47,23 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
 
   } else if (type == "S") {
     ## Standard algorithm
-    g <- numeric(nu)
-    for (l in 1:nu) {
-      xa <- cbind(ina, apo[, l])
-      qan <- xa[order(xa[, 2]), ]
-      sa <- qan[1:k, 1]
-      tab <- table(sa)
-      g[l] <- as.integer( names(tab)[ which.max(tab) ] )
-    }
+    if (mesos)  {
+      method = "average"
+    } else  method = "median"
+    g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = "euclidean", type = "C", method = method, freq.option = 1)
   }
 
   g
 }
+
+
+
+
+# g <- numeric(nu)
+# for (l in 1:nu) {
+#   xa <- cbind(ina, apo[, l])
+#   qan <- xa[order(xa[, 2]), ]
+#   sa <- qan[1:k, 1]
+#   tab <- table(sa)
+#   g[l] <- as.integer( names(tab)[ which.max(tab) ] )
+# }

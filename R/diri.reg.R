@@ -1,8 +1,3 @@
-################################
-#### Dirichlet regression for compositional data
-#### Tsagris Michail 6/2014
-#### mtsagris@yahoo.gr
-################################
 diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   dm <- dim(y)
@@ -10,7 +5,7 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## the design matrix is created
   x <- model.matrix(y ~ ., data.frame(x) )
   d <- dm[2] - 1  ## dimensionality of the simplex
-  z <- log(y)
+  z <- Rfast::Log(y)
 
     dirireg <- function(param, z, x, n, d) {
       phi <- exp( param[1] )  ## this avoids negative values in phi
@@ -24,22 +19,21 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
 
   runtime <- proc.time()
   rla <- z[, -1] - z[, 1]   ##  log(y[, -1] / y[, 1])  ## additive log-ratio transformation
-  ini <- as.vector( coef( lm.fit(x, rla) ) )  ## initial values
+  ini <-  as.vector(  solve( crossprod(x), crossprod(x, rla) ) )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   el <- NULL
   options(warn = -1)
   qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
-  el[1] <- -qa$minimum
+  el1 <-  -qa$minimum
   qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
-  el[2] <- -qa$minimum
+  el2 <-  -qa$minimum
   vim <- 2
-  while (el[vim] - el[vim - 1] > 1e-06) {
-    ## the tolerance value can of course change
-    vim <- vim + 1
+  while (el2 - el1 > 1e-06) {
+    el1 <- el2
     qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
-    el[vim] <- -qa$minimum
+    el2 <- -qa$minimum
   }
 
   qa <- optim(qa$estimate, dirireg, z = z, x = x, n = n, d = d, hessian = TRUE)

@@ -48,7 +48,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
     zx <- log(x[1:n, ])
     z <- zx - Rfast::rowmeans( zx )  ## clr transformation
     m <- Rfast::colmeans(z)  ## mean vector in the clr space
-    a <- eigen( cov(z) )$vectors[, 1] + m  ## move the unit vector a bit
+    a <- eigen( Rfast::cova(z) )$vectors[, 1] + m  ## move the unit vector a bit
     sc <- z %*% a
     lam <- seq( min(sc) - 1.5, max(sc) + 1.5, length = n )
     x1 <- cbind( a[1] * lam, a[2] * lam, a[3] * lam) + cbind( m[1] * (1 - lam),

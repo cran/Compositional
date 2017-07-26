@@ -17,9 +17,8 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
     lam_new <- lam_old - solve(der, f)
     i <- 2
-    difa <- sum( abs(lam_new - lam_old ) )
     ## step 3 and beyond
-    while ( difa > tol  &  !is.na( difa ) )  {
+    while ( sum( abs(lam_new - lam_old ) ) > tol  )  {
       i <- i + 1
       lam_old <- lam_new
       f1 <- exp( as.vector( x %*% lam_old ) )
@@ -30,7 +29,6 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
       f <- f4 - mu
       der <-  - tcrossprod( f4 ) + crossprod(f2a, x) / f2
       lam_new <- lam_old - solve(der, f)
-      difa <- sum( abs(lam_new - lam_old ) )
     }
     p <- f1 / f2
     stat <-  - 2 * sum( log( n * p) )

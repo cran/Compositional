@@ -17,7 +17,7 @@ alfa.reg(y, x, a, xnew = NULL, yb = NULL)
 A matrix with the compositional data.
 }
 \item{x}{
-The predictor variable(s), they have to be continuous.
+A matrix with the continuous predictor variables or a data frame including categorical predictor variables.
 }
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression.

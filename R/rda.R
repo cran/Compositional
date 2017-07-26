@@ -28,12 +28,12 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   nc <- max(ina)
   ta <- matrix(nrow = nu, ncol = nc)
   ng <- tabulate(ina)
-  ci <- log(ng / n)
+  ci <- 2 * log(ng / n)
   sk <- array( dim = c(D, D, nc) )
   mesos <- rowsum(x, ina) / ng
   ni <- rep(ng - 1, each = D^2)
 
-  for (m in 1:nc)  sk[, , m] <- cov( x[ina == m, ] )
+  for (m in 1:nc)  sk[, , m] <- Rfast::cova( x[ina == m, ] )
   s <- ni * sk
   Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
   sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
@@ -41,7 +41,8 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
 
   for (j in 1:nc) {
     Ska <- del * sk[, , j] + (1 - del) * Sa
-    ta[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( xnew, mesos[j, ], Ska )
+    ta[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( xnew, mesos[j, ], Ska )
+    ## the scores are doubled for efficiency, i did not multiply with 0.5
   }
 
   est <- Rfast::rowMaxs(ta)

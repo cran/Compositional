@@ -16,7 +16,6 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   ## R is the number of cross validations
   ## if ncores==1, then 1 processor is used, otherwise more are
   ## used (parallel computing)
-  y <- as.vector(y)
   n <- dim(x)[1]
   p <- dim(x)[2]
   if ( maxk > p ) maxk <- p  ## just a check
@@ -31,8 +30,6 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   } else  mat <- mat
 
   M <- dim(mat)[2]
-  rmat <- dim(mat)[1]
-  ntrain = n - rmat
   msp <- matrix( nrow = M, ncol = maxk )
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
@@ -45,24 +42,27 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   if (ncores == 1) {
     runtime <- proc.time()
     for (vim in 1:M) {
-      ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
-      ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
-      xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
-      xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
+      ytest <- y[mat[, vim] ]   ## test set dependent vars
+      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
+      xtrain <- x[-mat[, vim], ]   ## train set independent vars
+      xtest <- x[mat[, vim],, drop = FALSE ]  ## test set independent vars
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
-      xtrain <- t( (t(xtrain) - mx) / s )  ## standardize the independent variables 
+      xtrain <- t( (t(xtrain) - mx) / s )  ## standardize the independent variables
       # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       # vec <- eig$vectors  ## eigenvectors, or principal components
-	  vec <- prcomp(xtrain, center = FALSE)$rotation
+	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
       xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
 
       for ( j in 1:maxk) {
-        mod <- glm(ytrain ~ z[, 1:j], family = oiko )
-        b <- coef(mod)
-        be <- vec[, 1:j] %*% as.matrix( b[-1] )
-        es <- as.vector( xnew %*% be ) + b[1]
+        if (oiko == "binomial") {
+          b <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+        } else {
+          b <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+        }
+        be <- vec[, 1:j, drop = FALSE] %*% b[-1,, drop = FALSE ]
+        es <- as.vector( xnew %*% be ) + b[1, ]
 
         if (oiko == "binomial") {
           est <- as.vector(  exp(es) / ( 1 + exp(es) )  )
@@ -83,29 +83,31 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
     er <- numeric(maxk)
     msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast",
                    .export = c("colVars", "colmeans") ) %dopar% {
-      ## will always be the same
-      ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
-      ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
-      xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
-      xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
+      ytest <- y[mat[, vim] ]  ## test set dependent vars
+      ytrain <-  y[-mat[, vim] ]   ## train set dependent vars
+      xtrain <- x[-mat[, vim], ]   ## train set independent vars
+      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtrain <- t( (t(xtrain) - mx) / s ) ## standardize the independent variables
-      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix 
+      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
       # vec <- eig$vectors  ## eigenvectors, or principal components
-	  vec <- prcomp(xtrain, center = FALSE)$rotation
+	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
       xnew <- t( ( t(xtest) - mx ) / s )  ## standardize the xnew values
       xnew <- cbind(1, xnew %*% vec)
 
       for ( j in 1:maxk) {
-        mod <- glm(ytrain ~ z[, 1:j], family = oiko )
-        b <- coef(mod)
-        be <- vec[, 1:j] %*% as.matrix( b[-1] )
-        es <- as.vector( xnew %*% be ) + b[1]
+        if (oiko == "binomial") {
+          b <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+        } else {
+          b <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+        }
+        be <- vec[, 1:j, drop = FALSE] %*% b[-1, , drop = FALSE]
+        es <- as.vector( xnew %*% be ) + b[1, ]
 
         if (oiko == "binomial") {
-          est <- exp(es) / ( 1 + exp(es) ) 
+          est <- exp(es) / ( 1 + exp(es) )
           ri <-  -2 *( ytest * log(est) + (1 - ytest) * log(1 - est) )
         } else {
           est <- exp(es)
@@ -120,13 +122,10 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   }
 
   mpd <- Rfast::colmeans(msp)
-  bias <- msp[, which.min(mpd)] - Rfast::rowMins(msp, value = TRUE)  ## apply(msp, 1, min)  ## TT estimate of bias
+  bias <- msp[, which.min(mpd)] - Rfast::rowMins(msp, value = TRUE)  ## TT estimate of bias
   estb <- mean( bias )  ## TT estimate of bias
 
-  if ( graph ) {
-    plot(1:maxk, mpd, xlab = "Number of principal components",
-         ylab = "Mean predicted deviance", type = "b")
-  }
+  if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components", ylab = "Mean predicted deviance", type = "b")
 
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
   performance <- c( min(mpd) + estb, estb)

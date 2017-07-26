@@ -9,27 +9,12 @@
 #### mtsagris@yahoo.gr
 ################################
 alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE) {
-  ## x is the matrix containing the data
-  ## A is the maximum number of neighbours to use
-  ## ina indicates the groups, numerical variable
-  ## a is a vector containing the values of the power parameter
-  ## type is either 'S' or 'NS'. Should the standard k-NN be use or not
-  ## if mesos is TRUE, then the arithmetic mean distange of the k nearest
-  ## points will be used.
-  ## If not, then the harmonic mean will be used. Both of these apply for
-  ## the non-standard algorithm, that is when type='NS'
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size
   if ( A >= min( table(ina) ) )    A <- min( table(ina) ) - 3  ## The maximum
   ## number of nearest neighbours to use
   ina <- as.numeric(ina) ## makes sure ina is numeric
   ng <- max(ina)  ## The number of groups
-  ## as the one specified by the user
-  ## The next two functions split the sample into R different test
-  ## and training datasets
-  ## The test dataset is chosen via stratified or simple random sampling
-  ## will be stored in the array called per
-  ## if seed==TRUE then the results will always be the same
   dis <- matrix(0, n, n)
   ## The next two functions split the sample into R different test
   ## and training datasets
@@ -45,8 +30,6 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   } else  mat <- mat
   M <- dim(mat)[2]
   rmat <- dim(mat)[1]
-  ## The algorithm is repeated R times and each time the estimated
-  ## percentages are stored in the array per.
   runtime <- proc.time()
   per <- array( dim = c( M, A - 1, length(a) ) )  ## The estimated percentages
 
@@ -56,15 +39,15 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     ## The k-NN algorith is calculated R times. For every repetition a
     ## test sample is chosen and its observations are classified
     for (vim in 1:M) {
-      id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-      ina2 <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
+      id <- ina[ mat[, vim] ]   ## groups of test sample
+      ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
       aba <- as.vector( mat[, vim] )
       aba <- aba[aba > 0]
       apo <- dis[-aba, aba]
-      ta <- matrix(nrow = rmat, ncol = ng)
 
       if (type == "NS") {
-        ## Non Standard algorithm
+	  ## Non Standard algorithm
+        ta <- matrix(nrow = rmat, ncol = ng)
         for ( j in 1:c(A - 1) ) {
           knn <- j + 1
           for (l in 1:ng) {

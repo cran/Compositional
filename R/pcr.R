@@ -18,14 +18,14 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   p <- dim(x)[2]
   mx <- Rfast::colmeans(x)
   s <- Rfast::colVars(x, std = TRUE)
-  x <- t( ( t(x) - m )/ s )  ## standardise the x values
+  x <- t( ( t(x) - mx )/ s )  ## standardise the x values
   #eig <- eigen( crossprod(x) )  ## eigen analysis of the design matrix
   #values <- eig$values  ## eigenvalues
-  eig <- prcomp(x, center = FALSE) 
-  values <- eig$sdev^2 
+  eig <- prcomp(x, center = FALSE)
+  values <- eig$sdev^2
   per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
   #vec <- eig$vectors  ## eigenvectors, or principal components
-  vec <- eig$rotation 
+  vec <- eig$rotation
   z <- x %*% vec  ## PCA scores
   mod <- Rfast::lmfit(x, y)  ## lm.fit is an internal of lm and thus faster
   sigma <- sum( mod$residuals^2 ) / (n - p - 1)  ## estimated variance
@@ -36,7 +36,6 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   mse <- r2 <- NULL
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
-    nu <- dim(xnew)[1]
     xnew <- t( ( t(xnew) - mx) / s ) ## standardize the xnew values
     est <- as.vector( m + xnew %*% b )  ## predicted values for PCA model
   } else {

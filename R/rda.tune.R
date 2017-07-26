@@ -10,12 +10,8 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
   ## always be the same. Leave it NULL otherwise
   ina <- as.numeric(ina)
   n <- dim(x)[1]  ## total sample size
-  num <- 1:n
   nc <- max(ina) ## number of groups
   D <- dim(x)[2]  ## number of variables
-  #Ska <- array( dim = c(D, D, nc) )
-  ng <- tabulate(ina)
-  ci <- log(ng / n)
   sk <- array( dim = c(D, D, nc) )
   lg <- length(gam)    ;    ld <- length(del)
 
@@ -34,7 +30,6 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
   rmat <- dim(mat)[1]
   M <- dim(mat)[2]
   gr <- matrix(nrow = rmat, ncol = nc)
-  msp <- array(dim = c(lg, ld, M) )
 
   if (ncores > 1) {
     runtime <- proc.time()
@@ -45,26 +40,27 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
     ww <- foreach(vim = 1:M, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
 
       test <- x[ mat[, vim], , drop = FALSE]  ## test sample
-      id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
+      id <- ina[ mat[, vim] ] ## groups of test sample
       train <- x[ -mat[, vim], ]   ## training sample
-      ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
-      na <- as.vector( table(ida) )
+      ida <- ina[ -mat[, vim] ]  ## groups of training sample
+      na <- tabulate(ida)
+      ci <- 2 * log(na / sum(na) )
       mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
       s <- na * sk
-      Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
+      Sp <- colSums( aperm(s) ) / (sum(na) - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for ( k1 in 1:length(gam) ) {
+        Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
         for ( k2 in 1:length(del) ) {
-          Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( test, mesi[j, ], Ska )
+            gr[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( test, mesi[j, ], Ska )
+            ## the scores are doubled for efficiency, I did not multiply with 0.5
           }
-          gr <- gr
           g <- Rfast::rowMaxs(gr)
           group[k1, k2] <- sum( g == id ) / rmat
         }
@@ -84,24 +80,26 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
     for (vim in 1:M) {
 
       test <- x[ mat[, vim], , drop = FALSE ]   ## test sample
-      id <- as.vector( ina[ mat[, vim] ] )  ## groups of test sample
-      train <- x[ -mat[, vim], , drop = FALSE]  ## training sample
-      ida <- as.vector( ina[ -mat[, vim] ] )   ## groups of training sample
-      na <- as.vector( table(ida) )
+      id <- ina[ mat[, vim] ] ## groups of test sample
+      train <- x[ -mat[, vim], ]  ## training sample
+      ida <- ina[ -mat[, vim] ]   ## groups of training sample
+      na <- tabulate(ida)
+      ci <- 2 * log(na / sum(na) )
       mesi <- rowsum(train, ida) / na
       na <- rep(na - 1, each = D^2)
       ## the covariance matrix of each group is now calculated
-      for (m in 1:nc)  sk[ , , m] <- cov( train[ida == m, ] )
+      for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
       s <- na * sk
-      Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
+      Sp <- colSums( aperm(s) ) / (sum(na) - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
 
       for ( k1 in 1:length(gam) ) {
+        Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
         for ( k2 in 1:length(del) ) {
-          Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
-            gr[, j] <- ci[j] - 0.5 * log( det( Ska ) ) - 0.5 * Rfast::mahala( test, mesi[j, ], Ska )
+            gr[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( test, mesi[j, ], Ska )
+            ## the scores are doubled for efficiency, I did not multiply with 0.5
           }
           g <- Rfast::rowMaxs(gr)
           per[k1, k2, vim] <- sum( g == id ) / rmat

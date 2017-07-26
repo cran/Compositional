@@ -35,9 +35,9 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
       ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
       my <- sum(ytrain) / rmat
       yy <- ytrain - my  ## center the dependent variables
-      xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
+      xtrain <- x[ -mat[, vim], ]   ## train set independent vars
       mx <- Rfast::colmeans(xtrain)
-      xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
+      xtest <- x[ mat[, vim], , drop = FALSE]   ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- t( ( t(xtest) - mx ) / s ) ## standardize the xtest
       xx <- t( ( t(xtrain) - mx ) / s ) ## standardize the independent variables
@@ -63,13 +63,12 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
       ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
       my <- sum(ytrain) / rmat
       yy <- ytrain- my  ## center the dependent variables
-      xtrain <- as.matrix( x[ -mat[, vim], ] )  ## train set independent vars
+      xtrain <- x[ -mat[, vim], ] ## train set independent vars
       mx <- Rfast::colmeans(xtrain)
-      xtest <- as.matrix( x[ mat[, vim], ] )  ## test set independent vars
+      xtest <- x[ mat[, vim], , drop = FALSE]  ## test set independent vars
       s <- Rfast::colVars(xtrain, std = TRUE)
       xtest <- t( ( t(xtest) - mx ) / s ) ## standardize the xtest
       xx <- t( ( t(xtrain) - mx ) / s ) ## standardize the independent variables
-
       sa <- svd(xx)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
       d2 <- d^2    ;    A <- d * tu %*% yy
@@ -90,14 +89,12 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
   estb <- mean( bias )  ## TT estimate of bias
 
   if ( graph ) {
-    plot(lambda, mspe, type = 'b', ylim = c(min(mspe), max(mspe)),
-         ylab = "Mean squared error of prediction",
-         xlab = expression(paste(lambda, " values")) )
+    plot( lambda, mspe, type = 'b', ylim = c( min(mspe), max(mspe) ),
+         ylab = "Mean squared error of prediction", xlab = expression( paste(lambda, " values") ) )
   }
 
   names(mspe) <- lambda
   performance <- c( min(mspe) + estb, estb)
   names(performance) <- c("MSPE", "Estimated bias")
-  list(msp = msp, mspe = mspe, lambda = which.min(mspe), performance = performance,
-       runtime = runtime)
+  list(msp = msp, mspe = mspe, lambda = which.min(mspe), performance = performance, runtime = runtime)
 }

@@ -27,7 +27,6 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
   M <- dim(mat)[2]
   rmat <- dim(mat)[1]
-  ntrain <- n - rmat
   msp <- matrix( nrow = M, ncol = maxk )
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
@@ -39,10 +38,10 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
     for (vim in 1:M) {
 
-      ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
-      ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
-      xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
-      xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
+      ytest <- y[mat[, vim] ]  ## test set dependent vars
+      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
+      xtrain <- x[-mat[, vim], ]   ## train set independent vars
+      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
 
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
@@ -78,30 +77,22 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
     er <- numeric(maxk)
     msp <- foreach::foreach(vim = 1:M, .combine = rbind, .packages = "Rfast",
                             .export = c("colVars", "colmeans") ) %dopar% {
-      ## will always be the same
-
-      ytest <- as.vector( y[mat[, vim] ] )  ## test set dependent vars
-      ytrain <- as.vector( y[-mat[, vim] ] )  ## train set dependent vars
-      xtrain <- as.matrix( x[-mat[, vim], ] )  ## train set independent vars
-      xtest <- as.matrix( x[mat[, vim], ] )  ## test set independent vars
+      ytest <-  y[mat[, vim] ]  ## test set dependent vars
+      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
+      xtrain <- x[-mat[, vim], ]   ## train set independent vars
+      xtest <-  x[mat[, vim], , drop = FALSE]  ## test set independent vars
       m <- mean(ytrain)
       ytrain <- ytrain - m  ## standardize the dependent variable
       mx <- Rfast::colmeans(xtrain)
       s <- Rfast::colVars(xtrain, std = TRUE)
-      #mtrain <- t( xtrain )
-      #mtrain <- mtrain - mx
-      #mtrain <- t( mtrain / sqrt( Rfast::rowsums(mtrain^2) ) )
-      #sar <- tcrossprod( mtrain )
-      #eig <- eigen( sar )  ## eigen analysis of the design matrix
-      #vec <- eig$vectors  ## eigenvectors, or principal components
  	  vec <- prcomp(xtrain, center = TRUE, scale = TRUE)$rotation
       z <- xtrain %*% vec  ## PCA scores
+      xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
 
       for ( j in 1:maxk ) {
         zzk <- crossprod(z[, 1:j])
         be <- vec[, 1:j] %*% solve( zzk, crossprod( z[, 1:j], ytrain ) )
         ## b is the PCA based coefficients
-        xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
         est <- as.vector( m + xnew %*% be )  ## predicted values for PCA model
         er[j] <- sum( (ytest - est)^2 ) / rmat
       }

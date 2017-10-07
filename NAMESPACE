@@ -11,8 +11,8 @@ importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
 importFrom("grDevices", terrain.colors, grey)
 importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            diri.nr2, sort_mat, mahala, rmvnorm, rmvt, sort_unique, rowMins,
-           rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, cova,
-           glm_logistic, glm_poisson)
+           rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
+           glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table)
 
 import("doParallel")
 import("parallel")

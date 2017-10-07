@@ -74,7 +74,7 @@ Preston S.P. and Wood A.T.A. (2010). Two-Sample Bootstrap Hypothesis Tests for T
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

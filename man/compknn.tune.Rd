@@ -14,7 +14,7 @@ compknn.tune(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE)
 
 alfaknn.tune(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
-a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE)
+a = seq(-1, 1, by = 0.1), apostasi = "euclidean", mat = NULL, graph = FALSE)
 }
 
 \arguments{
@@ -40,7 +40,8 @@ This is used in the non standard algorithm. If TRUE, the arithmetic mean of the 
 A grid of values of \eqn{\alpha} to be used only if the distance chosen allows for it.
 }
 \item{apostasi}{
-The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS". See the references for them.
+The type of distance to use. For the compk.knn this can be one of the following: "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS".
+See the references for them. For the alfa.knn this can be either "euclidean" or "manhattan".
 }
 \item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
@@ -78,7 +79,7 @@ Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised ap
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the 
+Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
 Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
@@ -88,7 +89,7 @@ Journal of Applied Statistics.  http://www.tandfonline.com/doi/full/10.1080/0266
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{
@@ -104,8 +105,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 x <- as.matrix(iris[, 1:4])
 x <- x/ rowSums(x)
 ina <- iris[, 5]
-mod1 <- compknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
-mod2 <- alfaknn.tune(x, ina, a = seq(-0.1, 0.1, by = 0.1) )
+mod1 <- compknn.tune(x, ina, a = seq(1, 1, by = 0.1) )
+mod2 <- alfaknn.tune(x, ina, a = seq(-1, 1, by = 0.1) )
 }
 
 \keyword{ Regularised discriminant analysis }

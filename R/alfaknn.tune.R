@@ -8,18 +8,15 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE) {
+alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), apostasi = "euclidean",
+                         mat = NULL, graph = FALSE) {
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size
   if ( A >= min( table(ina) ) )    A <- min( table(ina) ) - 3  ## The maximum
-  ## number of nearest neighbours to use
   ina <- as.numeric(ina) ## makes sure ina is numeric
-  ng <- max(ina)  ## The number of groups
-  dis <- matrix(0, n, n)
-  ## The next two functions split the sample into R different test
-  ## and training datasets
-  ## The test dataset is chosen via stratified or simple random sampling
-  ## will be stored in the array called per
+  ela <- matrix(nrow = length(a), ncol = A - 1)
+  colnames(ela) <- paste("k=", 2:A, sep = "")
+  rownames(ela) <- paste("alpha=", a, sep = "")
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
     ## It may be the case this new nu is not exactly the same
@@ -29,71 +26,47 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
   } else  mat <- mat
   M <- dim(mat)[2]
-  rmat <- dim(mat)[1]
-  runtime <- proc.time()
-  per <- array( dim = c( M, A - 1, length(a) ) )  ## The estimated percentages
 
-  for ( i in 1:length(a) ) {
-    dis <- alfadist(x, a[i]) ## euclidean distance matrix to the
-    ## alpha-transformed data
-    ## The k-NN algorith is calculated R times. For every repetition a
-    ## test sample is chosen and its observations are classified
-    for (vim in 1:M) {
-      id <- ina[ mat[, vim] ]   ## groups of test sample
-      ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
-      aba <- as.vector( mat[, vim] )
-      aba <- aba[aba > 0]
-      apo <- dis[-aba, aba]
-
-      if (type == "NS") {
-	  ## Non Standard algorithm
-        ta <- matrix(nrow = rmat, ncol = ng)
-        for ( j in 1:c(A - 1) ) {
-          knn <- j + 1
-          for (l in 1:ng) {
-            dista <- apo[ina2 == l, ]
-            dista <- sort_mat(dista)
-            if ( mesos ) {
-              ta[, l] <- Rfast::colmeans( dista[1:knn, ] )
-            } else  ta[, l] <- knn / Rfast::colsums( 1 / dista[1:knn, ] )
-          }
-          g <- Rfast::rowMins(ta)
-          per[vim, j, i] <- sum( g == id ) / rmat
-        }
-
-      } else if (type == "S") {
-        ## Standard algorithm
-        for (j in 1:c(A - 1) ) {
-          g <- numeric(rmat)
-          knn <- j + 1
-          for (k in 1:rmat) {
-            xa <- cbind(ina2, apo[, k])
-            qan <- xa[order(xa[, 2]), ]
-            sa <- qan[1:knn, 1]
-            tab <- table(sa)
-            g[k] <- as.integer(names(tab)[which.max(tab)])
-          }
-          per[vim, j, i] <- sum( g == id ) / rmat
-        }
+  if ( type == "S" ) {
+    runtime <- proc.time()
+    folds <- list()
+    for (i in 1:M)  folds[[ i ]] <- mat[, i]
+    ## Standard algorithm
+    for (i in 1:length(a) ) {
+      z <- alfa(x, a[i], h = FALSE)$aff
+      ela[i, ] <- Rfast::knn.cv(folds = folds, nfolds = M, y = ina, x = z, k = 2:A, dist.type = apostasi,
+                                     type = "C", freq.option = 1)$crit
+    }
+    runtime <- proc.time() - runtime
+    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
+    opt <- max(ela)
+    confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
+    res <- list( ela = ela, performance = max(ela), best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    ## Non standard method
+  } else {
+    per <- array( dim = c( M, A - 1, length(a) ) )  ## The estimated percentages
+    for ( i in 1:length(a) ) {
+      for (vim in 1:M) {
+        id <- ina[ mat[, vim] ]   ## groups of test sample
+        ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
+        aba <- as.vector( mat[, vim] )
+        aba <- aba[aba > 0]
+        g <- alfa.knn(x[aba, ], x[-aba, ], ina = ina2, a = a[i], k = 2:A, type = "NS", mesos = mesos, apostasi = apostasi)
+        be <- g - id
+        per[vim, , i] <- Rfast::colmeans(be == 0)
       }
     }
-  }
-
-  ela <- matrix(nrow = length(a), ncol = A - 1)
-  for ( i in 1:length(a) )  ela[i, ] <- colMeans(per[, , i])
-  ## The ela matrix contains the averages of the R
-  ## repetitions over alpha and k
-  colnames(ela) <- paste("k=", 2:A, sep = "")
-  rownames(ela) <- paste("alpha=", a, sep = "")
-  ## The code for the heat plot of the estimated percentages
-  if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
-  opt <- max(ela)
-  confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
-  bias <- numeric(M)
-  for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
-  bias <- mean(bias)
-  performance <- c(opt - bias, bias)
-  names(performance) <- c( "rate", "bias" )
-  runtime <- proc.time() - runtime
-  list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    for ( i in 1:length(a) )  ela[i, ] <- colMeans(per[, , i])
+    runtime <- proc.time() - runtime
+    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
+    opt <- max(ela)
+    confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
+    bias <- numeric(M)
+    for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
+    bias <- mean(bias)
+    performance <- c(opt - bias, bias)
+    names(performance) <- c( "rate", "bias" )
+    res <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+  }  ## end if (type == "S")
+  res
 }

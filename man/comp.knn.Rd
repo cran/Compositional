@@ -13,33 +13,34 @@ The k-NN algorithm for compositional data with and without using the power trans
 \usage{
 comp.knn(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", mesos = TRUE)
 
-alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE)
+alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "euclidean")
 
 }
 
 \arguments{
-  \item{xnew}{
-  A matrix with the new compositional data whose group is to be predicted. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
+\item{xnew}{
+A matrix with the new compositional data whose group is to be predicted. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
 }
-  \item{x}{
-  A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
+\item{x}{
+A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
 }
-  \item{ina}{
-  A group indicator variable for the avaiable data.
+\item{ina}{
+A group indicator variable for the avaiable data.
 }
-  \item{a}{
+\item{a}{
 The value of \eqn{\alpha}. As zero values in the compositional data are allowed, you must be carefull to choose strictly positive vcalues of \eqn{\alpha}.
 }
-  \item{k}{
- The number of nearest neighbours to consider.
+\item{k}{
+The number of nearest neighbours to consider.
 }
-  \item{type}{
-  This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
-  }
-  \item{apostasi}{
-  The type of distance to use. "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS". See the references for them.
+\item{type}{
+This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
 }
-  \item{mesos}{
+\item{apostasi}{
+The type of distance to use. For the compk.knn this can be one of the following: "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS".
+See the references for them. For the alfa.knn this can be either "euclidean" or "manhattan".
+}
+\item{mesos}{
  This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
 }
 }
@@ -57,7 +58,7 @@ Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised ap
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the 
+Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
 Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
@@ -67,7 +68,7 @@ Journal of Applied Statistics. http://www.tandfonline.com/doi/full/10.1080/02664
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

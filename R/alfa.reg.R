@@ -6,7 +6,7 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean Journal of Statistics, 6(2): 47-57
 ################################
-alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
+alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is the value of alpha
@@ -50,24 +50,26 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
     qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
     be <- matrix(qa$par, byrow = TRUE, ncol = d)
-    seb <- sqrt( diag( solve( qa$hessian) ) )
-    seb <- matrix(seb, byrow = TRUE, ncol = d)
     runtime <- proc.time() - runtime
-  }
+  }  ## end if (a == 0)
+  if ( seb ) {
+    seb <- sqrt( diag( Rfast::spdinv(qa$hessian) ) )
+    seb <- matrix(seb, byrow = TRUE, ncol = d)
+  } else  seb <- NULL
 
+  est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
-    mu <- cbind( 1, exp(xnew %*% be) )
-  } else   mu <- cbind(1, exp(x %*% be) )
-    est <- mu / Rfast::rowsums(mu)
+    est <- cbind( 1, exp(xnew %*% be) )
+  }
 
   if ( is.null( colnames(x) ) ) {
     p <- dim(x)[2] - 1
     rownames(be) <- c("constant", paste("X", 1:p, sep = "") )
-    rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
+    if ( !is.null(seb) )  rownames(seb) <- c("constant", paste("X", 1:p, sep = "") )
   } else {
     rownames(be)  <- c("constant", colnames(x)[-1] )
-    rownames(seb) <- c("constant", colnames(x)[-1] )
+    if ( !is.null(seb) )  rownames(seb) <- c("constant", colnames(x)[-1] )
   }
 
   list(runtime = runtime, be = be, seb = seb, est = est)

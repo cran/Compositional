@@ -6,10 +6,8 @@
 #### http://www.stat.nus.edu.sg/export/sites/dsap/research/documents/tr01_2000.pdf
 #### mtsagris@yahoo.gr
 ################################
-
 spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
 
-  n <- dim(y)[1]
   ## the desing matrix is created
   x <- model.matrix(y ~ ., data.frame(x) )
   p <- dim(x)[2]
@@ -43,14 +41,15 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
 
   if ( ses ) {
     ## we use nlm and optim to obtain the standard errors
-    qa <- nlm(medi, as.vector(be), iterlim = 5000, hessian = TRUE)
+    qa <- nlm(medi, as.vector(be), iterlim = 5000)
+    qa <- optim(qa$estimate, medi, control = list(maxit = 5000), hessian = TRUE)
     seb <- sqrt( diag( solve(qa$hessian) ) )
     seb <- matrix(seb, ncol = d)
     if ( is.null(colnames(y)) ) {
       colnames(seb) <- colnames(be) <- paste("Y", 1:d, sep = "")
     } else  colnames(seb) <- colnames(be) <- colnames(y)
   }
-
+  est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix( ~ ., data.frame(xnew) )
     est <- xnew %*% be

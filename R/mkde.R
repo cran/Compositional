@@ -11,7 +11,7 @@
 #### B.W. Silverman (1986)
 #### Density estimation for statistics and data analysis, pages 76-78.
 ################################
-mkde <- function(x, h, thumb = "none") {
+mkde <- function(x, h, thumb = "silverman") {
   ## h is the h you want, which is either a vector or a single number
   ## thumb can be either "none" so the specified h is used, or
   ## "scott", or "silverman"

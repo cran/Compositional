@@ -1,94 +1,61 @@
-################################
-#### Multinomial or Kullback-Leibler divergence based
-#### regression for compositional data
-#### Tsagris Michail 2/2015
-#### mtsagris@yahoo.gr
-#### References: Murteira, Jose M.R. and Ramalho, Joaquim J.S. (2013)
-#### Regression analysis of multivariate fractional data
-#### Econometric Reviews (to appear)
-################################
-kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
-  ## y is dependent variable, the compositional data
-  ## x is the independent variable(s)
-  ## B is the number of bootstrap samples used to obtain
-  ## standard errors for the betas
-  ## if B==1 no bootstrap is performed and no standard errors are reported
-  ## if ncores=1, then 1 processor is used, otherwise
-  ## more are used (parallel computing)  n <- dim(y)[1]  ## sample size
-  x <- model.matrix( ~ ., data.frame(x) )
-  d <- dim(y)[2] - 1  ## dimensionality of the simplex
-  n <- dim(y)[1]
-
-   klreg <- function(para, y, x, d) {
-     be <- matrix(para, byrow = TRUE, ncol = d)
-     mu1 <- cbind( 1, exp(x %*% be) )
-     mu <- mu1 / rowSums(mu1)
-     - sum(y * log(mu), na.rm = TRUE)
-   }
-
-  ## the next lines minimize the reg function and obtain the estimated betas
+kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50) {
   runtime <- proc.time()
-  ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
-  options (warn = -1)
-  qa <- nlm(klreg, ini, y = y, x = x, d = d)
-  qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
-  qa <- nlm(klreg, qa$estimate, y = y, x = x, d = d)
-  be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
-  seb <- NULL
-  runtime <- proc.time() - runtime
-
-  if (B > 1) {
-  nc <- ncores
-    if (nc == 1) {
-      runtime <- proc.time()
-      betaboot <- matrix(nrow = B, ncol = length(ini))
+  mod <- kl.compreg2(y, x, xnew = xnew, tol = tol, maxiters = maxiters)
+  if (B == 1) {
+    runtime <- proc.time() - runtime
+    res <-  list(runtime = runtime, iters = mod$iters, loglik = mod$loglik, be = mod$be, seb = NULL, est = mod$est)
+  } else {
+    if (ncores <= 1) {
+      X <- model.matrix(y~., data.frame(x) )
+      p <- dim(X)[2]
+      Y <- y[, -1]
+      dm <- dim(Y)
+      n <- dm[1]    ;   d <- dm[2]
+      b1 <- mod$be
+      betaboot <- matrix( nrow = B, ncol = prod( dim(b1) ) )
+      id <- matrix(1:c(p * d), ncol = d)
+      der <- numeric(d * p)
+      der2 <- matrix(0, p * d, p * d)
       for (i in 1:B) {
         ida <- sample(1:n, n, replace = TRUE)
-        yb <- y[ida, ]
-        xb <- x[ida, ]
-        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
-        qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
-        qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
-        qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
-        betaboot[i, ] <- qa$estimate
+        yb <- Y[ida, ]
+        xb <- X[ida, ]
+        bb <- klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
+        betaboot[i, ] <- as.vector(bb)
       }
-      s <- Rfast::colVars(betaboot, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
-      runtime <- proc.time() - runtime
-
     } else {
-      runtime <- proc.time()
-      betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind) %dopar% {
+      X <- model.matrix(y~., data.frame(x) )
+      p <- dim(X)[2]
+      Y <- y[, -1]
+      dm <- dim(Y)
+      n <- dm[1]    ;   d <- dm[2]
+      b1 <- mod$be
+      betaboot <- matrix( nrow = B, ncol = prod( dim(b1) ) )
+      id <- matrix(1:c(p * d), ncol = d)
+      der <- numeric(d * p)
+      der2 <- matrix(0, p * d, p * d)
+      betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = "klcompreg.boot",
+                  .packages = "Rfast" ) %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
-          yb <- y[ida, ]
-          xb <- x[ida, ]
-          ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
-          qa <- nlm(klreg, ini, y = yb, x = xb, d = d)
-          qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
-          qa <- nlm(klreg, qa$estimate, y = yb, x = xb, d = d)
-          betaboot[i, ] <- qa$estimate
-       }
+        yb <- Y[ida, ]
+        xb <- X[ida, ]
+        bb <- klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
+        return( as.vector(bb) )
+      }
       stopCluster(cl)
-
-      s <- Rfast::colVars(ww, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
-      runtime <- proc.time() - runtime
     }
+    s <- Rfast::colVars(betaboot, std = TRUE)
+    seb <- matrix(s, byrow = TRUE, ncol = d)
+    runtime <- proc.time() - runtime
+    res <- list(runtime = runtime, iters = mod$iters, loglik = mod$loglik, be = mod$be, seb = seb, est = mod$est)
   }
-
-  if ( is.null(xnew) ) {
-    mu <- cbind( 1, exp(x %*% be) )
-    est <- mu / Rfast::rowsums(mu)
-  } else {
-    xnew <- model.matrix(~., data.frame(xnew) )
-    mu <- cbind(1, exp(xnew %*% be))
-    est <- mu / Rfast::rowsums(mu)
-  }
-
-  rownames(be) <- colnames(x)
-  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-  list(runtime = runtime, be = be, seb = seb, est = est)
+  res
 }
+
+
+
+
+
+

@@ -8,62 +8,63 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE) {
+alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "euclidean") {
   ## x is the matrix containing the data
   ## ina indicates the groups
   ## a is the value of the power parameter
   ## k in the number of nearest neighbours
-  ## apostasi is the type of metric used, either ESOV_a or Taxicab_a
+  ## apostasi is the type of metric used, either "euclidean" or "manhattan"
   ## type is either S or NS. Should the standard k-NN be use or not
   ## if mesos is TRUE, then the arithmetic mean distance of the
   ## k nearest points will be used
-  ## If not, then the harmonic mean will be used.
   ## Both of these apply for the non-standard,
   ## algorithm, that is when type=NS
   ## xnew is the new dataset. It can be a single vector or a matrix
-  n <- dim(x)[1]
   p <- dim(x)[2]
   xnew <- as.matrix(xnew)
   xnew <- matrix(xnew, ncol = p)  ## makes sure xnew is a matrix
   ina <- as.numeric(ina)
   nc <- max(ina) ## The number of groups
   nu <- dim(xnew)[1]
-  apo <- matrix( 0, n, nu )
-  znew <- alfa(xnew, a)$aff
-  z <- alfa(x, a)$aff
+  znew <- alfa(xnew, a, h = FALSE)$aff
+  z <- alfa(x, a, h = FALSE)$aff
 
   if (type == "NS") {
     ## Non Standard algorithm
-    apo <- Rfast::dista(znew, z, trans = FALSE)
-    ta <- matrix(nrow = nu, ncol = nc)
-    for (m in 1:nc) {
-      dista <- apo[ina == m, ]
-      dista <- Rfast::sort_mat(dista)
-      if ( mesos ) {
-        ta[, m] <- Rfast::colmeans( dista[1:k, ] )
-      } else  ta[, m] <- k / Rfast::colsums( 1 / dista[1:k, ] )
+    apo <- Rfast::dista(znew, z, type = apostasi, trans = FALSE)
+    klen <- length(k)
+    if ( klen == 1 ) {
+      ta <- matrix(nrow = nu, ncol = nc)
+      for (m in 1:nc) {
+        apo <- apo[ina == m, ]
+        apo <- Rfast::sort_mat(apo)
+        if ( mesos ) {
+          ta[, m] <- Rfast::colmeans( apo[1:k, ,drop = FALSE] )
+        } else  ta[, m] <- Rfast::colhameans( apo[1:k, , drop = FALSE] )
+      }
+      g <- as.matrix( Rfast::rowMins(ta) )
+    } else {
+      g <- matrix(0, nu, klen)
+      ta <- matrix(nrow = nu, ncol = nc)
+      for (j in 1:klen) {
+        for (m in 1:nc) {
+          apo <- apo[ina == m, ]
+          apo <- Rfast::sort_mat(apo)
+          if ( mesos ) {
+            ta[, m] <- Rfast::colmeans( apo[1:k[j], , drop = FALSE] )
+          } else  ta[, m] <- Rfast::colhameans( apo[1:k[j], , drop = FALSE] )
+        }
+        g[, j] <- Rfast::rowMins(ta)
+      }
     }
-    g <- Rfast::rowMins(ta)
 
   } else if (type == "S") {
     ## Standard algorithm
-    if (mesos)  {
-      method = "average"
-    } else  method = "median"
-    g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = "euclidean", type = "C", method = method, freq.option = 1)
+    g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = apostasi, type = "C", freq.option = 1)
   }
-
+  colnames(g) <- paste("k=", k, sep = "")
   g
 }
 
 
 
-
-# g <- numeric(nu)
-# for (l in 1:nu) {
-#   xa <- cbind(ina, apo[, l])
-#   qan <- xa[order(xa[, 2]), ]
-#   sa <- qan[1:k, 1]
-#   tab <- table(sa)
-#   g[l] <- as.integer( names(tab)[ which.max(tab) ] )
-# }

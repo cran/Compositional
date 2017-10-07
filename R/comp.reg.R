@@ -38,8 +38,10 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     est1 <- mod$est
     runtime <- mod$runtime
   }
-
-  est2 <- cbind( 1, exp(est1) )
-  est <- est2 / Rfast::rowsums(est2)
+  est <- NULL
+  if ( !is.null(est1) ) {
+    est2 <- cbind( 1, exp(est1) )
+    est <- est2 / Rfast::rowsums(est2)
+  }
   list(runtime = runtime, be = be, seb = seb, est = est)
 }

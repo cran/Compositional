@@ -13,14 +13,14 @@ A collection of functions for compositional data analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 2.5 \cr
-Date: \tab 2017-07-26\cr
+Version: \tab 2.6 \cr
+Date: \tab 2017-10-07\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 \section{Maintainers }{
@@ -34,7 +34,13 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \note{
 Acknowledgments:
 
-Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Dr Simon Preston from the university of Nottingham for being his supervisors during his PhD in compositional data analysis. We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team) for his help with this package. Manos Papadakis, undergraduate student in the department of computer science, university of Crete, is also acknowledged for his programming tips.
+Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Dr Simon
+Preston from the university of Nottingham for being his supervisors during his PhD in compositional data analysis.
+We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team)
+for his help with this package. Manos Papadakis, undergraduate student in the department of computer science,
+university of Crete, is also acknowledged for his programming tips. Ermanno Affuso from the university of South
+Alabama suggested that I have a default value in the mkde function. Van Thang Hoang from Hasselt university
+spotted a bug in the js.compreg function and is greatly acknowledged for that.
 }
 
 \keyword{ Compositional data }

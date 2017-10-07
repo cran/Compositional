@@ -10,57 +10,75 @@ Regression for compositional data based on the Kullback-Leibler and the Jensen-S
 }
 
 \usage{
-kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
+kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50)
 js.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with the compositional data (dependent variable). Zero values are allowed.
+\item{y}{
+A matrix with the compositional data (dependent variable). Zero values are allowed.
 }
-  \item{x}{
-  The predictor variable(s), they can be either continnuous or categorical or both.
+\item{x}{
+The predictor variable(s), they can be either continnuous or categorical or both.
 }
-  \item{B}{
-  If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
+\item{B}{
+If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
 }
-  \item{ncores}{
+\item{ncores}{
 If ncores is 2 or more parallel computing is performed. This is to be used for the case of bootstrap. If B=1, this is not taken into consideration.
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
+}
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson procedure.
+}
+\item{maxiters}{
+The maximum number of Newton-Raphson iterations.
 }
 }
 
 \details{
-The Kullback-Leibler divergence is adopted as the objective function. This involves numerical optimisation. There is no log-likelihood.
+In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. This involves numerical optimisation. There is no actual log-likelihood. As for the js.compreg another divergence is used.
 }
 
 \value{
 A list including:
-  \item{runtime}{
-  The time required by the regression.
+\item{runtime}{
+The time required by the regression.
 }
-  \item{be}{
+\item{iters}{
+The number of iterations required by the Newton-Raphson in the kl.compreg function.
+}
+\item{loglik}{
+The log-likelihood. This is actually a quasi multinomial regression. This is bascially minus the half deviance, or
+\eqn{- sum_{i=1}^ny_i\log{y_i/\hat{y}_i}}.
+}
+\item{be}{
 The beta coefficients.
 }
-  \item{seb}{
+\item{seb}{
 The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
-  \item{est}{
+\item{est}{
 The fitted or the predicted values (if xnew is not NULL).
 }
 }
 
 \references{
-Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. 
+Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data.
 Econometric Reviews 35(4): 515-552.
+
+Tsagris, Michail (2015). A novel, divergence based, regression for compositional data.
+Proceedings of the 28th Panhellenic Statistics Conference, 15-18/4/2015, Athens, Greece.
+https://arxiv.org/pdf/1511.07600.pdf
+
 }
 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

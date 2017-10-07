@@ -9,7 +9,7 @@ Regression with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
-alfa.reg(y, x, a, xnew = NULL, yb = NULL)
+alfa.reg(y, x, a, xnew = NULL, yb = NULL, seb = FALSE)
 }
 
 \arguments{
@@ -28,7 +28,11 @@ If you have new data use it, otherwise leave it NULL.
 \item{yb}{
 If you have already transformed the data using the \eqn{\alpha}-transformation with the same \eqn{\alpha} as given in the argument "a", put it here. Othewrise leave it NULL.
 
-This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples. But, if you have a few thousands and or a few more components, there will be bigger differences.
+This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples. 
+But, if you have a few thousands and or a few more components, there will be bigger differences.
+}
+\item{seb}{
+Do you want the standard error of the coefficients to be returned? In the \code{\link{alfareg.tune}} function this extra computation that is avoided can save some time. 
 }
 }
 
@@ -67,7 +71,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

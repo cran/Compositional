@@ -28,7 +28,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
   runtime <- proc.time()
-  ini <- as.vector( t( kl.compreg(y, x[, -1])$be ) )
+  ini <- as.vector( t( kl.compreg(y, x[, -1, drop = FALSE])$be ) )
   options (warn = -1)
   qa <- nlm(jsreg, ini, y = y, x = x, d = d)
   qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
@@ -46,7 +46,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         ida <- sample( 1:n, n, replace = TRUE )
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( kl.compreg(yb, xb[, -1])$be ) ) ## initial values
+        ini <- as.vector( t( kl.compreg(yb, xb[, -1, drop = FALSE])$be ) ) ## initial values
         qa <- nlm(jsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
@@ -60,15 +60,15 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       runtime <- proc.time()
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export="jsreg") %dopar% {
+      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export=c("jsreg", "kl.compreg") ) %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( kl.compreg(yb, xb[, -1])$beta ) ) ## initial values
+        ini <- as.vector( t( kl.compreg(yb, xb[, -1, drop = FALSE])$be ) ) ## initial values
         qa <- nlm(jsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
-        betaboot[i, ] <- qa$estimate
+        betaboot <- qa$estimate
       }
       stopCluster(cl)
       s <- Rfast::colVars(ww, std = TRUE)
@@ -77,14 +77,11 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     }
   }
 
-  if ( is.null(xnew) ) {
-    mu <- cbind( 1, exp(x %*% be) )
-    est <- mu / Rfast::rowsums(mu)
-  } else {
+  if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
-  }
+  }  else  est <- NULL
 
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)

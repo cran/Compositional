@@ -3,7 +3,6 @@
 #### Tsagris Michail 10/2014
 #### mtsagris@yahoo.gr
 ################################
-
 ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   ## xnew is the new independent variables values
   ## whose values of y you want to estimate
@@ -17,7 +16,6 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   ## but if xnew is x (by default), the pred is not important
   ## the pred is important if xnew is not x
   if ( all( y > 0 & y < 1 ) )  y <- log(y / ( 1 - y) ) ## logistic normal
-
   n <- length(y)  ## sample size
   p <- dim(x)[2]  ## dimensionality of x
   my <- sum(y) / n

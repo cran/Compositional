@@ -9,7 +9,7 @@ Multivariate kernel density estimation.
 }
 
 \usage{
-mkde(x, h, thumb = "none")
+mkde(x, h, thumb = "silverman")
 }
 
 \arguments{
@@ -43,7 +43,7 @@ B.W. Silverman (1986). Density estimation for statistics and data analysis, page
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

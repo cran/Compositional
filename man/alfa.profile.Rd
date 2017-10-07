@@ -42,7 +42,7 @@ Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformati
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <athineou@csd.uoc.gr>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 %\note{
 %%  ~~further notes~~

@@ -45,8 +45,6 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   qa <- optim(qa$estimate, dirireg2, hessian = TRUE)
   phipar <- qa$par[1:p]
   be <- matrix(qa$par[-c(1:p)], nrow = p)  ## matrix of the betas
-  mu1 <- cbind( 1, exp(x %*% be) )
-  ma <- mu1 / Rfast::rowsums(mu1)  ## fitted values
   phi <- as.numeric( exp(x %*% phipar) )  ## estimated beta parameters of phi
   s <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated parameters
   std.phi <- s[1:p]  ## std of the estimated beta parameters of the phi
@@ -57,12 +55,12 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   if ( !is.null( colnames(y) ) ) {
     colnames(be) <- colnames(seb) <- colnames(y[, -1])
   } else  colnames(beta) <- colnames(seb) <- paste("Y", 1:d, sep = "")
-
+  
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
-    mu <- cbind( 1, exp(xnew %*% beta) )
+    mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
-  } else  est <- ma
+  } else  est <- NULL
 
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)

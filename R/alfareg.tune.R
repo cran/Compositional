@@ -1,15 +1,11 @@
 ################################
 #### Tuning the alfa in alfa-regression via K-fold cross validation
-#### The bias corrected performance is returned using the
 #### Tibshirani and Tibshirani method
 #### Tsagris Michail 11/2015
 #### mtsagris@yahoo.gr
 #### References: Tsagris Michail (2015)
 #### Regression analysis with compositional data containing zero values
 #### Chilean Journal of Statistics, 6(2): 47-57
-#### Tibshirani and Tibshirani (2009),
-#### A bias correction for the minimum error rate in cross-validation
-#### The Annals of Applied Statistics, 3(1):822-829
 ################################
 alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc = 1, graph = FALSE) {
   ## y is the compositional data (dependent variable)
@@ -54,7 +50,6 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     val <- which.min(kl)
     per <- min(kl)
     pera <- Rfast::rowMins(kula, value = TRUE)  ## apply(kula, 1, min)
-    bias <- mean( kula[, val] - pera )
     apa <- proc.time() - apa
 
   } else {
@@ -91,7 +86,6 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     val <- which.min(kl)
     per <- min(kl)
     pera <- Rfast::rowMins(kula, value = TRUE)   ## apply(kula, 1, min)
-    bias <- mean( kula[, val] - pera )
     apa <- proc.time() - apa
   }
 
@@ -102,5 +96,5 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     lines(a, kl, col = 2, lty = 2, lwd = 2)
   }
 
-  list(runtime = apa, kula = kula, kl = kl, opt = opt, value = per + bias, bias = bias)
+  list(runtime = apa, kula = kula, kl = kl, opt = opt, value = per)
 }

@@ -14,9 +14,6 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   n <- dim(x)[1]  ## sample size
   if ( A >= min( table(ina) ) )    A <- min( table(ina) ) - 3  ## The maximum
   ina <- as.numeric(ina) ## makes sure ina is numeric
-  ela <- matrix(nrow = length(a), ncol = A - 1)
-  colnames(ela) <- paste("k=", 2:A, sep = "")
-  rownames(ela) <- paste("alpha=", a, sep = "")
   if ( is.null(mat) ) {
     nu <- sample(1:n, min( n, round(n / M) * M ) )
     ## It may be the case this new nu is not exactly the same
@@ -30,6 +27,9 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   if ( type == "S" ) {
     runtime <- proc.time()
     folds <- list()
+    ela <- matrix(nrow = length(a), ncol = A - 1)
+    colnames(ela) <- paste("k=", 2:A, sep = "")
+    rownames(ela) <- paste("alpha=", a, sep = "")
     for (i in 1:M)  folds[[ i ]] <- mat[, i]
     ## Standard algorithm
     for (i in 1:length(a) ) {
@@ -46,26 +46,26 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   } else {
     per <- array( dim = c( M, A - 1, length(a) ) )  ## The estimated percentages
     for ( i in 1:length(a) ) {
+      z <- alfa(x, a[i], h = FALSE)$aff
       for (vim in 1:M) {
         id <- ina[ mat[, vim] ]   ## groups of test sample
         ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
         aba <- as.vector( mat[, vim] )
         aba <- aba[aba > 0]
-        g <- alfa.knn(x[aba, ], x[-aba, ], ina = ina2, a = a[i], k = 2:A, type = "NS", mesos = mesos, apostasi = apostasi)
+        g <- alfa.knn(z[aba, ], z[-aba, ], ina = ina2, a = NULL, k = 2:A, type = "NS", mesos = mesos, apostasi = apostasi)
         be <- g - id
         per[vim, , i] <- Rfast::colmeans(be == 0)
       }
     }
-    for ( i in 1:length(a) )  ela[i, ] <- colMeans(per[, , i])
+	  ela <- t( colMeans(per) )
+	  colnames(ela) <- paste("k=", 2:A, sep = "")
+    rownames(ela) <- paste("alpha=", a, sep = "")
     runtime <- proc.time() - runtime
     if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
-    bias <- numeric(M)
-    for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
-    bias <- mean(bias)
-    performance <- c(opt - bias, bias)
-    names(performance) <- c( "rate", "bias" )
+    performance <- opt
+    names(performance) <- "rate"
     res <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
   }  ## end if (type == "S")
   res

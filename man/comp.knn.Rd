@@ -19,16 +19,20 @@ alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "eucli
 
 \arguments{
 \item{xnew}{
-A matrix with the new compositional data whose group is to be predicted. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
+A matrix with the new compositional data whose group is to be predicted. Zeros are allowed, but you must be carefull 
+to choose strictly positive values of \eqn{\alpha} or not to set apostasi= "Ait".
 }
 \item{x}{
-A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
+A matrix with the available compositional data. Zeros are allowed, but you must be carefull to choose strictly 
+positive vcalues of \eqn{\alpha} or not to set apostasi= "Ait".
 }
 \item{ina}{
-A group indicator variable for the avaiable data.
+A group indicator variable for the available data.
 }
 \item{a}{
-The value of \eqn{\alpha}. As zero values in the compositional data are allowed, you must be carefull to choose strictly positive vcalues of \eqn{\alpha}.
+The value of \eqn{\alpha}. As zero values in the compositional data are allowed, you must be carefull to choose 
+strictly positive vcalues of \eqn{\alpha}. You have the option to put a = NULL. In this case, the xnew and x are
+assumed to be the already \eqn{\alpha}-transformed data.
 }
 \item{k}{
 The number of nearest neighbours to consider.
@@ -62,7 +66,7 @@ Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classificat
 \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
 Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
-Journal of Applied Statistics. http://www.tandfonline.com/doi/full/10.1080/02664763.2016.1193846
+Journal of Applied Statistics 44.7 (2017): 1137-1152.
 }
 
 \author{

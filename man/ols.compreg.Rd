@@ -13,20 +13,20 @@ ols.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with the compositional data (dependent variable). Zero values are allowed.
+\item{y}{
+A matrix with the compositional data (dependent variable). Zero values are allowed.
 }
-  \item{x}{
-  The predictor variable(s), they have to be continuous.
+\item{x}{
+The predictor variable(s), they have to be continuous.
 }
-  \item{B}{
-  If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
+\item{B}{
+If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
 }
-  \item{ncores}{
+\item{ncores}{
 If ncores is 2 or more parallel computing is performed. This is to be used for the case of bootstrap. If B=1, this is not taken into consideration.
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
 }
 }
 
@@ -37,17 +37,17 @@ This involves numerical optimisation since the relationship is non linear. There
 
 \value{
 A list including:
-  \item{runtime}{
-  The time required by the regression.
+\item{runtime}{
+The time required by the regression.
 }
-  \item{beta}{
+\item{beta}{
 The beta coefficients.
 }
-  \item{seb}{
+\item{seb}{
 The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
-  \item{est}{
-The fitted or the predicted values (if xnew is not NULL).
+\item{est}{
+The fitted of xnew if xnew is not NULL.
 }
 }
 

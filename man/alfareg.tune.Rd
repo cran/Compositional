@@ -33,13 +33,12 @@ You can specify your own folds by giving a mat, where each column is a fold. Eac
 The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 \item{graph}{
-If grpah is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
+If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data and the numerical otpimiation is performed for the regression, unless \eqn{\alpha=0}, where the coefficients are available in closed form.
-The estimated bias correction via the Tibshirani and Tibshirani (2009) criterion is applied.
+The \eqn{\alpha}-transformation is applied to the compositional data and the numerical optimisation is performed for the regression, unless \eqn{\alpha=0}, where the coefficients are available in closed form.
 }
 
 \value{
@@ -58,10 +57,7 @@ A vector with twice the Kullback-Leibler divergence of the observed from the fit
 The optimal value of \eqn{\alpha}.
 }
   \item{value}{
-The minimum value of twice the Kullback-Leibler with the estimated bias added.
-}
-  \item{bias}{
-The stimated bias.
+The minimum value of twice the Kullback-Leibler.
 }
 }
 
@@ -72,8 +68,6 @@ http://arxiv.org/pdf/1508.01913v1.pdf
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
-
-Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
 
 \author{

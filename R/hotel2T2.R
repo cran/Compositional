@@ -45,8 +45,8 @@ hotel2T2 <- function(x1, x2, a = 0.05, R = 999, graph = FALSE) {
     ## to the combined mean and thus equal under the null hypothesis
     mc1 <-  - xbar1 + mc
     mc2 <-  - xbar2 + mc
-    y1 <- x1 + rep( mc1, rep(n1, p) )
-    y2 <- x2 + rep( mc2, rep(n2, p) )
+    y1 <- Rfast::eachrow(x1, mc1, oper = "+")
+    y2 <- Rfast::eachrow(x2, mc2, oper = "+" )
     tb <- numeric(R)
     for (i in 1:R) {
       b1 <- sample(1:n1, n1, replace = TRUE)

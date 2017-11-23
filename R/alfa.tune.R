@@ -15,7 +15,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   D <- dim(x)[2]  ## number of components
   d <- D - 1  ## dimensionality of the simplex
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
-  con <-  -n / 2 * d * log(2 * pi) - (n - 1) * d/2 + n * (d + 0.5) * log(D)
+  con <-  - 0.5 * n * d * log(2 * pi) - 0.5 * (n - 1) * d + n * (d + 0.5) * log(D)
 
   pa <- function(a, x) {
     trans <- alfa(x, a)

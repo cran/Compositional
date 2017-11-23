@@ -61,7 +61,7 @@ The beta coefficients.
 The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
 \item{est}{
-The fitted or the predicted values (if xnew is not NULL).
+The fitted values of xnew if xnew is not NULL.
 }
 }
 

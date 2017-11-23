@@ -13,17 +13,17 @@ multivreg(y, x, plot = TRUE, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with the Eucldidean (continuous) data.
+\item{y}{
+A matrix with the Eucldidean (continuous) data.
 }
-  \item{x}{
-  A matrix with the predictor variable(s), they have to be continuous.
+\item{x}{
+A matrix with the predictor variable(s), they have to be continuous.
 }
-  \item{plot}{
-  Should a plot appear or not?
+\item{plot}{
+Should a plot appear or not?
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
 }
 }
 
@@ -33,23 +33,23 @@ multivreg(y, x, plot = TRUE, xnew = NULL)
 
 \value{
 A list including:
-  \item{suma}{
-  A summary as produced by \code{\link{lm}}, which inlcudes the coefficients, their standard error, t-values, p-values.
+\item{suma}{
+A summary as produced by \code{\link{lm}}, which inlcudes the coefficients, their standard error, t-values, p-values.
 }
-  \item{r.squared}{
-  The value of the \eqn{R^2} for each univariate regression.
+\item{r.squared}{
+The value of the \eqn{R^2} for each univariate regression.
 }
-  \item{resid.out}{
-  A vector with number indicating which vectors are potential residual outliers.
+\item{resid.out}{
+A vector with number indicating which vectors are potential residual outliers.
 }
-  \item{x.leverage}{
-  A vector with number indicating which vectors are potential outliers in the predicto variables space.
+\item{x.leverage}{
+A vector with number indicating which vectors are potential outliers in the predicto variables space.
 }
-  \item{out}{
-  A vector with number indicating which vectors are potential outliers in the residuals and in the predictor variables space.
+\item{out}{
+A vector with number indicating which vectors are potential outliers in the residuals and in the predictor variables space.
 }
-  \item{est}{
-  The fitted values if xnew is NULL, or the predicted values otherwise.
+\item{est}{
+The predicted values if xnew is not NULL.
 }
 }
 

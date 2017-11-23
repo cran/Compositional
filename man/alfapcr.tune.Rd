@@ -44,7 +44,7 @@ A number parameter for the filled contour plot, taken into account only if graph
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. The estimated bias correction via the (Tibshirani and Tibshirani, 2009) criterion is applied.
+The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. 
 }
 
 \value{
@@ -57,7 +57,7 @@ The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the
 The best pair of \eqn{\alpha} and number of principal components.
 }
   \item{performance}{
-The minimum mean squared error of prediction (bias corrected) and the estimated bias.
+The minimum mean squared error of prediction.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -70,9 +70,6 @@ Tsagris M. (2015). Regression analysis with compositional data containing zero v
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
 
 Jolliffe I.T. (2002). Principal Component Analysis.
-
-
-Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
 
 \author{

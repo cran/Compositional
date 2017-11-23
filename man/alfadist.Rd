@@ -1,18 +1,24 @@
 \name{The alpha-distance}
 \alias{alfadist}
+\alias{alfadista}
 \title{
 The \eqn{\alpha}-distance
 }
 
 \description{
-This is the Euclidean distance after the \eqn{\alpha}-transformation has been applied.
+This is the Euclidean (or Manhattan) distance after the \eqn{\alpha}-transformation has been applied.
 }
 
 \usage{
 alfadist(x, a, type = "euclidean", square = FALSE)
+alfadista(xnew, x, a, type = "euclidean", square = FALSE)
+
 }
 
 \arguments{
+\item{xnew}{
+A matrix or a vector with new compositional data.
+}
 \item{x}{
 A matrix with the compositional data.
 }

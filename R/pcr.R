@@ -14,41 +14,23 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   ## k shows the number of components to keep
   m <- mean(y)
   y <- y - m  ## standardize the dependent variable
-  n <- dim(x)[1]
   p <- dim(x)[2]
-  mx <- Rfast::colmeans(x)
-  s <- Rfast::colVars(x, std = TRUE)
-  x <- t( ( t(x) - mx )/ s )  ## standardise the x values
-  #eig <- eigen( crossprod(x) )  ## eigen analysis of the design matrix
-  #values <- eig$values  ## eigenvalues
-  eig <- prcomp(x, center = FALSE)
+  if (k > p)   k <- p
+  eig <- prcomp(x, center = TRUE, scale = TRUE)
   values <- eig$sdev^2
   per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
-  #vec <- eig$vectors  ## eigenvectors, or principal components
-  vec <- eig$rotation
+  vec <- eig$rotation[, 1:k, drop = FALSE]
   z <- x %*% vec  ## PCA scores
-  mod <- Rfast::lmfit(x, y)  ## lm.fit is an internal of lm and thus faster
-  sigma <- sum( mod$residuals^2 ) / (n - p - 1)  ## estimated variance
-  zzk <- crossprod( z[, 1:k] )
-  A <- vec[, 1:k] %*% chol2inv( chol(zzk) )
-  b <- A %*% crossprod( z[, 1:k], y )
-  ## b is the PCA based coefficients
-  mse <- r2 <- NULL
+  zk <- Rfast::colsums(z^2)
+  zzk <- matrix(0, k, k)
+  diag(zzk) <- zk
+  A <- vec %*% chol2inv( chol(zzk) )
+  be <- A %*% crossprod( z, y )  ## PCA based coefficients
+  est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
-    xnew <- t( ( t(xnew) - mx) / s ) ## standardize the xnew values
-    est <- as.vector( m + xnew %*% b )  ## predicted values for PCA model
-  } else {
-    est <- as.vector( m + x %*% b )  ## fitted values for PCA model
-    mse <- sum( (y + m - est)^2 ) / (n - k)  ## mean squared error of PCA model
-    r2 <- 1 - (n - 1)/(n - k - 1) * ( 1 - cor(y, est)^2 )
+    est <- as.vector( m + xnew %*% be )  ## predicted values for PCA model
   }
-  ## rs is the adjusted R squared for the PCA model
-  va <- sigma * tcrossprod( A, vec[, 1:k] )
-  ## va is the covariance matrix of the parameters
-  ## of the parameters of the PCA model
-  vara <- sqrt( diag(va) )  ## standard errors of coefficients of PCA model
-  param <- cbind(b, vara)
-  colnames(param) <- c("beta", "std.error")
-  list(parameters = param, mse = mse, adj.rsq = r2, per = per[k], est = est)
+  rownames(be) <- colnames(x)
+  list(parameters = be, per = per[k], est = est)
 }

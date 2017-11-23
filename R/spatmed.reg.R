@@ -8,7 +8,6 @@
 ################################
 spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
 
-  ## the desing matrix is created
   x <- model.matrix(y ~ ., data.frame(x) )
   p <- dim(x)[2]
   d <- dim(y)[2]
@@ -34,7 +33,7 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
     ela <- which( ww == 0 )
     z <- x / ww
     if ( length(ela) > 0 )  z[ela, ] <- 0
-    B2 <- solve(crossprod(z, x), crossprod(z, y))
+    B2 <- solve( crossprod(z, x), crossprod(z, y) )
   }
   be <- B2
   seb <- NULL

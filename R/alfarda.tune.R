@@ -53,18 +53,11 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 
   percent <- props[ , , which.max(opt)]
   se <- ser[, , which.max(opt)]
   confa <- as.vector( which(props == max( props), arr.ind = TRUE )[1, ] )
-  bias <- numeric(M)
   pera <- array( dim = c( length(gam), length(del), length(a) ) )
-  
-  for (i in 1:M) {
-    for ( j in 1:length(a) )  pera[, , j] <- info[[ j ]][, , i]
-    bias[i] <- max(pera) - pera[ confa[1], confa[2], confa[3] ]
-  }
-
-  opt <- props[ confa[1], confa[2], confa[3] ] - mean(bias)
+  opt <- props[ confa[1], confa[2], confa[3] ] 
   seopt <- ser[ confa[1], confa[2], confa[3] ]
-  res <- c( opt, mean(bias), seopt, a[ confa[3] ], gam[ confa[1] ], del[ confa[2] ] )
-  names(res) <- c( "rate", "bias", "se of rate", "best_a", "best_gam", "best del" )
+  res <- c( opt, seopt, a[ confa[3] ], gam[ confa[1] ], del[ confa[2] ] )
+  names(res) <- c( "rate", "se of rate", "best_a", "best_gam", "best del" )
   runtime <- proc.time() - toc
 
   list(result = res,  percent = percent, se = se, runtime = runtime)

@@ -37,9 +37,8 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   x.leverage <- which(dx > crit.x)
   out.and.lever <- which(dx > crit.x & dres > crit.res)
 
-  if ( is.null(xnew) ) {
-    est <- mod$fitted
-  } else {
+  est <- NULL
+  if ( !is.null(xnew) ) {
     xnew <- cbind(1, xnew)
     est <- xnew %*% mod$coefficients
   }
@@ -60,11 +59,9 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   if ( is.null(colnames(y)) ) {
     dimnames(suma) <- list( rownames(wa), colnames(wa), paste("Y", 1:d, sep = "") )
     names(r.squared) <- paste("Y", 1:d, sep = "")
-    colnames(est) <- paste("Y", 1:d, sep = "")
   } else {
     dimnames(suma) <- list( rownames(wa), colnames(wa), colnames(y) )
     names(r.squared) <- colnames(y)
-    colnames(est) <- colnames(y)
   }
 
   list(suma = suma, r.squared = r.squared, resid.out  = resid.out,

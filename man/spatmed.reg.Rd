@@ -51,7 +51,7 @@ The beta coefficients.
 The standard error of the beta coefficients is returned if ses=TRUE and NULL otherwise.
 }
 \item{est}{
-The fitted or the predicted values (if xnew is not NULL).
+The fitted of xnew if xnew is not NULL.
 }
 }
 

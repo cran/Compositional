@@ -52,7 +52,7 @@ The beta coefficients.
 The standard error of the beta coefficients.
 }
 \item{est}{
-The fitted or the predicted values (if xnew is not NULL).
+The fitted values for xnew if xnew is not NULL.
 }
 }
 

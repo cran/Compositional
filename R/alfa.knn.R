@@ -26,42 +26,43 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apost
   ina <- as.numeric(ina)
   nc <- max(ina) ## The number of groups
   nu <- dim(xnew)[1]
-  znew <- alfa(xnew, a, h = FALSE)$aff
-  z <- alfa(x, a, h = FALSE)$aff
-
+  if ( !is.null(a) ) {
+    znew <- alfa(xnew, a, h = FALSE)$aff
+    z <- alfa(x, a, h = FALSE)$aff
+  } else {
+    znew <- xnew
+	  z <- x
+  }
   if (type == "NS") {
     ## Non Standard algorithm
-    apo <- Rfast::dista(znew, z, type = apostasi, trans = FALSE)
     klen <- length(k)
-    if ( klen == 1 ) {
-      ta <- matrix(nrow = nu, ncol = nc)
-      for (m in 1:nc) {
-        apo <- apo[ina == m, ]
-        apo <- Rfast::sort_mat(apo)
-        if ( mesos ) {
-          ta[, m] <- Rfast::colmeans( apo[1:k, ,drop = FALSE] )
-        } else  ta[, m] <- Rfast::colhameans( apo[1:k, , drop = FALSE] )
-      }
-      g <- as.matrix( Rfast::rowMins(ta) )
-    } else {
-      g <- matrix(0, nu, klen)
-      ta <- matrix(nrow = nu, ncol = nc)
+    g <- matrix(0, nu, klen)
+    ta <- matrix(nrow = nu, ncol = nc)
+    apo <- list()
+    for (m in 1:nc) {
+      disa <- Rfast::dista(znew, z[ina == m,], type = apostasi, trans = FALSE)
+      apo[[ m ]] <- Rfast::sort_mat(disa)[1:max(k), ]
+    }
+    if ( mesos ) {
       for (j in 1:klen) {
         for (m in 1:nc) {
-          apo <- apo[ina == m, ]
-          apo <- Rfast::sort_mat(apo)
-          if ( mesos ) {
-            ta[, m] <- Rfast::colmeans( apo[1:k[j], , drop = FALSE] )
-          } else  ta[, m] <- Rfast::colhameans( apo[1:k[j], , drop = FALSE] )
+          ta[, m] <- Rfast::colmeans( apo[[ m ]][1:k[j], , drop = FALSE] )
         }
-        g[, j] <- Rfast::rowMins(ta)
       }
-    }
+      g[, j] <- Rfast::rowMins(ta)
+    } else {  ## mesos = FALSE
+      for (j in 1:klen) {
+        for (m in 1:nc) {
+          ta[, m] <- Rfast::colhameans( apo[[ m ]][1:k[j], , drop = FALSE] )
+		}
+      }
+      g[, j] <- Rfast::rowMins(ta)
+    }  ## end if (mesos)
 
   } else if (type == "S") {
     ## Standard algorithm
     g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = apostasi, type = "C", freq.option = 1)
-  }
+  }  ## end if (type == "S")
   colnames(g) <- paste("k=", k, sep = "")
   g
 }

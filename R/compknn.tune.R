@@ -28,7 +28,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     aba <- as.vector( mat[, vim] )
     aba <- aba[aba > 0]
     for ( i in 1:length(a) ) {
-      g <- comp.knn(x[aba, ], x[-aba, ], ina2, a = a[i], k = 2:A, type = "S", apostasi = apostasi, mesos = mesos)
+	  z <- x^a[i]
+      z <- x / Rfast::rowsums( z )
+      g <- comp.knn(z[aba, ], z[-aba, ], ina2, a = NULL, k = 2:A, type = "S", apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, , i] <- Rfast::colmeans(be == 0)
     }
@@ -38,20 +40,16 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
   if (apostasi == "Ait" | apostasi == "Hellinger" | apostasi == "angular" ) {
 
     ela <- Rfast::colmeans(per)
-    opt <- max(ela)
+    performance <- max(ela)
+    names(performance) <- "rate"
     names(ela) <- paste("k=", 2:A, sep = "")
     best_k <- which.max(ela) + 1
-    bias <- Rfast::rowMaxs(per, value = TRUE) - per[, best_k]  ## apply(per, 1, max) - per[, best_k]
-    bias <- mean(bias)
-    performance <- c(opt - bias, bias)
-    names(performance) <- c( "rate", "bias" )
 
     if (graph)  plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2, ylab = "Estimated percentage of correct classification")
     results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1, runtime = runtime)
 
   } else {
-    ela <- matrix(nrow = length(a), ncol = A - 1)
-    for ( i in 1:length(a) )  ela[i, ] <- colMeans(per[, , i])
+    ela <- t( colMeans(per) )
     ## The ela matrix contains the averages of the R
     ## repetitions over alpha and k
     colnames(ela) <- paste("k=", 2:A, sep = "")
@@ -59,13 +57,9 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     ## The code for the heat plot of the estimated percentages
     if (graph)  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
 
-    opt <- max(ela)
-    confa <- which(ela == opt, arr.ind = TRUE)[1, ]
-    bias <- numeric(M)
-    for (i in 1:M)  bias[i] <- opt - per[ i, confa[2], confa[1] ]
-    bias <- mean(bias)
-    performance <- c(opt - bias, bias)
-    names(performance) <- c( "rate", "bias" )
+    performance <- max(ela)
+    names(performance) <- c( "rate")
+    confa <- which(ela == performance, arr.ind = TRUE)[1, ]
     results <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
   }
   results

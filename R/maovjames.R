@@ -7,7 +7,6 @@
 #### when the Ratios of the Population Variances are Unknown
 #### Biometrika, Vol 41, No 1/2, 19-43
 ################################
-
 maovjames <- function(x, ina, a = 0.05) {
   ## x contains all the groups together
   ## a is the significance level
@@ -15,7 +14,6 @@ maovjames <- function(x, ina, a = 0.05) {
   ni <- tabulate(ina)  ## the group sample sizes
   k <- max(ina)  ## the number of groups
   p <- dim(x)[2]  ## the dimensionality
-  n <- dim(x)[1]  ## the total sample size
   ## the objects below will be used later
   me <- mi <- W <- matrix(nrow = k, ncol = p)
   ta <- numeric(k)
@@ -28,7 +26,6 @@ maovjames <- function(x, ina, a = 0.05) {
     wi[, , i] <- ni[i] * chol2inv( chol( cov( zi ) ) )
     me[i, ] <- mi[i, ] %*% wi[, , i]
   }
-
   W <- t( colSums( aperm(wi) ) )
   Ws <- solve(W)
   ma <- Rfast::colsums(me)

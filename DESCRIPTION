@@ -1,6 +1,6 @@
 Package: Compositional
-Version: 2.6
-Date: 2017-10-07
+Version: 2.7
+Date: 2017-11-23
 Title: Compositional Data Analysis
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@yahoo.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com") )
@@ -9,10 +9,10 @@ Maintainer: Michail Tsagris <mtsagris@yahoo.gr>
 Depends: R (>= 3.2.2)
 Imports: sn, mixture, doParallel, stats, parallel, foreach, MASS,
         fields, emplik, Rfast
-Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included.
+Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. The standard textbook for such data is John Aitchison's (1986). "The statistical analysis of compositional data". Chapman & Hall.
 License: GPL (>= 2)
 URL:
 NeedsCompilation: no
-Packaged: 2017-10-07 11:07:31 UTC; user
+Packaged: 2017-11-23 19:35:06 UTC; ad
 Repository: CRAN
-Date/Publication: 2017-10-07 14:30:51 UTC
+Date/Publication: 2017-11-23 21:02:17 UTC

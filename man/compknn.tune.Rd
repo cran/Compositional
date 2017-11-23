@@ -61,7 +61,7 @@ A list including:
 A matrix or a vector (depending on the distance chosen) with the averaged over all folds rates of correct classification for all hyper-parameters (\eqn{\alpha} and k).
 }
 \item{performance}{
-The bias corrected estimated rate of correct classification along with the estimated bias.
+The estimated rate of correct classification.
 }
 \item{best_a}{
 The best value of \eqn{\alpha}. This is returned for "ESOV" and "taxicab" only.
@@ -70,7 +70,7 @@ The best value of \eqn{\alpha}. This is returned for "ESOV" and "taxicab" only.
 The best number of nearest neighbours.
 }
 \item{runtime}{
-The ru time of the cross-validation procedure.
+The run time of the cross-validation procedure.
 }
 }
 
@@ -83,7 +83,7 @@ Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classificat
 \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
 Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
-Journal of Applied Statistics.  http://www.tandfonline.com/doi/full/10.1080/02664763.2016.1193846
+Journal of Applied Statistics 44.7 (2017): 1137-1152.
 }
 
 \author{

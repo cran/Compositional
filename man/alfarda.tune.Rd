@@ -6,7 +6,7 @@ Cross validation for the regularised discriminant analysis with compositional da
 
 \description{
 Cross validation for the regularised discriminant analysis with compositional data using the \eqn{\alpha}-transformation.
-Bias correction is applied using the TT estimate of bias (Tibshirani and Tibshirani, 2009). There is an option for the GCV criterion which is automatic. The predictor variables are compositional data and the \eqn{\alpha}-transformation is applied first.
+There is an option for the GCV criterion which is automatic. The predictor variables are compositional data and the \eqn{\alpha}-transformation is applied first.
 }
 
 \usage{
@@ -42,13 +42,13 @@ del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL)
 }
 
 \details{
-  A k-fold cross validation is performed and the estimated performance is bias corrected as suggested by Tibshirani and Tibshirani (2009).
+  A k-fold cross validation is performed.
 }
 
 \value{
 A list including:
 \item{res}{
-The bias corrected estimated optimal rate, the estimated bias, the estimated standard error of the rate and the best values of \eqn{\alpha}, \eqn{gamma} and \eqn{delta}.
+The estimated optimal rate and the best values of \eqn{\alpha}, \eqn{gamma} and \eqn{delta}.
 }
 \item{percent}{
 For the best value of \eqn{\alpha} the averaged over all folds best prates of correct classification. It is a matrix, where rows correspond to the \eqn{\gamma} values and columns correspond to \eqn{\delta} values.
@@ -66,8 +66,6 @@ Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of sta
 
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of classification, 33(2): 243-261.
-
-Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(2): 822-829.
 }
 
 \author{

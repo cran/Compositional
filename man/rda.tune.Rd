@@ -38,7 +38,7 @@ You can specify your own folds by giving a mat, where each column is a fold. Eac
 }
 
 \details{
-Cross validation is performed to select the optimal parameters for the regularisded discriminant analysis and also estimate the rate of accuracy using the bias correction method of Tibshirani and Tibshirani (2009).
+Cross validation is performed to select the optimal parameters for the regularisded discriminant analysis and also estimate the rate of accuracy.
 
 The covariance matrix of each group is calcualted and then the pooled covariance matrix. The spherical covariance matrix consists of the average of the pooled variances in its diagonal and zeros in the off-diagonal elements. gam is the weight of the pooled covariance matrix and 1-gam is the weight of the spherical covariance matrix, Sa = gam * Sp + (1-gam) * sp. Then it is a compromise between LDA and QDA. del is the weight of Sa and 1-del the weight of each group covariance group. This function is a wrapper for \link{alfa.rda}.
 }
@@ -56,7 +56,7 @@ If graph is TRUE a plot of the performance versus the number of principal compon
   A matrix with the standard error of the mean estimated rates of correct classification. The row values correspond to gam and the columns to the del parameter.
 }
   \item{result}{
-  The bias corrected estimated rate of correct classification along with the best gam and del parameters.
+  The estimated rate of correct classification along with the best gam and del parameters.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -68,8 +68,6 @@ Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of sta
 
 Tsagris Michail, Simon Preston and Andrew TA Wood (2016).  Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification, 33(2):243-261.
 http://arxiv.org/pdf/1106.1451.pdf
-
-Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
 
 \author{

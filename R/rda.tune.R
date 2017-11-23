@@ -113,12 +113,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
   su <- apply(per, 1:2, sd)
   dimnames(percent) <- dimnames(su) <- list(gamma = gam, delta = del)
   confa <- as.vector( which(percent == max( percent ), arr.ind = TRUE )[1, ] )
-  bias <- numeric(M)
-  for (i in 1:M) {
-    confi <- as.vector( which(per[, , i] == max( per[, , i] ), arr.ind = TRUE )[1, ] )
-    bias[i] <- per[ confi[1], confi[2], i] - per[ confa[1], confa[2], i]
-  }
-  result <- cbind( max(percent) - mean(bias), gam[ confa[1] ], del[ confa[2] ] )
+  result <- cbind( max(percent), gam[ confa[1] ], del[ confa[2] ] )
   colnames(result) <- c('optimal', 'best gamma', 'best delta')
   list(per = per, percent = percent, se = su, result = result, runtime = runtime)
 }

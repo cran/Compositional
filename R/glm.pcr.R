@@ -11,35 +11,31 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## oiko can be "binomial" or "poisson"
   p <- dim(x)[2]
   m <- Rfast::colmeans(x)
-  x <- Rfast::standardise(x)  ## standardize the independent variables
-  ## eig <- eigen(crossprod(x))  ## eigen analysis of the design matrix
   eig <- prcomp(x, center = FALSE)
   values <- eig$sdev^2  ## eigenvalues
   per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
-  vec <- eig$rotation  ## eigenvectors, or principal components
+  vec <- eig$rotation[, 1:k, drop = FALSE]  ## eigenvectors, or principal components
   z <- x %*% vec  ## PCA scores
 
   if ( length( Rfast::sort_unique(y) ) == 2 ) {
     oiko <- "binomial"
-    mod <- Rfast::glm_logistic(z[, 1:k], y, full = TRUE)
-    b <- mod$info[, 1]
+    mod <- Rfast::glm_logistic(z, y, full = TRUE)
+    be <- mod$info[, 1]
   } else {
     oiko <- "poisson"
-    mod <- Rfast::glm_poisson(z[, 1:k], y, full = TRUE)
-    b <- mod$info[, 1]
+    mod <- Rfast::glm_poisson(z, y, full = TRUE)
+    be <- mod$info[, 1]
   }
-  be <- vec[, 1:k, drop = FALSE] %*% b[-1]
 
+  est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- matrix(xnew, ncol = p)
-    s <- Rfast::colVars(x, std = TRUE)
-    xnew <- t( ( t(xnew) - m ) / s )## standardize the xnew values
-    es <- as.vector( xnew %*% be ) + b[1]
-  } else  es <- as.vector( x %*% be ) + b[1]
-
-  if (oiko == "binomial") {
-    est <- exp(es) / (1 + exp(es))
-  } else est <- exp(es)     ## fitted values for PCA model
+    znew <- xnew %*% vec  ## PCA scores
+    es <- as.vector( znew %*% be[-1] ) + be[1]
+	if (oiko == "binomial") {
+      est <- exp(es) / (1 + exp(es))
+    } else est <- exp(es)     ## fitted values for PCA model
+  }
 
   list(model = mod, per = per[k], est = est)
 }

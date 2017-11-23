@@ -13,17 +13,17 @@ comp.reg(y, x, type = "classical", xnew = NULL, yb = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with compsitional data. Zero values are not allowed.
+\item{y}{
+A matrix with compsitional data. Zero values are not allowed.
 }
-  \item{x}{
-  The predictor variable(s), they have to be continuous.
+\item{x}{
+The predictor variable(s), they have to be continuous.
 }
-  \item{type}{
-  The type of regression to be used, "classical" for standard multivariate regression, or "spatial" for spatial median regression, which is also robust.
+\item{type}{
+The type of regression to be used, "classical" for standard multivariate regression, or "spatial" for spatial median regression, which is also robust.
 }
-  \item{xnew}{
-  This is by default set to NULL. If you have new data whose compositional data values you want to predict, put them here.
+\item{xnew}{
+This is by default set to NULL. If you have new data whose compositional data values you want to predict, put them here.
 }
 \item{yb}{
 If you have already transformed the data using the additive log-ratio transformation, plut it here. Othewrise leave it NULL. This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process.
@@ -36,17 +36,17 @@ The additive log-ratio transformation is applied and then the chosen multivariat
 
 \value{
 A list including:
-  \item{runtime}{
-  The time required by the regression.
+\item{runtime}{
+The time required by the regression.
 }
-  \item{be}{
+\item{be}{
 The beta coefficients.
 }
-  \item{seb}{
+\item{seb}{
 The standard error of the beta coefficients.
 }
-  \item{est}{
-The fitted values if xnew is NULL, or the predicted values otherwise.
+\item{est}{
+The fitted values of xnew if xnew is NULL.
 }
 }
 

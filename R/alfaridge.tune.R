@@ -8,10 +8,8 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-
 alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1), mat = NULL, ncores = 1, graph = TRUE, col.nu = 15) {
 
-  d <- dim(x)[2] - 1
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
   n <- dim(x)[1]
@@ -49,7 +47,7 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
       z <- alfa(x, a[i])$aff
       mod <- ridge.tune(y, z, M = M, lambda = lambda, mat = mat, ncores = 1, graph = FALSE)
       ms[i] <- as.vector(mod$msp)
-    }	
+    }
     for (i in 1:da)  mspe2[, , i] <- matrix(ww[, i], nrow = M)
     runtime <- proc.time() - tac
   }
@@ -61,17 +59,14 @@ alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(
   mean.mspe <- apply(mspe, 1:2, mean)
   best.par <- ( which(mean.mspe == min(mean.mspe), arr.ind = TRUE)[1, ] )
   opt.mspe <- mean.mspe[ best.par[1], best.par[2] ]
-  estb <- mspe[ best.par[1], best.par[2], 1:M ] - apply(mspe, 3, min)
-  bias <- mean(estb)
-  rownames(mean.mspe) = a   ;  colnames(mspe) = lambda
-
+  rownames(mean.mspe) <- a   
+  colnames(mspe) <- lambda
   if ( graph )  filled.contour( a, lambda, mean.mspe, xlab = expression( paste(alpha, " values") ), ylab = expression( paste(lambda, " values") ) )
 
   best.par <- c( a[ best.par[1] ], best.par[2] )
   names(best.par) <- c("alpha", "lambda")
-  performance <- c(opt.mspe, bias)
-  names(performance) <- c("bias corrected mspe", "estimated bias")
+  performance <- opt.mspe
+  names(performance) <- "mspe"
   runtime <- proc.time()- tac
-  
   list(mspe = mean.mspe, best.par = best.par, performance = performance, runtime = runtime)
 }

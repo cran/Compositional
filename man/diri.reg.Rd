@@ -23,7 +23,8 @@ A matrix with the compositional data (dependent variable). Zero values are not a
 The predictor variable(s), they can be either continnuous or categorical or both.
 }
 \item{plot}{
-A boolean variable specifying whether to plot the leverage values of the observations or not. This is taken into account only when xnew = NULL.
+A boolean variable specifying whether to plot the leverage values of the observations or not. 
+This is taken into account only when xnew = NULL.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -31,7 +32,9 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-A Dirichlet distribution is assumed for the regression. This involves numerical optimisation. The function "diri.reg2" allows for the covariates to be linked with the precisio parameter \eqn{\phi} via the exponential link function \eqn{\phi = e^{x*b}}.
+A Dirichlet distribution is assumed for the regression. This involves numerical optimisation. 
+The function "diri.reg2" allows for the covariates to be linked with the precisio parameter 
+\eqn{\phi} via the exponential link function \eqn{\phi = e^{x*b}}.
 }
 
 \value{
@@ -43,7 +46,8 @@ The time required by the regression.
 The value of the log-likelihood.
 }
 \item{phi}{
-The precision parameter. If covariates are linked with it (function "diri.reg2"), this will be a vector.
+The precision parameter. If covariates are linked with it (function "diri.reg2"), this will 
+be a vector.
 }
 \item{phipar}{
 The coefficients of the phi parameter if it is linked to the covariates.
@@ -64,28 +68,35 @@ The beta coefficients.
 The standard error of the beta coefficients.
 }
 \item{sigma}{
-Th covariance matrix of the regression parameters (for the mean vector and the phi parameter) in the function "diri.reg2".
+Th covariance matrix of the regression parameters (for the mean vector and the phi parameter) in 
+the function "diri.reg2".
 }
   \item{lev}{
 The leverage values.
 }
-  \item{est}{
-The fitted or the predicted values (if xnew is not NULL).
+\item{est}{
+For the "diri.reg" this contains the fitted or the predicted values (if xnew is not NULL). 
+For the "diri.reg2" if xnew is NULL, this
+is also NULL.
 }
 }
 
 \references{
 Maier, Marco J. (2014) DirichletReg: Dirichlet Regression for Compositional Data in R.
-Research Report Series/Department of Statistics and Mathematics, 125. WU Vienna University of Economics and Business, Vienna.
+Research Report Series/Department of Statistics and Mathematics, 125. WU Vienna University of 
+Economics and Business, Vienna.
 http://epub.wu.ac.at/4077/1/Report125.pdf
 
-Gueorguieva, Ralitza, Robert Rosenheck, and Daniel Zelterman (2008). Dirichlet component regression and its applications to psychiatric data. Computational statistics & data analysis 52(12): 5344-5355.
+Gueorguieva, Ralitza, Robert Rosenheck, and Daniel Zelterman (2008). Dirichlet component 
+regression and its applications to psychiatric data. Computational statistics & data analysis 
+52(12): 5344-5355.
 }
 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou 
+<gioathineou@gmail.com>
 }
 
 %\note{

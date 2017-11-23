@@ -33,7 +33,7 @@ mkde <- function(x, h, thumb = "silverman") {
   } else h <- diag( 1 / h)
 
   con <- prod( diag( h ) )
-  y <- x %*% h
+  y <- x %*% ( - h )
   a1 <- Rfast::Dist(y, method = "euclidean", square = TRUE)
-  (0.5 / pi)^(d/2) * con * Rfast::rowmeans( exp(-0.5 * a1 ) )
+  (0.5 / pi)^(d/2) * con * Rfast::rowmeans( exp( 0.5 * a1 ) )
 }

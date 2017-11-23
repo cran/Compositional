@@ -25,22 +25,26 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   xnew <- matrix(xnew, ncol = D)
   nu <- dim(xnew)[1]  ## number of the new observations
   ina <- as.numeric(ina)
-  nc <- max(ina)
-  ta <- matrix(nrow = nu, ncol = nc)
   ng <- tabulate(ina)
+  nc <- length(ng)
+  ta <- matrix(nrow = nu, ncol = nc)
   ci <- 2 * log(ng / n)
-  sk <- array( dim = c(D, D, nc) )
+  sk <- vector("list", nc)
   mesos <- rowsum(x, ina) / ng
-  ni <- rep(ng - 1, each = D^2)
-
-  for (m in 1:nc)  sk[, , m] <- Rfast::cova( x[ina == m, ] )
-  s <- ni * sk
-  Sp <- colSums( aperm(s) ) / (n - nc)  ## pooled covariance matrix
+  sa <- 0
+  for (i in 1:nc) {
+    xi <- x[ina == i, ]
+    m <- sqrt(ng[i]) * mesos[i, ]
+    sk[[ i ]] <- ( crossprod(xi) - tcrossprod(m) )
+    sa <- sa + sk[[ i ]]
+    sk[[ i ]] <- sk[[ i ]] / (ng[i] - 1)   
+  }
+  Sp <- sa/(n - nc)
   sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
   Sa <- gam * Sp + (1 - gam) * sp  ## regularised covariance matrix
 
   for (j in 1:nc) {
-    Ska <- del * sk[, , j] + (1 - del) * Sa
+    Ska <- del * sk[[ j ]] + (1 - del) * Sa
     ta[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( xnew, mesos[j, ], Ska )
     ## the scores are doubled for efficiency, i did not multiply with 0.5
   }

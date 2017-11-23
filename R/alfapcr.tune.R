@@ -60,15 +60,12 @@ alfapcr.tune <- function(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), mat 
   dimnames(mspe) <- list(a = a, PC = paste("PC", 1:d, sep = ""), folds = 1:M )
   mean.mspe <- t( colMeans( aperm(mspe) ) )   ## apply(mspe, 1:2, mean)
   best.par <- ( which(mean.mspe == min(mean.mspe), arr.ind = TRUE)[1, ] )
-  opt.mspe <- mean.mspe[ best.par[1], best.par[2] ]
-  estb <- mspe[ best.par[1], best.par[2], 1:M ] - apply(mspe, 3, min)
-  bias <- mean(estb)
+  performance <- mean.mspe[ best.par[1], best.par[2] ]
+  names(performance) <- "mspe"
   rownames(mean.mspe) = a   ;  colnames(mspe) = paste("PC", 1:d, sep = "")
-  
+
   if ( graph )  filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ), ylab = "Number of PCs")
   best.par <- c( a[ best.par[1] ], best.par[2] )
   names(best.par) <- c("alpha", "PC")
-  performance <- c(opt.mspe, bias)
-  names(performance) <- c("bias corrected mspe", "estimated bias")
   list(mspe = mean.mspe, best.par = best.par, performance = performance, runtime = toc)
 }

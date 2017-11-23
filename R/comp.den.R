@@ -12,22 +12,22 @@
   ## if type = "none" or dist = "dirichlet" the Dirichlet is fitted
   if (dist == "normal") {
     if (type == "alr") {  ## additive log-ratio transformation
-      y <- log(x[, -1]/ x[, 1])
+      y <- alr(x)
       m <- Rfast::colmeans(y)
       mu <- c( 1, exp(m) )
       mu <- mu / sum(mu)
       s <- Rfast::cova(y)
     } else {
-      y <- alfa(x, 0)
+      y <- alfa(x, 0)$aff
       m <- Rfast::colmeans(y)
       mu <- alfainv(m, 0)
-      s <- cov(y)
+      s <- Rfast::cova(y)
     }
     result <- list(mean = m, comp.mean = mu, covariance = s)
 
   } else if (dist == "t") {
       if (type == "alr") {  ## additive log-ratio transformation
-        y <- log(x[, -1]/ x[, 1])
+        y <- alr(x)
         mod <- multivt(y)
         m <- mod$center
         mu <- c( 1, exp(m) )
@@ -35,7 +35,7 @@
         s <- mod$scatter
         dof <- mod$dof
       } else {
-        y <- alfa(x, 0)
+        y <- alfa(x, 0)$aff
         mod <- multivt(y)
         m <- mod$center
         mu <- alfainv(m, 0)
@@ -46,7 +46,7 @@
 
   } else if (dist == "rob") {
       if (type == "alr") {  ## additive log-ratio transformation
-        y <- log(x[, -1]/ x[, 1])
+        y <- alr(x)
         mod <- MASS::cov.rob(y, method = "mcd")
         m <- mod$center
         mu <- c( 1, exp(m) )
@@ -54,7 +54,7 @@
         s <- mod$cov
         best <- mod$best
       } else {
-        y <- alfa(x, 0)
+        y <- alfa(x, 0)$aff
         mod <- MASS::cov.rob(y, method = "mcd")
         m <- mod$center
         mu <- alfainv(m, 0)
@@ -65,13 +65,13 @@
 
   } else if (dist == "spatial") {
       if (type == "alr") {  ## additive log-ratio transformation
-        y <- log(x[, -1]/ x[, 1])
+        y <- alr(x)
         delta <- Rfast::spat.med(y, tol = tol)
         comp.delta <- c( 1, exp( delta ) )
         comp.delta <- delta / sum( delta )
         s <- sscov(y, delta)
       } else {
-        y <- alfa(x, 0)
+        y <- alfa(x, 0)$aff
         delta <- Rfast::spat.med(y)
         comp.delta <- alfainv(delta, 0)
         s <- sscov(y, delta)
@@ -80,7 +80,7 @@
 
   } else if (dist == "skewnorm") {
       if (type == "alr") {  ## additive log-ratio transformation
-        y <- log(x[, -1]/ x[, 1])
+        y <- alr(x)
         mod <- sn::msn.mle(y = y)
         beta <- as.vector( mod$dp$beta )
         Omega <- as.matrix( mod$dp$Omega )
@@ -88,7 +88,7 @@
         cobeta <- c( 1, exp( beta) )
         cobeta <- cobeta / sum(cobeta)
       } else {
-        y <- alfa(x, 0)
+        y <- alfa(x, 0)$aff
         mod <- sn::msn.mle(y = y)
         beta <- as.vector( mod$dp$beta )
         Omega <- as.matrix( mod$dp$Omega )

@@ -5,8 +5,7 @@ Cross validation for the ridge regression
 }
 
 \description{
-Cross validation for the ridge regression is performed using the TT estimate of bias (Tibshirani and Tibshirani, 2009).
-There is an option for the GCV criterion which is automatic.
+Cross validation for the ridge regression is performed. There is an option for the GCV criterion which is automatic.
 }
 
 \usage{
@@ -40,7 +39,7 @@ If graph is set to TRUE the performances for each fold as a function of the \eqn
 }
 
 \details{
-A k-fold cross validation is performed and the estimated performance is bias corrected as suggested by Tibshirani and Tibshirani (2009). This function is used by \code{\link{alfaridge.tune}}.
+A k-fold cross validation is performed. This function is used by \code{\link{alfaridge.tune}}.
 }
 
 \value{
@@ -55,7 +54,7 @@ The values of the mean prediction error for each value of \eqn{\lambda}.
 The value of \eqn{\lambda} which corresponds to the minimum MSPE.
 }
 \item{performance}{
-The minimum bias corrected MSPE along with the estimate of bias.
+The minimum MSPE.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -66,8 +65,6 @@ The time required by the cross-validation procedure.
 Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1):55-67.
 
 Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
-
-Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics 3(2): 822-829.
 }
 
 \author{

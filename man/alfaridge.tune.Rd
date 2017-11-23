@@ -5,8 +5,8 @@
 }
 
 \description{
-  Cross validation for the ridge regression is performed using the TT estimate of bias (Tibshirani and Tibshirani, 2009).
-  There is an option for the GCV criterion which is automatic. The predictor variables are compositional data and the \eqn{\alpha}-transformation is applied first.
+Cross validation for the ridge regression is performed.
+There is an option for the GCV criterion which is automatic. The predictor variables are compositional data and the \eqn{\alpha}-transformation is applied first.
 }
 
 \usage{
@@ -47,7 +47,7 @@ graph = TRUE, col.nu = 15)
 }
 
 \details{
-  A k-fold cross validation is performed and the estimated performance is bias corrected as suggested by Tibshirani and Tibshirani (2009).
+  A k-fold cross validation is performed.
 }
 
 \value{
@@ -60,7 +60,7 @@ The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the
 The best pair of \eqn{\alpha} and \eqn{\lambda}.
 }
 \item{performance}{
-The minimum mean squared error of prediction (bias corrected) and the estimated bias.
+The minimum mean squared error of prediction.
 }
 \item{runtime}{
 The run time of the cross-validation procedure.
@@ -72,8 +72,6 @@ The run time of the cross-validation procedure.
 Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1):55-67.
 
 Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
-
-Tibshirani R.J., and Tibshirani R. (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics 3(2): 822-829.
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf

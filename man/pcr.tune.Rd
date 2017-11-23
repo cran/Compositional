@@ -53,7 +53,7 @@ If graph is TRUE a plot of the performance versus the number of principal compon
   The number of principal components which minimizes the MSPE.
 }
   \item{performance}{
-  The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion.
+  The lowest value of the MSPE.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -62,8 +62,6 @@ The time required by the cross-validation procedure.
 
 \references{
 Jolliffe I.T. (2002). Principal Component Analysis.
-
-Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
 
 \author{

@@ -46,23 +46,17 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
       ytrain <- y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], ]   ## train set independent vars
       xtest <- x[mat[, vim],, drop = FALSE ]  ## test set independent vars
-      mx <- Rfast::colmeans(xtrain)
-      s <- Rfast::colVars(xtrain, std = TRUE)
-      xtrain <- t( (t(xtrain) - mx) / s )  ## standardize the independent variables
-      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
-      # vec <- eig$vectors  ## eigenvectors, or principal components
 	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
-      xnew <- t( ( t(xtest) - mx ) / s ) ## standardize the xnew values
 
       for ( j in 1:maxk) {
         if (oiko == "binomial") {
-          b <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+          be <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
         } else {
-          b <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+          be <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
         }
-        be <- vec[, 1:j, drop = FALSE] %*% b[-1,, drop = FALSE ]
-        es <- as.vector( xnew %*% be ) + b[1, ]
+        ztest <- xtest %*% vec[, 1:j, drop = FALSE]  ## PCA scores
+        es <- as.vector( ztest %*% be[-1] ) + be[1]
 
         if (oiko == "binomial") {
           est <- as.vector(  exp(es) / ( 1 + exp(es) )  )
@@ -87,24 +81,17 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
       ytrain <-  y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], ]   ## train set independent vars
       xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
-      mx <- Rfast::colmeans(xtrain)
-      s <- Rfast::colVars(xtrain, std = TRUE)
-      xtrain <- t( (t(xtrain) - mx) / s ) ## standardize the independent variables
-      # eig <- eigen( crossprod(xtrain) )  ## eigen analysis of the design matrix
-      # vec <- eig$vectors  ## eigenvectors, or principal components
 	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
-      xnew <- t( ( t(xtest) - mx ) / s )  ## standardize the xnew values
-      xnew <- cbind(1, xnew %*% vec)
 
       for ( j in 1:maxk) {
         if (oiko == "binomial") {
-          b <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+          be <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
         } else {
-          b <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+          be <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
         }
-        be <- vec[, 1:j, drop = FALSE] %*% b[-1, , drop = FALSE]
-        es <- as.vector( xnew %*% be ) + b[1, ]
+        ztest <- xtest %*% vec[, 1:j, drop = FALSE]  ## PCA scores
+        es <- as.vector( ztest %*% be[-1] ) + be[1]
 
         if (oiko == "binomial") {
           est <- exp(es) / ( 1 + exp(es) )
@@ -122,13 +109,10 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   }
 
   mpd <- Rfast::colmeans(msp)
-  bias <- msp[, which.min(mpd)] - Rfast::rowMins(msp, value = TRUE)  ## TT estimate of bias
-  estb <- mean( bias )  ## TT estimate of bias
-
   if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components", ylab = "Mean predicted deviance", type = "b")
 
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
-  performance <- c( min(mpd) + estb, estb)
-  names(performance) <- c("MPD", "Estimated bias")
+  performance <- min(mpd)
+  names(performance) <- "MPD"
   list(msp = msp, mpd = mpd, k = which.min(mpd), performance = performance, runtime = runtime)
 }

@@ -75,11 +75,9 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       runtime <- proc.time() - runtime
     }
   }
-
-  if ( is.null(xnew) ) {
-    mu <- cbind( 1, exp(x %*% beta) )
-    est <- mu / Rfast::rowsums(mu)
-  } else {
+  
+  est <- NULL 
+  if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind(1, exp(xnew %*% beta))
     est <- mu / Rfast::rowsums(mu)

@@ -54,7 +54,7 @@ A list including:
   The number of principal components which minimizes the MSPE.
 }
   \item{performance}{
-  The bias corrected lowest value of the MSPE along with the estimated bias via the Tibshirani and Tibshirani (2009) suggestion.
+  The lowest value of the MSPE.
 }
   \item{runtime}{
   The time required by the cross-validation procedure.
@@ -65,8 +65,6 @@ A list including:
 Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data. Computational Statistics & Data Analysis 50(8): 1905-1924.
 
 Jolliffe I.T. (2002). Principal Component Analysis.
-
-Tibshirani and Tibshirani (2009). A bias correction for the minimum error rate in cross-validation. The Annals of Applied Statistics, 3(1):822-829.
 }
 
 \author{

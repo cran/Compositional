@@ -52,6 +52,7 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
+    lev <- NULL
   } else {
     mu <- cbind( 1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)  ## fitted values

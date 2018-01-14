@@ -1,5 +1,5 @@
-4c5a13285b3171242c5d357da804d36f *DESCRIPTION
-211befc5554b503bc847c824399e87d6 *NAMESPACE
+31e491ce22f8103898b1cdeb7c9762e9 *DESCRIPTION
+9aedcc577e32e4540ec5cd53a02de344 *NAMESPACE
 5e287ad413821a5736092de36f6b0a55 *R/alfa.R
 79398b7e7a73078a241e353113ec4322 *R/alfa.knn.R
 9abafc22eacd13288c4e13f2e7284f17 *R/alfa.pcr.R
@@ -43,7 +43,7 @@ df5c5122fd79ab6cd35110922071a840 *R/frechet.R
 6d2ecd8a812b49080ceaa2f936f70089 *R/glmpcr.tune.R
 165562c5f6b1cc02a6662f8b2c463cae *R/helm.R
 dad3ac72276371169ca5ab2babb4d6ca *R/hotel1T2.R
-bc91eead3a8d0bb3333f4bdfd359593e *R/hotel2T2.R
+38dabf796c92422f0b59a7d15e4ae5aa *R/hotel2T2.R
 79ce1aba5931d73533f1ca90990863ef *R/james.R
 ed2e9c810a655114ee099dffcf843deb *R/js.compreg.R
 d23034d6ce06a1251e7fc8884801e732 *R/kl.compreg.R
@@ -54,6 +54,7 @@ a1e35ef64bdaaae038a884b055b17117 *R/klcompreg.boot.R
 9ddf33243f128c53e16bbc9d179a03d9 *R/maovjames.R
 4813755dcf5ba8a7ee4e89bb42b3cb45 *R/mix.compnorm.R
 e549bf2c17247e532db2bee1f4911b16 *R/mixnorm.contour.R
+abbee8a8ecae68b1befbea197492b4d3 *R/mixreg.R
 3a204ddb2b9ddd1ba2f72641ba07167d *R/mkde.R
 7e35156c0633bb3e39335991555b555f *R/mkde.tune.R
 4fac1314042698b6b4ac4164b2313868 *R/multivreg.R
@@ -77,8 +78,10 @@ a48ed868694646c4f6e8e64d3fa8cbe2 *R/ridge.tune.R
 5c076cd89b1e9aec1b9f92c3bb0c45a8 *R/sscov.R
 2dff6e4e1513b345d2714f8ae1e13808 *R/sym.test.R
 aaa7ee8a007ed6b015a7fa42124f2d31 *R/ternary.R
-acfa1e26753cfd3dda159e0a2e15e16d *man/Compositional-package.Rd
-c976582178479e2122219619ff3bce02 *man/alfa.Rd
+1a06f695b28f509ceba0867e585d8f46 *R/totvar.R
+f38b260d41f9751e21554075d26c763a *R/zadr.R
+efcffac6c940577040e83539a59d2595 *man/Compositional-package.Rd
+8d08d9fd45e0218c16c58047cf33e82c *man/alfa.Rd
 b73301aff59456ffcdf4bb8b3f656c24 *man/alfa.pcr.Rd
 864c6415d35334f1c5fa25a9df7cf152 *man/alfa.profile.Rd
 c181a36eed93c73c5dbc9356ad146c54 *man/alfa.rda.Rd
@@ -148,3 +151,5 @@ d193c4788f7794a4d89b641043c4b918 *man/skewnorm.contour.Rd
 4d872920bd3434dccb2d33c9d779de2b *man/sscov.Rd
 0e5cd9afb251f30ec9378df3a5e4aaa1 *man/sym.test.Rd
 8a4493e9d99fd608d42733c2f5e7e455 *man/ternary.Rd
+1b6ff916e542fc0fb78ffd9db4ef3f9a *man/totvar.Rd
+b531c93d0a21140854e62bf5535e3011 *man/zadr.Rd

@@ -1,6 +1,6 @@
 Package: Compositional
-Version: 2.7
-Date: 2017-11-23
+Version: 2.8
+Date: 2018-01-14
 Title: Compositional Data Analysis
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@yahoo.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com") )
@@ -13,6 +13,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 License: GPL (>= 2)
 URL:
 NeedsCompilation: no
-Packaged: 2017-11-23 19:35:06 UTC; ad
+Packaged: 2018-01-14 06:35:33 UTC; user
 Repository: CRAN
-Date/Publication: 2017-11-23 21:02:17 UTC
+Date/Publication: 2018-01-14 15:39:45 UTC

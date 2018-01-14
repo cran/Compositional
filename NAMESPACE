@@ -6,7 +6,8 @@ importFrom("graphics", filled.contour, contour, lines, plot,
 
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq,
-           rgamma, mahalanobis, runif, qt, qf, pf, model.matrix, prcomp)
+           rgamma, mahalanobis, runif, qt, qf, pf, model.matrix, prcomp,
+           .lm.fit)
 
 importFrom("grDevices", terrain.colors, grey)
 importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,

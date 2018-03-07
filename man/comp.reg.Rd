@@ -26,12 +26,14 @@ The type of regression to be used, "classical" for standard multivariate regress
 This is by default set to NULL. If you have new data whose compositional data values you want to predict, put them here.
 }
 \item{yb}{
-If you have already transformed the data using the additive log-ratio transformation, plut it here. Othewrise leave it NULL. This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process.
+If you have already transformed the data using the additive log-ratio transformation, plut it here. Othewrise leave it NULL. 
+This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process.
 }
 }
 
 \details{
-The additive log-ratio transformation is applied and then the chosen multivariate regression is implemented. The alr is easier to explain than the ilr and that is why the latter is avoided here.
+The additive log-ratio transformation is applied and then the chosen multivariate regression is implemented. The alr is easier to explain 
+than the ilr and that is why the latter is avoided here.
 }
 
 \value{
@@ -53,7 +55,7 @@ The fitted values of xnew if xnew is NULL.
 \references{
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

@@ -13,17 +13,17 @@ mkde.tune( x, low = 0.1, up = 3, s = cov(x) )
 }
 
 \arguments{
-  \item{x}{
-  A matrix with Euclidean (continuous) data.
+\item{x}{
+A matrix with Euclidean (continuous) data.
 }
-  \item{low}{
-  The minimum value to search for the optimal bandwidth value.
+\item{low}{
+The minimum value to search for the optimal bandwidth value.
 }
-  \item{up}{
-  The maximum value to search for the optimal bandwidth value.
+\item{up}{
+The maximum value to search for the optimal bandwidth value.
 }
-  \item{s}{
-  A covariance matrix. By default it is equal to the covariance matrix of the data, but can change to a robust covariance matrix, MCD for example.
+\item{s}{
+A covariance matrix. By default it is equal to the covariance matrix of the data, but can change to a robust covariance matrix, MCD for example.
 }
 }
 
@@ -33,16 +33,16 @@ Maximum likelihood cross validation is applied in order to choose the optimal va
 
 \value{
 A list including:
-  \item{hopt}{
-  The optimal bandwidth value.
+\item{hopt}{
+The optimal bandwidth value.
 }
-  \item{maximum}{
-  The value of the pseudo-log-likelihood at that given bandwidth value.
+\item{maximum}{
+The value of the pseudo-log-likelihood at that given bandwidth value.
 }
 
 }
 \references{
-Arsalane Chouaib Guidoum (2015). Kernel Estimator and Bandwidth Selection for Density and its Derivatives. The kedd package.
+Arsalane Chouaib Guidoum (2015). Kernel Estimator and Bandwidth Selection for Density and its Derivatives. The kedd R package.
 http://cran.r-project.org/web/packages/kedd/vignettes/kedd.pdf
 
 M.P. Wand and M.C. Jones (1995). Kernel smoothing, pages 91-92.

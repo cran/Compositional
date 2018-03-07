@@ -14,49 +14,49 @@ mat = NULL, ncores = 1, graph = TRUE, col.nu = 15)
 }
 
 \arguments{
-  \item{y}{
-  A vector with either continuous, binary or count data.
+\item{y}{
+A vector with either continuous, binary or count data.
 }
-  \item{x}{
-  A matrix with the predictor variables, the compositional data. Zero values are allowed.
+\item{x}{
+A matrix with the predictor variables, the compositional data. Zero values are allowed.
 }
-  \item{M}{
+\item{M}{
 The number of folds for the K-fold cross validation, set to 10 by default.
 }
-  \item{maxk}{
+\item{maxk}{
 The maximum number of principal components to check.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
 }
-  \item{mat}{
+\item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
-  \item{ncores}{
+\item{ncores}{
 How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
-  \item{graph}{
+\item{graph}{
 If graph is TRUE (default value) a filled contour plot will appear.
 }
-  \item{col.nu}{
+\item{col.nu}{
 A number parameter for the filled contour plot, taken into account only if graph is TRUE.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called. 
+The \eqn{\alpha}-transformation is applied to the compositional data first and the function "pcr.tune" or "glmpcr.tune" is called.
 }
 
 \value{
 If graph is TRUE a fileld contour a filled contour will appear.
 A list including:
-  \item{mspe}{
+\item{mspe}{
 The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.
 }
-  \item{best.par}{
+\item{best.par}{
 The best pair of \eqn{\alpha} and number of principal components.
 }
-  \item{performance}{
+\item{performance}{
 The minimum mean squared error of prediction.
 }
 \item{runtime}{
@@ -65,9 +65,13 @@ The time required by the cross-validation procedure.
 }
 
 \references{
-Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57. http://arxiv.org/pdf/1508.01913v1.pdf
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of
+Statistics, 6(2): 47-57.
+http://arxiv.org/pdf/1508.01913v1.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+http://arxiv.org/pdf/1106.1451.pdf
 
 Jolliffe I.T. (2002). Principal Component Analysis.
 }

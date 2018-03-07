@@ -13,14 +13,14 @@ diri.contour(a, n = 100, x = NULL)
 }
 
 \arguments{
-  \item{a}{
-  A vector with three elements corresponding to the 3 (estimated) parameters.
+\item{a}{
+A vector with three elements corresponding to the 3 (estimated) parameters.
 }
-  \item{n}{
-  The number of grid points to consider over which the density is calculated.
+\item{n}{
+The number of grid points to consider over which the density is calculated.
 }
-  \item{x}{
-  This is either NULL (no data) or contains a 3 column matrix with compositional data.
+\item{x}{
+This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
 }
 
@@ -32,9 +32,9 @@ The user can plot only the contour lines of a Dirichlet with a given vector of p
 A ternary diagram with the points and the Dirichlet contour lines.
 }
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

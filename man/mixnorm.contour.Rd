@@ -13,11 +13,11 @@ mixnorm.contour(x, mod)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data.
+\item{x}{
+A matrix with the compositional data.
 }
-  \item{mod}{
-  An object containing the output of a \code{\link{mix.compnorm}} model.
+\item{mod}{
+An object containing the output of a \code{\link{mix.compnorm}} model.
 }
 }
 
@@ -31,7 +31,7 @@ A ternary plot with the data and the contour lines of the fitted Gaussian mixtur
 \references{
 Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

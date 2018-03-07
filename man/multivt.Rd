@@ -13,11 +13,11 @@ multivt(y, plot = FALSE)
 }
 
 \arguments{
-  \item{y}{
-  A matrix with continuous data.
+\item{y}{
+A matrix with continuous data.
 }
-  \item{plot}{
-  If plot is TRUE the value of the maximum log-likelihood as a function of the degres of freedom is presented.
+\item{plot}{
+If plot is TRUE the value of the maximum log-likelihood as a function of the degres of freedom is presented.
 }
 }
 
@@ -37,7 +37,7 @@ The scatter matrix estimate.
 The estimated degrees of freedom.
 }
 \item{loglik}{
-The loglikelihood value.
+The log-likelihood value.
 }
 \item{mesos}{
 The classical mean vector.

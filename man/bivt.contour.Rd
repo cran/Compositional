@@ -28,8 +28,9 @@ bivt.contour(x, type = "alr", n = 100, appear = TRUE)
 }
 
 \details{
-The alr or the ilr transformation is applied to the compositional data at first and the location, scatter and degrees of freedom of the bivariate t distribution
-are computed. Then for a grid of points within the 2-dimensional simplex the bivariate t density is calculated and the contours are plotted along with the points.
+The alr or the ilr transformation is applied to the compositional data at first and the location, scatter and degrees 
+of freedom of the bivariate t distribution are computed. Then for a grid of points within the 2-dimensional simplex the 
+bivariate t density is calculated and the contours are plotted along with the points.
 }
 
 \value{
@@ -38,7 +39,7 @@ A ternary diagram with the points (if appear = TRUE) and the bivariate t contour
 
 \references{
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

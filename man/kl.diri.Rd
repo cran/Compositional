@@ -13,19 +13,19 @@ kl.diri(a, b, type = "KL")
 }
 
 \arguments{
-  \item{a}{
-  A vector with the parameters of the first Dirichlet distribution.
+\item{a}{
+A vector with the parameters of the first Dirichlet distribution.
 }
-  \item{b}{
-  A vector with the parameters of the second Dirichlet distribution.
+\item{b}{
+A vector with the parameters of the second Dirichlet distribution.
 }
-  \item{type}{
-  A variable indicating whether the Kullback-Leibler divergence ("KL") or the Bhattacharyya distance ("bhatt") is to be computed.
+\item{type}{
+A variable indicating whether the Kullback-Leibler divergence ("KL") or the Bhattacharyya distance ("bhatt") is to be computed.
 }
 }
 
 \details{
-Note that the order is important in the Kullback-Leibler divergence, since this is asymetric, but not in the Bhattacharyya distance, since it is a metric.
+Note that the order is important in the Kullback-Leibler divergence, since this is asymmetric, but not in the Bhattacharyya distance, since it is a metric.
 }
 
 \value{
@@ -33,7 +33,7 @@ The value of the Kullback-Leibler divergence or the Bhattacharyya distance.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
 }
 
 \author{

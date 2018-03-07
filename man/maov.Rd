@@ -13,10 +13,10 @@ maov(x, ina)
 }
 
 \arguments{
-  \item{x}{
-  A matrix containing Euclidean data.
+\item{x}{
+A matrix containing Euclidean data.
 }
-  \item{ina}{
+\item{ina}{
 A numerical or factor variable indicating the groups of the data.
 }
 }
@@ -28,7 +28,7 @@ Multivariate analysis of variance assuming equality of the covariance matrices.
 \value{
 A list including:
 \item{note}{
-A message stating whether the F or the chi-sqausre approximation has been used.
+A message stating whether the F or the chi-square approximation has been used.
 }
 \item{result}{
 The test statistic and the p-value.

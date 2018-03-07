@@ -13,14 +13,14 @@ mix.compnorm(x, g, model, type = "alr")
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data.
+\item{x}{
+A matrix with the compositional data.
 }
-  \item{g}{
-  How many clusters to create.
+\item{g}{
+How many clusters to create.
 }
-  \item{model}{
-  The type of model to be used.
+\item{model}{
+The type of model to be used.
 \enumerate{
 \item "EII": All groups have the same diagonal covariance matrix, with the same variance for all variables.
 \item "VII": Different diagonal covariance matrices, with the same variance for all variables within each group.
@@ -38,8 +38,8 @@ mix.compnorm(x, g, model, type = "alr")
 \item "EVV": Different covariance matrices, but with the same determinant.
 }
 }
-  \item{type}{
-  Either the additive ("alr") or the isometric ("ilr") log-ratio transformation is to be used..
+\item{type}{
+Either the additive ("alr") or the isometric ("ilr") log-ratio transformation is to be used..
 }
 }
 
@@ -49,24 +49,24 @@ A log-ratio transformation is applied and then a Gaussian mixtued model is const
 
 \value{
 A list including:
-  \item{mu}{
-  A matrix where each row corresponds to the mean vector of eahc cluster.
+\item{mu}{
+A matrix where each row corresponds to the mean vector of eahc cluster.
 }
-  \item{su}{
-  An array containing the covariance matrix of each cluster.
+\item{su}{
+An array containing the covariance matrix of each cluster.
 }
-  \item{prob}{
-  The estimated mixing probabilities.
+\item{prob}{
+The estimated mixing probabilities.
 }
-  \item{est}{
-  The estimated cluster membership values.
+\item{est}{
+The estimated cluster membership values.
 }
 }
 
 \references{
 Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

@@ -36,7 +36,8 @@ An asympotic 95\% confidence interval computed from the log-likelihood ratio tes
 }
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 }
 
 \author{
@@ -54,7 +55,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-library(MASS)
 x <- as.matrix(iris[, 1:4])
 x <- x / rowSums(x)
 alfa.tune(x)

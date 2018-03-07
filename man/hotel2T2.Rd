@@ -55,7 +55,7 @@ The runtime of the bootstrap calibration.
 }
 
 \references{
-Everitt Brian (2005). An R and S-Plus Companion to Multivariate Analysis p. 139-140. Springer.
+Everitt B. (2005). An R and S-Plus Companion to Multivariate Analysis p. 139-140. Springer.
 }
 
 \author{

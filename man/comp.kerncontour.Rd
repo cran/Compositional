@@ -25,8 +25,9 @@ comp.kerncontour(x, type = "alr", n = 100)
 }
 
 \details{
-The alr or the ilr transformation are applied to the compositional data. Then, the optimal bandwidth using maximum likelihood cross-validation is chosen.
-The multivariate normal kernel density is calculated for a grid of points. Those points are the points on the 2-dimensional simplex. Finally the contours are plotted.
+The alr or the ilr transformation are applied to the compositional data. Then, the optimal bandwidth using maximum 
+likelihood cross-validation is chosen. The multivariate normal kernel density is calculated for a grid of points. 
+Those points are the points on the 2-dimensional simplex. Finally the contours are plotted.
 }
 \value{
 A ternary diagram with the points and the kernel contour lines.
@@ -34,7 +35,7 @@ A ternary diagram with the points and the kernel contour lines.
 \references{
 M.P. Wand and M.C. Jones (1995). Kernel smoothing, CrC Press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

@@ -13,17 +13,17 @@ glm.pcr(y, x, k = 1, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A numerical vector, either 0 and 1 (binary) or discrete (count) data.
+\item{y}{
+A numerical vector, either 0 and 1 (binary) or discrete (count) data.
 }
-  \item{x}{
-  A matrixc with the predictor variable(s), they have to be continuous.
+\item{x}{
+A matrixc with the predictor variable(s), they have to be continuous.
 }
-  \item{k}{
-    A number at least equal to 1. How many principal components to use.
+\item{k}{
+A number at least equal to 1. How many principal components to use.
 }
-  \item{xnew}{
-  If you have new data use it, otherwise leave it NULL.
+\item{xnew}{
+If you have new data use it, otherwise leave it NULL.
 }
 }
 
@@ -33,20 +33,20 @@ Principal component regression is performed with binary logistic or Poisson regr
 
 \value{
 A list including:
-  \item{model}{
-The summary of the glm model
+\item{model}{
+The summary of the logistic or Poisson regression model.
 }
-  \item{per}{
+\item{per}{
 The percentage of variance of the predictor variables retained by the k principal components.
 }
-  \item{est}{
+\item{est}{
 The fitted or the predicted values (if xnew is not NULL).
 }
 }
 
 \references{
 Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data.
-Computational Statistics & Data Analysis 50(8): 1905-1924.
+Computational Statistics \& Data Analysis 50(8): 1905-1924.
 
 Jolliffe I.T. (2002). Principal Component Analysis.
 }

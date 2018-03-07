@@ -26,9 +26,10 @@ ternary(x, means = TRUE, pca = FALSE)
 }
 
 \details{
-The first PCA is calcualte using the centred log-ratio transformation as Aitchison (1983, 1986) suggested. If the data contain zero values, the first PCA will not be plotted.
-There are two ways to create a ternary graph. The one I used here, where eqch edge is equal to 1 and the one Aitchison (1986) uses. For every given point, the sum of the distances
-from the edges is equal to 1. Zeros in the data appear with green circles in the triangle and you will also see NaN in the closed geometric mean.
+The first PCA is calcualte using the centred log-ratio transformation as Aitchison (1983, 1986) suggested. If the data contain 
+zero values, the first PCA will not be plotted. There are two ways to create a ternary graph. The one I used here, where eqch edge 
+is equal to 1 and the one Aitchison (1986) uses. For every given point, the sum of the distances from the edges is equal to 1. 
+Zeros in the data appear with green circles in the triangle and you will also see NaN in the closed geometric mean.
 }
 
 \value{
@@ -38,7 +39,7 @@ The ternary plot and a matrix with the closed geometric and the simple arithmeti
 \references{
 Aitchison, J. (1983). Principal component analysis of compositional data. Biometrika 70(1):57-65.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

@@ -13,26 +13,28 @@ alfa.pcr(y, x, a, k, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-  A numerical vector containing the response variable values. They can be continuous,  binary or discrete (counts).
+\item{y}{
+A numerical vector containing the response variable values. They can be continuous,  binary or discrete (counts).
 }
-  \item{x}{
-  A matrix with the predictor variables, the compositional data.
+\item{x}{
+A matrix with the predictor variables, the compositional data.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. 
+If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
-  \item{k}{
-  A number at least equal to 1. How many principal components to use.
+\item{k}{
+A number at least equal to 1. How many principal components to use.
 }
-  \item{xnew}{
-  A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
+\item{xnew}{
+A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then the principal components regression is performed. The family of distributions can be either, "normal" for continuous response and hence normal distribution,
-  "binomial" corresponding to binary response and hence logistic regression or "poisson" for count response and poisson regression.
+The \eqn{\alpha}-transformation is applied to the compositional data first and then the principal components regression is performed. 
+The family of distributions can be either, "normal" for continuous response and hence normal distribution, "binomial" corresponding to 
+binary response and hence logistic regression or "poisson" for count response and poisson regression.
 }
 
 \value{
@@ -40,10 +42,12 @@ The output of the \link{pcr} or \link{glm.pcr} depending on the type of the resp
 }
 
 \references{
-Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57. http://arxiv.org/pdf/1508.01913v1.pdf
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+http://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+http://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{

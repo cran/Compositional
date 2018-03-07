@@ -33,7 +33,7 @@ A vector with the density values.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
 }
 
 \author{
@@ -52,7 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 }
 
 \examples{
-x <- rdiri( 100, c(5, 7, 1, 3, 10, 2, 4) )
+x <- rdiri( 100, c(5, 7, 4, 8, 10, 6, 4) )
 a <- diri.est(x)
 f <- ddiri(x, a$param)
 sum(f)

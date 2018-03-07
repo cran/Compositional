@@ -7,7 +7,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   ## If R > 2, bootstrap calibration is implemented
   dm <- dim(y1)
   n1 <- dm[1]    ;    d <- dm[2]
-  n2 <- dim(y2)[2]
+  n2 <- dim(y2)[1]
 
   eel2 <- function(x, y, n1, n2, d) {
     ## next is the root finding function
@@ -57,8 +57,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
 
   runtime <- proc.time()
   res <- try( eel2(y1, y2, n1, n2, d), silent = TRUE )
-  runtime <- proc.time() - runtime
-  res$runtime <- runtime
+  res$runtime <- proc.time() - runtime
   res$note <- paste("Chi-square approximation")
 
   if ( class(res) == "try-error" ) {
@@ -128,8 +127,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
 
     res$info[2] <- pvalue
     durat <- proc.time() - durat
-    runtime <- runtime + durat
-    res$runtime <- runtime
+    res$runtime <- res$runtime + durat
     res$note <- paste("Bootstrap calibration")
   }
 

@@ -13,15 +13,15 @@ ridge.plot(y, x, lambda = seq(0, 5, by = 0.1) )
 }
 
 \arguments{
-  \item{y}{
-  A numeric vector containing the values of the target variable. If the values are proportions or percentages,
-  i.e. strictly within 0 and 1 they are mapped into R using the logit transformation. In any case, they must be continuous only.
+\item{y}{
+A numeric vector containing the values of the target variable. If the values are proportions or percentages,
+i.e. strictly within 0 and 1 they are mapped into R using the logit transformation. In any case, they must be continuous only.
 }
-  \item{x}{
-  A numeric matrix containing the continuous variables. Rows are samples and columns are features.
+\item{x}{
+A numeric matrix containing the continuous variables. Rows are samples and columns are features.
 }
-  \item{lambda}{
-  A grid of values of the regularisation parameter \eqn{\lambda}.
+\item{lambda}{
+A grid of values of the regularisation parameter \eqn{\lambda}.
 }
 }
 

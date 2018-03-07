@@ -28,11 +28,11 @@ If you have new data use it, otherwise leave it NULL.
 \item{yb}{
 If you have already transformed the data using the \eqn{\alpha}-transformation with the same \eqn{\alpha} as given in the argument "a", put it here. Othewrise leave it NULL.
 
-This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples. 
+This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples.
 But, if you have a few thousands and or a few more components, there will be bigger differences.
 }
 \item{seb}{
-Do you want the standard error of the coefficients to be returned? In the \code{\link{alfareg.tune}} function this extra computation that is avoided can save some time. 
+Do you want the standard error of the coefficients to be returned? In the \code{\link{alfareg.tune}} function this extra computation that is avoided can save some time.
 }
 }
 
@@ -57,7 +57,8 @@ The fitted values for xnew if xnew is not NULL.
 }
 
 \references{
-Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57. http://arxiv.org/pdf/1508.01913v1.pdf
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+http://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
@@ -65,7 +66,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

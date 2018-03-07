@@ -13,17 +13,17 @@ norm.contour(x, type = "alr", n = 100, appear = TRUE)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data. It has to be a 3 column matrix.
+\item{x}{
+A matrix with the compositional data. It has to be a 3 column matrix.
 }
-  \item{type}{
-  This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
+\item{type}{
+This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
 }
-  \item{n}{
-  The number of grid points to consider over which the density is calculated.
+\item{n}{
+The number of grid points to consider over which the density is calculated.
 }
-  \item{appear}{
-  Should the available data appear on the ternary plot (TRUE) or not (FALSE)?
+\item{appear}{
+Should the available data appear on the ternary plot (TRUE) or not (FALSE)?
 }
 }
 
@@ -37,7 +37,7 @@ A ternary diagram with the points (if appear = TRUE) and the bivariate normal co
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

@@ -16,38 +16,38 @@ graph = TRUE, col.nu = 15)
 }
 
 \arguments{
-  \item{y}{
-    A numeric vector containing the values of the target variable. If the values are proportions or percentages,
-    i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
-  }
-  \item{x}{
-    A numeric matrix containing the compositional data, i.e. the predictor variables. Zero values are allowed.
-  }
-  \item{M}{
-    The number of folds. Set to 10 by default.
-  }
-  \item{a}{
-    A vector with the a grid of values of \eqn{\alpha} to be used.
-  }
-  \item{lambda}{
-    A vector with the a grid of values of \eqn{\lambda} to be used.
-  }
-  \item{mat}{
-   You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.     You can also leave it NULL and it will create folds.
-  }
-  \item{ncores}{
-    The number of cores to use. If it is more than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
-  }
-  \item{graph}{
-    If graph is TRUE (default value) a filled contour plot will appear.
-  }
-  \item{col.nu}{
-   A number parameter for the filled contour plot, taken into account only if graph is TRUE.
-  }
+\item{y}{
+A numeric vector containing the values of the target variable. If the values are proportions or percentages,
+i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
+}
+\item{x}{
+A numeric matrix containing the compositional data, i.e. the predictor variables. Zero values are allowed.
+}
+\item{M}{
+The number of folds. Set to 10 by default.
+}
+\item{a}{
+A vector with the a grid of values of \eqn{\alpha} to be used.
+}
+\item{lambda}{
+A vector with the a grid of values of \eqn{\lambda} to be used.
+}
+\item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.     You can also leave it NULL and it will create folds.
+}
+\item{ncores}{
+The number of cores to use. If it is more than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+}
+\item{graph}{
+If graph is TRUE (default value) a filled contour plot will appear.
+}
+\item{col.nu}{
+A number parameter for the filled contour plot, taken into account only if graph is TRUE.
+}
 }
 
 \details{
-  A k-fold cross validation is performed.
+A k-fold cross validation is performed.
 }
 
 \value{
@@ -74,7 +74,8 @@ Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nono
 Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. http://arxiv.org/pdf/1106.1451.pdf
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+http://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
@@ -88,7 +89,7 @@ R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and
     %}
 
 \seealso{
-  \code{ \link{alfa.ridge}, \link{ridge.tune} }
+\code{ \link{alfa.ridge}, \link{ridge.tune} }
 }
 
 \examples{

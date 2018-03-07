@@ -51,7 +51,7 @@ The estimated group membership of the new data.
 }
 
 \references{
-Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
+Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin.
 
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of classification, 33(2): 243-261.

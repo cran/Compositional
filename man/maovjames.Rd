@@ -13,10 +13,10 @@ maovjames(x, ina, a = 0.05)
 }
 
 \arguments{
-  \item{x}{
-  A matrix containing Euclidean data.
+\item{x}{
+A matrix containing Euclidean data.
 }
-  \item{ina}{
+\item{ina}{
 A numerical or factor variable indicating the groups of the data.
 }
 \item{a}{
@@ -45,7 +45,8 @@ The p-value of the corrected test statistic.
 }
 
 \references{
-G.S.James (1954). Tests of Linear Hypothese in Univariate and Multivariate Analysis when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19-43.
+G.S.James (1954). Tests of Linear Hypotheses in Univariate and Multivariate Analysis when the Ratios of the Population Variances are Unknown. 
+Biometrika, 41(1/2): 19-43.
 }
 
 \author{
@@ -59,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{maov}, \link{hotel2T2}, \link{james}, \link{comp.test}
+\code{ \link{maov}, \link{hotel2T2}, \link{james}, \link{comp.test}
 }
 }
 

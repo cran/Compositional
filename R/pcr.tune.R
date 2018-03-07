@@ -38,19 +38,25 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       ytrain <- y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], ]   ## train set independent vars
       xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
-      m <- mean(ytrain)
-      ytrain <- ytrain - m  ## standardize the dependent variable
-      vec <- prcomp(xtrain, center = TRUE, scale = TRUE)$rotation
+      my <- mean(ytrain)
+      ytrain <- ytrain - my  ## standardize the dependent variable
+      m <- Rfast::colmeans(xtrain)
+      n <- dim(xtrain)[1]
+      s <- Rfast::colVars(xtrain, suma = n * m, std = TRUE)
+      xtrain <- t(xtrain) - m
+      xtrain <- xtrain/s
+      xtrain <- t(xtrain)
+      vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
+      znew <- t(xtest) - m
+      znew <- t( znew / s )
       znew <- xtest %*% vec ## standardize the xnew values
-      zk <- Rfast::colsums(z^2)
-      zzk <- matrix(0, maxk, maxk)
-      diag(zzk) <- zk
+      zzk <- crossprod(z)
       cy <- crossprod( z, ytrain )
       for ( j in 1:maxk ) {
         zzkj <- zzk[1:j, 1:j]
         be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
-        est <- m + as.vector( znew[,1:j, drop = FALSE] %*% be )  ## predicted values for PCA model
+        est <- my + as.vector( znew[, 1:j, drop = FALSE] %*% be )  ## predicted values for PCA model
         msp[vim, j] <- sum( (ytest - est)^2 ) / rmat
       }
     }
@@ -70,19 +76,25 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
       ytrain <- y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], ]   ## train set independent vars
       xtest <-  x[mat[, vim], , drop = FALSE]  ## test set independent vars
-      m <- mean(ytrain)
-      ytrain <- ytrain - m  ## standardize the dependent variable
-      vec <- prcomp(xtrain, center = TRUE, scale = TRUE)$rotation
+      my <- mean(ytrain)
+      ytrain <- ytrain - my  ## standardize the dependent variable
+      m <- Rfast::colmeans(xtrain)
+      n <- dim(xtrain)[1]
+      s <- Rfast::colVars(xtrain, suma = n * m, std = TRUE)
+      xtrain <- t(xtrain) - m
+      xtrain <- xtrain/s
+      xtrain <- t(xtrain)
+      vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
+      znew <- t(xtrain) - m
+      znew <- t( znew / s )
       znew <- xtest %*% vec ## standardize the xnew values
-      zk <- Rfast::colsums(z^2)
-      zzk <- matrix(0, maxk, maxk)
-      diag(zzk) <- zk
+      zzk <- crossprod(z)
       cy <- crossprod( z, ytrain )
       for ( j in 1:maxk ) {
         zzkj <- zzk[1:j, 1:j]
         be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
-        est <- m + as.vector( znew %*% be )  ## predicted values for PCA model
+        est <- my + as.vector( znew %*% be )  ## predicted values for PCA model
         er[j] <- sum( (ytest - est)^2 ) / rmat
       }
       return(er)

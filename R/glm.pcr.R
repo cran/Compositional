@@ -10,7 +10,6 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   ## k shows the number of components to keep
   ## oiko can be "binomial" or "poisson"
   p <- dim(x)[2]
-  m <- Rfast::colmeans(x)
   eig <- prcomp(x, center = FALSE)
   values <- eig$sdev^2  ## eigenvalues
   per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues

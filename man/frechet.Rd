@@ -13,13 +13,13 @@ frechet(x, a)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data.
+\item{x}{
+A matrix with the compositional data.
 }
-  \item{a}{
-  The value of the power transformation, it has to be between -1 and 1.
-  If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is
-  applied and the closed geometric mean is calculated.
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1.
+If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is
+applied and the closed geometric mean is calculated.
 }
 }
 

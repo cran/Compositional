@@ -13,11 +13,11 @@ rdiri(n, a)
 }
 
 \arguments{
-  \item{n}{
-  The sample size, a numerical value.
+\item{n}{
+The sample size, a numerical value.
 }
-  \item{a}{
-  A numerical vector with the parameter values.
+\item{a}{
+A numerical vector with the parameter values.
 }
 }
 
@@ -30,9 +30,9 @@ A matrix with the simulated data.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

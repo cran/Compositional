@@ -13,14 +13,15 @@ mkde(x, h, thumb = "silverman")
 }
 
 \arguments{
-  \item{x}{
-  A matrix with Euclidean (continuous) data.
+\item{x}{
+A matrix with Euclidean (continuous) data.
 }
-  \item{h}{
-  The bandwidh value. It can be a single value, which is turned into a vector and then into a diagonal matrix, or a vector which is turned into a diagonal matrix.
+\item{h}{
+The bandwidh value. It can be a single value, which is turned into a vector and then into a diagonal matrix, or a vector which is turned into a diagonal matrix.
 }
-  \item{thumb}{
-  Do you want to use a rule of thumb for the bandwidth parameter? If no, leave it "none", or else put "estim" for maximum likelihood cross-validation, "scott" or "silverman" for Scott's and Silverman's rules of thumb respectively.
+\item{thumb}{
+Do you want to use a rule of thumb for the bandwidth parameter? If no, leave it "none", or else put "estim" for maximum likelihood cross-validation, 
+"scott" or "silverman" for Scott's and Silverman's rules of thumb respectively.
 }
 }
 
@@ -33,7 +34,8 @@ A vector with the density estimates calculated for every vector.
 }
 
 \references{
-Arsalane Chouaib Guidoum (2015). Kernel Estimator and Bandwidth Selection for Density and its Derivatives. The kedd package. http://cran.r-project.org/web/packages/kedd/vignettes/kedd.pdf
+Arsalane Chouaib Guidoum (2015). Kernel Estimator and Bandwidth Selection for Density and its Derivatives. 
+The kedd R package. 
 
 M.P. Wand and M.C. Jones (1995). Kernel smoothing, pages 91-92.
 

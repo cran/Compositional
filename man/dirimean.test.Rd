@@ -17,7 +17,7 @@ dirimean.test(x, a)
 A matrix with the compositional data. No zero values are allowed.
 }
 \item{a}{
-A compositional mean vector. The concentration parameter is estimated at first. If the elements do not sum to 1, it is assumed that the Dirichelt parameters are supplied.
+A compositional mean vector. The concentration parameter is estimated at first. If the elements do not sum to 1, it is assumed that the Dirichlet parameters are supplied.
 }
 }
 
@@ -31,7 +31,7 @@ If there are no zeros in  the data, a list including:
 A matrix with the estimated parameters under the null and the alternative hypothesis.
 }
 \item{loglik}{
-The loglikelihood under the alternative and the null hypothesis.
+The log-likelihood under the alternative and the null hypothesis.
 }
 \item{info}{
 The value of the test statistic and its relevant p-value.
@@ -39,7 +39,7 @@ The value of the test statistic and its relevant p-value.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
 }
 
 \author{
@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 \examples{
 x <- rdiri( 100, c(1, 2, 3) )
 dirimean.test(x, c(1, 2, 3) )
-dirimean.test(x, c(1, 2, 3) / 6 )
+dirimean.test( x, c(1, 2, 3)/6 )
 }
 
 \keyword{ Dirichelt mean vector }

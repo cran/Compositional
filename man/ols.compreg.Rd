@@ -32,7 +32,7 @@ If you have new data use it, otherwise leave it NULL.
 
 \details{
 The ordinary least squares between the observed and the fitted compositional data is adopted as the objective function.
-This involves numerical optimisation since the relationship is non linear. There is no log-likelihood.
+This involves numerical optimization since the relationship is non linear. There is no log-likelihood.
 }
 
 \value{

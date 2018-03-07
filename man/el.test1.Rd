@@ -31,13 +31,14 @@ A boolean variable which is taken into consideration only when bootstrap calibra
 }
 
 \details{
-Multivariate hypothesis test for a one sample mean vector. This is a non parametric test and it works for univariate and multivariate data. The p-value can be calculated either asymptotically or via bootstrap.
+Multivariate hypothesis test for a one sample mean vector. This is a non parametric test and it works for univariate and multivariate data. 
 }
 
 \value{
 A list with the outcome of the function \code{\link{el.test}} which includes
-the -2 loglikelihood ratio, the observed P-value by chi-square approximation, the final value of Lagrange multiplier \eqn{\lambda},
-the gradient at the maximum, the Hessian matrix, the weights on the observations (probabilities multiplied by the sample size) and the number of iteration performed. In addition the runtime of the procedure is reported. In the case of bootstrap, the bootstrap p-value is also returned.
+the -2 log-likelihood ratio, the observed P-value by chi-square approximation, the final value of Lagrange multiplier \eqn{\lambda},
+the gradient at the maximum, the Hessian matrix, the weights on the observations (probabilities multiplied by the sample size) and the number of iteration performed. 
+In addition the runtime of the procedure is reported. In the case of bootstrap, the bootstrap p-value is also returned.
 }
 
 \references{
@@ -63,9 +64,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 x <- Rfast::rmvnorm(100, numeric(10), diag( rexp(10, 0.5) ) )
-el.test1(x, numeric(10), R = 1)
-el.test1(x, numeric(10), R = 499, graph = TRUE)
-eel.test1(x, numeric(10))
+el.test1(x, mu = numeric(10) )
+eel.test1(x, mu = numeric(10) )
 }
 
 \keyword{ Hypothesis test }

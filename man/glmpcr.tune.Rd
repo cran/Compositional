@@ -14,25 +14,25 @@ mat = NULL, ncores = 1, graph = TRUE)
 }
 
 \arguments{
-  \item{y}{
-  A real valued vector.
+\item{y}{
+A real valued vector.
 }
-  \item{x}{
-  A matrix with the predictor variables, they have to be continuous.
+\item{x}{
+A matrix with the predictor variables, they have to be continuous.
 }
-  \item{M}{
-  The number of folds in the cross validation.
+\item{M}{
+The number of folds in the cross validation.
 }
-  \item{maxk}{
-  The maximum number of principal components to check.
+\item{maxk}{
+The maximum number of principal components to check.
 }
-  \item{mat}{
+\item{mat}{
 You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
 }
-  \item{ncores}{
-  The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+\item{ncores}{
+The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
- \item{graph}{
+\item{graph}{
 If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
 }
 }
@@ -44,25 +44,26 @@ Cross validation is performed to select the optimal number of principal componen
 \value{
 If graph is TRUE a plot of the performance versus the number of principal components will appear.
 A list including:
-  \item{msp}{
-  A matrix with the mean squared error of prediction (MSPE) for every fold.
+\item{msp}{
+A matrix with the mean squared error of prediction (MSPE) for every fold.
 }
-  \item{mpd}{
-  A vector with the mean squared error of prediction (MSPE), each value corresponds to a number of principal components.
+\item{mpd}{
+A vector with the mean squared error of prediction (MSPE), each value corresponds to a number of principal components.
 }
-  \item{k}{
-  The number of principal components which minimizes the MSPE.
+\item{k}{
+The number of principal components which minimizes the MSPE.
 }
-  \item{performance}{
-  The lowest value of the MSPE.
+\item{performance}{
+The lowest value of the MSPE.
 }
-  \item{runtime}{
-  The time required by the cross-validation procedure.
-  }
+\item{runtime}{
+The time required by the cross-validation procedure.
+}
 }
 
 \references{
-Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data. Computational Statistics & Data Analysis 50(8): 1905-1924.
+Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data. 
+Computational Statistics \& Data Analysis 50(8): 1905-1924.
 
 Jolliffe I.T. (2002). Principal Component Analysis.
 }

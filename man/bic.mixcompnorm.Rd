@@ -13,14 +13,14 @@ bic.mixcompnorm(x, A, type = "alr")
 }
 
 \arguments{
-  \item{x}{
-  A matrix with compositional data.
+\item{x}{
+A matrix with compositional data.
 }
-  \item{A}{
-  The maximum number of components, clusters, to be considered.
+\item{A}{
+The maximum number of components, clusters, to be considered.
 }
-  \item{type}{
-  The type of trasformation to be used, either additive log-ratio ("alr") or the isometric log-ratio ("ilr").
+\item{type}{
+The type of trasformation to be used, either additive log-ratio ("alr") or the isometric log-ratio ("ilr").
 }
 }
 
@@ -32,10 +32,10 @@ BIC is used to decide on the optimal model and number of components.
 \value{
 a plot with the BIC of the best model for each number of components versus the number of components.
 A list including:
-  \item{mod}{
+\item{mod}{
 A message informing the user about the best model.
 }
-  \item{BIC}{
+\item{BIC}{
 The BIC values for every possible model and number of components.
 }
 }
@@ -45,7 +45,7 @@ Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). mixture: Mixture
 
 Ryan P. Browne and Paul D. McNicholas (2014). Estimating Common Principal Components in High Dimensions. Advances in Data Analysis and Classification, 8(2), 217-226.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

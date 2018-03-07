@@ -23,7 +23,9 @@ If \eqn{\alpha=0} the centred log-ratio transformation is used.
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied and the sum of the variances of the transformed variables is calculated. This is the total variability. Aitchison (1986) used the centred log-ratio transformation, but we have extended it to cover more geometries, via the \eqn{\alpha}-transformation.
+The \eqn{\alpha}-transformation is applied and the sum of the variances of the transformed variables is calculated. 
+This is the total variability. Aitchison (1986) used the centred log-ratio transformation, but we have extended it to 
+cover more geometries, via the \eqn{\alpha}-transformation.
 }
 
 \value{
@@ -31,7 +33,7 @@ The total variability of the data in a given geometry as dictated by the value o
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{
@@ -50,8 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \examples{
-library(MASS)
-x <- as.matrix(fgl[, 2:9])
+x <- as.matrix(iris[, 1:4])
 x <- x / rowSums(x)
 totvar(x)
 }

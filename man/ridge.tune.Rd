@@ -9,31 +9,32 @@ Cross validation for the ridge regression is performed. There is an option for t
 }
 
 \usage{
-ridge.tune(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL,
+ridge.tune(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, 
 ncores = 1, graph = FALSE)
 }
 
 \arguments{
-  \item{y}{
-  A numeric vector containing the values of the target variable. If the values are proportions or percentages,
-  i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
+\item{y}{
+A numeric vector containing the values of the target variable. If the values are proportions or percentages,
+i.e. strictly within 0 and 1 they are mapped into R using the logit transformation.
 }
-  \item{x}{
-  A numeric matrix containing the variables.
+\item{x}{
+A numeric matrix containing the variables.
 }
-  \item{M}{
-  The number of folds. Set to 10 by default.
+\item{M}{
+The number of folds. Set to 10 by default.
 }
-  \item{lambda}{
-  A vector with the a grid of values of \eqn{\lambda} to be used.
+\item{lambda}{
+A vector with the a grid of values of \eqn{\lambda} to be used.
 }
-  \item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
+\item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains 
+indices of the observations.  You can also leave it NULL and it will create folds.
 }
- \item{ncores}{
-  The number of cores to use. If it is more than 1 parallel computing is performed.
+\item{ncores}{
+The number of cores to use. If it is more than 1 parallel computing is performed.
 }
- \item{graph}{
+\item{graph}{
 If graph is set to TRUE the performances for each fold as a function of the \eqn{\lambda} values will appear.
 }
 }
@@ -62,7 +63,8 @@ The time required by the cross-validation procedure.
 }
 
 \references{
-Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1):55-67.
+Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. 
+Technometrics, 12(1):55-67.
 
 Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
 }

@@ -28,13 +28,13 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
- The classical multivariate linear regression model is obtained.
+The classical multivariate linear regression model is obtained.
 }
 
 \value{
 A list including:
 \item{suma}{
-A summary as produced by \code{\link{lm}}, which inlcudes the coefficients, their standard error, t-values, p-values.
+A summary as produced by \code{\link{lm}}, which includes the coefficients, their standard error, t-values, p-values.
 }
 \item{r.squared}{
 The value of the \eqn{R^2} for each univariate regression.
@@ -43,7 +43,7 @@ The value of the \eqn{R^2} for each univariate regression.
 A vector with number indicating which vectors are potential residual outliers.
 }
 \item{x.leverage}{
-A vector with number indicating which vectors are potential outliers in the predicto variables space.
+A vector with number indicating which vectors are potential outliers in the predictor variables space.
 }
 \item{out}{
 A vector with number indicating which vectors are potential outliers in the residuals and in the predictor variables space.

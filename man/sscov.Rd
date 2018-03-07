@@ -33,7 +33,7 @@ The spatial sign covariance matrix.
 }
 
 \references{
-A Durre, D Vogel, DE Tyler (2014). The spatial sign covariance matrix with unknown location.  Journal of Multivariate Analysis, 130: 107-117.
+Durre A, Vogel D. and D.E. Tyler D.E.(2014). The spatial sign covariance matrix with unknown location.  Journal of Multivariate Analysis, 130: 107-117.
 http://arxiv.org/pdf/1307.5706v2.pdf
 }
 

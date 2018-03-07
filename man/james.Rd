@@ -13,13 +13,13 @@ james(y1, y2, a = 0.05, R = 999, graph = FALSE)
 }
 
 \arguments{
-  \item{y1}{
-  A matrix containing the Euclidean data of the first group.
+\item{y1}{
+A matrix containing the Euclidean data of the first group.
 }
-  \item{y2}{
-  A matrix containing the Euclidean data of the second group.
+\item{y2}{
+A matrix containing the Euclidean data of the second group.
 }
-  \item{a}{
+\item{a}{
 The significance level, set to 0.05 by default.
 }
 \item{R}{
@@ -31,7 +31,9 @@ A boolean variable which is taken into consideration only when bootstrap calibra
 }
 
 \details{
-Multivariate analysis of variance without assuming equality of the covariance matrices. The p-value can be calculated either asymptotically or via bootstrap. The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) is implemented. The James test uses a corected chi-square distribution, whereas the modified version uses an F distribution.
+Multivariate analysis of variance without assuming equality of the covariance matrices. The p-value can be calculated either asymptotically or via bootstrap. 
+The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) is implemented. The James test uses a corrected chi-square distribution, 
+whereas the modified version uses an F distribution.
 }
 
 \value{

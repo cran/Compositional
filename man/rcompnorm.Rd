@@ -12,17 +12,17 @@ Multivariate normal random values simulation on the simplex.
 rcompnorm(n, m, s, type = "alr")
 }
 \arguments{
-  \item{n}{
-  The sample size, a numerical value.
+\item{n}{
+The sample size, a numerical value.
 }
-  \item{m}{
-  The mean vector in \eqn{R^d}.
+\item{m}{
+The mean vector in \eqn{R^d}.
 }
-  \item{s}{
-  The covariance matrix in \eqn{R^d}.
+\item{s}{
+The covariance matrix in \eqn{R^d}.
 }
-  \item{type}{
-  The alr (type = "alr") or the ilr (type = "ilr") is to be used for closing the Euclidean data onto the simplex.
+\item{type}{
+The alr (type = "alr") or the ilr (type = "ilr") is to be used for closing the Euclidean data onto the simplex.
 }
 }
 
@@ -36,7 +36,7 @@ A matrix with the simulated data.
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

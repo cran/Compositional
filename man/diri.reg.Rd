@@ -20,7 +20,7 @@ diri.reg2(y, x, xnew = NULL)
 A matrix with the compositional data (dependent variable). Zero values are not allowed.
 }
 \item{x}{
-The predictor variable(s), they can be either continnuous or categorical or both.
+The predictor variable(s), they can be either continuous or categorical or both.
 }
 \item{plot}{
 A boolean variable specifying whether to plot the leverage values of the observations or not. 
@@ -32,8 +32,8 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-A Dirichlet distribution is assumed for the regression. This involves numerical optimisation. 
-The function "diri.reg2" allows for the covariates to be linked with the precisio parameter 
+A Dirichlet distribution is assumed for the regression. This involves numerical optimization. 
+The function "diri.reg2" allows for the covariates to be linked with the precision parameter 
 \eqn{\phi} via the exponential link function \eqn{\phi = e^{x*b}}.
 }
 
@@ -71,7 +71,7 @@ The standard error of the beta coefficients.
 Th covariance matrix of the regression parameters (for the mean vector and the phi parameter) in 
 the function "diri.reg2".
 }
-  \item{lev}{
+\item{lev}{
 The leverage values.
 }
 \item{est}{
@@ -88,7 +88,7 @@ Economics and Business, Vienna.
 http://epub.wu.ac.at/4077/1/Report125.pdf
 
 Gueorguieva, Ralitza, Robert Rosenheck, and Daniel Zelterman (2008). Dirichlet component 
-regression and its applications to psychiatric data. Computational statistics & data analysis 
+regression and its applications to psychiatric data. Computational statistics \& data analysis 
 52(12): 5344-5355.
 }
 

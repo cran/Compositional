@@ -39,7 +39,7 @@ The maximum number of Newton-Raphson iterations.
 }
 
 \details{
-In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. This involves numerical optimisation. There is no actual log-likelihood. As for the js.compreg another divergence is used.
+In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. This involves numerical optimization. There is no actual log-likelihood. As for the js.compreg another divergence is used.
 }
 
 \value{
@@ -70,9 +70,8 @@ Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivari
 Econometric Reviews 35(4): 515-552.
 
 Tsagris, Michail (2015). A novel, divergence based, regression for compositional data.
-Proceedings of the 28th Panhellenic Statistics Conference, 15-18/4/2015, Athens, Greece.
+Proceedings of the 28th Panhellenic Statistics Conference, 15-18/4/2015, Athens, Greece. 
 https://arxiv.org/pdf/1511.07600.pdf
-
 }
 
 \author{

@@ -1,11 +1,11 @@
-\name{Contour plot of the skew skewnormal distribution in S^2}
+\name{Contour plot of the skew skew-normal distribution in S^2}
 \alias{skewnorm.contour}
 \title{
-Contour plot of the skew skewnormal distribution in \eqn{S^2}
+Contour plot of the skew skew-normal distribution in \eqn{S^2}
 }
 
 \description{
-Contour plot of the skew skewnormal distribution in \eqn{S^2}.
+Contour plot of the skew skew-normal distribution in \eqn{S^2}.
 }
 
 \usage{
@@ -29,17 +29,17 @@ skewnorm.contour(x, type = "alr", n = 100, appear = TRUE)
 
 \details{
 The alr or the ilr transformation is applied to the compositional data at first. Then for a grid of points within the 2-dimensional
-simplex the bivariate skew skewnormal density is calculated and the contours are plotted along with the points.
+simplex the bivariate skew skew-normal density is calculated and the contours are plotted along with the points.
 }
 
 \value{
-A ternary diagram with the points (if appear = TRUE) and the bivariate skew skewnormal contour lines.
+A ternary diagram with the points (if appear = TRUE) and the bivariate skew skew-normal contour lines.
 }
 
 \references{
 Azzalini A. and Valle A. D. (1996). The multivariate skew-skewnormal distribution. Biometrika 83(4):715-726.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
 }
 
 \author{

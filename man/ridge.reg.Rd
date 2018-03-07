@@ -13,21 +13,21 @@ ridge.reg(y, x, lambda, B = 1, xnew = NULL)
 }
 
 \arguments{
-  \item{y}{
-    A real valued vector. If it contains percentages, the logit transformation is applied.
-  }
-  \item{x}{
-    A matrix with the predictor variable(s), they have to be continuous.
-  }
-  \item{lambda}{
-    The value of the regularisation parameter \eqn{\lambda}.
-  }
-  \item{B}{
-    If B = 1 (default value) no bootstrpa is performed. Otherwise bootstrap standard errors are returned.
-  }
-  \item{xnew}{
-    If you have new data whose response value you want to predict put it here, otherwise leave it as is.
-  }
+\item{y}{
+A real valued vector. If it contains percentages, the logit transformation is applied.
+}
+\item{x}{
+A matrix with the predictor variable(s), they have to be continuous.
+}
+\item{lambda}{
+The value of the regularisation parameter \eqn{\lambda}.
+}
+\item{B}{
+If B = 1 (default value) no bootstrpa is performed. Otherwise bootstrap standard errors are returned.
+}
+\item{xnew}{
+If you have new data whose response value you want to predict put it here, otherwise leave it as is.
+}
 }
 
 \details{
@@ -35,16 +35,16 @@ This is used in the function \code{\link{alfa.ridge}}. There is also a built-in 
 }
 
 \value{
-  A list including:
-    \item{beta}{
-      The beta coefficients.
-    }
-  \item{seb}{
-    The standard eror of the coefficiens. If B > 1 the bootstrap standard errors will be returned.
-  }
-  \item{est}{
-    The fitted or the predicted values (if xnew is not NULL).
-  }
+A list including:
+\item{beta}{
+The beta coefficients.
+}
+\item{seb}{
+The standard eror of the coefficiens. If B > 1 the bootstrap standard errors will be returned.
+}
+\item{est}{
+The fitted or the predicted values (if xnew is not NULL).
+}
 }
 
 \references{
@@ -54,17 +54,17 @@ Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publ
 }
 
 \author{
-  Michail Tsagris
+Michail Tsagris
 
-  R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{
-  %%  ~~further notes~~
-    %}
+%%  ~~further notes~~
+%}
 
 \seealso{
-  \code{\link{ridge.tune}, \link{alfa.ridge}, \link{ridge.plot}
+\code{\link{ridge.tune}, \link{alfa.ridge}, \link{ridge.plot}
 }
 }
 

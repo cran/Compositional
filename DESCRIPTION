@@ -1,9 +1,9 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.9
+Version: 3.0
 URL:
-Date: 2018-03-03
+Date: 2018-05-24
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@yahoo.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com") )
 Author: Michail Tsagris [aut, cre],
@@ -15,6 +15,6 @@ Imports: sn, mixture, doParallel, stats, parallel, foreach, MASS,
 Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. The standard textbook for such data is John Aitchison's (1986). "The statistical analysis of compositional data". Chapman & Hall.
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2018-03-07 18:31:28 UTC; user
+Packaged: 2018-05-24 08:10:40 UTC; user
 Repository: CRAN
-Date/Publication: 2018-03-07 21:16:30 UTC
+Date/Publication: 2018-05-24 08:41:54 UTC

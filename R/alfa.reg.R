@@ -11,7 +11,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
   ## x is the independent variables
   ## a is the value of alpha
   ## internal function for the alfa-regression
-  reg <- function(para, ya, x, d, n, D) {
+  reg <- function(para, ya, x, ha, d, n, D) {
     be <- matrix(para, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
     zz <- mu1^a
@@ -28,7 +28,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
   d <- D - 1  ## dimensionality of the simplex
   dm <- dim(x)
   p <- dm[2]  ;    n <- dm[1]
-
+  
   if ( is.null(yb) ) {
     ya <- alfa(y, a)$aff
   } else  ya <- yb
@@ -45,22 +45,24 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
 
     ha <- t( helm(D) )
     ini <- as.vector( solve(crossprod(x), crossprod(x, ya) ) )
-    qa <- nlminb( ini, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(iter.max = 2000) )
-    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000) )
-    qa <- optim( qa$par, reg, ya = ya, x = x, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
-    be <- matrix(qa$par, byrow = TRUE, ncol = d)
+    qa <- nlminb( ini, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(iter.max = 2000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000) )
+    qa <- optim( qa$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
+    be <- matrix(qa$par, ncol = d)
     runtime <- proc.time() - runtime
+   
+    if ( seb ) {
+      seb <- sqrt( diag( Rfast::spdinv(qa$hessian) ) )
+      seb <- matrix(seb, ncol = d)
+    } else  seb <- NULL
   }  ## end if (a == 0)
-  if ( seb ) {
-    seb <- sqrt( diag( Rfast::spdinv(qa$hessian) ) )
-    seb <- matrix(seb, byrow = TRUE, ncol = d)
-  } else  seb <- NULL
-
+ 
   est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
     est <- cbind( 1, exp(xnew %*% be) )
+	est <- est/Rfast::rowsums(est)
   }
 
   if ( is.null( colnames(x) ) ) {

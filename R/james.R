@@ -80,8 +80,8 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     ## to the combined mean and thus equal under the null hypothesis
     mc1 <-  - ybar1 + mc
     mc2 <-  - ybar2 + mc
-    x1 <- Rfast::eachrow(y1, mc1, oper = "-")
-    x2 <- Rfast::eachrow(y2, mc2, oper = "-" )
+    x1 <- Rfast::eachrow(y1, mc1, oper = "+")
+    x2 <- Rfast::eachrow(y2, mc2, oper = "+" )
     tb <- numeric(R)
     for (i in 1:R) {
       b1 <- sample(1:n1, n1, replace = TRUE)

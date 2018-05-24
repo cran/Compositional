@@ -112,7 +112,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           zan <- znew[i, ]
           ma <- tzx + zan
           di <- colSums( zan * log( 2 * zan / ma ) + tzx * log( 2 * tzx/ma ), na.rm = TRUE )
-          di <- Rfast::Order(di)[1:max(k)]
+          di <- Rfast::Order( di, partial = max(k) )[ 1:max(k) ]
           for (j in 1:klen) {
             ind <- di[ 1:k[j] ]
             a <- Rfast::Table( ina[ind] )
@@ -167,7 +167,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           sa <- ( tzx - znewi )^2 / ( zx + znewi )
           sa[is.infinite(sa)] <- 0
           di <- Rfast::colsums( sa )
-          di <- Rfast::Order(di)[1:max(k)]
+          di <- Rfast::Order( di, partial = max(k) )[ 1:max(k) ]
           for (j in 1:klen) {
             ind <- di[ 1:k[j] ]
             a <- Rfast::Table( ina[ind] )

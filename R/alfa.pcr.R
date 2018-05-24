@@ -15,7 +15,11 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   ## oiko can be either "normal", "binomial" or "poisson"
   ## depending on the type of the independent variable
   ## "normal" is set by default
-  z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
+  x <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
+  dm <- dim(x)
+  p <- dm[2]
+  if (k > p)   k <- p
+
   if ( length( unique(y) ) == 2 ) {
     oiko <- "binomial"
   } else if ( sum(y - round(y) ) == 0 ) {
@@ -23,7 +27,52 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   } else oiko <- "normal"
 
   if (oiko == 'normal') {
-    mod <- pcr(y, z, k, xnew = xnew)
-  } else  mod <- glm.pcr(y, z, k, xnew = xnew)
+    ## k shows the number of components to keep
+    eig <- prcomp(x, center = FALSE, scale = FALSE)
+    values <- eig$sdev^2
+    per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
+    vec <- eig$rotation[, 1:k, drop = FALSE]
+    z <- cbind(1, x %*% vec)  ## PCA scores
+    be <- solve( crossprod(z), crossprod(z, y) )
+    est <- NULL
+    if ( !is.null(xnew) ) {
+      xnew <- matrix(xnew, ncol = p + 1)
+      xnew <- alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
+      znew <- xnew %*% vec  ## PCA scores
+      est <- as.vector( znew %*% be[-1] ) + be[1]  ## predicted values for PCA model
+    }
+    rownames(be) <- colnames(x)
+    mod <- list(be = be, per = per[k], vec = vec, est = est)
+
+
+  } else {
+    p <- dim(x)[2]
+    eig <- prcomp(x, center = FALSE, scale = FALSE)
+    values <- eig$sdev^2  ## eigenvalues
+    per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
+    vec <- eig$rotation[, 1:k, drop = FALSE]  ## eigenvectors, or principal components
+    z <- x %*% vec  ## PCA scores
+    if ( length( Rfast::sort_unique(y) ) == 2 ) {
+      oiko <- "binomial"
+      mod <- Rfast::glm_logistic(z, y, full = TRUE)
+      be <- mod$info[, 1]
+    } else {
+      oiko <- "poisson"
+      mod <- Rfast::glm_poisson(z, y, full = TRUE)
+      be <- mod$info[, 1]
+    }
+    est <- NULL
+    if ( !is.null(xnew) ) {
+      xnew <- matrix(xnew, ncol = p + 1)
+      xnew <- alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
+      znew <- xnew %*% vec  ## PCA scores
+      es <- as.vector( znew %*% be[-1] ) + be[1]
+      if (oiko == "binomial") {
+        est <- exp(es) / (1 + exp(es))
+      } else est <- exp(es)     ## fitted values for PCA model
+    }
+    mod <- list(model = mod, per = per[k], vec = vec, est = est)
+  }
+
   mod
 }

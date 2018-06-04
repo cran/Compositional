@@ -15,7 +15,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   D <- dim(x)[2]  ## number of components
   d <- D - 1  ## dimensionality of the simplex
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
-  con <-  - 0.5 * n * d * log(2 * pi) - 0.5 * (n - 1) * d + n * (d + 0.5) * log(D)
+  con <-  - 0.5 * n * d * log(2 * pi * f) - 0.5 * (n - 1) * d + n * (d + 0.5) * log(D)
 
   pa <- function(a, x) {
     trans <- alfa(x, a)
@@ -28,7 +28,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
     aff0 <- alfa(x, 0)
     z0 <- aff0$aff
     sa <- aff0$sa  ## part of the Jacobian determinant as well
-    lik0 <- con -  n/2 * log( abs( det( Rfast::cova(z0) ) ) ) - ja - D * sa - 0.5 * n * d * log(f) 
+    lik0 <- con -  n/2 * log( abs( det( Rfast::cova(z0) ) ) ) - ja - D * sa
     result <- c(ell$maximum, ell$objective + con, lik0)
     names(result) <- c("best alpha", "max log-lik", "log-lik at 0")
 

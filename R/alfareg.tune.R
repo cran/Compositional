@@ -48,7 +48,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     kl <- Rfast::colmeans(kula)
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
-    per <- min(kl)
+    per <- min(kl, na.rm = TRUE)
     pera <- Rfast::rowMins(kula, value = TRUE)  ## apply(kula, 1, min)
     apa <- proc.time() - apa
 
@@ -84,14 +84,14 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), K = 10, mat = NULL, nc
     kl <- Rfast::colmeans(kula)
     opt <- a[ which.min(kl) ]
     val <- which.min(kl)
-    per <- min(kl)
+    per <- min(kl, na.rm = TRUE)
     pera <- Rfast::rowMins(kula, value = TRUE)   ## apply(kula, 1, min)
     apa <- proc.time() - apa
   }
 
   if ( graph ) {
-    plot(a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
-	ylab = 'Twice the Kullback Leibler divergence')
+    plot( a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
+	       ylab = 'Twice the Kullback Leibler divergence', cex.lab = 1.3 )
     for (i in 2:K)  lines(a, kula[i, ])
     lines(a, kl, col = 2, lty = 2, lwd = 2)
   }

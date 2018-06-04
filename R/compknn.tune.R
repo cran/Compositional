@@ -1,4 +1,5 @@
-compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE) {
+compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
+                         apostasi = "ESOV", mat = NULL, graph = FALSE) {
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
   if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
@@ -45,7 +46,8 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     names(ela) <- paste("k=", 2:A, sep = "")
     best_k <- which.max(ela) + 1
 
-    if (graph)  plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2, ylab = "Estimated percentage of correct classification")
+    if (graph)  plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2,
+                     ylab = "Estimated percentage of correct classification", cex.lab = 1.3)
     results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1, runtime = runtime)
 
   } else {
@@ -55,7 +57,8 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     ## The code for the heat plot of the estimated percentages
-    if (graph)  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
+    if (graph)  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+                                   xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
 
     performance <- max(ela)
     names(performance) <- c( "rate")

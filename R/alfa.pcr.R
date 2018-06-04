@@ -7,7 +7,7 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-alfa.pcr <- function(y, x, a, k, xnew = NULL) {
+alfa.pcr <- function(y, x, a, k, model = "gaussian", xnew = NULL) {
   ## y is dependent univariate variable. It can be matrix or vector
   ## x are compositional data, the covariates
   ## a is the value of a for the alpha-transformation
@@ -20,19 +20,13 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
   p <- dm[2]
   if (k > p)   k <- p
 
-  if ( length( unique(y) ) == 2 ) {
-    oiko <- "binomial"
-  } else if ( sum(y - round(y) ) == 0 ) {
-    oiko <- "poisson"
-  } else oiko <- "normal"
-
-  if (oiko == 'normal') {
+  if (model == 'gaussian') {
     ## k shows the number of components to keep
     eig <- prcomp(x, center = FALSE, scale = FALSE)
     values <- eig$sdev^2
     per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
     vec <- eig$rotation[, 1:k, drop = FALSE]
-    z <- cbind(1, x %*% vec)  ## PCA scores
+    z <- cbind(1, eig$x[, 1:k, drop = FALSE] )  ## PCA scores
     be <- solve( crossprod(z), crossprod(z, y) )
     est <- NULL
     if ( !is.null(xnew) ) {
@@ -44,6 +38,36 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
     rownames(be) <- colnames(x)
     mod <- list(be = be, per = per[k], vec = vec, est = est)
 
+  } else if (model == "multinomial") {
+    p <- dim(x)[2]
+    eig <- prcomp(x, center = FALSE, scale = FALSE)
+    values <- eig$sdev^2  ## eigenvalues
+    per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
+    vec <- eig$rotation[, 1:k, drop = FALSE]  ## eigenvectors, or principal components
+    z <- eig$x[, 1:k, drop = FALSE]  ## PCA scores
+    mod <- try( Rfast::multinom.reg(y, z), silent = TRUE)
+    if ( identical( class(mod), "try-error" ) ) {
+      be <- NULL
+      est <- NULL
+      if ( !is.null(xnew) ) {
+        xnew <- matrix(xnew, ncol = p + 1)
+        xnew <- alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
+        znew <- cbind(1, xnew %*% vec)  ## PCA scores
+        es <- cbind(1, exp( znew %*% be ) )
+        est <- es / Rfast::rowsums(es)
+      }
+    } else {
+      be <- mod$be
+      est <- NULL
+      if ( !is.null(xnew) ) {
+        xnew <- matrix(xnew, ncol = p + 1)
+        xnew <- alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
+        znew <- cbind(1, xnew %*% vec)  ## PCA scores
+        es <- cbind(1, exp( znew %*% be ) )
+        est <- es / Rfast::rowsums(es)
+      }
+    }
+    mod <- list(model = mod, per = per[k], vec = vec, est = est)
 
   } else {
     p <- dim(x)[2]
@@ -51,13 +75,11 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
     values <- eig$sdev^2  ## eigenvalues
     per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
     vec <- eig$rotation[, 1:k, drop = FALSE]  ## eigenvectors, or principal components
-    z <- x %*% vec  ## PCA scores
-    if ( length( Rfast::sort_unique(y) ) == 2 ) {
-      oiko <- "binomial"
+    z <- eig$x[, 1:k, drop = FALSE]  ## PCA scores
+    if ( model == "binomial" ) {
       mod <- Rfast::glm_logistic(z, y, full = TRUE)
       be <- mod$info[, 1]
-    } else {
-      oiko <- "poisson"
+    } else if ( model == "poisson" ) {
       mod <- Rfast::glm_poisson(z, y, full = TRUE)
       be <- mod$info[, 1]
     }
@@ -67,7 +89,7 @@ alfa.pcr <- function(y, x, a, k, xnew = NULL) {
       xnew <- alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
       znew <- xnew %*% vec  ## PCA scores
       es <- as.vector( znew %*% be[-1] ) + be[1]
-      if (oiko == "binomial") {
+      if (model == "binomial") {
         est <- exp(es) / (1 + exp(es))
       } else est <- exp(es)     ## fitted values for PCA model
     }

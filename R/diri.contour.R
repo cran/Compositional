@@ -44,8 +44,8 @@ diri.contour <- function(a, n = 100, x = NULL) {
       }
     }
   }
-
-  contour(x1, x2, mat, col = 3)  ## contour plots
+  contour(x1, x2, mat, col = 3, xlab = " ", ylab = " ", 
+        pty = "s", xaxt = "n", yaxt = "n", bty = "n")
   b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt3/2, 0, 0, sqrt3/2)
   b <- cbind(b1, b2)
@@ -56,6 +56,10 @@ diri.contour <- function(a, n = 100, x = NULL) {
     proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
+	nam <- colnames(x)
+	if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
+	points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+    text(b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1)
   }
 
 }

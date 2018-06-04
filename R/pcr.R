@@ -27,7 +27,7 @@ pcr <- function(y, x, k = 1, xnew = NULL) {
   values <- eig$sdev^2
   per <- cumsum( values / sum(values) )  ## cumulative proportion of each eigenvalue
   vec <- eig$rotation[, 1:k, drop = FALSE]
-  z <- x %*% vec  ## PCA scores
+  z <- eig$x[, 1:k, drop = FALSE]  ## PCA scores
   zzk <- crossprod(z)
   be <- vec %*% Rfast::spdinv(zzk) %*% crossprod( z, y )  ## PCA based coefficients
   est <- NULL

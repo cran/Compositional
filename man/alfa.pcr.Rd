@@ -9,12 +9,13 @@ Multivariate or univariate regression with compositional data in the covariates 
 }
 
 \usage{
-alfa.pcr(y, x, a, k, xnew = NULL)
+alfa.pcr(y, x, a, k, model = "gaussian", xnew = NULL)
 }
 
 \arguments{
 \item{y}{
-A numerical vector containing the response variable values. They can be continuous,  binary or discrete (counts).
+A numerical vector containing the response variable values. They can be continuous, binary, discrete (counts).
+This can also be a vector with discrete values or a factor for the multinomial regression (model = "multinomial").
 }
 \item{x}{
 A matrix with the predictor variables, the compositional data.
@@ -25,6 +26,9 @@ If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
 \item{k}{
 A number at least equal to 1. How many principal components to use.
+}
+\item{model}{
+The type of regression model to fit. The possible values are "gaussian", "multinomial", "binomial" and "poisson".
 }
 \item{xnew}{
 A matrix containing the new compositional data whose response is to be predicted. If you have no new data, leave this NULL as is by default.

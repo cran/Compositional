@@ -9,7 +9,7 @@ a.mle <- function(a, x) {
   if ( abs(a) < 1e-9 ) {
     aff <- alef(x, 0)$aff
     su <- Rfast::cova(aff)
-    loglik <-  -n * d/2 - n/2 * log( abs( det(2 * pi * (n - 1)/n * su) ) ) - ja - n/2 * log(D)
+    loglik <-  - 0.5 * n * d - 0.5 * n * log( abs( det(2 * pi * (n - 1)/n * su) ) ) - ja - n/2 * log(D)
 
   } else {
     mod <- alef(x, a)

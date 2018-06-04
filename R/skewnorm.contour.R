@@ -75,7 +75,7 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
    }
   }
 
-  contour(x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n",
+  contour(x1, x2, mat, col = 3, pty = "s", xaxt = "n",
   yaxt = "n", bty = "n")
   b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt3/2, 0, 0, sqrt3/2)

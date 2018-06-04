@@ -7,9 +7,11 @@ alpha.mle <- function(x, a) {
   ja <- sum( Rfast::Log(x) )  ## part of the Jacobian determinant
   #########
   if ( abs(a) < 1e-10 ) {  ## i.e. if alpha = 0
-    aff <- alfa(x, 0)$aff
+    mod <- alfa(x, 0)
+    aff <- mod$aff
     su <- Rfast::cova(aff)
-    lik <-  - 0.5 * n * d - 0.5 * n * log( abs( det(su) ) ) - 0.5 * n * d * log( 2 * pi * (n - 1)/n ) -  ja - 0.5 * n * log(D)
+    con <-  - n/2 * d * log(2 * pi * (n - 1)/n ) - (n - 1) * d/2 + n * (d + 0.5) * log(D)
+    lik <-  - n/2 * log( abs( det( cov(aff) ) ) ) - ja - D * mod$sa + con
     result <- list(loglik = lik, mu = Rfast::colmeans(aff), su = su)
 
   } else {
@@ -57,7 +59,7 @@ alpha.mle <- function(x, a) {
      per <- sum(p) / n
      ela2 <- sum( log(per * f1 + (1 - per) * f2) ) + con
     }
-   result <- list(iters = k, p = per, loglik = ela2 + com, mu = ma, su = sa)
+   result <- list(iters = k, p = per, loglik = ela2 + com + 0.5 * d, mu = ma, su = sa)
    }
    result
 }

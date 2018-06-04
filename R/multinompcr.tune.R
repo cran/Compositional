@@ -5,7 +5,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE) {
+multinompcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)
@@ -16,6 +16,7 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   ## R is the number of cross validations
   ## if ncores==1, then 1 processor is used, otherwise more are
   ## used (parallel computing)
+  if ( !is.numeric(y) )   y <- as.numeric(y)
   n <- dim(x)[1]
   p <- dim(x)[2]
   if ( maxk > p ) maxk <- p  ## just a check
@@ -30,14 +31,8 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   } else  mat <- mat
 
   M <- dim(mat)[2]
+  rmat <- dim(mat)[1]
   msp <- matrix( nrow = M, ncol = maxk )
-  ## deigma will contain the positions of the test set
-  ## this is stored but not showed in the end
-  ## the user can access it though by running
-  ## the commands outside this function
-  if ( length( Rfast::sort_unique(y) ) == 2 ) {
-    oiko <- "binomial"
-  } else oiko <- "poisson"
 
   if (ncores == 1) {
     runtime <- proc.time()
@@ -46,26 +41,21 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
       ytrain <- y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
       xtest <- x[mat[, vim], , drop = FALSE ]  ## test set independent vars
-	    vec <- prcomp(xtrain, center = FALSE)$rotation
+      vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
       for ( j in 1:maxk) {
-        if (oiko == "binomial") {
-          be <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+        mod <-try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
+        if ( identical( class(mod), "try-error" ) ) {
+          est <- NULL
         } else {
-          be <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+          be <- mod$be
+          ztest <- cbind(1, xtest %*% vec[, 1:j, drop = FALSE])  ## PCA scores
+          es <- cbind(1, exp( ztest %*% be ) )
+          est <- es / Rfast::rowsums(es)
+          est <- Rfast::rowMaxs(est)
         }
-        ztest <- xtest %*% vec[, 1:j, drop = FALSE]  ## PCA scores
-        es <- as.vector( ztest %*% be[-1] ) + be[1]
-
-        if (oiko == "binomial") {
-          est <- as.vector(  exp(es) / ( 1 + exp(es) )  )
-          ri <-  -2 *( ytest * log(est) + (1 - ytest) * log(1 - est) )
-        } else {
-          est <- as.vector( exp(es) )
-          ri <- 2 * ytest * log(ytest / est)
-        }
-        msp[vim, j] <- sum( ri, na.rm = TRUE )
+        msp[vim, j] <- sum( est == ytest ) / rmat
       }
     }
     runtime <- proc.time() - runtime
@@ -75,31 +65,26 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
     cl <- makePSOCKcluster(ncores)
     registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("glm_logistic", "glm_poisson") ) %dopar% {
+    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
       ytest <- y[mat[, vim] ]  ## test set dependent vars
       ytrain <-  y[-mat[, vim] ]   ## train set dependent vars
       xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
       xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
-	    vec <- prcomp(xtrain, center = FALSE)$rotation
+      vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
       for ( j in 1:maxk) {
-        if (oiko == "binomial") {
-          be <- Rfast::glm_logistic(z[, 1:j], ytrain)$be
+        mod <-try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
+        if ( identical( class(mod), "try-error" ) ) {
+          est <- NULL
         } else {
-          be <- Rfast::glm_poisson(z[, 1:j], ytrain)$be
+          be <- mod$be
+          ztest <- cbind(1, xtest %*% vec[, 1:j, drop = FALSE])  ## PCA scores
+          es <- cbind(1, exp( ztest %*% be ) )
+          est <- es / Rfast::rowsums(es)
+          est <- Rfast::rowMaxs(est)
         }
-        ztest <- xtest %*% vec[, 1:j, drop = FALSE]  ## PCA scores
-        es <- as.vector( ztest %*% be[-1] ) + be[1]
-
-        if (oiko == "binomial") {
-          est <- exp(es) / ( 1 + exp(es) )
-          ri <-  -2 *( ytest * log(est) + (1 - ytest) * log(1 - est) )
-        } else {
-          est <- exp(es)
-          ri <- 2 * ytest * log(ytest / est)
-        }
-        er[j] <- sum( ri, na.rm = TRUE )
+        er[j] <- sum( est == ytest ) / rmat
       }
       return(er)
     }
@@ -108,10 +93,10 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   }
 
   mpd <- Rfast::colmeans(msp)
-  if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components", ylab = "Mean predicted deviance", type = "b" ,cex.alb = 1.3)
+  if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components", ylab = "Mean predicted deviance", type = "b" , cex.lab = 1.3)
 
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
-  performance <- min(mpd)
+  performance <- max(mpd)
   names(performance) <- "MPD"
-  list(msp = msp, mpd = mpd, k = which.min(mpd), performance = performance, runtime = runtime)
+  list(msp = msp, mpd = mpd, k = which.max(mpd), performance = performance, runtime = runtime)
 }

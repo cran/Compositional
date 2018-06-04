@@ -38,7 +38,8 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
                                      type = "C", freq.option = 1)$crit
     }
     runtime <- proc.time() - runtime
-    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
+    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+                                     xlab = expression(paste(alpha, " values")), cex.lab = 1.3)
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
     res <- list( ela = ela, performance = max(ela), best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
@@ -61,7 +62,8 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
 	  colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     runtime <- proc.time() - runtime
-    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")) )
+    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+                                     xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
     performance <- opt

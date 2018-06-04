@@ -79,7 +79,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
   mspe <- Rfast::colmeans(msp)
   if ( graph ) {
     plot( lambda, mspe, type = 'b', ylim = c( min(mspe), max(mspe) ),
-         ylab = "Mean squared error of prediction", xlab = expression( paste(lambda, " values") ) )
+         ylab = "Mean squared error of prediction", xlab = expression( paste(lambda, " values") ), cex.lab = 1.3 )
   }
 
   names(mspe) <- lambda

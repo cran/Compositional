@@ -9,7 +9,7 @@ This is a cross-validation procedure to decide on the number of principal compon
 }
 
 \usage{
-alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
+alfapcr.tune(y, x, model = "gaussian", M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
 mat = NULL, ncores = 1, graph = TRUE, col.nu = 15)
 }
 
@@ -19,6 +19,9 @@ A vector with either continuous, binary or count data.
 }
 \item{x}{
 A matrix with the predictor variables, the compositional data. Zero values are allowed.
+}
+\item{model}{
+The type of regression model to fit. The possible values are "gaussian", "binomial" and "poisson".
 }
 \item{M}{
 The number of folds for the K-fold cross validation, set to 10 by default.

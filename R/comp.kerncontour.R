@@ -72,7 +72,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
     }
   }
 
-  contour( x1, x2, mat, nlevels = 7, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
+  contour( x1, x2, mat, col = 3, pty = "s", xaxt = "n", yaxt = "n", bty = "n" )
   proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
   da <- x %*% proj
   points(da[, 1], da[, 2])

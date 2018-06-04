@@ -8,7 +8,8 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
+alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 1, by = 0.1),
+                         del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
   ## x contains the compositonal data
   ## ina is the grouping variable
   ## a is the grid of values of a
@@ -54,7 +55,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 
   se <- ser[, , which.max(opt)]
   confa <- as.vector( which(props == max( props), arr.ind = TRUE )[1, ] )
   pera <- array( dim = c( length(gam), length(del), length(a) ) )
-  opt <- props[ confa[1], confa[2], confa[3] ] 
+  opt <- props[ confa[1], confa[2], confa[3] ]
   seopt <- ser[ confa[1], confa[2], confa[3] ]
   res <- c( opt, seopt, a[ confa[3] ], gam[ confa[1] ], del[ confa[2] ] )
   names(res) <- c( "rate", "se of rate", "best_a", "best_gam", "best del" )

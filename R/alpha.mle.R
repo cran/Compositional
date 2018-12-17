@@ -34,8 +34,8 @@ alpha.mle <- function(x, a) {
     ela1 <- sum( log(per * f1 + (1 - per) * f2) ) + con
     ## step 2
     ma <- colMeans(p * y1 + (1 - p) * y2, na.rm = TRUE)
-    z1 <- sqrt(p) * ( y1 - rep(ma, rep(n, d)) )
-    z2 <- sqrt(1 - p) * ( y2 - rep( ma, rep(n, d) ) )
+    z1 <- sqrt(p) * Rfast::eachrow(y1, ma, oper = "-")       ## ( y1 - rep(ma, rep(n, d)) )
+	z2 <- sqrt(1 - p) * Rfast::eachrow(y2, ma, oper = "-")   ## ( y2 - rep( ma, rep(n, d) ) )
     sa <- ( crossprod(z1) + crossprod(z2) )/n
     con <-  - 0.5 * n * log( det(sa) )
     f1 <- exp( -0.5 * Rfast::mahala(y1, ma, sa) )
@@ -49,8 +49,8 @@ alpha.mle <- function(x, a) {
      k <- k + 1
      ela1 <- ela2
      ma <- colMeans(p * y1 + (1 - p) * y2, na.rm = TRUE)
-     z1 <- sqrt(p) * ( y1 - rep(ma, rep(n, d)) )
-     z2 <- sqrt(1 - p) * ( y2 - rep( ma, rep(n, d) ) )
+     z1 <- sqrt(p) * Rfast::eachrow(y1, ma, oper = "-")       ## ( y1 - rep(ma, rep(n, d)) )
+	 z2 <- sqrt(1 - p) * Rfast::eachrow(y2, ma, oper = "-")   ## ( y2 - rep( ma, rep(n, d) ) )
      sa <- ( crossprod(z1) + crossprod(z2) )/n
      con <-  - 0.5 * n * log( det(sa) )
      f1 <- exp( -0.5 * Rfast::mahala(y1, ma, sa) )

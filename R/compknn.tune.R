@@ -31,7 +31,7 @@ compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     for ( i in 1:length(a) ) {
 	  z <- x^a[i]
       z <- x / Rfast::rowsums( z )
-      g <- comp.knn(z[aba, ], z[-aba, ], ina2, a = NULL, k = 2:A, type = "S", apostasi = apostasi, mesos = mesos)
+      g <- comp.knn(z[aba, , drop = FALSE], z[-aba, ], ina2, a = NULL, k = 2:A, type = "S", apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, , i] <- Rfast::colmeans(be == 0)
     }

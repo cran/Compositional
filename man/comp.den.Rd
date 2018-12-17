@@ -68,7 +68,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 %}
 
 \seealso{
-\code{\link{spat.med}, \link{sscov}, \link{multivt}
+\code{ \link{spatmed.reg}, \link{multivt}
 }
 }
 

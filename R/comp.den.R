@@ -69,12 +69,12 @@
         delta <- Rfast::spat.med(y, tol = tol)
         comp.delta <- c( 1, exp( delta ) )
         comp.delta <- delta / sum( delta )
-        s <- sscov(y, delta)
+        s <- Rfast::sscov(y, delta)
       } else {
         y <- alfa(x, 0)$aff
         delta <- Rfast::spat.med(y)
         comp.delta <- alfainv(delta, 0)
-        s <- sscov(y, delta)
+        s <- Rfast::sscov(y, delta)
       }
       result <- list(spatmed = delta, comp.spat.med = comp.delta, ssc = s)
 

@@ -1,4 +1,4 @@
-71ea617ecaaac55e17f28bb5b109b163 *DESCRIPTION
+d56eee3924e8421b18a85d486131fe04 *DESCRIPTION
 cf5afcd465e29093fcf7cbc38c7756e8 *NAMESPACE
 3058aabad7526d721efa64859457d22e *R/a.est.R
 582c86c17cda72b78e93a50cda5fdeb6 *R/a.mle.R
@@ -51,9 +51,11 @@ dad3ac72276371169ca5ab2babb4d6ca *R/hotel1T2.R
 38dabf796c92422f0b59a7d15e4ae5aa *R/hotel2T2.R
 f940517945bde90c9c8274a55582a7ef *R/james.R
 ed2e9c810a655114ee099dffcf843deb *R/js.compreg.R
+82249db93158269bc5089e80220e2d78 *R/kl.alfapcr.R
 d23034d6ce06a1251e7fc8884801e732 *R/kl.compreg.R
 658bdc57d950ca79f47a6a929ed52625 *R/kl.compreg2.R
 3cca1f8579a2c5d39af2ed88b6892b53 *R/kl.diri.R
+686ed671d2778d4b8102d8f3ec903c66 *R/klalfapcr.tune.R
 a1e35ef64bdaaae038a884b055b17117 *R/klcompreg.boot.R
 4c94895931f3935a043d16ffc3dced28 *R/maov.R
 9ddf33243f128c53e16bbc9d179a03d9 *R/maovjames.R
@@ -69,6 +71,8 @@ d947db2620d44c2c829056d413d8800f *R/multivt.R
 c75a3307e73362a13715af50a220894e *R/ols.compreg.R
 7fed575ea6de2d067f0c76d68f4c0942 *R/pcr.R
 3dea2fbbc0be1e69135a14da879b1c62 *R/pcr.tune.R
+d180c3f2f79b8555ff61d7a6ece07b97 *R/perturbation.R
+603f95bdc35ec4312f3f1d6eaf6eb94a *R/pow.R
 b6b7513aaabaa042fe7e3518fb36462f *R/rcompnorm.R
 755b9404e03549d7ba5606403e0214e3 *R/rcompsn.R
 a4253afe6e495c7a380a26cd805d992b *R/rcompt.R
@@ -86,9 +90,9 @@ a08808d03659979a22af4ac8d10886d5 *R/rda.tune.R
 aaa7ee8a007ed6b015a7fa42124f2d31 *R/ternary.R
 1a06f695b28f509ceba0867e585d8f46 *R/totvar.R
 f38b260d41f9751e21554075d26c763a *R/zadr.R
-46e57f1d3b9cb195f0f5f30728a0174a *man/Compositional-package.Rd
+0405bd62359c09daec3815f48fcfd53b *man/Compositional-package.Rd
 e5b0ced0ae3118a81fe88b5acbb75c93 *man/a.est.Rd
-c81309a80a36cad2eeb6bc88edec4265 *man/alfa.Rd
+2e562adcd3a556cf45336a34b13e5896 *man/alfa.Rd
 977ad9c8f5502b881e328171806351fe *man/alfa.pcr.Rd
 238c5a3bcc54ead53ef46d8f855eb72e *man/alfa.profile.Rd
 90c897ab2feb7999408f866f8c1105f5 *man/alfa.rda.Rd
@@ -130,9 +134,11 @@ ca588fcfa164e6fb04983f8b54680ad5 *man/frechet.Rd
 46ad8d84fd31dcf369c7b2157ed9ecb4 *man/hotel1T2.Rd
 35c8c0d1fedc59be893875831db0b6e8 *man/hotel2T2.Rd
 30063601c98a1bc5e14fba792fcdcfd9 *man/james.Rd
+62ebc0da62b5bc773b3a825927ddfe32 *man/kl.alfapcr.Rd
 79ad4bf5896382ebfeddd3fe356cb94a *man/kl.compreg.Rd
 dac97e38ebb31bdc99478c3d1c193c4a *man/kl.compreg2.Rd
 3a588d0de48e878cdfa9c9bd105844a7 *man/kl.diri.Rd
+eb19ae6cc94e9415e9f262f49d7536c9 *man/klalfapcr.tune.Rd
 f728e8b5c78541458069c8ec0c6f75fb *man/maov.Rd
 6493289d17dea5269f043fbc57f15f1c *man/maovjames.Rd
 211447fba63003c8c4d7af4c0a1a7a18 *man/mix.compnorm.Rd
@@ -145,6 +151,8 @@ bce0e6f290bb7c41ca0c273b65d3b633 *man/norm.contour.Rd
 3d85bfa5100c884914c98d45398399aa *man/ols.compreg.Rd
 f51efebe2cdfa33c3be786fcb6428b1d *man/pcr.Rd
 2db2c8f48e65050169f8748adb275633 *man/pcr.tune.Rd
+dfb059c8ee724790f6038efa0fd4876d *man/perturbation.Rd
+11ec3bd8e5219f0f9d77e62fecd9ac13 *man/pow.Rd
 060d42d4c9bbd7b67cd5bcd8cf271144 *man/rcompnorm.Rd
 dd4d6cf747f257dd712ab832cde1a1d2 *man/rcompsn.Rd
 d106d8ae538133943cf5f39ac73e7d98 *man/rcompt.Rd

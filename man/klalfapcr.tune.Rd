@@ -1,0 +1,108 @@
+\name{Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the alpha-transformation}
+\alias{klalfapcr.tune}
+\title{
+Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the \eqn{alpha}-transformation
+}
+
+\description{
+Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the \eqn{\alpha}-transformation.
+}
+
+\usage{
+klalfapcr.tune(y, x, covar = NULL, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
+mat = NULL, graph = FALSE, tol = 1e-07, maxiters = 50)
+}
+
+\arguments{
+\item{y}{
+A numerical matrixc with compositional data with or without zeros.
+}
+\item{x}{
+A matrix with the predictor variables, the compositional data. Zero values are allowed.
+}
+\item{covar}{
+If you have other continuous covariates put themn here.
+}
+\item{M}{
+The number of folds for the M-fold cross validation, set to 10 by default.
+}
+\item{maxk}{
+The maximum number of principal components to check.
+}
+\item{a}{
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0.
+If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
+}
+\item{mat}{
+You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.
+You can also leave it NULL and it will create folds.
+}
+\item{graph}{
+If graph is TRUE (default value) a filled contour plot will appear.
+}
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson procedure.
+}
+\item{maxiters}{
+The maximum number of Newton-Raphson iterations.
+}
+}
+
+\details{
+The M-fold cross validation is performed in order to select the optimal values for \eqn{\alpha} and k, the number of principal components.
+The \eqn{\alpha}-transformation is applied to the compositional data first, the first k principal component scores are calcualted and used as predictor variables for the Kullback-Leibler divergence based regression model. This procedure is performed M times during the M-fold cross validation.
+}
+
+\value{
+A list including:
+\item{mspe}{
+A list with the KL divergence for each value of \eqn{\alpha} and k in every fold.
+}
+\item{performance}{
+A matrix with the KL divergence for each value of \eqn{\alpha} averaged over all folds. If graph is set to TRUE this matrix is plotted.
+}
+\item{best.perf}{
+The minimum KL divergence.
+}
+\item{params}{
+The values of \eqn{\alpha} and k corresponding to the minimum KL divergence.
+}
+}
+
+\references{
+Alenazi A. (2019). Regression for compositional data with compositioanl data as predictor variables with or without zero values.
+Journal of Data Science, 17(1): 219-238.
+http://www.jds-online.com/file_download/688/01+No.10+315+REGRESSION+FOR+COMPOSITIONAL+DATA+WITH+COMPOSITIONAL+DATA+AS+PREDICTOR+VARIABLES+WITH+OR+WITHOUT+ZERO+VALUES.pdf
+
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+http://arxiv.org/pdf/1508.01913v1.pdf
+
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+http://arxiv.org/pdf/1106.1451.pdf
+}
+
+\author{
+Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
+
+R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Michail Tsagris <mtsagris@yahoo.gr>
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{kl.alfapcr}, \link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
+}
+}
+
+\examples{
+library(MASS)
+y <- rdiri(214, runif(4, 1, 3))
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
+mod <- klalfapcr.tune(y = y, x = x, a = c(0.7, 0.8, 0.9, 1) )
+mod
+}
+

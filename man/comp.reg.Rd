@@ -26,14 +26,13 @@ The type of regression to be used, "classical" for standard multivariate regress
 This is by default set to NULL. If you have new data whose compositional data values you want to predict, put them here.
 }
 \item{yb}{
-If you have already transformed the data using the additive log-ratio transformation, plut it here. Othewrise leave it NULL. 
+If you have already transformed the data using the additive log-ratio transformation, plut it here. Othewrise leave it NULL.
 This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process.
 }
 }
 
 \details{
-The additive log-ratio transformation is applied and then the chosen multivariate regression is implemented. The alr is easier to explain 
-than the ilr and that is why the latter is avoided here.
+The additive log-ratio transformation is applied and then the chosen multivariate regression is implemented. The alr is easier to explain than the ilr and that is why the latter is avoided here.
 }
 
 \value{
@@ -48,7 +47,7 @@ The beta coefficients.
 The standard error of the beta coefficients.
 }
 \item{est}{
-The fitted values of xnew if xnew is NULL.
+The fitted values of xnew if xnew is not NULL.
 }
 }
 

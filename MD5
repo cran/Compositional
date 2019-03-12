@@ -1,5 +1,5 @@
-d56eee3924e8421b18a85d486131fe04 *DESCRIPTION
-cf5afcd465e29093fcf7cbc38c7756e8 *NAMESPACE
+1031bf45f16b8f13c3855d394aa2ccd3 *DESCRIPTION
+c3a0b5e45674d1bcc6b09d9707e49f28 *NAMESPACE
 3058aabad7526d721efa64859457d22e *R/a.est.R
 582c86c17cda72b78e93a50cda5fdeb6 *R/a.mle.R
 5022ca96ba4cce2db2bbbebce9e60aec *R/alef.R
@@ -23,11 +23,13 @@ a43a0d811c7659990d64b5c43760f8c9 *R/alfaridge.tune.R
 ee6182647a12691b3eb5b23318eb0d3f *R/alpha.mle.R
 715676d8b06d2d8c7cb6192046ce1c4b *R/alr.R
 f50d5f7be6bff7ee8352589555a8f671 *R/alrinv.R
+38f719b7eb4b327b7a2d16ca3e87bad9 *R/beta.est.R
 f9b93914e1ce9e663ceece395aa9a2ce *R/bic.mixcompnorm.R
 58ef26f8d20b56eddeccc31911d912db *R/bivt.contour.R
 57523849eec4c933d5d71f48fc0abd42 *R/comp.den.R
 bb7589b884bed75521d2befccbba934c *R/comp.kerncontour.R
 904b7a5b0a6e8f72121234c62a10ecd8 *R/comp.knn.R
+192de95ebeb2c3a6bd9580b4e8e37c90 *R/comp.ppr.R
 0c4f54e12fdbcc228b1177fd0a3b58d2 *R/comp.reg.R
 e9eb2207326a2bf9eb7d3ed2a52c66a9 *R/comp.test.R
 3fb66f3e1eb5050b28cb99a98122313a *R/compknn.reg.R
@@ -49,6 +51,8 @@ df5c5122fd79ab6cd35110922071a840 *R/frechet.R
 165562c5f6b1cc02a6662f8b2c463cae *R/helm.R
 dad3ac72276371169ca5ab2babb4d6ca *R/hotel1T2.R
 38dabf796c92422f0b59a7d15e4ae5aa *R/hotel2T2.R
+454ed7db453dbd9c334730d1249ced1e *R/hsecant01.est.R
+f576a800820421834fc3531617cf580b *R/ibeta.est.R
 f940517945bde90c9c8274a55582a7ef *R/james.R
 ed2e9c810a655114ee099dffcf843deb *R/js.compreg.R
 82249db93158269bc5089e80220e2d78 *R/kl.alfapcr.R
@@ -57,6 +61,7 @@ d23034d6ce06a1251e7fc8884801e732 *R/kl.compreg.R
 3cca1f8579a2c5d39af2ed88b6892b53 *R/kl.diri.R
 686ed671d2778d4b8102d8f3ec903c66 *R/klalfapcr.tune.R
 a1e35ef64bdaaae038a884b055b17117 *R/klcompreg.boot.R
+2de3d237d44c52ef54106fa4cfcb9608 *R/logitnorm.est.R
 4c94895931f3935a043d16ffc3dced28 *R/maov.R
 9ddf33243f128c53e16bbc9d179a03d9 *R/maovjames.R
 4813755dcf5ba8a7ee4e89bb42b3cb45 *R/mix.compnorm.R
@@ -73,6 +78,8 @@ c75a3307e73362a13715af50a220894e *R/ols.compreg.R
 3dea2fbbc0be1e69135a14da879b1c62 *R/pcr.tune.R
 d180c3f2f79b8555ff61d7a6ece07b97 *R/perturbation.R
 603f95bdc35ec4312f3f1d6eaf6eb94a *R/pow.R
+22d07e99d38bda0441b09b0435497d14 *R/propreg.R
+b5ed99725e2095cf15840ecd58c0189e *R/propregs.R
 b6b7513aaabaa042fe7e3518fb36462f *R/rcompnorm.R
 755b9404e03549d7ba5606403e0214e3 *R/rcompsn.R
 a4253afe6e495c7a380a26cd805d992b *R/rcompt.R
@@ -90,7 +97,7 @@ a08808d03659979a22af4ac8d10886d5 *R/rda.tune.R
 aaa7ee8a007ed6b015a7fa42124f2d31 *R/ternary.R
 1a06f695b28f509ceba0867e585d8f46 *R/totvar.R
 f38b260d41f9751e21554075d26c763a *R/zadr.R
-0405bd62359c09daec3815f48fcfd53b *man/Compositional-package.Rd
+36b64c8b8bafef77096981b2eae4f70c *man/Compositional-package.Rd
 e5b0ced0ae3118a81fe88b5acbb75c93 *man/a.est.Rd
 2e562adcd3a556cf45336a34b13e5896 *man/alfa.Rd
 977ad9c8f5502b881e328171806351fe *man/alfa.pcr.Rd
@@ -108,12 +115,14 @@ cf47649964846b8bde6bd906a4f24496 *man/alfaridge.plot.Rd
 d9dc5e35fa7757b2b193b85006140484 *man/alfaridge.tune.Rd
 6d377e50ab18386959edc84d6d68c096 *man/alpha.mle.Rd
 f47a674a34db357795dd487eccce20eb *man/alr.Rd
+48a004ad07f3efd22b166dafbc7f9a5a *man/beta.est.Rd
 1ace1d78f7a3956c061a922c689d0bab *man/bic.mixcompnorm.Rd
 b4504b0870ea9abd1bcdc5625c22d166 *man/bivt.contour.Rd
 52d81a5c384cec99376c7f1a32441ba5 *man/comp.den.Rd
 baa17ff10b2951aefb73d78663bd95b8 *man/comp.kerncontour.Rd
 430173322da658deeeff32f49cbcbd38 *man/comp.knn.Rd
-9c9806512d6f0403d2b9aa098bd7896f *man/comp.reg.Rd
+7af6a00252ff3a10801f88e567345b22 *man/comp.ppr.Rd
+0b9101fb0c6075d3c2873bc2b8af2f37 *man/comp.reg.Rd
 0b164c79e6560642b70a1ad2c7fd474b *man/comp.test.Rd
 ca84df8d65794cd8b2f207d69a070b29 *man/compknn.reg.Rd
 67fd6cdd3ce4d3c00d68082fbccc49d5 *man/compknn.tune.Rd
@@ -153,6 +162,7 @@ f51efebe2cdfa33c3be786fcb6428b1d *man/pcr.Rd
 2db2c8f48e65050169f8748adb275633 *man/pcr.tune.Rd
 dfb059c8ee724790f6038efa0fd4876d *man/perturbation.Rd
 11ec3bd8e5219f0f9d77e62fecd9ac13 *man/pow.Rd
+5ae452b26363b37a7e7d0df34cf07d99 *man/propreg.Rd
 060d42d4c9bbd7b67cd5bcd8cf271144 *man/rcompnorm.Rd
 dd4d6cf747f257dd712ab832cde1a1d2 *man/rcompsn.Rd
 d106d8ae538133943cf5f39ac73e7d98 *man/rcompt.Rd

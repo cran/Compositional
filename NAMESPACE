@@ -7,14 +7,15 @@ importFrom("graphics", filled.contour, contour, lines, plot,
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq,
            rgamma, mahalanobis, runif, qt, qf, pf, model.matrix, prcomp,
-           .lm.fit, na.omit)
+           .lm.fit, na.omit, ppr, predict)
 
 importFrom("grDevices", terrain.colors, grey)
 importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            diri.nr2, sort_mat, mahala, rmvnorm, rmvt, sort_unique, rowMins,
            rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
-           eachrow, sscov)
+           eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle, 
+		   prop.reg, prop.regs)
 
 import("doParallel")
 import("parallel")

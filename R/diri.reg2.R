@@ -29,7 +29,6 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   ## based on the logistic normal
   ## the next lines optimize the dirireg2 function and
   ## estimate the parameter values
-
   el <- NULL
   qa <- nlm(dirireg2, c(rnorm(p, 0, 0.1), as.vector( t(ini) ) ) )
   el1 <-  -qa$minimum

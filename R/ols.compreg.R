@@ -27,14 +27,15 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   d <- dim(y)[2] - 1  ## dimensionality of the simplex
   ## the next lines minimize the reg function and obtain the estimated betas
   ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
-  options (warn = -1)
+  oop <- options(warn = -1) 
   qa <- nlm(olsreg, ini, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
+  on.exit( options(oop) )
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   seb <- NULL
   runtime <- proc.time() - runtime
-
+  
   if (B > 1) {
     nc <- ncores
     if (nc == 1) {
@@ -57,8 +58,8 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     } else {
       runtime <- proc.time()
       betaboot <- matrix(nrow = B, ncol = length(ini) )
-      cl <- makePSOCKcluster(ncores)
-      registerDoParallel(cl)
+      cl <- parallel::makePSOCKcluster(ncores)
+      doParallel::registerDoParallel(cl)
       ww <- foreach::foreach(i = 1:B, .combine = rbind, .export = "olsreg") %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
@@ -69,7 +70,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         betaboot[i, ] <- qa$estimate
       }
-      stopCluster(cl)
+      parallel::stopCluster(cl)
       s <- Rfast::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime

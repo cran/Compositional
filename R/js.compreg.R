@@ -29,7 +29,8 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
   runtime <- proc.time()
   ini <- as.vector( t( kl.compreg(y, x[, -1, drop = FALSE])$be ) )
-  options (warn = -1)
+  oop <- options(warn = -1) 
+  on.exit( options(oop) )
   qa <- nlm(jsreg, ini, y = y, x = x, d = d)
   qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
@@ -40,7 +41,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   if (B > 1) {
   betaboot <- matrix( nrow = B, ncol = length(ini) )
   nc <- ncores
-    if (nc == 1) {
+    if (nc <= 1) {
       runtime <- proc.time()
       for (i in 1:B) {
         ida <- sample( 1:n, n, replace = TRUE )
@@ -58,8 +59,8 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-      cl <- makePSOCKcluster(ncores)
-      registerDoParallel(cl)
+      cl <- parallel::makePSOCKcluster(ncores)
+      doParallel::registerDoParallel(cl)
       ww <- foreach::foreach(i = 1:B, .combine = rbind, .export=c("jsreg", "kl.compreg") ) %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
@@ -70,7 +71,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
         betaboot <- qa$estimate
       }
-      stopCluster(cl)
+      parallel::stopCluster(cl)
       s <- Rfast::colVars(ww, std = TRUE)
       seb <- matrix(s, byrow = TRUE, ncol = d)
       runtime <- proc.time() - runtime

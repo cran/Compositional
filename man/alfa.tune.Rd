@@ -42,8 +42,8 @@ The time (in seconds) of the process.
 }
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 }
 
@@ -70,5 +70,4 @@ alfa.tune(x)
 alfa.profile(x)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ maximum log-likelihood estimation }

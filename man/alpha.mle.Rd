@@ -81,5 +81,4 @@ mod
 alpha.mle(x, mod[1])
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ maximum likelihood estimation }

@@ -6,7 +6,7 @@
 #### References: Jolliffe I.T. (2002)
 #### Principal Component Analysis p. 167-188.
 ################################
-pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TRUE) {
+pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, seed = FALSE, graph = TRUE) {
   ## y is the univariate dependent variable
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default
@@ -15,40 +15,33 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
   n <- length(y)  ## sample size
   p <- dim(x)[2]  ## number of independent variables
   if ( maxk > p )  maxk <- p  ## just a check
+  if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                           stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
 
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M )
-  } else  mat <- mat
-
-  M <- dim(mat)[2]
-  rmat <- dim(mat)[1]
-  msp <- matrix( nrow = M, ncol = maxk )
-  if (ncores == 1) {
+  if (ncores <= 1) {
 
     runtime <- proc.time()
+    msp <- matrix( nrow = nfolds, ncol = maxk )
 
-    for (vim in 1:M) {
+    for (vim in 1:nfolds) {
 
-      ytest <- y[mat[, vim] ]  ## test set dependent vars
-      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
+      ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
       mod <- prcomp(xtrain, center = FALSE)
       vec <- mod$rotation
       z <- mod$x  ## PCA scores
       znew <- xtest %*% vec ## standardize the xnew values
       zzk <- crossprod(z)
       cy <- crossprod( z, ytrain )
+
       for ( j in 1:maxk ) {
         zzkj <- zzk[1:j, 1:j]
         be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
         est <- as.vector( znew[, 1:j, drop = FALSE] %*% be )  ## predicted values for PCA model
-        msp[vim, j] <- sum( (ytest - est)^2 ) / rmat
+        msp[vim, j] <- mean( (ytest - est)^2 )
       }
     }
 
@@ -58,15 +51,17 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
 
     runtime <- proc.time()
 
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
+    cl <- parallel::makePSOCKcluster(ncores)
+    doParallel::registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach::foreach(vim = 1:M, .combine = rbind, .packages = "Rfast",
+    if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                             stratified = FALSE, seed = seed)
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast",
                             .export = c("colVars", "colmeans") ) %dopar% {
-      ytest <-  y[mat[, vim] ]  ## test set dependent vars
-      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
+      ytest <-  y[ folds[[ vim ]] ]  ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
       mod <- prcomp(xtrain, center = FALSE)
       vec <- mod$rotation
       z <- mod$x  ## PCA scores
@@ -77,11 +72,11 @@ pcr.tune <- function(y, x, M = 10, maxk = 50, mat = NULL, ncores = 1, graph = TR
         zzkj <- zzk[1:j, 1:j]
         be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
         est <- as.vector( znew %*% be )  ## predicted values for PCA model
-        er[j] <- sum( (ytest - est)^2 ) / rmat
+        er[j] <- mean( (ytest - est)^2 )
       }
       return(er)
     }
-    stopCluster(cl)
+    parallel::stopCluster(cl)
 
     runtime <- proc.time() - runtime
   }

@@ -18,7 +18,7 @@ a.mle <- function(a, x) {
     lam <- 1 / ( a^2 * Rfast::rowMins(y, value = TRUE)^2 )    ##  1/apply(a * y, 1, min)^2
     y1 <- y %*% t( helm(D) )
     y2 <- y1 * lam
-    com <-  - 0.5 * n * d * log(2 * pi ) + n * (d + 0.5) * log(D) + (a - 1) * ja - D * sum( log(sk) )
+    com <-  - 0.5 * n * d * log(2 * pi ) + n * (d + 0.5) * log(D) + (a - 1) * ja - D * sum( log(sk) ) + 0.5 * d
     ## step 1
     ma <- Rfast::colmeans(y1)
     sa <- Rfast::cova(y1)

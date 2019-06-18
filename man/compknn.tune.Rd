@@ -2,7 +2,7 @@
 \alias{compknn.tune}
 \alias{alfaknn.tune}
 \title{
-Tuning of the he k-NN algorithm for compositional data
+Tuning of the k-NN algorithm for compositional data
 }
 
 \description{
@@ -10,11 +10,13 @@ Tuning of the k-NN algorithm for compositional data with and without using the p
 }
 
 \usage{
-compknn.tune(x, ina, M = 10, A = 5, type= "S", mesos = TRUE,
-a = seq(-1, 1, by = 0.1), apostasi = "ESOV", mat = NULL, graph = FALSE)
+compknn.tune(x, ina, nfolds = 10, A = 5, type= "S", mesos = TRUE,
+a = seq(-1, 1, by = 0.1), apostasi = "ESOV", folds = NULL,
+stratified = FALSE, seed = FALSE, graph = FALSE)
 
-alfaknn.tune(x, ina, M = 10, A = 5, type = "S", mesos = TRUE,
-a = seq(-1, 1, by = 0.1), apostasi = "euclidean", mat = NULL, graph = FALSE)
+alfaknn.tune(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE,
+a = seq(-1, 1, by = 0.1), apostasi = "euclidean", folds = NULL,
+stratified = FALSE, seed = FALSE, graph = FALSE)
 }
 
 \arguments{
@@ -24,8 +26,8 @@ A matrix with the available compositional data. Zeros are allowed, but you must 
 \item{ina}{
 A group indicator variable for the available data.
 }
-\item{M}{
-The number of folds to be used. This is taken into consideration only if the matrix "mat" is not supplied.
+\item{nfolds}{
+The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
 }
 \item{A}{
 The maximum number of nearest neighbours to consider. Note that the 1 nearest neighbour is not used.
@@ -43,9 +45,14 @@ A grid of values of \eqn{\alpha} to be used only if the distance chosen allows f
 The type of distance to use. For the compk.knn this can be one of the following: "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS".
 See the references for them. For the alfa.knn this can be either "euclidean" or "manhattan".
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations. 
-You can also leave it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
+}
+\item{stratified}{
+Do you want the folds to be created in a stratified way? TRUE or FALSE.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 \item{graph}{
 If set to TRUE a graph with the results will appear.
@@ -53,9 +60,9 @@ If set to TRUE a graph with the results will appear.
 }
 
 \details{
-The k-NN algorithm is applied for the compositional data. There are many metrics and possibilities to choose from. The standard algorithm finds the 
-k nearest observations to a new observation and allocates it to the class which appears most times in the neighbours. The non standard algorithm is 
-slower but perhaps more accurate. For every group is finds the k nearest neighbours to the new observation. It then computes the arithmetic or the 
+The k-NN algorithm is applied for the compositional data. There are many metrics and possibilities to choose from. The standard algorithm finds the
+k nearest observations to a new observation and allocates it to the class which appears most times in the neighbours. The non standard algorithm is
+slower but perhaps more accurate. For every group is finds the k nearest neighbours to the new observation. It then computes the arithmetic or the
 harmonic mean of the distances. The new point is allocated to the class with the minimum distance.
 }
 
@@ -79,8 +86,8 @@ The run time of the cross-validation procedure.
 }
 
 \references{
-Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present. 
-Journal of Data Science, 12(3): 519-534. 
+Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present.
+Journal of Data Science, 12(3): 519-534.
 https://arxiv.org/pdf/1506.05216.pdf
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin

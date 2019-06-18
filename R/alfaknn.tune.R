@@ -8,33 +8,24 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1), apostasi = "euclidean",
-                         mat = NULL, graph = FALSE) {
+alfaknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
+                         apostasi = "euclidean", folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size
   if ( A >= min( table(ina) ) )    A <- min( table(ina) ) - 3  ## The maximum
   ina <- as.numeric(ina) ## makes sure ina is numeric
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-  M <- dim(mat)[2]
-
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = stratified, seed = seed)
+  nfolds <- length(folds)
   if ( type == "S" ) {
     runtime <- proc.time()
-    folds <- list()
     ela <- matrix(nrow = length(a), ncol = A - 1)
     colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
-    for (i in 1:M)  folds[[ i ]] <- mat[, i]
     ## Standard algorithm
     for (i in 1:length(a) ) {
       z <- alfa(x, a[i], h = FALSE)$aff
-      ela[i, ] <- Rfast::knn.cv(folds = folds, nfolds = M, y = ina, x = z, k = 2:A, dist.type = apostasi,
+      ela[i, ] <- Rfast::knn.cv(folds = folds, nfolds = nfolds, y = ina, x = z, k = 2:A, dist.type = apostasi,
                                      type = "C", freq.option = 1)$crit
     }
     runtime <- proc.time() - runtime
@@ -45,13 +36,13 @@ alfaknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = se
     res <- list( ela = ela, performance = max(ela), best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
     ## Non standard method
   } else {
-    per <- array( dim = c( M, A - 1, length(a) ) )  ## The estimated percentages
+    per <- array( dim = c( nfolds, A - 1, length(a) ) )  ## The estimated percentages
     for ( i in 1:length(a) ) {
       z <- alfa(x, a[i], h = FALSE)$aff
-      for (vim in 1:M) {
-        id <- ina[ mat[, vim] ]   ## groups of test sample
-        ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
-        aba <- as.vector( mat[, vim] )
+      for (vim in 1:nfolds) {
+        id <- ina[ folds[[ vim ]] ]   ## groups of test sample
+        ina2 <- ina[ -folds[[ vim ]] ]   ## groups of training sample
+        aba <- as.vector( folds[[ vim ]] )
         aba <- aba[aba > 0]
         g <- alfa.knn(z[aba, ], z[-aba, ], ina = ina2, a = NULL, k = 2:A, type = "NS", mesos = mesos, apostasi = apostasi)
         be <- g - id

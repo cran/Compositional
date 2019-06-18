@@ -41,7 +41,7 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apost
     apo <- list()
     for (m in 1:nc) {
       disa <- Rfast::dista(znew, z[ina == m,], type = apostasi, trans = FALSE)
-      apo[[ m ]] <- Rfast::sort_mat(disa)[1:max(k), ]
+      apo[[ m ]] <- Rfast::colSort(disa)[1:max(k), ]
     }
     if ( mesos ) {
       for (j in 1:klen) {

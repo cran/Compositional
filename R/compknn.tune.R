@@ -1,32 +1,25 @@
-compknn.tune <- function(x, ina, M = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
-                         apostasi = "ESOV", mat = NULL, graph = FALSE) {
+compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
+                         apostasi = "ESOV", folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
   if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
   ## number  of nearest neighbours to use
   if ( min(x) == 0 )  a <- a[ a > 0 ]
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-
-  M <- dim(mat)[2]
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = stratified, seed = seed)
+  nfolds <- length(folds)
   ## The algorithm is repated R times and each time the estimated
   ## percentages are stored in the array per.
   if (apostasi == "ESOV" | apostasi == "taxicab" | apostasi == "CS") {
     a <- a[ a != 0 ]
   }
-  per <- array( dim = c(M, A - 1, length(a)) )
+  per <- array( dim = c(nfolds, A - 1, length(a)) )
   runtime <- proc.time()
 
-  for (vim in 1:M) {
-    id <- ina[ mat[, vim] ]  ## groups of test sample
-    ina2 <- ina[ -mat[, vim] ]   ## groups of training sample
-    aba <- as.vector( mat[, vim] )
+  for (vim in 1:nfolds) {
+    id <- ina[ folds[[ vim ]] ]  ## groups of test sample
+    ina2 <- ina[ -folds[[ vim ]] ]   ## groups of training sample
+    aba <- as.vector( folds[[ vim ]] )
     aba <- aba[aba > 0]
     for ( i in 1:length(a) ) {
 	  z <- x^a[i]

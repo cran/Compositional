@@ -24,7 +24,8 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   el <- NULL
-  options(warn = -1)
+  oop <- options(warn = -1) 
+  on.exit( options(oop) )
   qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
   el1 <-  -qa$minimum
   qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
@@ -35,7 +36,6 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
     el2 <- -qa$minimum
   }
-
   qa <- optim(qa$estimate, dirireg, z = z, x = x, n = n, d = d, hessian = TRUE)
   log.phi <- qa$par[1]
   be <- matrix(qa$par[-1], ncol = d)  ## matrix of the betas

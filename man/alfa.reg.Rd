@@ -92,5 +92,4 @@ y <- y / rowSums(y)
 mod <- alfa.reg(y, x, 0.2)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ multivariate regression }

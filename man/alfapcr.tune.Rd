@@ -9,8 +9,8 @@ This is a cross-validation procedure to decide on the number of principal compon
 }
 
 \usage{
-alfapcr.tune(y, x, model = "gaussian", M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-mat = NULL, ncores = 1, graph = TRUE, col.nu = 15)
+alfapcr.tune(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
+folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE)
 }
 
 \arguments{
@@ -23,7 +23,7 @@ A matrix with the predictor variables, the compositional data. Zero values are a
 \item{model}{
 The type of regression model to fit. The possible values are "gaussian", "binomial" and "poisson".
 }
-\item{M}{
+\item{nfolds}{
 The number of folds for the K-fold cross validation, set to 10 by default.
 }
 \item{maxk}{
@@ -32,8 +32,8 @@ The maximum number of principal components to check.
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{ncores}{
 How many cores to use. If you have heavy computations or do not want to wait for long time more than 1 core (if available) is suggested. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
@@ -43,6 +43,9 @@ If graph is TRUE (default value) a filled contour plot will appear.
 }
 \item{col.nu}{
 A number parameter for the filled contour plot, taken into account only if graph is TRUE.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 }
 
@@ -99,9 +102,8 @@ library(MASS)
 y <- as.vector(fgl[, 1])
 x <- as.matrix(fgl[, 2:9])
 x <- x/ rowSums(x)
-mod <- alfapcr.tune(y, x, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1), mat = NULL, ncores = 1)
+mod <- alfapcr.tune(y, x, nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1) )
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ principal components regression }
 \keyword{ tuning }

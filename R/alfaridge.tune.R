@@ -8,55 +8,30 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-alfaridge.tune <- function(y, x, M = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1), mat = NULL,
-                           ncores = 1, graph = TRUE, col.nu = 15) {
+alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1), folds = NULL,
+                           ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE) {
 
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
   n <- dim(x)[1]
+  ina <- 1:n
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
+  mspe2 <- array( dim = c( nfolds, length(lambda), da ) )
 
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-
-  M <- dim(mat)[2]
-  mspe2 <- array( dim = c( M, length(lambda), da ) )
-
-  if (ncores <= 1 ) {
-    tac <- proc.time()
-    for ( i in 1:da ) {
-      z <- alfa(x, a[i])$aff
-      mod <- ridge.tune(y, z, M = M, lambda = lambda, mat = mat, ncores = 1, graph = FALSE)
-      mspe2[, , i] <- mod$msp
-    }
-    runtime <- proc.time() - tac
-
-  } else {
-    tac <- proc.time()
-    ## dimensions of the matrix val a warning message should appear
-    ## but with options(warn = -1) you will not see it
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
-    ms <- numeric( M * length(lambda) )
-    ww <- foreach(i = 1:da, .combine = cbind, .packages = "Rfast", .export = c("ridge.tune",
-       "alfa", "helm", "colmeans", "colVars") ) %dopar% {
-      z <- alfa(x, a[i])$aff
-      mod <- ridge.tune(y, z, M = M, lambda = lambda, mat = mat, ncores = 1, graph = FALSE)
-      ms[i] <- as.vector(mod$msp)
-    }
-    for (i in 1:da)  mspe2[, , i] <- matrix(ww[, i], nrow = M)
-    runtime <- proc.time() - tac
+  tac <- proc.time()
+  for ( i in 1:da ) {
+    z <- alfa(x, a[i])$aff
+    mod <- Compositional::ridge.tune(y, z, nfolds = nfolds, lambda = lambda, folds = folds, ncores = ncores,
+                                     seed = seed, graph = FALSE)
+    mspe2[, , i] <- mod$msp
   }
 
-  dimnames(mspe2) <- list(folds = 1:M, lambda = lambda, a = a)
-  mspe <- array( dim = c(da, length(lambda), M) )
-  for (i in 1:M)  mspe[, , i] <- t( mspe2[i, , 1:da] )
-  dimnames(mspe) <- list(a = a, lambda = lambda, folds = 1:M )
+  dimnames(mspe2) <- list(folds = 1:nfolds, lambda = lambda, a = a)
+  mspe <- array( dim = c(da, length(lambda), nfolds) )
+  for (i in 1:nfolds)  mspe[, , i] <- t( mspe2[i, , 1:da] )
+  dimnames(mspe) <- list(a = a, lambda = lambda, folds = 1:nfolds )
   mean.mspe <- apply(mspe, 1:2, mean)
   best.par <- ( which(mean.mspe == min(mean.mspe), arr.ind = TRUE)[1, ] )
   opt.mspe <- mean.mspe[ best.par[1], best.par[2] ]

@@ -8,8 +8,8 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 1, by = 0.1),
-                         del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
+alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, gam = seq(0, 1, by = 0.1),
+                         del = seq(0, 1, by = 0.1), ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE) {
   ## x contains the compositonal data
   ## ina is the grouping variable
   ## a is the grid of values of a
@@ -24,15 +24,9 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 
   ## del * QDa + (1 - del) * LDA
   toc <- proc.time()
   n <- length(ina)
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-  M <- dim(mat)[2]
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = stratified, seed = seed)
+  nfolds <- length(folds)
   ## if you have zero values, only positive alphas are allowed
   if ( min(x) == 0 )  a = a[ a > 0 ]
   info <- list()
@@ -40,7 +34,8 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), M = 10, gam = seq(0, 
 
   for ( k in 1:length(a) ) {
     z <- alfa(x, a[k])$aff  ## apply the alpha-transformation
-    mod <- rda.tune(x = z, ina = ina, M = M, gam = gam, del = del, ncores = ncores, mat = mat)
+    mod <- rda.tune(x = z, ina = ina, nfolds = nfolds, gam = gam, del = del, ncores = ncores,
+                    folds = folds, stratified = stratified, seed = seed)
     ## since seed is TRUE, for every value of alpha, the same splits will occur
     ## thus, the percentages for all values of alpha are comparable
     props[, , k] <- mod$percent

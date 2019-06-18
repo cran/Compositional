@@ -5,7 +5,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE) {
+glmpcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, seed = FALSE, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)
@@ -19,18 +19,10 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
   n <- dim(x)[1]
   p <- dim(x)[2]
   if ( maxk > p ) maxk <- p  ## just a check
-
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M )
-  } else  mat <- mat
-
-  M <- dim(mat)[2]
-  msp <- matrix( nrow = M, ncol = maxk )
+  if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                           stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
+  msp <- matrix( nrow = nfolds, ncol = maxk )
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
   ## the user can access it though by running
@@ -39,13 +31,13 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
     oiko <- "binomial"
   } else oiko <- "poisson"
 
-  if (ncores == 1) {
+  if (ncores <= 1) {
     runtime <- proc.time()
-    for (vim in 1:M) {
-      ytest <- y[mat[, vim] ]   ## test set dependent vars
-      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE ]  ## test set independent vars
+    for (vim in 1:nfolds) {
+      ytest <- y[ folds[[ vim ]] ]   ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE ]  ## test set independent vars
 	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
@@ -72,14 +64,16 @@ glmpcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph =
 
   } else {
     runtime <- proc.time()
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
+    cl <- parallel::makePSOCKcluster(ncores)
+    doParallel::registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("glm_logistic", "glm_poisson") ) %dopar% {
-      ytest <- y[mat[, vim] ]  ## test set dependent vars
-      ytrain <-  y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
+    if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                             stratified = FALSE, seed = seed)
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("glm_logistic", "glm_poisson") ) %dopar% {
+      ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
+      ytrain <-  y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
 	    vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 

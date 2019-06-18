@@ -1,27 +1,26 @@
-klalfapcr.tune <- function(y, x, covar = NULL, M = 10, maxk = 50,
-                           a = seq(-1, 1, by = 0.1), mat = NULL, graph = FALSE,
-                           tol = 1e-07, maxiters = 50) {
+klalfapcr.tune <- function(y, x, covar = NULL, nfolds = 10, maxk = 50,
+                           a = seq(-1, 1, by = 0.1), folds = NULL, graph = FALSE,
+                           tol = 1e-07, maxiters = 50, seed = FALSE) {
   n <- dim(x)[1]
   p <- dim(x)[2] - 1
   if ( min(x) == 0 )  a <- a[ a > 0 ]
   if ( maxk > p )   maxk <- p
   if ( !is.null(covar) )  covar <- as.matrix(covar)
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M )
-  } else  mat <- mat
-  M <- ncol(mat)
-  mspe <- list()
-  msp <- matrix( nrow = M, ncol = maxk )
+  ina <- 1:n
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                             stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
+  msp <- matrix( nrow = nfolds, ncol = maxk )
   colnames(msp) <- paste("PC", 1:maxk, sep = " ")
+  mspe <- list()
+
   for ( i in 1:length(a) ) {
     xa <- Compositional::alfa(x, a[i])$aff
-    for (vim in 1:M) {
-      ytest <- y[ mat[, vim], , drop = FALSE ]
-      ytrain <- y[ -mat[, vim], , drop = FALSE ]
-      xtrain <- xa[ -mat[, vim],,  drop = FALSE ]
-      xtest <- xa[ mat[, vim], , drop = FALSE ]
+    for (vim in 1:nfolds) {
+      ytest <- y[ folds[[ vim ]], , drop = FALSE ]
+      ytrain <- y[ -folds[[ vim ]], , drop = FALSE ]
+      xtrain <- xa[ -folds[[ vim ]], ,  drop = FALSE ]
+      xtest <- xa[ folds[[ vim ]], , drop = FALSE ]
       com <- sum(ytest * log(ytest), na.rm = TRUE)
       mod <- prcomp(xtrain, center = FALSE)
       vec <- mod$rotation
@@ -30,9 +29,9 @@ klalfapcr.tune <- function(y, x, covar = NULL, M = 10, maxk = 50,
       for ( j in 1:maxk ) {
         if ( !is.null(covar) ) {
           z <- cbind(za[, 1:j, drop = FALSE],
-                     covar[ -mat[, vim], drop = FALSE ] )
+                     covar[ -folds[[ vim ]], drop = FALSE ] )
           znew <- cbind(zanew[, 1:j, drop = FALSE],
-                        covar[ mat[, vim], drop = FALSE ] )
+                        covar[ folds[[ vim ]], drop = FALSE ] )
         } else {
           z <- za[, 1:j, drop = FALSE ]
           znew <- zanew[, 1:j, drop = FALSE]

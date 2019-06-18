@@ -25,7 +25,7 @@ predictor variables.
 The number of terms to include in the final model.
 }
 \item{type}{
-A boolean variable indicating the transformation to be used. Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio transformation respectively.
+Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio transformation respectively.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.

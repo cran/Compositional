@@ -34,19 +34,17 @@ zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
   ##############
   ini.par <- c( log(ini.phi), as.vector( t( beta.ini) ) )  ## initial parameter values
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-  options(warn = -1)
+  oop <- options(warn = -1) 
+  on.exit( options(oop) )
   qa <- nlm( mixreg, ini.par, z = z )
   el1 <- -qa$minimum
   qa <- nlm( mixreg, qa$estimate, z = z )
   el2 <-  - qa$minimum
-
-  options(warn = -1)
   while ( el2 - el1 > tol ) {  ## the tolerance value can of course change
     el1 <- el2
     qa <- nlm( mixreg, qa$estimate, z = z )
     el2 <-  -qa$minimum
   }
-
   qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE )
   sigma <- Rfast::spdinv(qa$hessian)
   seb <- sqrt( diag(sigma) )

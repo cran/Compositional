@@ -4,39 +4,33 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, ncores = 1, graph = FALSE) {
+ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = NULL, ncores = 1, seed = FALSE, graph = FALSE) {
   ## x contains the independent variables(s)
-  ## M is the number of folds, set to 10 by default
+  ## nfolds is the number of folds, set to 10 by default
   ## lambda is a vector with a grid of values of lambda
   ## ncores is the number of cores to use
   n <- length(y)  ## sample size
   k <- length(lambda)
   di <- dim(y)[2]  ## dimensionality of y
   p <- dim(x)[2]  ## dimensionality of x
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-  M <- dim(mat)[2]
-  rmat <- dim(mat)[1]
-  msp <- matrix( nrow = M, ncol = k)
+  ina <- 1:n
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
+  msp <- matrix( nrow = nfolds, ncol = k)
   ## deigma will contain the positions of the test set
   ## this is stored but not showed in the end
   ## the user can access it though by running
   ## the commands outside this function
-  if (ncores == 1) {
+  if (ncores <= 1) {
     runtime <- proc.time()
-    for (vim in 1:M) {
-      ytest <- y[ mat[, vim] ]   ## test set dependent vars
-      ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
-      my <- sum(ytrain) / rmat
+    for (vim in 1:nfolds) {
+      ytest <- y[ folds[[ vim ]] ]   ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      my <- mean(ytrain)
       yy <- ytrain - my  ## center the dependent variables
-      xtrain <- x[ -mat[, vim], ]   ## train set independent vars
-      xtest <- x[ mat[, vim], , drop = FALSE]   ## test set independent vars
+      xtrain <- x[ -folds[[ vim ]], ]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]   ## test set independent vars
       sa <- svd(xtrain)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
       d2 <- d^2    ;    A <- d * tu %*% yy
@@ -44,23 +38,26 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
         ## beta <- ( v %*% (tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
         beta <- crossprod( v / ( d2 + lambda[i] ), A )
         est <- xtest %*% beta + my
-        msp[vim, i] <- sum( (ytest - est)^2 ) / rmat
+        msp[vim, i] <- mean( (ytest - est)^2 )
       }
     }
     runtime <- proc.time() - runtime
 
   } else {
     runtime <- proc.time()
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
+    cl <- parallel::makePSOCKcluster(ncores)
+    doParallel::registerDoParallel(cl)
     pe <- numeric(k)
-    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("colmeans", "colVars") ) %dopar% {
-      ytest <- y[ mat[, vim] ]   ## test set dependent vars
-      ytrain <- y[ -mat[, vim] ]   ## train set dependent vars
-      my <- sum(ytrain) / rmat
+    if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                             stratified = FALSE, seed = seed)
+    nfolds <- length(folds)
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("colmeans", "colVars") ) %dopar% {
+      ytest <- y[ folds[[ vim ]] ]   ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      my <- mean(ytrain)
       yy <- ytrain - my  ## center the dependent variables
-      xtrain <- x[ -mat[, vim], ] ## train set independent vars
-      xtest <- x[ mat[, vim], , drop = FALSE]  ## test set independent vars
+      xtrain <- x[ -folds[[ vim ]], ] ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
       sa <- svd(xtrain)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
       d2 <- d^2    ;    A <- d * tu %*% yy
@@ -68,7 +65,7 @@ ridge.tune <- function(y, x, M = 10, lambda = seq(0, 2, by = 0.1), mat = NULL, n
         ## beta <- ( v %*% (tu * ( d / ( d^2 + lambda[i] ) ) ) ) %*% yy
         beta <- crossprod( v / ( d2 + lambda[i] ), A )
         est <- xtest %*% beta + my
-        pe[i] <- sum( (ytest - est)^2 ) / rmat
+        pe[i] <- mean( (ytest - est)^2 )
       }
       return(pe)
     }

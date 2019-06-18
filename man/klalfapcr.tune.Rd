@@ -9,8 +9,8 @@ Tuning of the divergence based regression for compositional data with compositio
 }
 
 \usage{
-klalfapcr.tune(y, x, covar = NULL, M = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-mat = NULL, graph = FALSE, tol = 1e-07, maxiters = 50)
+klalfapcr.tune(y, x, covar = NULL, nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
+folds = NULL, graph = FALSE, tol = 1e-07, maxiters = 50, seed = FALSE)
 }
 
 \arguments{
@@ -23,8 +23,8 @@ A matrix with the predictor variables, the compositional data. Zero values are a
 \item{covar}{
 If you have other continuous covariates put themn here.
 }
-\item{M}{
-The number of folds for the M-fold cross validation, set to 10 by default.
+\item{nfolds}{
+The number of folds for the K-fold cross validation, set to 10 by default.
 }
 \item{maxk}{
 The maximum number of principal components to check.
@@ -33,9 +33,8 @@ The maximum number of principal components to check.
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0.
 If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.
-You can also leave it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{graph}{
 If graph is TRUE (default value) a filled contour plot will appear.
@@ -45,6 +44,9 @@ The tolerance value to terminate the Newton-Raphson procedure.
 }
 \item{maxiters}{
 The maximum number of Newton-Raphson iterations.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 }
 

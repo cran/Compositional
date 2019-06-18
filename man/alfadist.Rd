@@ -34,7 +34,7 @@ In the case of the Euclidean distance, you can choose to return the squared dist
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then the Euclidean or the Manhattan 
+The \eqn{\alpha}-transformation is applied to the compositional data first and then the Euclidean or the Manhattan
 distance is calculated.
 }
 
@@ -45,12 +45,12 @@ The pairwise distances of all observations.
 
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the 
-\eqn{\alpha}-transformation. Journal of Classification. 33(2):243--261. 
+Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the
+\eqn{\alpha}-transformation. Journal of Classification. 33(2):243--261.
 http://arxiv.org/pdf/1506.04976v2.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 }
 
@@ -77,7 +77,6 @@ alfadist(x, 0.1)
 alfadist(x, 1)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ Euclidean distance }
 \keyword{ Manhattan distance }
 

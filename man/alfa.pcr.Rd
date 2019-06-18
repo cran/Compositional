@@ -91,5 +91,4 @@ mod <- alfa.pcr(y = y, x = x, 0.7, 1)
 mod
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ principal components regression }

@@ -46,7 +46,7 @@ Tsagris M. (2015). Regression analysis with compositional data containing zero v
 http://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 }
 
@@ -74,5 +74,4 @@ mod1 <- alfa.ridge(y, x, a = 0.5, lambda = 0.1, B = 1, xnew = NULL)
 mod2 <- alfa.ridge(y, x, a = 0.5, lambda = 1, B = 1, xnew = NULL)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ ridge regression }

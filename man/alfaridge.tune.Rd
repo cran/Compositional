@@ -10,9 +10,9 @@ There is an option for the GCV criterion which is automatic. The predictor varia
 }
 
 \usage{
-alfaridge.tune(y, x, M = 10, a = seq(-1, 1, by = 0.1),
-lambda = seq(0, 2, by = 0.1), mat = NULL, ncores = 1,
-graph = TRUE, col.nu = 15)
+alfaridge.tune(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1),
+lambda = seq(0, 2, by = 0.1), folds = NULL, ncores = 1,
+graph = TRUE, col.nu = 15, seed = FALSE)
 }
 
 \arguments{
@@ -23,8 +23,8 @@ i.e. strictly within 0 and 1 they are mapped into R using the logit transformati
 \item{x}{
 A numeric matrix containing the compositional data, i.e. the predictor variables. Zero values are allowed.
 }
-\item{M}{
-The number of folds. Set to 10 by default.
+\item{nfolds}{
+The number of folds in the cross validation.
 }
 \item{a}{
 A vector with the a grid of values of \eqn{\alpha} to be used.
@@ -32,8 +32,8 @@ A vector with the a grid of values of \eqn{\alpha} to be used.
 \item{lambda}{
 A vector with the a grid of values of \eqn{\lambda} to be used.
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.     You can also leave it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{ncores}{
 The number of cores to use. If it is more than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
@@ -43,6 +43,9 @@ If graph is TRUE (default value) a filled contour plot will appear.
 }
 \item{col.nu}{
 A number parameter for the filled contour plot, taken into account only if graph is TRUE.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 }
 
@@ -74,7 +77,7 @@ Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nono
 Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publications.
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 }
 
@@ -97,10 +100,9 @@ library(MASS)
 y <- as.vector(fgl[, 1])
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-alfaridge.tune( y, x, M = 10, a = seq(0.1, 1, by = 0.1),
+alfaridge.tune( y, x, nfolds = 10, a = seq(0.1, 1, by = 0.1),
 lambda = seq(0, 1, by = 0.1) )
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ ridge regression }
 \keyword{ parameters tuning }

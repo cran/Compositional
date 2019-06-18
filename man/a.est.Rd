@@ -76,5 +76,4 @@ alfa.tune(x)
 a.est(x)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ maximum likelihood estimation }

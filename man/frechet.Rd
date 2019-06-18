@@ -59,5 +59,4 @@ frechet(x, 0.2)
 frechet(x, 1)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ Frechet mean }

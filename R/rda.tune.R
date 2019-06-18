@@ -1,4 +1,5 @@
-rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1), ncores = 1, mat = NULL) {
+rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
+                     ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE) {
   ## x contains the data
   ## gam is between pooled covariance and diagonal
   ## gam*Spooled+(1-gam)*diagonal
@@ -14,35 +15,22 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
   D <- dim(x)[2]  ## number of variables
   sk <- array( dim = c(D, D, nc) )
   lg <- length(gam)    ;    ld <- length(del)
-
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M ) # if the length of nu does not fit
-  } else  mat <- mat
-  ## mat contains the positions of the test set
-  ## this is stored but not showed in the end
-  ## the user can access it though by running
-  ## the commands outside this function
-  rmat <- dim(mat)[1]
-  M <- dim(mat)[2]
-  gr <- matrix(nrow = rmat, ncol = nc)
+  if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                           stratified = stratified, seed = seed)
+  nfolds <- length(folds)
 
   if (ncores > 1) {
     runtime <- proc.time()
     group <- matrix(nrow = length(gam), ncol = length(del) )
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
-
-    ww <- foreach(vim = 1:M, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
-
-      test <- x[ mat[, vim], , drop = FALSE]  ## test sample
-      id <- ina[ mat[, vim] ] ## groups of test sample
-      train <- x[ -mat[, vim], ]   ## training sample
-      ida <- ina[ -mat[, vim] ]  ## groups of training sample
+    cl <- parallel::makePSOCKcluster(ncores)
+    doParallel::registerDoParallel(cl)
+    if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                             stratified = stratified, seed = seed)
+    ww <- foreach(vim = 1:nfolds, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
+      test <- x[ folds[[ vim ]], , drop = FALSE]  ## test sample
+      id <- ina[ folds[[ vim ]] ] ## groups of test sample
+      train <- x[ -folds[[ vim ]], ]   ## training sample
+      ida <- ina[ -folds[[ vim ]] ]  ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )
       mesi <- rowsum(train, ida) / na
@@ -52,6 +40,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
       s <- na * sk
       Sp <- colSums( aperm(s) ) / (sum(na) - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
+      gr <- matrix(nrow = length( folds[[ vim ]] ), ncol = nc)
 
       for ( k1 in 1:length(gam) ) {
         Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
@@ -62,27 +51,27 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
             ## the scores are doubled for efficiency, I did not multiply with 0.5
           }
           g <- Rfast::rowMaxs(gr)
-          group[k1, k2] <- sum( g == id ) / rmat
+          group[k1, k2] <- mean( g == id )
         }
       }
       return( as.vector( group ) )
     }
     stopCluster(cl)
 
-    per <- array( dim = c( lg, ld, M ) )
-    for ( i in 1:M )  per[, , i] <- matrix( ww[, i], nrow = lg )
+    per <- array( dim = c( lg, ld, nfolds ) )
+    for ( i in 1:nfolds )  per[, , i] <- matrix( ww[, i], nrow = lg )
     runtime <- proc.time() - runtime
 
   } else {
     runtime <- proc.time()
-    per <- array( dim = c( lg, ld, M ) )
+    per <- array( dim = c( lg, ld, nfolds ) )
 
-    for (vim in 1:M) {
+    for (vim in 1:nfolds) {
 
-      test <- x[ mat[, vim], , drop = FALSE ]   ## test sample
-      id <- ina[ mat[, vim] ] ## groups of test sample
-      train <- x[ -mat[, vim], ]  ## training sample
-      ida <- ina[ -mat[, vim] ]   ## groups of training sample
+      test <- x[ folds[[ vim ]], , drop = FALSE ]   ## test sample
+      id <- ina[ folds[[ vim ]] ] ## groups of test sample
+      train <- x[ -folds[[ vim ]], ]  ## training sample
+      ida <- ina[ -folds[[ vim ]] ]   ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )
       mesi <- rowsum(train, ida) / na
@@ -92,6 +81,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
       s <- na * sk
       Sp <- colSums( aperm(s) ) / (sum(na) - nc)  ## pooled covariance matrix
       sp <- diag( sum( diag( Sp ) ) / D, D )
+      gr <- matrix(nrow = length( folds[[ vim ]] ), ncol = nc)
 
       for ( k1 in 1:length(gam) ) {
         Sa <- gam[k1] * Sp + (1 - gam[k1]) * sp  ## regularised covariance matrix
@@ -102,7 +92,7 @@ rda.tune <- function(x, ina, M = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, 
             ## the scores are doubled for efficiency, I did not multiply with 0.5
           }
           g <- Rfast::rowMaxs(gr)
-          per[k1, k2, vim] <- sum( g == id ) / rmat
+          per[k1, k2, vim] <- mean( g == id )
         }
       }
     }

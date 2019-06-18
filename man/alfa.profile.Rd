@@ -36,7 +36,7 @@ An asympotic 95\% confidence interval computed from the log-likelihood ratio tes
 }
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 }
 
@@ -61,5 +61,4 @@ alfa.tune(x)
 alfa.profile(x)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ profile log-likelihood }

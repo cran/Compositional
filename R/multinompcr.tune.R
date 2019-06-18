@@ -5,7 +5,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-multinompcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE) {
+multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, seed = FALSE, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)
@@ -20,29 +20,20 @@ multinompcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, gr
   n <- dim(x)[1]
   p <- dim(x)[2]
   if ( maxk > p ) maxk <- p  ## just a check
+  if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                           stratified = FALSE, seed = seed)
+  nfolds <- length(folds)
 
-  if ( is.null(mat) ) {
-    nu <- sample(1:n, min( n, round(n / M) * M ) )
-    ## It may be the case this new nu is not exactly the same
-    ## as the one specified by the user
-    ## to a matrix a warning message should appear
-    options(warn = -1)
-    mat <- matrix( nu, ncol = M )
-  } else  mat <- mat
-
-  M <- dim(mat)[2]
-  rmat <- dim(mat)[1]
-  msp <- matrix( nrow = M, ncol = maxk )
-
-  if (ncores == 1) {
+  if (ncores <= 1) {
     runtime <- proc.time()
-    for (vim in 1:M) {
-      ytest <- y[mat[, vim] ]   ## test set dependent vars
-      ytrain <- y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE ]  ## test set independent vars
+    for (vim in 1:nfolds) {
+      ytest <- y[ folds[[ vim ]] ]   ## test set dependent vars
+      ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE ]  ## test set independent vars
       vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
+      msp <- matrix( nrow = nfolds, ncol = maxk )
 
       for ( j in 1:maxk) {
         mod <-try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
@@ -55,26 +46,28 @@ multinompcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, gr
           est <- es / Rfast::rowsums(es)
           est <- Rfast::rowMaxs(est)
         }
-        msp[vim, j] <- sum( est == ytest ) / rmat
+        msp[vim, j] <- mean( est == ytest )
       }
     }
     runtime <- proc.time() - runtime
 
   } else {
     runtime <- proc.time()
-    cl <- makePSOCKcluster(ncores)
-    registerDoParallel(cl)
+    cl <- parallel::makePSOCKcluster(ncores)
+    doParallel::registerDoParallel(cl)
     er <- numeric(maxk)
-    msp <- foreach(vim = 1:M, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
-      ytest <- y[mat[, vim] ]  ## test set dependent vars
-      ytrain <-  y[-mat[, vim] ]   ## train set dependent vars
-      xtrain <- x[-mat[, vim], , drop = FALSE]   ## train set independent vars
-      xtest <- x[mat[, vim], , drop = FALSE]  ## test set independent vars
+    if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
+                                                             stratified = FALSE, seed = seed)
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
+      ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
+      ytrain <-  y[ -folds[[ vim ]] ]   ## train set dependent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
+      xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
       vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
       for ( j in 1:maxk) {
-        mod <-try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
+        mod <- try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
         if ( identical( class(mod), "try-error" ) ) {
           est <- NULL
         } else {
@@ -84,11 +77,11 @@ multinompcr.tune <- function(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, gr
           est <- es / Rfast::rowsums(es)
           est <- Rfast::rowMaxs(est)
         }
-        er[j] <- sum( est == ytest ) / rmat
+        er[j] <- mean( est == ytest )
       }
       return(er)
     }
-    stopCluster(cl)
+    parallel::stopCluster(cl)
     runtime <- proc.time() - runtime
   }
 

@@ -92,7 +92,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
-              apo <- Rfast::sort_mat(apo)
+              apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colmeans( apo[1:k[j], , drop = FALSE] )
             }
             g[, j] <- Rfast::rowMins(ta)
@@ -101,7 +101,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
 		  for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
-              apo <- Rfast::sort_mat(apo)
+              apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colhameans( apo[1:k[j], , drop = FALSE] )
             }
             g[, j] <- Rfast::rowMins(ta)
@@ -146,7 +146,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
-              apo <- Rfast::sort_mat(apo)
+              apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colmeans( apo[1:k[j], , drop = FALSE] )
             }
           g[, j] <- Rfast::rowMins(ta)
@@ -155,7 +155,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
 		  for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
-              apo <- Rfast::sort_mat(apo)
+              apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colhameans( apo[1:k[j], , drop = FALSE] )
             }
 		    g[, j] <- Rfast::rowMins(ta)

@@ -33,13 +33,13 @@ A matrix with the pairwise distances.
 }
 
 \references{
-Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the 
-\eqn{\alpha}-transformation. Journal of Classification (to appear). 
+Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the
+\eqn{\alpha}-transformation. Journal of Classification (to appear).
 http://arxiv.org/pdf/1506.04976v2.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. 
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain. 
-http://arxiv.org/pdf/1106.1451.pdf 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+http://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
@@ -65,5 +65,4 @@ y <- alfa(x, 0.5)$aff
 alfainv(y, 0.5)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
 \keyword{ inverse transformation }

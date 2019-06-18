@@ -1,4 +1,5 @@
 \name{Tuning the principal components with GLMs}
+\alias{pcr.tune}
 \alias{glmpcr.tune}
 \alias{multinompcr.tune}
 \title{
@@ -10,32 +11,37 @@ Tuning the number of principal components in the generalised linear models.
 }
 
 \usage{
-glmpcr.tune(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE)
+pcr.tune(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1,
+seed = FALSE, graph = TRUE)
 
-multinompcr.tune(y, x, M = 10, maxk = 10, mat = NULL, ncores = 1, graph = TRUE)
+glmpcr.tune(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1,
+seed = FALSE, graph = TRUE)
+
+multinompcr.tune(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1,
+seed = FALSE, graph = TRUE)
 }
 
 \arguments{
 \item{y}{
-A real valued vector for the "glmpcr.tune" with either two numbers, 0 and 1 for example, for the binomial regression or with positive
-discrete numbers for the poisson. For the "multinompcr.tune" a vector or a factor with more than just two values. This is a multinomial
-regression.
+A real valued vector for "pcr.tune". A real valued vector for the "glmpcr.tune" with either two numbers, 0 and 1 for example, for the binomial regression or with positive discrete numbers for the poisson. For the "multinompcr.tune" a vector or a factor with more than just two values. This is a multinomial regression.
 }
 \item{x}{
 A matrix with the predictor variables, they have to be continuous.
 }
-\item{M}{
+\item{nfolds}{
 The number of folds in the cross validation.
 }
 \item{maxk}{
 The maximum number of principal components to check.
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave
-it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{ncores}{
 The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 \item{graph}{
 If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
@@ -60,7 +66,7 @@ A vector with the mean deviance of prediction or mean accuracy, each value corre
 The number of principal components which minimizes the deviance or maximises the accuracy.
 }
 \item{performance}{
-The optimal performance, minimum deviance for the GLMs and maximum accuracy for the multinomial regression.
+The optimal performance, MSE for the linea regression, minimum deviance for the GLMs and maximum accuracy for the multinomial regression.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -93,7 +99,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 library(MASS)
 x <- as.matrix(fgl[, 2:9])
 y <- rpois(214, 10)
-glmpcr.tune(y, x, M=10, maxk = 20, mat = NULL, ncores = 1)
+glmpcr.tune(y, x, nfolds = 10, maxk = 20, folds = NULL, ncores = 1)
 }
 
 \keyword{ GLM }

@@ -90,4 +90,3 @@ rowSums(y1)
 rowSums(y3)
 }
 
-\keyword{ \eqn{\alpha}-transformation }

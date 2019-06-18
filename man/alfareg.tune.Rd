@@ -9,8 +9,8 @@ Tuning the value of \eqn{\alpha} in the \eqn{\alpha}-regression.
 }
 
 \usage{
-alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), K = 10,
-mat = NULL, nc = 1, graph = FALSE)
+alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10,
+folds = NULL, nc = 1, seed = FALSE, graph = FALSE)
 }
 
 \arguments{
@@ -23,14 +23,17 @@ A matrix with the continuous predictor variables or a data frame including categ
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
-\item{K}{
+\item{nfolds}{
 The number of folds to split the data.
 }
-\item{mat}{
-You can specify your own folds by giving a mat, where each column is a fold. Each column contains indices of the observations.  You can also leave it NULL and it will create folds.
+\item{folds}{
+If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{nc}{
 The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+}
+\item{seed}{
+If seed is TRUE the results will always be the same.
 }
 \item{graph}{
 If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
@@ -90,8 +93,6 @@ library(MASS)
 y <- as.matrix(fgl[1:40, 2:4])
 y <- y /rowSums(y)
 x <- as.vector(fgl[1:40, 1])
-mod <- alfareg.tune(y, x, a = c(0.2, 0.35, 0.05), K = 5, nc = 1)
+mod <- alfareg.tune(y, x, a = c(0.2, 0.35, 0.05), nfolds = 5)
 }
 
-\keyword{ \eqn{\alpha}-transformation }
-\keyword{ \eqn{\alpha}-regression }

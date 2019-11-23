@@ -78,7 +78,7 @@ Jing Bing-Yi and Andrew TA Wood (1996). Exponential empirical likelihood is not 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

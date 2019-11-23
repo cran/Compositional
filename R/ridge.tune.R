@@ -29,7 +29,7 @@ ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = 
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       my <- mean(ytrain)
       yy <- ytrain - my  ## center the dependent variables
-      xtrain <- x[ -folds[[ vim ]], ]   ## train set independent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]   ## test set independent vars
       sa <- svd(xtrain)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
@@ -56,7 +56,7 @@ ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = 
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       my <- mean(ytrain)
       yy <- ytrain - my  ## center the dependent variables
-      xtrain <- x[ -folds[[ vim ]], ] ## train set independent vars
+      xtrain <- x[ -folds[[ vim ]], , drop = FALSE] ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
       sa <- svd(xtrain)
       d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
@@ -69,7 +69,7 @@ ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = 
       }
       return(pe)
     }
-    stopCluster(cl)
+    parallel::stopCluster(cl)
     runtime <- proc.time() - runtime
   }
 

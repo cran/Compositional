@@ -58,7 +58,7 @@ K.V. Mardia, J.T. Kent and J.M. Bibby (1979). Multivariate analysis.
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

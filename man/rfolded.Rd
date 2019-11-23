@@ -43,7 +43,7 @@ https://arxiv.org/pdf/1802.07330.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

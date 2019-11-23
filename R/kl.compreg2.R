@@ -1,7 +1,7 @@
 kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
   X <- model.matrix(y~., data.frame(x))
   p <- dim(X)[2]
-  Y <- y[, -1]
+  Y <- y[, -1, drop = FALSE]
   dm <- dim(Y)
   n <- dm[1]
   d <- dm[2]

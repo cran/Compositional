@@ -8,7 +8,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
     if (ncores <= 1) {
       X <- model.matrix(y~., data.frame(x) )
       p <- dim(X)[2]
-      Y <- y[, -1]
+      Y <- y[, -1, drop = FALSE]
       dm <- dim(Y)
       n <- dm[1]    ;   d <- dm[2]
       b1 <- mod$be
@@ -28,7 +28,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
       registerDoParallel(cl)
       X <- model.matrix(y~., data.frame(x) )
       p <- dim(X)[2]
-      Y <- y[, -1]
+      Y <- y[, -1, drop = FALSE]
       dm <- dim(Y)
       n <- dm[1]    ;   d <- dm[2]
       b1 <- mod$be

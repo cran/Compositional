@@ -58,7 +58,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
   	  disa <- Rfast::dista(znew, zx, trans = FALSE)
 
     } else if ( apostasi == "Hellinger" ) {
-      disa <- Rfast::dista(sqrt(xnew), sqrt(x), "euclidean", trans = FALSE)
+      disa <- Rfast::dista(sqrt(xnew), sqrt(x), "euclidean", trans = FALSE ,square = TRUE)
 
     } else if ( apostasi == "angular" ) {
       zx <- sqrt(x)
@@ -88,7 +88,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           disa[, i] <- colSums( zan * log( 2 * zan / ma ) + tzx * log( 2 * tzx/ma ), na.rm = TRUE )
         }
         ta <- matrix(nrow = nu, ncol = nc)
-		if (mesos) {
+	  if (mesos) {
           for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
@@ -97,8 +97,8 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
             }
             g[, j] <- Rfast::rowMins(ta)
           }
-		} else {
-		  for (j in 1:klen) {
+	  } else {
+	    for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
               apo <- Rfast::colSort(apo)
@@ -106,13 +106,14 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
             }
             g[, j] <- Rfast::rowMins(ta)
           }
-		} ## end if (mesos)
+	  } ## end if (mesos)
       } else {
         for (i in 1:nu) {
           zan <- znew[i, ]
           ma <- tzx + zan
           di <- colSums( zan * log( 2 * zan / ma ) + tzx * log( 2 * tzx/ma ), na.rm = TRUE )
-          di <- Rfast::Order( di, partial = max(k) )[ 1:max(k) ]
+          di <- Rfast::Order(di)
+          di <- di[ di <= max(k) ]
           for (j in 1:klen) {
             ind <- di[ 1:k[j] ]
             a <- Rfast::Table( ina[ind] )
@@ -132,7 +133,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
         za <- xnew^a
         znew <- za / Rfast::rowsums( za )  ## The power transformation is applied
       }
-	  tzx <- t(zx)
+	tzx <- t(zx)
       if (type == "NS") {
         disa <- matrix(0, n, nu)
         for (i in 1:nu) {
@@ -142,17 +143,17 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           disa[, i] <- Rfast::colsums( sa )
         }
         ta <- matrix(nrow = nu, ncol = nc)
-		if (mesos) {
+	  if (mesos) {
           for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
               apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colmeans( apo[1:k[j], , drop = FALSE] )
             }
-          g[, j] <- Rfast::rowMins(ta)
+            g[, j] <- Rfast::rowMins(ta)
           }
-		} else {
-		  for (j in 1:klen) {
+	  } else {
+	    for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
               apo <- Rfast::colSort(apo)
@@ -160,14 +161,15 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
             }
 		    g[, j] <- Rfast::rowMins(ta)
           }
-		}  ## end if (mesos)
+	  }  ## end if (mesos)
       } else {
         for (i in 1:nu) {
           znewi <- znew[i, ]
           sa <- ( tzx - znewi )^2 / ( zx + znewi )
           sa[is.infinite(sa)] <- 0
           di <- Rfast::colsums( sa )
-          di <- Rfast::Order( di, partial = max(k) )[ 1:max(k) ]
+          di <- Rfast::Order(di)
+          di <- di[ di <= max(k) ]
           for (j in 1:klen) {
             ind <- di[ 1:k[j] ]
             a <- Rfast::Table( ina[ind] )

@@ -80,7 +80,7 @@ Preprint available from https://arxiv.org/pdf/1410.5011.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

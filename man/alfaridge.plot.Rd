@@ -49,7 +49,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

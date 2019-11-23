@@ -1,17 +1,21 @@
-\name{Cross validation for the regularised discriminant analysis with compositional data using the alpha-transformation}
+\name{Cross validation for the regularised and flexible discriminant analysis with compositional data using the alpha-transformation}
 \alias{alfarda.tune}
+\alias{alfafda.tune}
 \title{
-Cross validation for the regularised discriminant analysis with compositional data using the \eqn{\alpha}-transformation
+Cross validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation
 }
 
 \description{
-Cross validation for the regularised discriminant analysis with compositional data using the \eqn{\alpha}-transformation.
+Cross validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
 alfarda.tune(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10,
 gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
 ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE)
+
+alfafda.tune(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10,
+folds = NULL, stratified = TRUE, seed = FALSE, graph = FALSE)
 }
 
 \arguments{
@@ -47,6 +51,9 @@ Do you want the folds to be created in a stratified way? TRUE or FALSE.
 \item{seed}{
 If seed is TRUE the results will always be the same.
 }
+\item{graph}{
+If graph is TRUE (default value) a filled contour plot will appear.
+}
 }
 
 \details{
@@ -54,7 +61,7 @@ A k-fold cross validation is performed.
 }
 
 \value{
-A list including:
+For the alfa.rda a list including:
 \item{res}{
 The estimated optimal rate and the best values of \eqn{\alpha}, \eqn{gamma} and \eqn{delta}.
 }
@@ -68,19 +75,34 @@ The estimated standard errors of the "percent" matrix.
 \item{runtime}{
 The runtime of the cross-validation procedure.
 }
+
+For the alfa.fda a list including:
+\item{per}{
+The performance of the fda in each fold for each value of \eqn{\alpha}.
+}
+\item{performance}{
+The average performance for each value of \eqn{\alpha}.
+}
+\item{opt_a}{
+The optimal value of \eqn{alpha}.
+}
+\item{runtime}{
+The runtime of the cross-validation procedure.
+}
 }
 
 \references{
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation.
+Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Jounal of Classification, 33(2):243-261.
 
+Hastie, Tibshirani and Buja (1994). Flexible Disriminant Analysis by Optimal Scoring. Journal of the American Statistical Association, 89(428):1255-1270.
 }
 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{
@@ -88,7 +110,7 @@ R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and
 %}
 
 \seealso{
-\code{ \link{alfa.rda}, \link{rda.tune} }
+\code{ \link{alfa.rda}, \link{alfa.fda}, \link{rda.tune} }
 }
 
 \examples{

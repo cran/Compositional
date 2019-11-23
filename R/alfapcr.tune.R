@@ -26,8 +26,8 @@ alfapcr.tune <- function(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = s
   if ( model == 'gaussian' ) {
     tic <- proc.time()
     for ( i in 1:da ) {
-      z <- alfa(x, a[i])$aff
-      mod <- pcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
+      z <- Compositional::alfa(x, a[i])$aff
+      mod <- Compositional::pcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
       mspe2[, , i] <- mod$msp
     }
     toc <- proc.time() - tic
@@ -35,8 +35,8 @@ alfapcr.tune <- function(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = s
   } else if ( model == "multinomial" )  {
     tic <- proc.time()
     for ( i in 1:da ) {
-      z <- alfa(x, a[i])$aff
-      mod <- multinompcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
+      z <- Compositional::alfa(x, a[i])$aff
+      mod <- Compositional::multinompcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
       mspe2[, , i] <- mod$msp
     }
     toc <- proc.time() - tic
@@ -44,8 +44,8 @@ alfapcr.tune <- function(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = s
   } else if ( model == "binomial"  |  model == "poisson" ) {
     tic <- proc.time()
     for ( i in 1:da ) {
-      z <- alfa(x, a[i])$aff
-      mod <- glmpcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
+      z <- Compositional::alfa(x, a[i])$aff
+      mod <- Compositional::glmpcr.tune(y, z, nfolds = nfolds, maxk = maxk, folds = folds, ncores = ncores, seed = seed, graph = FALSE)
       mspe2[, , i] <- mod$msp
     }
     toc <- proc.time() - tic

@@ -39,11 +39,12 @@ klalfapcr.tune <- function(y, x, covar = NULL, nfolds = 10, maxk = 50,
         est <- Compositional::kl.compreg(y = ytrain, x = z, xnew = znew,
                                          tol = 1e-07, maxiters = maxiters)$est
         res <- sum(ytest * log(est), na.rm = TRUE)
-        msp[vim, j] <- com - res * is.finite(res)
+        msp[vim, j] <- 2 * abs( com - res * is.finite(res) )/length(folds[[ vim ]] )
       }
     }
     mspe[[ i ]] <- msp
-  }
+  }  ## end  for ( i in 1:length(a) ) {
+
   names(mspe) <- paste("alpha=", a, sep = "")
   performance <- lapply(mspe, colMeans)
   performance <- matrix( unlist(performance), ncol = maxk, byrow = TRUE )

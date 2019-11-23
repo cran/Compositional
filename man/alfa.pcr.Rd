@@ -40,7 +40,7 @@ The \eqn{\alpha}-transformation is applied to the compositional data first ,the 
 }
 
 \value{
-A lis tincluding:
+A list tincluding:
 \item{be}{
 If linear regression was fitted, the regression coefficients of the k principal component scores on the response variable y.
 }
@@ -70,7 +70,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

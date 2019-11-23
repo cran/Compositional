@@ -13,18 +13,18 @@ A collection of functions for compositional data analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 3.5 \cr
-Date: \tab 2019-06-18\cr
+Version: \tab 3.6 \cr
+Date: \tab 2019-11-23\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Michail Tsagris <mtsagris@yahoo.gr>, Giorgos Athineou <gioathineou@gmail.com> and Abdulaziz Alenazi <a.alenazi@nbu.edu.sa>
+Michail Tsagris \email{mtsagris@uoc.gr}, Giorgos Athineou <gioathineou@gmail.com> and Abdulaziz Alenazi <a.alenazi@nbu.edu.sa>.
 }
 
 \section{Maintainers }{
-Michail Tsagris <mtsagris@yahoo.gr>
+Michail Tsagris <mtsagris@uoc.gr>
 }
 
 \references{

@@ -92,7 +92,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
 
-R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

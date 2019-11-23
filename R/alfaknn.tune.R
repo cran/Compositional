@@ -29,7 +29,7 @@ alfaknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
                                      type = "C", freq.option = 1)$crit
     }
     runtime <- proc.time() - runtime
-    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+    if ( graph )  filled.contour(a, 2:A, ela, ylab = "k nearest-neighbours",
                                      xlab = expression(paste(alpha, " values")), cex.lab = 1.3)
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
@@ -53,7 +53,7 @@ alfaknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
 	  colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     runtime <- proc.time() - runtime
-    if ( graph )  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+    if ( graph )  filled.contour(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
                                      xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )

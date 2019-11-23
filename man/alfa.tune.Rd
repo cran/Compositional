@@ -13,14 +13,14 @@ alfa.tune(x, B = 1, ncores = 1)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data. No zero vaues are allowed.
+\item{x}{
+A matrix with the compositional data. No zero vaues are allowed.
 }
-  \item{B}{
-  If no (bootstrap based) confidence intervals should be returned this should be 1 and more than 1 otherwise.
+\item{B}{
+If no (bootstrap based) confidence intervals should be returned this should be 1 and more than 1 otherwise.
 }
-  \item{ncores}{
-  If ncores is greater than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+\item{ncores}{
+If ncores is greater than 1 parallel computing is performed. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 }
 
@@ -30,13 +30,13 @@ This is a faster function than \code{\link{alfa.profile}} for choosing the value
 
 \value{
 A vector with the best alpha, the maximised log-likelihood and the log-likelihood at \eqn{\alpha=0}, when B = 1 (no bootstrap). If B>1 a list including:
-  \item{param}{
+\item{param}{
 The best alpha and the value of the log-likelihod, along with the 95\% bootstrap based confidence intervals.
 }
-  \item{message}{
+\item{message}{
 A message with some information about the histogram.
 }
-  \item{runtime}{
+\item{runtime}{
 The time (in seconds) of the process.
 }
 }
@@ -50,7 +50,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{

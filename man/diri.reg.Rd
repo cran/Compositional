@@ -95,7 +95,7 @@ regression and its applications to psychiatric data. Computational statistics \&
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou 
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou 
 <gioathineou@gmail.com>
 }
 

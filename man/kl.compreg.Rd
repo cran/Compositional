@@ -1,17 +1,19 @@
 \name{Divergence based regression for compositional data}
 \alias{kl.compreg}
 \alias{js.compreg}
+\alias{symkl.compreg}
 \title{
 Divergence based regression for compositional data
 }
 
 \description{
-Regression for compositional data based on the Kullback-Leibler and the Jensen-Shannon divergence.
+Regression for compositional data based on the Kullback-Leibler the Jensen-Shannon divergence and the symmetric Kullback-Leibler divergence.
 }
 
 \usage{
 kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50)
 js.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
+symkl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
@@ -39,7 +41,9 @@ The maximum number of Newton-Raphson iterations.
 }
 
 \details{
-In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. This involves numerical optimization. There is no actual log-likelihood. As for the js.compreg another divergence is used.
+In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. 
+The js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence.
+There is no actual log-likelihood for neither regression. 
 }
 
 \value{
@@ -77,7 +81,7 @@ https://arxiv.org/pdf/1511.07600.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
 }
 
 %\note{
@@ -98,5 +102,3 @@ mod1<- kl.compreg(y, x, B = 1, ncores = 1)
 mod2 <- js.compreg(y, x, B = 1, ncores = 1)
 }
 
-\keyword{ Kullback-Lebler divergence }
-\keyword{ multivariate regression }

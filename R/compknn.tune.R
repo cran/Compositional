@@ -50,7 +50,7 @@ compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
     colnames(ela) <- paste("k=", 2:A, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     ## The code for the heat plot of the estimated percentages
-    if (graph)  fields::image.plot(a, 2:A, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
+    if (graph)  filled.contour(a, 2:A, ela, ylab = "k nearest-neighbours",
                                    xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
 
     performance <- max(ela)

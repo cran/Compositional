@@ -61,7 +61,7 @@ Statistical Association, 76, 817-823. doi: 10.2307/2287576.
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

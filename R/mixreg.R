@@ -21,7 +21,7 @@ mixreg <- function(param, z) {
   ## next we find the fitted values for the compositional vectors with zeros
   ly3 <- ly2
   ind <- which(is.infinite(ly2))
-  ly3[ind] = 0
+  ly3[ind] <- 0
   mu2 <- exp(x2 %*% be )
   mu2[ind] <- 0
   mu2 <- mu2/rowsums(mu2)

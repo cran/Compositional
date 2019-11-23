@@ -3,6 +3,7 @@
 \alias{ibeta.est}
 \alias{logitnorm.est}
 \alias{hsecant01.est}
+\alias{simplex.est}
 \title{
 MLE of distributions defined in the (0, 1) interval
 }
@@ -16,6 +17,7 @@ beta.est(x, tol = 1e-09)
 ibeta.est(x, tol = 1e-09)
 logitnorm.est(x)
 hsecant01.est(x, tol = 1e-09)
+simplex.est(x, tol = 1e-09)
 }
 
 \arguments{
@@ -29,8 +31,8 @@ The tolerance level up to which the maximisation stops.
 
 \details{
 Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions
-does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" uses the golden ratio
-search as is it faster than the Newton-Raphson (less calculations)
+does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est" 
+use the golden ratio search as is it faster than the Newton-Raphson (less computations). 
 }
 
 \value{
@@ -49,7 +51,7 @@ The estimated parameters. In the case of "hypersecant01.est" this is called "the
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Manos Papadakis <papadakm95@gmail.com>
 }
 
 %\note{

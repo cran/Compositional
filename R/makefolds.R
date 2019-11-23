@@ -4,25 +4,30 @@ makefolds <- function(ina, nfolds = 10, stratified = TRUE, seed = FALSE) {
   if (seed)  set.seed(1234)
 
   if ( !stratified ) {
-    oop <- options(warn = -1) 
-	on.exit( options(oop) )
-    mat <- matrix( sample(length(ina)), ncol = nfolds )
-    for (i in 1:c(nfolds - 1)) runs[[i]] <- mat[, i]
-    names <- prod(dim(mat)) - length(ina)
-    runs[[nfolds]] <- mat[1:c(nrow(mat) - names), nfolds]
+    oop <- options(warn = -1)
+    on.exit(options(oop))
+    ep <- sample( length(ina) )
+    nr <- round( length(ina)/nfolds )
+    mat <- matrix( ep[1:(nr * nfolds) ], ncol = nfolds )
+    for ( i in 1:nfolds ) runs[[ i ]] <- mat[, i]
+    rem <- ep[ - c(1:(nr * nfolds)) ]
+    ela <- sample(nfolds, length(rem))
+    if ( length(ela) > 0 )  for ( i in 1:length(ela) )  runs[[ ela[i] ]] <- c( runs[[ i ]], rem[ i ] )
   } else {
     labs <- unique(ina)
     run <- list()
     for (i in 1:length(labs)) {
-      names <- which(ina == labs[i])
+      names <- which( ina == labs[i] )
       run[[i]] <- sample(names)
     }
     run <- unlist(run)
-    for (i in 1:length(ina)) {
+    for ( i in 1:length(ina) ) {
       k <- i %% nfolds
-      if (k == 0)  k <- nfolds
-      runs[[k]] <- c(runs[[k]], run[i])
+      if ( k == 0 )  k <- nfolds
+      runs[[k]] <- c( runs[[ k ]], run[i] )
     }
   }
   runs
 }
+
+

@@ -74,7 +74,7 @@ Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publ
 \author{
  Michail Tsagris
 
-R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

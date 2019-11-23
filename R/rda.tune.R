@@ -29,7 +29,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
     ww <- foreach(vim = 1:nfolds, .combine = cbind, .export = c("mahala", "rowMaxs"), .packages = "Rfast") %dopar% {
       test <- x[ folds[[ vim ]], , drop = FALSE]  ## test sample
       id <- ina[ folds[[ vim ]] ] ## groups of test sample
-      train <- x[ -folds[[ vim ]], ]   ## training sample
+      train <- x[ -folds[[ vim ]], , drop = FALSE]   ## training sample
       ida <- ina[ -folds[[ vim ]] ]  ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )
@@ -70,7 +70,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
 
       test <- x[ folds[[ vim ]], , drop = FALSE ]   ## test sample
       id <- ina[ folds[[ vim ]] ] ## groups of test sample
-      train <- x[ -folds[[ vim ]], ]  ## training sample
+      train <- x[ -folds[[ vim ]], , drop = FALSE]  ## training sample
       ida <- ina[ -folds[[ vim ]] ]   ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )

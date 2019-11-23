@@ -42,7 +42,7 @@ A list with nfolds elements where each elements is a fold containing the indices
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 \seealso{

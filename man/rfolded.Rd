@@ -36,7 +36,7 @@ A matrix with compositional data.
 }
 
 \references{
-Tsagris Michail and Stewart Connie, (2018). A folded model for compositional data analysis.
+Tsagris Michail and Stewart Connie, (2019). A folded model for compositional data analysis.
 https://arxiv.org/pdf/1802.07330.pdf
 }
 

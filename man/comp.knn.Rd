@@ -66,8 +66,15 @@ Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of sta
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
 
-Connie Stewart (2016). An approach to measure distance between compositional diet estimates containing essential zeros.
-Journal of Applied Statistics 44.7 (2017): 1137-1152.
+Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros.
+Journal of Applied Statistics 44(7): 1137-1152.
+
+Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.
+Information Theory, IEEE Transactions on 49, 1858-1860.
+
+Osterreicher, F. and Vajda, I. (2003). A new class of metric divergences on probability
+spaces and its applicability in statistics. Annals of the Institute of Statistical
+Mathematics 55, 639-653.
 }
 
 \author{

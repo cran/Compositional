@@ -1,0 +1,73 @@
+\name{The alpha-k-NN regression for compositional response data}
+\alias{aknn.reg}
+
+\title{
+The \eqn{\alpha}-k-NN regression for compositional response data
+}
+
+\description{
+The \eqn{\alpha}-k-NN regression for compositional response data.
+}
+
+\usage{
+aknn.reg(xnew, y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean")
+}
+
+\arguments{
+\item{xnew}{
+A matrix with the new predictor variables whose compositions are to be predicted.
+}
+\item{y}{
+A matrix with the compositional response data. Zeros are allowed.
+}
+\item{x}{
+A matrix with the available predictor variables.
+}
+\item{a}{
+The value of \eqn{\alpha}. As zero values in the compositional data are allowed, you must be careful to choose strictly positive vcalues of \eqn{\alpha}. If negative values are passed, the positive ones are used only.
+}
+\item{k}{
+The number of nearest neighbours to consider. It can be a single number or a vector.
+}
+\item{apostasi}{
+The type of distance to use, either "euclidean" or "manhattan".
+}
+}
+
+\details{
+The \eqn{\alpha}-k-NN regression for compositional response variables is applied.
+}
+
+\value{
+A list with the estimated compositional response data for each value of \eqn{\alpha} and k.
+}
+
+\references{
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020).
+The alpha-k-NN- regression for compositional data.
+https://arxiv.org/pdf/2002.05137.pdf
+}
+
+\author{
+Michail Tsagris
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{alfa.reg}, \link{comp.ppr}, \link{comp.reg}, \link{kl.compreg}
+}
+}
+
+\examples{
+y <- as.matrix( iris[, 1:3] )
+y <- y / rowSums(y)
+x <- iris[, 4]
+mod <- aknn.reg(x, y, x, a = c(0.4, 0.5), k = 2:3, apostasi = "euclidean")
+}
+
+

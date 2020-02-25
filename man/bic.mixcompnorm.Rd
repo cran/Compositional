@@ -9,18 +9,21 @@ Mixture model selection via BIC.
 }
 
 \usage{
-bic.mixcompnorm(x, A, type = "alr")
+bic.mixcompnorm(x, G, type = "alr", graph = TRUE)
 }
 
 \arguments{
 \item{x}{
 A matrix with compositional data.
 }
-\item{A}{
-The maximum number of components, clusters, to be considered.
+\item{G}{
+A numeric vector with the number of components, clusters, to be considered.
 }
 \item{type}{
 The type of trasformation to be used, either additive log-ratio ("alr") or the isometric log-ratio ("ilr").
+}
+\item{graph}{
+A boolean variable, TRUE or FALSE specifying whether a graph should be drawn or not.
 }
 }
 
@@ -41,7 +44,7 @@ The BIC values for every possible model and number of components.
 }
 
 \references{
-Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). mixture: Mixture Models for Clustering and Classification. R package version 1.4.
+Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2018). mixture: Mixture Models for Clustering and Classification. R package version 1.5.
 
 Ryan P. Browne and Paul D. McNicholas (2014). Estimating Common Principal Components in High Dimensions. Advances in Data Analysis and Classification, 8(2), 217-226.
 
@@ -51,7 +54,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -64,11 +67,12 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 }
 
 \examples{
-library(MASS)
+\dontrun{
 x <- as.matrix( iris[, 1:4] )
 x <- x/ rowSums(x)
-bic.mixcompnorm(x, 6, type = "alr")
-bic.mixcompnorm(x, 6, type = "ilr")
+bic.mixcompnorm(x, 1:3, type = "alr", graph = FALSE)
+bic.mixcompnorm(x, 1:3, type = "ilr", graph = FALSE)
+}
 }
 
 \keyword{ mixtures of normal distributions }

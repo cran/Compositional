@@ -84,7 +84,7 @@ The performance of the fda in each fold for each value of \eqn{\alpha}.
 The average performance for each value of \eqn{\alpha}.
 }
 \item{opt_a}{
-The optimal value of \eqn{alpha}.
+The optimal value of \eqn{\alpha}.
 }
 \item{runtime}{
 The runtime of the cross-validation procedure.

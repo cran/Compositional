@@ -6,7 +6,7 @@
 #### Paul D. McNicholas (2015)
 #### R package mixture: Mixture Models for Clustering and Classification
 ################################
-bic.mixcompnorm <- function(x, A, type = "alr") {
+bic.mixcompnorm <- function(x, G, type = "alr", graph = TRUE) {
   ## x is the compositional data
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
@@ -15,13 +15,15 @@ bic.mixcompnorm <- function(x, A, type = "alr") {
     y0 <- log(x)
     y1 <- y0 - Rfast::rowmeans( y0 )
     y <- tcrossprod( y1, helm(p) )
-  } else  y <- log(x[, -p] / x[, p])
+  } else  y <- log(x[, -1] / x[, 1])
 
-  mod <- mixture::gpcm(y, G = 1:A, start = 0, atol = 0.01)
-  bic <- mod$BIC[, , 3]  ## BIC for all models
+  mod <- mixture::gpcm(y, G = G, start = 0, atol = 0.01)
+  mbic <- mod$BIC[, , 3]  ## BIC for all models
   ## Next, we plot the BIC for all models
-  plot(1:A, bic[, 1], type = "b", pch = 9, xlab = "Number of components",
-  ylab = "BIC values", ylim = c(min(bic, na.rm = T), max(bic, na.rm = T)))
-  for (i in 2:nrow(bic)) lines(1:A, bic[, i], type = "b", pch = 9, col = i)
-  list(mod = mod, BIC = bic)
+  if ( graph ) {
+    plot( G, mbic[, 1], type = "b", pch = 9, xlab = "Number of components",
+    ylab = "BIC values", ylim = c( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE) ) )
+    for ( i in 2:ncol(mbic) )  lines(G, mbic[, i], type = "b", pch = 9, col = i)
+  }
+  list(mod = mod, BIC = mbic)
 }

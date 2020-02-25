@@ -1,0 +1,27 @@
+## Response is compositional data
+aknn.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean") {
+
+  est <- list()
+  if ( min(y) == 0 )  a <- a[a > 0]
+  la <- length(a)
+  nk <- length(k)
+  if ( !is.matrix(xnew) )  xnew <- as.matrix(xnew)
+  nu <- dim(xnew)[1]
+  D <- dim(y)[2]
+  names <- paste("alpha", a)
+  knam <- paste("k=", k, sep = "")
+  est <- sapply(names, function(x) NULL)
+  di <- Rfast::dista(xnew, x, type = apostasi, k = max(k), index = TRUE, square = TRUE)
+
+  for ( i in 1:la ) {
+    est[[ i ]] <- list()
+    yb <- alfa(y, a[i], h = TRUE)$aff
+    esk <- matrix(nrow = nu, ncol = D)
+    for ( j in 1:nk ) {
+      for ( ind in 1:nu )  esk[ind, ] <- Compositional::frechet( y[di[ind, 1:c(j + 1)], , drop = FALSE ], a[i] )
+      est[[ i ]][[ j ]] <- esk
+    }
+    names( est[[ i ]] ) <- knam
+  }
+  est
+}

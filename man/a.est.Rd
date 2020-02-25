@@ -20,7 +20,7 @@ A matrix with the compositional data. No zero vaues are allowed.
 
 \details{
 This is a function for choosing or estimating the value of \eqn{\alpha} in the folded
-model (Tsagris and Stewart, 2018).
+model (Tsagris and Stewart, 2019).
 }
 
 \value{
@@ -46,18 +46,17 @@ The estimated covariance matrix of the folded model.
 }
 
 \references{
-Tsagris Michail and Stewart Connie, (2018). A folded model for compositional data analysis.
+Tsagris Michail and Stewart Connie, (2019). A folded model for compositional data analysis.
 https://arxiv.org/pdf/1802.07330.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 http://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@yahoo.gr}
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 }
 
 %\note{

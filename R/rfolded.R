@@ -11,7 +11,7 @@ rfolded <- function(n, mu, su, a) {
     x1 <- rbind( z1[-ina, ], w )
   } else  x1 <- z1
 
-  if ( abs(a) < 1e-10 )  {  ## if alpha is almost zero make it zero
+  if ( abs(a) < 1e-9 )  {  ## if alpha is almost zero make it zero
     z <- exp(x1)
   } else  z <- (a * x1 + 1) ^ (1/a)
     z <- z / Rfast::rowsums(z)

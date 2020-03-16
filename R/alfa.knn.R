@@ -8,7 +8,7 @@
 #### http://arxiv.org/pdf/1506.04976v2.pdf
 #### mtsagris@yahoo.gr
 ################################
-alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "euclidean") {
+alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "euclidean", rann = FALSE) {
   ## x is the matrix containing the data
   ## ina indicates the groups
   ## a is the value of the power parameter
@@ -27,8 +27,8 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apost
   nc <- max(ina) ## The number of groups
   nu <- dim(xnew)[1]
   if ( !is.null(a) ) {
-    znew <- alfa(xnew, a, h = FALSE)$aff
-    z <- alfa(x, a, h = FALSE)$aff
+    znew <- Compositional::alfa(xnew, a, h = FALSE)$aff
+    z <- Compositional::alfa(x, a, h = FALSE)$aff
   } else {
     znew <- xnew
 	  z <- x
@@ -61,7 +61,14 @@ alfa.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apost
 
   } else if (type == "S") {
     ## Standard algorithm
-    g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = apostasi, type = "C", freq.option = 1)
+    if ( rann ) {
+     klen <- length(k)
+     di <- RANN::nn2( data = x, query = xnew, k = max(k) )$nn.idx
+     g <- matrix(nrow = nu, ncol = klen)
+     m1 <- matrix(nrow = max(k), ncol = nu)
+     for ( i in 1:nu )  m1[, i] <- ina[ di[i, ] ]
+     for ( j in 1:klen ) g[, j] <- Rfast::colMaxs( Rfast::colTabulate( m1[1:k[j], ] ) )
+    } else  g <- Rfast::knn(xnew = znew, y = ina, x = z, k = k, dist.type = apostasi, type = "C", freq.option = 1)
   }  ## end if (type == "S")
   colnames(g) <- paste("k=", k, sep = "")
   g

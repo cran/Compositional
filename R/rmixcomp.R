@@ -27,7 +27,7 @@ rmixcomp <- function(n, prob, mu, sigma, type = "alr") {
     x1 <- cbind(1, exp(x) )
     x <- x1 / Rfast::rowsums(x1)
   } else {
-    x1 <- tcrossprod( x, helm( p + 1) )
+    x1 <- tcrossprod( x, Compositional::helm( p + 1) )
     x2 <- exp(x1)
     x <- x2 / Rfast::rowsums( x2 )
   }

@@ -19,23 +19,8 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
   }
 
   tic <- proc.time()
-  B1 <- solve(crossprod(x), crossprod(x, y) )
-  est <- y - x %*% B1
-  ww <- sqrt( Rfast::rowsums( est^2 ) )
-  z <- x / ww
-  B2 <- solve(crossprod(z, x), crossprod(z, y))
-  i <- 2
-  while ( sum( abs(B2 - B1) ) > tol ) {
-    i <- i + 1
-    B1 <- B2
-    est <- y - x %*% B1
-    ww <- sqrt( Rfast::rowsums( est^2 ) )
-    ela <- which( ww == 0 )
-    z <- x / ww
-    if ( length(ela) > 0 )  z[ela, ] <- 0
-    B2 <- solve( crossprod(z, x), crossprod(z, y) )
-  }
-  be <- B2
+  mod <- Rfast::spatmed.reg(y, x[, -1], tol = tol)
+  be <- mod$be
   seb <- NULL
 
   if ( ses ) {
@@ -60,5 +45,5 @@ spatmed.reg <- function(y, x, xnew = NULL, tol = 1e-07, ses = FALSE) {
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
 
   runtime <- proc.time() - tic
-  list(iter = i, runtime = runtime, be = be, seb = seb, est = est)
+  list(iter = mod$iters, runtime = runtime, be = be, seb = seb, est = est)
 }

@@ -14,15 +14,15 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   sqrt3 <- sqrt(3)
 
   if (type == 'alr') {
-    y <- log( x[, -3] / x[, 3] ) ## additive log-ratio transformation
+    y <- Compositional::alr(x) ## additive log-ratio transformation
   } else {
-    ha <- t( helm(3) )
+    ha <- t( Compositional::helm(3) )
     y <- log(x)
     y <- y - Rfast::rowmeans( y )
     y <- as.matrix( y %*% ha )
   }
 
-  mod <- multivt(y)
+  mod <- Compositional::multivt(y)
   m <- mod$center
   s <- mod$scatter
   v <- mod$df
@@ -44,7 +44,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
         w <- c(w1, w2, w3)
 
         if (type == 'alr') {
-	      y <- log(w[-3] / w[3]) ## additive log-ratio transformation
+	      y <- log(w[-1] / w[1]) ## additive log-ratio transformation
         } else {
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
@@ -68,7 +68,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
         w <- c(w1, w2, w3)
 
         if (type == 'alr') {
-	        y <- log(w[-3]/w[3]) ## additive log-ratio transformation
+	        y <- log(w[-1]/w[1]) ## additive log-ratio transformation
         } else  {
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )

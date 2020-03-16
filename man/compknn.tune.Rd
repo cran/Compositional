@@ -10,12 +10,12 @@ Tuning of the k-NN algorithm for compositional data with and without using the p
 }
 
 \usage{
-compknn.tune(x, ina, nfolds = 10, A = 5, type= "S", mesos = TRUE,
+compknn.tune(x, ina, nfolds = 10, k = 2:5, type= "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "ESOV", folds = NULL,
 stratified = FALSE, seed = FALSE, graph = FALSE)
 
-alfaknn.tune(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE,
-a = seq(-1, 1, by = 0.1), apostasi = "euclidean", folds = NULL,
+alfaknn.tune(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
+a = seq(-1, 1, by = 0.1), apostasi = "euclidean", rann = FALSE, folds = NULL,
 stratified = FALSE, seed = FALSE, graph = FALSE)
 }
 
@@ -29,8 +29,8 @@ A group indicator variable for the available data.
 \item{nfolds}{
 The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
 }
-\item{A}{
-The maximum number of nearest neighbours to consider. Note that the 1 nearest neighbour is not used.
+\item{k}{
+A vector with the nearest neighbours to consider.
 }
 \item{type}{
 This can be either "S" for the standard k-NN or "NS" for the non standard (see details).
@@ -44,6 +44,9 @@ A grid of values of \eqn{\alpha} to be used only if the distance chosen allows f
 \item{apostasi}{
 The type of distance to use. For the compk.knn this can be one of the following: "ESOV", "taxicab", "Ait", "Hellinger", "angular" or "CS".
 See the references for them. For the alfa.knn this can be either "euclidean" or "manhattan".
+}
+\item{rann}{
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 \item{folds}{
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.

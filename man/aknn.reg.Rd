@@ -10,7 +10,8 @@ The \eqn{\alpha}-k-NN regression for compositional response data.
 }
 
 \usage{
-aknn.reg(xnew, y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean")
+aknn.reg(xnew, y, x, a = seq(0.1, 1, by = 0.1), k = 2:10,
+apostasi = "euclidean", rann = FALSE)
 }
 
 \arguments{
@@ -31,6 +32,9 @@ The number of nearest neighbours to consider. It can be a single number or a vec
 }
 \item{apostasi}{
 The type of distance to use, either "euclidean" or "manhattan".
+}
+\item{rann}{
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 }
 

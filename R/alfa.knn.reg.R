@@ -2,8 +2,8 @@
 alfa.knn.reg <- function(xnew, y, x, a = 1, k = 2:10, apostasi = "euclidean", method = "average") {
   nu <- dim(xnew)[1]
   if ( !is.null(a) ) {
-    znew <- alfa(xnew, a, h = FALSE)$aff
-    z <- alfa(x, a, h = FALSE)$aff
+    znew <- Compositional::alfa(xnew, a, h = FALSE)$aff
+    z <- Compositional::alfa(x, a, h = FALSE)$aff
   } else {
     znew <- xnew
     z <- x

@@ -101,10 +101,10 @@ R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Mic
 
 \examples{
 library(MASS)
-y <- rdiri(214, runif(4, 1, 3))
-x <- as.matrix(fgl[, 2:9])
+y <- rdiri( 214, runif(4, 1, 3) )
+x <- as.matrix( fgl[, 2:9] )
 x <- x / rowSums(x)
-mod <- klalfapcr.tune(y = y, x = x, a = c(0.7, 0.8, 0.9, 1) )
+mod <- klalfapcr.tune(y = y, x = x, a = c(0.7, 0.8) )
 mod
 }
 

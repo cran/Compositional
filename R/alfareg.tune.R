@@ -27,13 +27,13 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
     apa <- proc.time()
     kula <- matrix(nrow = nfolds, ncol = la)
     for (j in 1:la) {
-      ytr <- alfa(y, a[j])$aff
+      ytr <- Compositional::alfa(y, a[j])$aff
       for (i in 1:nfolds) {
         xu <- x[ folds[[ i ]], -1 , drop = FALSE]
         yu <- y[ folds[[ i ]], ]
         xa <- x[ -folds[[ i ]], -1]
         yb <- ytr[ -folds[[ i ]], ]
-        mod <- alfa.reg(yu, xa, a[j], xnew = xu, yb = yb)
+        mod <- Compositional::alfa.reg(yu, xa, a[j], xnew = xu, yb = yb)
         yest <- mod$est
         kula[i, j] <- 2 * mean(yu * log(yu / yest), na.rm = TRUE)
       }
@@ -49,7 +49,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
   } else {
     apa <- proc.time()
     oop <- options(warn = -1)
-	on.exit( options(oop) )
+	  on.exit( options(oop) )
     val <- matrix(a, ncol = nc) ## if the length of a is not equal to the
     ## dimensions of the matrix val a warning message should appear
     ## but with oop <- options(warn = -1) you will not see it
@@ -62,7 +62,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
        ba <- val[, j]
        ww <- matrix(nrow = nfolds, ncol = length(ba) )
        for ( l in 1:length(ba) ) {
-          ytr <- alfa(y, ba[l])$aff
+          ytr <- Compositional::alfa(y, ba[l])$aff
           for (i in 1:nfolds) {
             xu <- x[ folds[[ i ]], -1 , drop = FALSE]
             yu <- y[ folds[[ i ]], ]

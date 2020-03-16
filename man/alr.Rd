@@ -46,7 +46,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 %}
 
 \seealso{
-\code{\link{alfa}, \ link{alfainv,} \link{alfa.profile}, \link{alfa.tune}
+\code{\link{alfa}, \ link{alfainv} \link{alfa.profile}, \link{alfa.tune}
 }
 }
 

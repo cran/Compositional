@@ -9,7 +9,7 @@
 alfadista <- function(xnew, x, a, type = "euclidean", square = FALSE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
-  y <- alfa(x, a, h = FALSE)$aff
-  ynew <- alfa(xnew, a, h = FALSE)$aff
+  y <- Compositional::alfa(x, a, h = FALSE)$aff
+  ynew <- Compositional::alfa(xnew, a, h = FALSE)$aff
   Rfast::dista(ynew, y, method = type, square = square)
 }

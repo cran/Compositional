@@ -2,8 +2,8 @@
 comp.ppr <- function(y, x, nterms = 3, type = "alr", xnew = NULL, yb = NULL ) {
   if ( is.null(yb) )  {
     if ( type == "alr" ) {
-      yb <- alr(y)
-    } else   yb <- alfa(y, 0, h = TRUE)$aff
+      yb <- Compositional::alr(y)
+    } else   yb <- Compositional::alfa(y, 0, h = TRUE)$aff
   }
 
   runtime <- proc.time()
@@ -19,8 +19,8 @@ comp.ppr <- function(y, x, nterms = 3, type = "alr", xnew = NULL, yb = NULL ) {
     colnames(xnew) <- nam
     est1 <- predict(mod, newdata = xnew)
     if ( type == "alr" ) {
-      est <- alrinv(est1)
-    } else est <- alfainv(est1, 0, h = TRUE)
+      est <- Compositional::alrinv(est1)
+    } else est <- Compositional::alfainv(est1, 0, h = TRUE)
   } else  est <- NULL
 
   runtime <- proc.time() - runtime

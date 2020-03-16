@@ -17,7 +17,7 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   ha <- t( helm(3) )
 
   if (type == "alr") {
-    ya <- log( x[, -3] / x[, 3] )
+    ya <- log( x[, -1] / x[, 1] )
   } else {
     ya <- log(x)
     ya <- ya - Rfast::rowmeans( ya )
@@ -39,13 +39,13 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
         if (type == "alr") {
-          y <- log( w[-3] / w[3] )  ## additive log-ratio transformation
+          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
         } else {
           y <- log(w) - mean( log(w) )
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if (abs(can) < Inf)  mat[i, j] <- can 
+        if (abs(can) < Inf)  mat[i, j] <- can
       }
     }
   }
@@ -60,13 +60,13 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
         if (type == "alr") {
-          y <- log( w[-3] / w[3] )  ## additive log-ratio transformation
+          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
         } else {
           y <- log(w) - mean( log(w) )
           y <- as.vector( y %*% ha )
         }  ## isometric log-ratio transformation
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if (abs(can) < Inf)   mat[i, j] <- can 
+        if (abs(can) < Inf)   mat[i, j] <- can
       }
     }
   }

@@ -39,8 +39,7 @@ distance is calculated.
 }
 
 \value{
-A matrix including:
-The pairwise distances of all observations.
+A matrix including the pairwise distances of all observations or the distances between xnew and x.
 }
 
 
@@ -57,7 +56,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

@@ -7,12 +7,12 @@ a.mle <- function(a, x) {
   ja <- sum( Rfast::Log(x) )  ## part of the Jacobian determinant
   #########
   if ( abs(a) < 1e-9 ) {
-    aff <- alef(x, 0)$aff
+    aff <- Compositional::alef(x, 0)$aff
     su <- Rfast::cova(aff)
     loglik <-  - 0.5 * n * d - 0.5 * n * log( abs( det(2 * pi * (n - 1)/n * su) ) ) - ja - n/2 * log(D)
 
   } else {
-    mod <- alef(x, a)
+    mod <- Compositional::alef(x, a)
     y <- mod$aff
     sk <- mod$sk
     lam <- 1 / ( a^2 * Rfast::rowMins(y, value = TRUE)^2 )    ##  1/apply(a * y, 1, min)^2

@@ -18,7 +18,7 @@ alfa.profile <- function(x, a = seq(-1, 1, by = 0.01) ) {
   ja <- sum( log(x) )  ## part of the Jacobian of the alpha transformation
   con <-  - n/2 * d * log(2 * pi * f) - (n - 1) * d/2 + n * (d + 0.5) * log(D) + (a - 1) * ja
   for ( i in 1:length(a) ) {
-    trans <- alfa( x, a[i] )
+    trans <- Compositional::alfa( x, a[i] )
     aff <- trans$aff  ## the alpha-transformation
     qa[i] <-  - n/2 * log( abs( det( cov(aff) ) ) ) - D * trans$sa
   }

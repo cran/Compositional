@@ -12,16 +12,16 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
   ## n is the number of points of each axis used
   nu <- dim(x)[1]  ## sample size
   sqrt3 <- sqrt(3)
-  ha <- t( helm(3) )
+  ha <- t( Compositional::helm(3) )
 
-  if (type == "alr")  z <- log(x[, -3]/x[, 3])  ## alr transformation
+  if (type == "alr")  z <- Compositional::alr(x)  ## alr transformation
   if (type == "ilr") {  ## isometric log-ratio transformation
       zx <- log(x)
       z <- zx - Rfast::rowmeans( zx )
       z <- z %*% ha
   }
 
-  hopt <- mkde.tune(z)$hopt
+  hopt <- Compositional::mkde.tune(z)$hopt
   con <- hopt^2
   ts <- diag( 1/hopt^2, 2 )
   x1 <- seq(0.001, 0.999, length = n)
@@ -37,7 +37,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if (type == "alr")  y <- log(w[-3]/w[3])  ## alr transformation
+        if (type == "alr")  y <- log(w[-1]/w[1])  ## alr transformation
         if (type == "ilr") {  ## isometric log-ratio transformation
             y <- log(w) - mean(log(w))
             y <- as.vector(y %*% ha )
@@ -45,7 +45,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         a <- numeric(nu)
         for (l in 1:nu)   a[l] <- as.vector( t(z[l, ] - y) %*% ts %*% ( z[l, ] - y ) )
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
-        if ( abs(can) < Inf )  mat[i, j] <- can        
+        if ( abs(can) < Inf )  mat[i, j] <- can
       }
     }
   }
@@ -59,7 +59,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if (type == "alr") y <- log(w[-3]/w[3])  ## alr transformation
+        if (type == "alr") y <- log(w[-1]/w[1])  ## alr transformation
         if (type == "ilr") {  ## isometric log-ratio transformation
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
@@ -67,7 +67,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100) {
         a <- numeric(nu)
         for (l in 1:nu) a[l] <- as.vector( t(z[l, ] - y ) %*% ts %*% (z[l, ] - y) )
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
-        if (abs(can) < Inf)  mat[i, j] <- can 
+        if (abs(can) < Inf)  mat[i, j] <- can
       }
     }
   }

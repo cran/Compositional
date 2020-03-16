@@ -14,16 +14,17 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
   values <- eig$sdev^2  ## eigenvalues
   per <- cumsum( values / sum(values) )  ## cumulative proportion of eigenvalues
   vec <- eig$rotation[, 1:k, drop = FALSE]  ## eigenvectors, or principal components
+  if ( !is.matrix(vec) )  vec <- as.matrix(vec)
   z <- x %*% vec  ## PCA scores
 
   if ( length( Rfast::sort_unique(y) ) == 2 ) {
     oiko <- "binomial"
-    mod <- Rfast::glm_logistic(z, y, full = TRUE)
-    be <- mod$info[, 1]
+    mod <- Rfast::glm_logistic(z, y)
+    be <- mod$be
   } else {
     oiko <- "poisson"
-    mod <- Rfast::glm_poisson(z, y, full = TRUE)
-    be <- mod$info[, 1]
+    mod <- Rfast::glm_poisson(z, y)
+    be <- mod$be
   }
 
   est <- NULL
@@ -35,6 +36,10 @@ glm.pcr <- function(y, x, k = 1, xnew = NULL) {
       est <- exp(es) / (1 + exp(es))
     } else est <- exp(es)     ## fitted values for PCA model
   }
-
-  list(model = mod, per = per[k], est = est)
+  nam <- colnames(x)
+  if ( is.null(nam) )  nam <- paste("X", 1:p, sep = "")
+  rownames(be) <- c("constant", paste("PC", 1:k, sep = "") )
+  rownames(vec) <- nam
+  colnames(vec) <- paste("PC", 1:k, sep = "")
+  list(model = mod, per = per[k], vec = vec, est = est)
 }

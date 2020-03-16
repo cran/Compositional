@@ -18,17 +18,17 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
   con <-  - 0.5 * n * d * log(2 * pi * f) - 0.5 * (n - 1) * d + n * (d + 0.5) * log(D)
 
   pa <- function(a, x) {
-    trans <- alfa(x, a)
+    trans <- Compositional::alfa(x, a)
     z <- trans$aff  ## the alpha-transformation
-    -0.5 * n * log( abs( det( cov(z) ) ) ) + (a - 1) * ja - D * trans$sa
+    -0.5 * n * log( abs( det( cov(z) ) ) ) + (a - 1) * sum( log(x) ) - D * trans$sa
   }
 
   if (B == 1) {
     ell <- optimize(pa, c(-1, 1), x = x, maximum = TRUE )
-    aff0 <- alfa(x, 0)
+    aff0 <- Compositional::alfa(x, 0)
     z0 <- aff0$aff
     sa <- aff0$sa  ## part of the Jacobian determinant as well
-    lik0 <- con -  n/2 * log( abs( det( Rfast::cova(z0) ) ) ) - ja - D * sa
+    lik0 <- con -  n/2 * log( abs( det( Rfast::cova(z0) ) ) ) - sum( log(x) ) - D * sa
     result <- c(ell$maximum, ell$objective + con, lik0)
     names(result) <- c("best alpha", "max log-lik", "log-lik at 0")
 
@@ -46,13 +46,13 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
 
     } else {
       runtime <- proc.time()
-      cl <- makePSOCKcluster(ncores)
-      registerDoParallel(cl)
+      cl <- parallel::makePSOCKcluster(ncores)
+      doParallel::registerDoParallel(cl)
       ab <- foreach::foreach( i = 1:B, .combine = rbind, .export = c("alfa", "helm") ) %dopar% {
         ind <- sample(1:n, n, replace = TRUE)
         return( optimize(pa, c(-1, 1), x = x[ind, ], maximum = TRUE )$maximum )
       }
-      stopCluster(cl)
+      parallel::stopCluster(cl)
       runtime <- proc.time() - runtime
     }
 

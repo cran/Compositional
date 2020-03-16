@@ -18,9 +18,9 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## If type='alr' (the default) the additive log-ratio transformation is used.
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
-  ha <- t( helm(3) )
+  ha <- t( Compositional::helm(3) )
   if (type == "alr") {
-    ya <- log( x[, -3] / x[, 3] )
+    ya <- Compositional::alr(x)
   } else {
     ya <- log(x)
     ya <- ya - Rfast::rowmeans( ya )
@@ -43,13 +43,13 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
      w1 <- 1 - w2 - w3
      w <- c(w1, w2, w3)
      if (type == 'alr') {
-	   y <- log(w[-3] / w[3])  ## additive log-ratio transformation
+	   y <- log(w[-1] / w[1])  ## additive log-ratio transformation
      } else {
        y <- log(w) - mean( log(w) )
        y <- as.vector( y %*% ha )
 	 }  ## isometric log-ratio transformation
      can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can  
+     if ( abs(can) < Inf )  mat[i, j] <- can
     }
    }
   }
@@ -64,13 +64,13 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
      w1 <- 1 - w2 - w3
      w <- c(w1, w2, w3)
      if (type == 'alr') {
-	   y <- log(w[-3] / w[3])  ## additive log-ratio transformation
+	   y <- log(w[-1] / w[1])  ## additive log-ratio transformation
      } else {
        y <- log(w) - mean(log(w))
        y <- as.vector( y %*% ha )
 	 }  ## isometric log-ratio transformation
      can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can  
+     if ( abs(can) < Inf )  mat[i, j] <- can
 	}
    }
   }

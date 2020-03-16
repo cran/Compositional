@@ -13,7 +13,8 @@ The k-NN algorithm for compositional data with and without using the power trans
 \usage{
 comp.knn(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", mesos = TRUE)
 
-alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE, apostasi = "euclidean")
+alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE,
+apostasi = "euclidean", rann = FALSE)
 
 }
 
@@ -46,6 +47,9 @@ The type of distance to use. For the compk.knn this can be one of the following:
 }
 \item{mesos}{
  This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
+}
+\item{rann}{
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 }
 

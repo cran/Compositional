@@ -1,6 +1,6 @@
 kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50) {
   runtime <- proc.time()
-  mod <- kl.compreg2(y, x, xnew = xnew, tol = tol, maxiters = maxiters)
+  mod <- Compositional::kl.compreg2(y, x, xnew = xnew, tol = tol, maxiters = maxiters)
   if (B == 1) {
     runtime <- proc.time() - runtime
     res <-  list(runtime = runtime, iters = mod$iters, loglik = mod$loglik, be = mod$be, seb = NULL, est = mod$est)
@@ -20,12 +20,12 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
         ida <- sample(1:n, n, replace = TRUE)
         yb <- Y[ida, ]
         xb <- X[ida, ]
-        bb <- klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
+        bb <- Compositional::klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
         betaboot[i, ] <- as.vector(bb)
       }
     } else {
-      cl <- makePSOCKcluster(ncores)
-      registerDoParallel(cl)
+      cl <- parallel::makePSOCKcluster(ncores)
+      doParallel::registerDoParallel(cl)
       X <- model.matrix(y~., data.frame(x) )
       p <- dim(X)[2]
       Y <- y[, -1, drop = FALSE]
@@ -41,10 +41,10 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
         ida <- sample(1:n, n, replace = TRUE)
         yb <- Y[ida, ]
         xb <- X[ida, ]
-        bb <- klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
+        bb <- Compositional::klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
         return( as.vector(bb) )
       }
-      stopCluster(cl)
+      parallel::stopCluster(cl)
     }
     s <- Rfast::colVars(betaboot, std = TRUE)
     seb <- matrix(s, byrow = TRUE, ncol = d)

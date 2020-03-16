@@ -22,7 +22,7 @@ alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda =
 
   tac <- proc.time()
   for ( i in 1:da ) {
-    z <- alfa(x, a[i])$aff
+    z <- Compositional::alfa(x, a[i])$aff
     mod <- Compositional::ridge.tune(y, z, nfolds = nfolds, lambda = lambda, folds = folds, ncores = ncores,
                                      seed = seed, graph = FALSE)
     mspe2[, , i] <- mod$msp

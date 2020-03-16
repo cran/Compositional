@@ -61,7 +61,6 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 x <- as.matrix(iris[51:100, 1:3])
 x <- x / rowSums(x)
 skewnorm.contour(x)
-skewnorm.contour(x, type = "ilr")
 }
 
 \keyword{ contour plot }

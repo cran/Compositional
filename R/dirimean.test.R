@@ -26,7 +26,7 @@ dirimean.test <- function(x, a) {
       par0 <- a
     }
     ## parameters under H1
-    mod1 <- diri.nr(x)
+    mod1 <- Compositional::diri.nr(x)
     ell1 <- mod1$loglik
     ## test statistic and p-value
     test <- 2 * (ell1 - ell0)

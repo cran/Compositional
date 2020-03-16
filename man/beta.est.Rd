@@ -4,6 +4,7 @@
 \alias{logitnorm.est}
 \alias{hsecant01.est}
 \alias{simplex.est}
+\alias{kumar.est}
 \title{
 MLE of distributions defined in the (0, 1) interval
 }
@@ -13,11 +14,12 @@ MLE of distributions defined in the (0, 1) interval.
 }
 
 \usage{
-beta.est(x, tol = 1e-09)
-ibeta.est(x, tol = 1e-09)
+beta.est(x, tol = 1e-07)
+ibeta.est(x, tol = 1e-07)
 logitnorm.est(x)
-hsecant01.est(x, tol = 1e-09)
-simplex.est(x, tol = 1e-09)
+hsecant01.est(x, tol = 1e-07)
+simplex.est(x, tol = 1e-07)
+kumar.est(x, tol = 1e-07)
 }
 
 \arguments{
@@ -31,8 +33,8 @@ The tolerance level up to which the maximisation stops.
 
 \details{
 Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions
-does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est" 
-use the golden ratio search as is it faster than the Newton-Raphson (less computations). 
+does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est"
+use the golden ratio search as is it faster than the Newton-Raphson (less computations).
 }
 
 \value{
@@ -76,16 +78,4 @@ ibeta.est(x)
 x <- rbeta(1000, 2, 5)
 x[sample(1:1000, 50)] <- 0
 ibeta.est(x)
-
-
-
-
 }
-
-\keyword{ Beta distribution }
-\keyword{ logistic normal distribution }
-\keyword{ inflated beta distribution }
-\keyword{ hypersecant distribution for proportions }
-\keyword{ maximum likelihood estimation }
-\keyword{ Newton-Raphson }
-\keyword{ proportions }

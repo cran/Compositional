@@ -23,7 +23,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
         za <- xnew^a
         znew <- za / Rfast::rowsums( za )  ## The power transformation is applied
       }
-	  g <- Rfast::knn(znew, ina, zx, k = k, dist.type = "mahattan", type = "C", freq.option = 1)
+	    g <- Rfast::knn(znew, ina, zx, k = k, dist.type = "mahattan", type = "C", freq.option = 1)
     } else if ( apostasi == "Ait" ) {
       xa <- Rfast::Log(x)
       zx <- xa - Rfast::rowmeans( xa )
@@ -48,7 +48,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
         za <- xnew^a
         znew <- za / Rfast::rowsums( za )  ## The power transformation is applied
       }
-	  disa <- Rfast::dista(znew, zx, "manhattan", trans = FALSE)
+	    disa <- Rfast::dista(znew, zx, "manhattan", trans = FALSE)
 
     } else if ( apostasi == "Ait" ) {
       xa <- Rfast::Log(x)
@@ -70,7 +70,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
 
     } else if ( apostasi == "ESOV" ) {
       g <- matrix(0, nu, klen)
-	  if ( is.null(a) ) {
+	    if ( is.null(a) ) {
         zx <- x
         znew <- xnew
 	  } else {
@@ -133,7 +133,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
         za <- xnew^a
         znew <- za / Rfast::rowsums( za )  ## The power transformation is applied
       }
-	tzx <- t(zx)
+     	tzx <- t(zx)
       if (type == "NS") {
         disa <- matrix(0, n, nu)
         for (i in 1:nu) {
@@ -143,7 +143,7 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
           disa[, i] <- Rfast::colsums( sa )
         }
         ta <- matrix(nrow = nu, ncol = nc)
-	  if (mesos) {
+	      if (mesos) {
           for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
@@ -152,16 +152,16 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
             }
             g[, j] <- Rfast::rowMins(ta)
           }
-	  } else {
-	    for (j in 1:klen) {
+	      } else {
+	        for (j in 1:klen) {
             for (m in 1:nc) {
               apo <- disa[ina == m, ]
               apo <- Rfast::colSort(apo)
               ta[, m] <- Rfast::colhameans( apo[1:k[j], , drop = FALSE] )
             }
-		    g[, j] <- Rfast::rowMins(ta)
+		        g[, j] <- Rfast::rowMins(ta)
           }
-	  }  ## end if (mesos)
+	      }  ## end if (mesos)
       } else {
         for (i in 1:nu) {
           znewi <- znew[i, ]

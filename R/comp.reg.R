@@ -15,9 +15,20 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     z <- log( y[, -1] / y[, 1] )
   } else  z <- yb
 
-  if (type == "classical") {
+  if (type == "lmfit") {
     runtime <- proc.time()
-    mod <- multivreg(z, x, plot = FALSE, xnew = xnew)  ## classical multivariate regression
+    x <- model.matrix(z ~ ., data.frame(x) )
+    be <- solve( crossprod(x), crossprod(x, z) )
+    if  ( !is.null(xnew) )  {
+      xnew <- model.matrix( ~ ., data.frame(xnew) )
+      est1 <- xnew %*% be
+    } else  est1 <- NULL
+    seb <- NULL
+    runtime <- proc.time() - runtime
+
+  } else if (type == "classical") {
+    runtime <- proc.time()
+    mod <- Compositional::multivreg(z, x, plot = FALSE, xnew = xnew)  ## classical multivariate regression
     res <- mod$suma
     di <- ncol(z)
     be <- seb <- matrix(nrow = NCOL(x) + 1, ncol = di)
@@ -29,15 +40,15 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
     colnames(seb) <- colnames(be) <- colnames(mod$fitted)
     est1 <- mod$est
     runtime <- proc.time() - runtime
-  }
 
-  if (type == "spatial") {
-    mod <- spatmed.reg(z, x, xnew = xnew)  ## spatial median regression
+  } else if (type == "spatial") {
+    mod <- Compositional::spatmed.reg(z, x, xnew = xnew)  ## spatial median regression
     be <- mod$be
     seb <- mod$seb
     est1 <- mod$est
     runtime <- mod$runtime
   }
+
   est <- NULL
   if ( !is.null(est1) ) {
     est2 <- cbind( 1, exp(est1) )

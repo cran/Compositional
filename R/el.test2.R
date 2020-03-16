@@ -44,7 +44,7 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
     result <- list(test = test, modif.test = stat, dof = d, pvalue = pvalue, mu = mu,
     runtime = runtime, note = paste("James corrected chi-square approximation"))
   } else if ( R == 2 ) {
-    dof <- james(y1, y2, R = 2)$info[5]
+    dof <- Compositional::james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
     stat <- as.numeric( ( dof / (v * d) ) * test )
     pvalue <- as.numeric( pf(stat, d, dof, lower.tail = FALSE) )
@@ -72,15 +72,15 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
 
     } else {
       runtime <- proc.time()
-      cl <- makePSOCKcluster(ncores)
-      registerDoParallel(cl) ## make the cluster
-      tb <- foreach( i = 1:R, .combine = rbind, .packages = "emplik", .export = "el.test" ) %dopar% {
+      cl <- parallel::makePSOCKcluster(ncores)
+      doParallel::registerDoParallel(cl) ## make the cluster
+      tb <- foreach::foreach( i = 1:R, .combine = rbind, .packages = "emplik", .export = "el.test" ) %dopar% {
             b1 <- sample(1:n1, n1, replace = TRUE)
             b2 <- sample(1:n2, n2, replace = TRUE)
             y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
             ww <- nlm( elpa, muc )$minimum
       }
-      stopCluster(cl) ## stop the cluster
+      parallel::stopCluster(cl) ## stop the cluster
       runtime <- proc.time() - runtime
     }
 

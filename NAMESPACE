@@ -12,23 +12,24 @@ importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
 
 importFrom("grDevices", terrain.colors, grey)
 
-importFrom("mda", fda)
-
 importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            diri.nr2, colSort, mahala, rmvnorm, rmvt, sort_unique, rowMins,
            rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
-		       prop.reg, prop.regs)
+		       prop.reg, prop.regs, spatmed.reg)
 
-importFrom("Rfast2", simplex.mle)
+importFrom("Rfast2", simplex.mle, kumar.mle)
+importFrom("RANN", nn2)
+importFrom("mda", fda)
+importFrom("sn", msn.mle, rmsn)
+importFrom("mixture", gpcm)
+importFrom("emplik", el.test)
 
 import("doParallel")
 import("parallel")
 import("foreach")
-importFrom("sn", msn.mle, rmsn)
-importFrom("mixture", gpcm)
-importFrom("emplik", el.test)
+
 exportPattern("^[[:alpha:]]+")
 exportPattern("^[^\\.]")
 

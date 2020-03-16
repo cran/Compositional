@@ -30,11 +30,11 @@ zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
   x2 <- x[a2, , drop = FALSE]
   n1 <- nrow(y1)    ;    n2 <- n - n1
   beta.ini <- .lm.fit(x1, ly1[, -1] - ly1[, 1])$coefficients  ## dirichlet regression on the non zeros part
-  ini.phi <- sum(diri.nr(y1, type = 2)$param)
+  ini.phi <- sum( Compositional::diri.nr(y1, type = 2)$param )
   ##############
   ini.par <- c( log(ini.phi), as.vector( t( beta.ini) ) )  ## initial parameter values
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-  oop <- options(warn = -1) 
+  oop <- options(warn = -1)
   on.exit( options(oop) )
   qa <- nlm( mixreg, ini.par, z = z )
   el1 <- -qa$minimum

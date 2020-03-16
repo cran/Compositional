@@ -19,7 +19,7 @@ mixnorm.contour <- function(x, mod) {
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
-  ha <- t( helm(3) )
+  ha <- t( Compositional::helm(3) )
   ldet <- numeric(g)
   for (k in 1:g)  ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
 

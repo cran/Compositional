@@ -20,7 +20,7 @@ A matrix with compsitional data. Zero values are not allowed.
 The predictor variable(s), they have to be continuous.
 }
 \item{type}{
-The type of regression to be used, "classical" for standard multivariate regression, or "spatial" for spatial median regression, which is also robust.
+The type of regression to be used, "classical" for standard multivariate regression, or "spatial" for the robust spatial median regression. Alternatively you can type "lmfit" for the fast classical multivariate regression that does not return standard errors whatsoever.
 }
 \item{xnew}{
 This is by default set to NULL. If you have new data whose compositional data values you want to predict, put them here.

@@ -1,8 +1,7 @@
-compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
+compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
                          apostasi = "ESOV", folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
-  if ( A >= min(table(ina)) )  A <- min( table(ina) ) - 3  ## The maximum
   ## number  of nearest neighbours to use
   if ( min(x) == 0 )  a <- a[ a > 0 ]
   if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
@@ -13,7 +12,7 @@ compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
   if (apostasi == "ESOV" | apostasi == "taxicab" | apostasi == "CS") {
     a <- a[ a != 0 ]
   }
-  per <- array( dim = c(nfolds, A - 1, length(a)) )
+  per <- array( dim = c(nfolds, length(k), length(a)) )
   runtime <- proc.time()
 
   for (vim in 1:nfolds) {
@@ -24,7 +23,7 @@ compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
     for ( i in 1:length(a) ) {
 	  z <- x^a[i]
       z <- x / Rfast::rowsums( z )
-      g <- comp.knn(z[aba, , drop = FALSE], z[-aba, ], ina2, a = NULL, k = 2:A, type = "S", apostasi = apostasi, mesos = mesos)
+      g <- Compositional::comp.knn(z[aba, , drop = FALSE], z[-aba, ], ina2, a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, , i] <- Rfast::colmeans(be == 0)
     }
@@ -36,10 +35,10 @@ compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
     ela <- Rfast::colmeans(per)
     performance <- max(ela)
     names(performance) <- "rate"
-    names(ela) <- paste("k=", 2:A, sep = "")
+    names(ela) <- paste("k=", k, sep = "")
     best_k <- which.max(ela) + 1
 
-    if (graph)  plot(2:A, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2,
+    if (graph)  plot(k, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2,
                      ylab = "Estimated percentage of correct classification", cex.lab = 1.3)
     results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1, runtime = runtime)
 
@@ -47,10 +46,10 @@ compknn.tune <- function(x, ina, nfolds = 10, A = 5, type = "S", mesos = TRUE, a
     ela <- t( colMeans(per) )
     ## The ela matrix contains the averages of the R
     ## repetitions over alpha and k
-    colnames(ela) <- paste("k=", 2:A, sep = "")
+    colnames(ela) <- paste("k=", k, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     ## The code for the heat plot of the estimated percentages
-    if (graph)  filled.contour(a, 2:A, ela, ylab = "k nearest-neighbours",
+    if (graph)  filled.contour(a, k, ela, ylab = "k nearest-neighbours",
                                    xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
 
     performance <- max(ela)

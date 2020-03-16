@@ -25,24 +25,12 @@ pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, see
     msp <- matrix( nrow = nfolds, ncol = maxk )
 
     for (vim in 1:nfolds) {
-
       ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
-      mod <- prcomp(xtrain, center = FALSE)
-      vec <- mod$rotation
-      z <- mod$x  ## PCA scores
-      znew <- xtest %*% vec ## standardize the xnew values
-      zzk <- crossprod(z)
-      cy <- crossprod( z, ytrain )
-
-      for ( j in 1:maxk ) {
-        zzkj <- zzk[1:j, 1:j]
-        be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
-        est <- as.vector( znew[, 1:j, drop = FALSE] %*% be )  ## predicted values for PCA model
-        msp[vim, j] <- mean( (ytest - est)^2 )
-      }
+      est <- Compositional::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
+      msp[vim, ] <- Rfast::colmeans( (est - ytest)^2 )
     }
 
     runtime <- proc.time() - runtime
@@ -56,24 +44,13 @@ pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, see
     er <- numeric(maxk)
     if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
                                                              stratified = FALSE, seed = seed)
-    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast",
-                            .export = c("colVars", "colmeans") ) %dopar% {
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = c("Rfast", "Compositional") ) %dopar% {
       ytest <-  y[ folds[[ vim ]] ]  ## test set dependent vars
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
-      mod <- prcomp(xtrain, center = FALSE)
-      vec <- mod$rotation
-      z <- mod$x  ## PCA scores
-      znew <- xtest %*% vec ## standardize the xnew values
-      zzk <- crossprod(z)
-      cy <- crossprod( z, ytrain )
-      for ( j in 1:maxk ) {
-        zzkj <- zzk[1:j, 1:j]
-        be <- solve( zzkj, cy[1:j] )  ## (zzkj * zzkj^T )^(-1) * (z[1:j]^T * y)
-        est <- as.vector( znew %*% be )  ## predicted values for PCA model
-        er[j] <- mean( (ytest - est)^2 )
-      }
+      est <- Compositional::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
+      er <- Rfast::colmeans( (est - ytest)^2 )
       return(er)
     }
     parallel::stopCluster(cl)

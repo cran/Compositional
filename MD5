@@ -1,5 +1,5 @@
-b41b528720f27115dc8b97400ba950ea *DESCRIPTION
-30f968e73ed9714906eceb369fc486f2 *NAMESPACE
+4a6afe5f556fc34fb70d7fb39f2efb89 *DESCRIPTION
+d22926a4abe66e8d94dcd5f70360e0e5 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 eec1ee2841ba26bf17d848b0b8d5e56a *R/a.mle.R
 816e9e26eaca9143c35e86b85ca621b4 *R/aknn.reg.R
@@ -46,6 +46,7 @@ c75dbabcb7cfd139b056cf8ee40a926f *R/compknn.tune.R
 43b2eb8f018fdd9eeb942954af067ce8 *R/cv.comp.reg.R
 98f951304cb2718fd8e5e22e3ffd5515 *R/ddiri.R
 bcdf7f493d0754f143b5a5b8b62d3d21 *R/diri.contour.R
+6acd69ad63be8800d6cff34e089cdf59 *R/diri.density.R
 d0fa48cd19c4e34581b254e3e7b41050 *R/diri.est.R
 c1f30f22a84d66509a290ade2620e596 *R/diri.nr.R
 926ac04bdee3d6b9709a2ad0f64f9284 *R/diri.reg.R
@@ -56,6 +57,8 @@ bdd1fa0b1d7c29c6ef7f2eb1615d1769 *R/divergence.R
 2db94d320806766eb201df84e34e79b7 *R/eel.test2.R
 43371b51e435bbe04fca3df54d73ba7f *R/el.test1.R
 a00c352b10fb70fddc4326a3dbe6a5e8 *R/el.test2.R
+25dadab429fa605a9802ae575b28fabb *R/fd.density.R
+dafb3e5b1a087ae684ef92bca433cef4 *R/fd.est.R
 9575d6de4ebc0bf8d5201c8c4290d941 *R/frechet.R
 b4405fc4ef08eb8ebd49d37fad3afe1e *R/frechet2.R
 c59d53b087228f528478e79ab9b9cdd9 *R/glm.pcr.R
@@ -75,7 +78,7 @@ b488827892eca3ebdf5a4871a58fcc00 *R/klalfapcr.tune.R
 a1e35ef64bdaaae038a884b055b17117 *R/klcompreg.boot.R
 3a8aa8ec3f3ddd22834b8eca36989980 *R/kumar.est.R
 2de3d237d44c52ef54106fa4cfcb9608 *R/logitnorm.est.R
-37d0631bc592ab0bf2605617df273a6d *R/makefolds.R
+436143ff4af12840148e470e3a67b8bb *R/makefolds.R
 4c94895931f3935a043d16ffc3dced28 *R/maov.R
 9ddf33243f128c53e16bbc9d179a03d9 *R/maovjames.R
 26397e70c61dcc0774e4b95e209c8827 *R/mix.compnorm.R
@@ -100,6 +103,7 @@ a4253afe6e495c7a380a26cd805d992b *R/rcompt.R
 26db83f92e50aa1688d535b0ea826c6c *R/rda.R
 fa754d742dd2701ee56152c73091e9b1 *R/rda.tune.R
 9759b803c059745b92c491861921af13 *R/rdiri.R
+687b9324ad16d0b86e03e81f648727d2 *R/rfd.R
 e5bbd62e8a5ca6bfbaf644eee91b98e2 *R/rfolded.R
 5d5d4496ffc1b2b2f047f366eb122b20 *R/ridge.plot.R
 438b98b27baa3aee9ba7ff0d9b7747cc *R/ridge.reg.R
@@ -114,11 +118,11 @@ aaa7ee8a007ed6b015a7fa42124f2d31 *R/ternary.R
 9b4e54d18eb04bdb5886d42c0226991b *R/totvar.R
 9421792ec41ee6af6b1ac3528d92e8b6 *R/zadr.R
 98efed6d9da366574cd92d6c594fe69e *R/zeroreplace.R
-405232399ba93a71c2a5de6fa103f2a3 *man/Compositional-package.Rd
-91d12e805920cbb523c99d2ed2dae159 *man/a.est.Rd
+a5db5f8a74c72f0882a629c45621e5cf *man/Compositional-package.Rd
+930faa8557c6adeab1d05d1f4a89683f *man/a.est.Rd
 afc7423584c73ad0cde2c82f0b77d2b0 *man/aknn.reg.Rd
 329299ae172b2ff0e6b225f89bb351c2 *man/aknnreg.tune.Rd
-7e5ce9ed057ea1e426dc28566fda3b1d *man/alfa.Rd
+03ba805ca062a6d1972583956ef097eb *man/alfa.Rd
 5b93d84e1fc8c657de5c52f22f059b18 *man/alfa.knn.reg.Rd
 760d6ccee8b38c894260b3917d57d92a *man/alfa.pcr.Rd
 a79fb9bebb4898331f3aad8a7de32114 *man/alfa.profile.Rd
@@ -135,7 +139,7 @@ f0266817c56c2029dc46d60814b9bbe1 *man/alfapcr.tune.Rd
 77785618764287f1cdbe8a99a388bb2a *man/alfareg.tune.Rd
 8590e0457ee2cabb48b155d95921ac72 *man/alfaridge.plot.Rd
 98eb66b151201ac4b9e4d602f55ade51 *man/alfaridge.tune.Rd
-195d19962c0947c08d5f9a7588a1be2f *man/alpha.mle.Rd
+8a98dbe00877c7d8fc2235c867f7b91e *man/alpha.mle.Rd
 fda20e5ec3b91d816cedc146e23ce6d1 *man/alr.Rd
 fbc20d664d8d197448857ac52154bb66 *man/alr.all.Rd
 2854e461e1d75745b8a03bbebfca42c2 *man/beta.est.Rd
@@ -153,6 +157,7 @@ b1b6c9391663a2a842c4b2ec1b2a3363 *man/compknn.tune.Rd
 00e7ebb71e670d654bab81e1674a6004 *man/cv.comp.reg.Rd
 c140a70260b4e025ce959aefef9c29e3 *man/ddiri.Rd
 7fcd03fe18271ce1bfbb6532cd9b964d *man/diri.contour.Rd
+ce61f1898a325f8b9de336436cd3ce6f *man/diri.density.Rd
 ef4b23676bdbc58003af0f23906818d1 *man/diri.est.Rd
 2545e9dab949cb3dfccf65d78a8a21e7 *man/diri.nr.Rd
 181f81b267e402ba24a49f42ad4231f0 *man/diri.reg.Rd
@@ -162,6 +167,8 @@ ef4b23676bdbc58003af0f23906818d1 *man/diri.est.Rd
 cf97d6a09973b6eec0088fb5cd894534 *man/eel.test2.Rd
 422987502e40f33e3ad0d31668efe867 *man/el.test1.Rd
 ce9970044b3e12bbaed824339959feb6 *man/el.test2.Rd
+a158950baf5ef0d6b87b99bb3c7ced5d *man/fd.density.Rd
+16b4338731a1886f916908f181fb3d7f *man/fd.est.Rd
 52fe9bc4295852862aa8313f3cf79a9f *man/frechet.Rd
 9af4fa1e656ff660e58dc6f7a1550e6b *man/frechet2.Rd
 bad029e1128e6757789615644df165bc *man/glm.pcr.Rd
@@ -195,7 +202,8 @@ b448ec3680b706dd9397b6af557023b9 *man/rcompt.Rd
 fa8d54c1698ba641b4424483da43e98a *man/rda.Rd
 c7e0885513d3788d542cc0b26b323994 *man/rda.tune.Rd
 21f7ccb4aa8a010721243ee05b193017 *man/rdiri.Rd
-95bba46bd1dcaadde5613a1848e09521 *man/rfolded.Rd
+8a90db11b8af24cfcb98aa1daf04442b *man/rfd.Rd
+03affa59155af6c8a912885ddfc04636 *man/rfolded.Rd
 a578098e8cd8a045b0d253ec53a2fff0 *man/ridge.plot.Rd
 55e19276de0b39dcd8b7a7427e39f95f *man/ridge.reg.Rd
 a06e5b9dbf7ab86610b8fee2b109add4 *man/ridge.tune.Rd
@@ -205,5 +213,5 @@ c670240600080d566d585508e4a87ef0 *man/skewnorm.contour.Rd
 3ab6a82098d4b6bc53af1e129c33b0cd *man/sym.test.Rd
 6b0c0b35634d3920f95f886b0bebadc3 *man/ternary.Rd
 41cb28eeb68accb1b7b5edc11f32023f *man/totvar.Rd
-1ee44e1e4f3fb2cb8fe2eb96f70c42ab *man/zadr.Rd
+f840c1da8fc88f3d540deb581232ed81 *man/zadr.Rd
 385b70038b3117893a645d3160f2870c *man/zeroreplace.Rd

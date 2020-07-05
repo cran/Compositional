@@ -1,11 +1,11 @@
-\name{Simulation of compositional data from the folded model}
+\name{Simulation of compositional data from the folded normal distribution}
 \alias{rfolded}
 \title{
-Simulation of compositional data from the folded model
+Simulation of compositional data from the folded model normal distribution
 }
 
 \description{
-Simulation of compositional data from the folded model.
+Simulation of compositional data from the folded model normal distribution.
 }
 
 \usage{
@@ -14,7 +14,7 @@ rfolded(n, mu, su, a)
 
 \arguments{
 \item{n}{
-The sample size
+The sample size.
 }
 \item{mu}{
 The mean vector.
@@ -36,7 +36,7 @@ A matrix with compositional data.
 }
 
 \references{
-Tsagris Michail and Stewart Connie, (2019). A folded model for compositional data analysis.
+Tsagris Michail and Stewart Connie, (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics (to appear).
 https://arxiv.org/pdf/1802.07330.pdf
 }
 

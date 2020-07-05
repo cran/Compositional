@@ -26,6 +26,8 @@ importFrom("sn", msn.mle, rmsn)
 importFrom("mixture", gpcm)
 importFrom("emplik", el.test)
 
+importFrom("FlexDir", FD.estimation, FD.density, FD.generate)
+
 import("doParallel")
 import("parallel")
 import("foreach")

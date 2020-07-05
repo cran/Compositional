@@ -1,9 +1,9 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 3.8
+Version: 3.9
 URL:
-Date: 2020-03-16
+Date: 2020-07-04
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"))
@@ -12,11 +12,11 @@ Author: Michail Tsagris [aut, cre],
   Abdulaziz Alenazi [ctb]
 Maintainer: Michail Tsagris <mtsagris@uoc.gr>
 Depends: R (>= 3.6.0)
-Imports: doParallel, emplik, foreach, MASS, mda, mixture, parallel,
-        RANN, Rfast, Rfast2, sn, stats
-Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. The standard textbook for such data is John Aitchison's (1986) "The statistical analysis of compositional data". Relevant papers include a) Tsagris M.T., Preston S. and Wood A.T.A. (2011) A data-based power transformation for compositional data. Fourth International International Workshop on Compositional Data Analysis. b) Tsagris M. (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present. Journal of Data Science, 12(3):519--534. c) Tsagris M. (2015). A novel, divergence based, regression for compositional data. Proceedings of the 28th Panhellenic Statistics Conference, 15-18 April 2015, Athens, Greece, 430--444. d) Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2):47--57. e) Tsagris M., Preston S. and Wood A.T.A. (2016). Improved supervised classification for compositional data using the alpha-transformation. Journal of Classification, 33(2):243--261. <doi:10.1007/s00357-016-9207-5>. f) Tsagris M., Preston S. and Wood A.T.A. (2017). Nonparametric hypothesis testing for equality of means on the simplex. Journal of Statistical Computation and Simulation, 87(2): 406--422. <doi:10.1080/00949655.2016.1216554> g) Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros. Lobachevskii Journal of Mathematics, 39(3): 398--412. <doi:10.1134/S1995080218030198>. h) Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values. Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. i) Tsagris M. and Stewart C. (2019). A folded model for compositional data analysis. <arXiv:1802.07330>. j) Tsagris M., Alenazi A. and Stewart C. (2020). The alpha-k-NN regression for compositional data. <arXiv:2002.05137>. We further include functions for percentages (or proportions).
+Imports: doParallel, emplik, FlexDir, foreach, MASS, mda, mixture,
+        parallel, RANN, Rfast, Rfast2, sn, stats
+Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. The standard textbook for such data is John Aitchison's (1986) "The statistical analysis of compositional data". Relevant papers include a) Tsagris M.T., Preston S. and Wood A.T.A. (2011) A data-based power transformation for compositional data. Fourth International International Workshop on Compositional Data Analysis. b) Tsagris M. (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present. Journal of Data Science, 12(3):519--534. c) Tsagris M. (2015). A novel, divergence based, regression for compositional data. Proceedings of the 28th Panhellenic Statistics Conference, 15-18 April 2015, Athens, Greece, 430--444. d) Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2):47--57. e) Tsagris M., Preston S. and Wood A.T.A. (2016). Improved supervised classification for compositional data using the alpha-transformation. Journal of Classification, 33(2):243--261. <doi:10.1007/s00357-016-9207-5>. f) Tsagris M., Preston S. and Wood A.T.A. (2017). Nonparametric hypothesis testing for equality of means on the simplex. Journal of Statistical Computation and Simulation, 87(2): 406--422. <doi:10.1080/00949655.2016.1216554> g) Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros. Lobachevskii Journal of Mathematics, 39(3): 398--412. <doi:10.1134/S1995080218030198>. h) Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values. Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. i) Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics (to appear). <arXiv:1802.07330>. j) Tsagris M., Alenazi A. and Stewart C. (2020). The alpha-k-NN regression for compositional data. <arXiv:2002.05137>. We further include functions for percentages (or proportions).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2020-03-16 15:27:20 UTC; User
+Packaged: 2020-07-05 05:30:53 UTC; user
 Repository: CRAN
-Date/Publication: 2020-03-16 18:10:02 UTC
+Date/Publication: 2020-07-05 18:40:39 UTC

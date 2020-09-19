@@ -30,5 +30,8 @@ klcompreg.boot <- function(y, x, der, der2, id, b1, n, p, d, tol = 1e-07, maxite
   },
   silent = TRUE)
   if ( class(res) == "try-error" )   b2 <- b1
-  b2
+  m <- cbind(1, m1)
+  m <- m / Rfast::rowsums(m)
+  loglik <-  - sum(y * log(y/m), na.rm = TRUE )
+  list(loglik = loglik, be = b2)
 }

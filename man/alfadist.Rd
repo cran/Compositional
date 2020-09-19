@@ -39,18 +39,18 @@ distance is calculated.
 }
 
 \value{
-A matrix including the pairwise distances of all observations or the distances between xnew and x.
+For "alfadist" a matrix including the pairwise distances of all observations or the distances between xnew and x. For "alfadista" a matrix including the pairwise distances of all observations or the distances between xnew and x.
 }
 
 
 \references{
 Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the
 \eqn{\alpha}-transformation. Journal of Classification. 33(2):243--261.
-http://arxiv.org/pdf/1506.04976v2.pdf
+https://arxiv.org/pdf/1506.04976v2.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-http://arxiv.org/pdf/1106.1451.pdf
+https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
@@ -64,7 +64,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alfa}, \link{alfainv}, \link{alfa.reg}
+\code{\link{alfa}, \link{alfainv}, \link{alfa.reg}, \link{esov}
 }
 }
 

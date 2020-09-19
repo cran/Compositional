@@ -1,26 +1,23 @@
-\name{Cross validation for some compositional regression models}
-\alias{cv.comp.reg}
+\name{Cross validation for the transformation-free linear regression for compositional responses and predictors}
+\alias{cv.tflr}
 \title{
-Cross validation for some compositional regression models
+Cross validation for the transformation-free linear regression for compositional responses and predictors
 }
 
 \description{
-Cross validation for some compositional regression models.
+Cross validation for the transformation-free linear regression for compositional responses and predictors.
 }
 
 \usage{
-cv.comp.reg(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed = FALSE)
+cv.tflr(y, x, nfolds = 10, folds = NULL, seed = FALSE)
 }
 
 \arguments{
 \item{y}{
-A matrix with compositional data. Zero values are allowed for some regression models.
+A matrix with compositional response data. Zero values are allowed.
 }
 \item{x}{
-The predictor variable(s).
-}
-\item{type}{
-This can be one of the following: "comp.reg", "robust", "kl.compreg", "js.compreg", "diri.reg" or "zadr".
+A matrix with compositional predictors. Zero values are allowed.
 }
 \item{nfolds}{
 The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
@@ -34,7 +31,7 @@ If seed is TRUE the results will always be the same.
 }
 
 \details{
-A k-fold cross validation for a compositional regression model is performed.
+A k-fold cross validation for the transformation-free linear regression for compositional responses and predictors is performed.
 }
 
 \value{
@@ -64,13 +61,18 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{comp.reg}, \link{kl.compreg}, \link{compppr.tune}, \link{aknnreg.tune} }
+\code{ \link{tflr}, \link{klalfapcr.tune}
+}
 }
 
 \examples{
-y <- as.matrix( iris[, 1:3] )
-y <- y / rowSums(y)
-x <- iris[, 4]
-mod <- cv.comp.reg(y, x)
+\dontrun{
+library(MASS)
+y <- rdiri(214, runif(3, 1, 3))
+x <- as.matrix(fgl[, 2:9])
+x <- x / rowSums(x)
+mod <- cv.tflr(y, x)
+mod
+}
 }
 

@@ -52,7 +52,7 @@ The \eqn{\alpha}-transformed data.
 
 \references{
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-http://arxiv.org/pdf/1106.1451.pdf
+https://arxiv.org/pdf/1106.1451.pdf
 
 Tsagris Michail and Stewart Connie, (2020). A folded model for compositional data analysis. Australian and New Zealnd Journal of Statistics (to appear).
 https://arxiv.org/pdf/1802.07330.pdf

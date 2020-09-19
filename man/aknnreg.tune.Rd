@@ -15,10 +15,10 @@ nfolds = 10, folds = NULL, seed = FALSE, B = 1, rann = FALSE)
 
 \arguments{
 \item{y}{
-The response variable, a numerical vector.
+A matrix with the compositional response data. Zeros are allowed.
 }
 \item{x}{
-A matrix with the available compositional data. Zeros are allowed.
+A matrix with the available predictor variables.
 }
 \item{a}{
 A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0.

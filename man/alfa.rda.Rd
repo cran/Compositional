@@ -65,7 +65,7 @@ The estimated group membership of the new data.
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin.
 
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification, 33(2): 243-261.
-\url{http://arxiv.org/pdf/1106.1451.pdf}
+https://arxiv.org/pdf/1106.1451.pdf
 
 Hastie, Tibshirani and Buja (1994). Flexible Disriminant Analysis by Optimal Scoring. Journal of the American Statistical Association, 89(428):1255-1270.
 }

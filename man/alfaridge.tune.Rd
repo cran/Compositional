@@ -78,7 +78,7 @@ Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publ
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-http://arxiv.org/pdf/1106.1451.pdf
+https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{

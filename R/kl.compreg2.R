@@ -21,6 +21,7 @@ kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
     }
   }
   b2 <- b1 + solve(der2, der)
+
   k <- 2
   res <- try(
   while ( sum( abs(b2 - b1) ) > tol  &  k < maxiters) {
@@ -41,17 +42,19 @@ kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
   },
   silent = TRUE)
   if ( class(res) == "try-error" )   b2 <- b1
-  est <- NULL
-  if ( !is.null(xnew) ) {
-    xnew <- model.matrix(~., data.frame(xnew))
-    mu <- cbind(1, exp(xnew %*% b2))
-    est <- mu/Rfast::rowsums(mu)
-  }
-  colnames(b2) <- paste("Y", 1:d, sep = "")
-  rownames(b2) <- colnames(X)
   m <- cbind(1, m1)
   m <- m / Rfast::rowsums(m)
-  loglik <-  - sum(y * log(y/m), na.rm = TRUE )
+  loglik <-  - sum( y * log(y/m), na.rm = TRUE )
+  colnames(b2) <- paste("Y", 1:d, sep = "")
+  rownames(b2) <- colnames(X)
+
+  est <- NULL
+  if ( !is.null(xnew) ) {
+    xnew <- model.matrix( ~., data.frame(xnew) )
+    mu <- cbind( 1, exp(xnew %*% b2) )
+    est <- mu/Rfast::rowsums(mu)
+  }
+
   list(iters = k, loglik = loglik, be = b2, est = est)
 }
 

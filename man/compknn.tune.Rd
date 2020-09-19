@@ -95,7 +95,7 @@ https://arxiv.org/pdf/1506.05216.pdf
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification 33(2): 243-261.
-http://arxiv.org/pdf/1506.04976v2.pdf
+https://arxiv.org/pdf/1506.04976v2.pdf
 
 Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros. Journal of Applied Statistics 44(7): 1137-1152.
 

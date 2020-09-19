@@ -9,7 +9,7 @@ alfa <- function(x, a, h = TRUE) {
     ta <- Rfast::rowsums(z)
     z <- D / a * z / ta - 1/a
     sa <- sum( log(ta) )
-  } else {  ## if a=0 the ilr is calculated
+  } else {  ## if a = 0 the ilr is calculated
     xa <- Rfast::Log(x)
     z <- xa - Rfast::rowmeans( xa )   ## this is the clr
     sa <- dim(x)[1] * log(D)

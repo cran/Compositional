@@ -84,8 +84,8 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
         disa <- matrix(0, n, nu)
         for (i in 1:nu) {
           zan <- znew[i, ]
-          ma <- tzx + zan
-          disa[, i] <- colSums( zan * log( 2 * zan / ma ) + tzx * log( 2 * tzx/ma ), na.rm = TRUE )
+          ma <- 0.5 * ( tzx + zan )
+          disa[, i] <- colSums( zan * log( zan / ma ) + tzx * log( tzx / ma ), na.rm = TRUE )
         }
         ta <- matrix(nrow = nu, ncol = nc)
 	  if (mesos) {
@@ -110,8 +110,8 @@ comp.knn <- function(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", 
       } else {
         for (i in 1:nu) {
           zan <- znew[i, ]
-          ma <- tzx + zan
-          di <- colSums( zan * log( 2 * zan / ma ) + tzx * log( 2 * tzx/ma ), na.rm = TRUE )
+          ma <- 0.5 * ( tzx + zan )
+          di <- colSums( zan * log( zan / ma ) + tzx * log( tzx/ma ), na.rm = TRUE )
           di <- Rfast::Order(di)
           di <- di[ di <= max(k) ]
           for (j in 1:klen) {

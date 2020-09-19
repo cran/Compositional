@@ -100,7 +100,7 @@ R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Mic
 %}
 
 \seealso{
-\code{\link{klalfapcr.tune}, \link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
+\code{\link{klalfapcr.tune}, \link{tflr}, \link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
 }
 }
 

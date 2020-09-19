@@ -60,11 +60,11 @@ If the argument "xnew" was given these are the predicted or estimated values, ot
 
 \references{
 Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
-http://arxiv.org/pdf/1508.01913v1.pdf
+https://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-http://arxiv.org/pdf/1106.1451.pdf
+https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{

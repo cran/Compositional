@@ -13,11 +13,11 @@ alfa.profile(x, a = seq(-1, 1, by = 0.01))
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data. Zero values are not allowed.
+\item{x}{
+A matrix with the compositional data. Zero values are not allowed.
 }
-  \item{a}{
-  A grid of values of \eqn{\alpha}.
+\item{a}{
+A grid of values of \eqn{\alpha}.
 }
 }
 
@@ -38,6 +38,7 @@ An asympotic 95\% confidence interval computed from the log-likelihood ratio tes
 \references{
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{

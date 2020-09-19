@@ -41,9 +41,8 @@ The maximum number of Newton-Raphson iterations.
 }
 
 \details{
-In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. 
-The js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence.
-There is no actual log-likelihood for neither regression. 
+In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. In case of problematic convergence the "multinom" function by the "nnet" package is employed. This will obviously be slower.
+The js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence. There is no actual log-likelihood for neither regression.
 }
 
 \value{
@@ -56,7 +55,7 @@ The number of iterations required by the Newton-Raphson in the kl.compreg functi
 }
 \item{loglik}{
 The log-likelihood. This is actually a quasi multinomial regression. This is bascially minus the half deviance, or
-\eqn{- sum_{i=1}^ny_i\log{y_i/\hat{y}_i}}.
+\eqn{- \sum_{i=1}^ny_i\log{y_i/\hat{y}_i}}.
 }
 \item{be}{
 The beta coefficients.
@@ -74,7 +73,7 @@ Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivari
 Econometric Reviews 35(4): 515-552.
 
 Tsagris, Michail (2015). A novel, divergence based, regression for compositional data.
-Proceedings of the 28th Panhellenic Statistics Conference, 15-18/4/2015, Athens, Greece. 
+Proceedings of the 28th Panhellenic Statistics Conference, 15-18/4/2015, Athens, Greece.
 https://arxiv.org/pdf/1511.07600.pdf
 
 Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.

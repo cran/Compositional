@@ -59,19 +59,25 @@ These are help functions for the \code{\link{kl.compreg}} function. They are not
 
 \value{
 For kl.compreg2 a list including:
-\item{runtime}{
-The time required by the regression.
+\item{iters}{
+The nubmer of iterations required by the Newton-Raphson.
+}
+\item{loglik}{
+The loglikelihood.
 }
 \item{be}{
 The beta coefficients.
 }
-\item{seb}{
-The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
-}
 \item{est}{
 The fitted or the predicted values (if xnew is not NULL).
 }
-For the klcompreg.boot a matrix with the estimated coefficients.
+For klcompreg.boot a list including:
+\item{loglik}{
+The loglikelihood.
+}
+\item{be}{
+The beta coefficients.
+}
 }
 
 \references{

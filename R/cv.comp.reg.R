@@ -13,7 +13,7 @@ cv.comp.reg <- function(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed
       for ( i in 1:nfolds) {
         ytest <- y[ folds[[ i ]], ]  ## test set dependent vars
         ytrain <- y[ -folds[[ i ]], ]  ## train set dependent vars
-        xtest <- y[ folds[[ i ]], -1, drop = FALSE]  ## test set independent vars
+        xtest <- x[ folds[[ i ]], -1, drop = FALSE]  ## test set independent vars
         xtrain <- x[ -folds[[ i ]], -1, drop = FALSE]  ## train set independent vars
         est <- Compositional::comp.reg( ytrain, xtrain, xnew = xtest, type = "robust")$est
         ela <- abs( ytest * log( ytest / est ) )

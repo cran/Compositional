@@ -18,7 +18,7 @@ frechet2 <- function(x, di, a, k1) {
   if ( a == 0 ) {
     for ( i in 1:n ) {
       lx <- Rfast::colCumSums( Rfast::Log( x[ di[i, ], ] ) ) / denom
-      esk <- exp( lx[-apo, ] )
+      esk <- exp( lx[-apo, , drop = FALSE] )
       est <- esk/Rfast::rowsums(esk)
       m1[i, ] <- as.vector( t(est) )
     }
@@ -30,7 +30,7 @@ frechet2 <- function(x, di, a, k1) {
       z <- xa / Rfast::rowsums(xa)
       esk <- Rfast::colCumSums(z)^inva / denom
       est <- esk/Rfast::rowsums(esk)
-      m1[i, ] <- as.vector( t( est[-apo, ] ) )
+      m1[i, ] <- as.vector( t( est[-apo, , drop = FALSE] ) )
     }
 
   }

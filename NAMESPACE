@@ -8,7 +8,7 @@ importFrom("graphics", filled.contour, contour, lines, plot,
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq,
            rgamma, mahalanobis, runif, qt, qf, pf, model.matrix, prcomp,
-           .lm.fit, na.omit, ppr, predict, coef)
+           .lm.fit, na.omit, ppr, predict, coef, cancor)
 
 importFrom("grDevices", terrain.colors, grey)
 
@@ -17,9 +17,9 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
-		       prop.reg, prop.regs, spatmed.reg)
+		       prop.reg, prop.regs, spatmed.reg, dcor)
 
-importFrom("Rfast2", simplex.mle, kumar.mle)
+importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, propjs.reg, prophelling.reg, zil.mle)
 importFrom("RANN", nn2)
 importFrom("mda", fda)
 importFrom("sn", msn.mle, rmsn)

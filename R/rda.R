@@ -46,7 +46,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   for (j in 1:nc) {
     Ska <- del * sk[[ j ]] + (1 - del) * Sa
     ta[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( xnew, mesos[j, ], Ska )
-    ## the scores are doubled for efficiency, i did not multiply with 0.5
+    ## the scores are doubled, but for efficiency I did not multiply with 0.5
   }
 
   est <- Rfast::rowMaxs(ta)

@@ -27,10 +27,10 @@ For every value of \eqn{\alpha} the normal likelihood (see the refernece) is com
 
 \value{
 A list including:
-  \item{res}{
+\item{res}{
 The chosen value of \eqn{\alpha}, the corresponding log-likelihood value and the log-likelihood when \eqn{\alpha=0}.
 }
-  \item{ci}{
+\item{ci}{
 An asympotic 95\% confidence interval computed from the log-likelihood ratio test.
 }
 }

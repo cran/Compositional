@@ -5,6 +5,7 @@
 \alias{hsecant01.est}
 \alias{simplex.est}
 \alias{kumar.est}
+\alias{zilogitnorm.est}
 \title{
 MLE of distributions defined in the (0, 1) interval
 }
@@ -20,6 +21,7 @@ logitnorm.est(x)
 hsecant01.est(x, tol = 1e-07)
 simplex.est(x, tol = 1e-07)
 kumar.est(x, tol = 1e-07)
+zilogitnorm.est(x)
 }
 
 \arguments{
@@ -32,9 +34,7 @@ The tolerance level up to which the maximisation stops.
 }
 
 \details{
-Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions
-does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est"
-use the golden ratio search as is it faster than the Newton-Raphson (less computations).
+Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est" use the golden ratio search as is it faster than the Newton-Raphson (less computations). The "zilogitnorm.est" stands for the zero inflated logistic normal distribution.
 }
 
 \value{
@@ -48,6 +48,19 @@ The value of the log-likelihood.
 \item{param}{
 The estimated parameters. In the case of "hypersecant01.est" this is called "theta" as there is only one parameter.
 }
+}
+
+\references{
+Kumaraswamy, P. (1980). A generalized probability density function for double-bounded random processes.
+Journal of Hydrology. 46 (1-2): 79-88.
+
+Jones, M.C. (2009). Kumaraswamy's distribution: A beta-type distribution with some tractability advantages.
+Statistical Methodology. 6(1): 70-81.
+
+Zhang, W. & Wei, H. (2008). Maximum likelihood estimation for simplex distribution nonlinear mixed models
+via the stochastic approximation algorithm. The Rocky Mountain Journal of Mathematics, 38(5): 1863-1875.
+
+You can also check the relevant wikipedia pages.
 }
 
 \author{

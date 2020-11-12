@@ -19,7 +19,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
     za <- zz / ta
     ma <- ( D / a * za - 1/a ) %*% ha
     sa <- crossprod(ya - ma)
-    log( det(sa) )
+    det(sa, log = TRUE)
   }
 
   D <- dim(y)[2]

@@ -11,5 +11,5 @@ alfadista <- function(xnew, x, a, type = "euclidean", square = FALSE) {
   ## a is the power parameter, usually between -1 and 1
   y <- Compositional::alfa(x, a, h = FALSE)$aff
   ynew <- Compositional::alfa(xnew, a, h = FALSE)$aff
-  Rfast::dista(ynew, y, method = type, square = square)
+  Rfast::dista(ynew, y, type = type, square = square)
 }

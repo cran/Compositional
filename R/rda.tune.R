@@ -48,7 +48,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( test, mesi[j, ], Ska )
-            ## the scores are doubled for efficiency, I did not multiply with 0.5
+            ## the scores are doubled, for efficiency I did not multiply with 0.5
           }
           g <- Rfast::rowMaxs(gr)
           group[k1, k2] <- mean( g == id )
@@ -89,7 +89,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
           for (j in 1:nc) {
             Ska <- del[k2] * sk[, , j] + (1 - del[k2]) * Sa
             gr[, j] <- ci[j] - log( det( Ska ) ) - Rfast::mahala( test, mesi[j, ], Ska )
-            ## the scores are doubled for efficiency, I did not multiply with 0.5
+            ## the scores are doubled, for efficiency I did not multiply with 0.5
           }
           g <- Rfast::rowMaxs(gr)
           per[k1, k2, vim] <- mean( g == id )

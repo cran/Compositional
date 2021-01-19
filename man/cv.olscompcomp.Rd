@@ -1,15 +1,15 @@
-\name{Cross validation for the transformation-free linear regression for compositional responses and predictors}
-\alias{cv.tflr}
+\name{Cross-validation for the constrained linear least squares for compositional responses and predictors}
+\alias{cv.olscompcomp}
 \title{
-Cross validation for the transformation-free linear regression for compositional responses and predictors
+Cross-validation for the constrained linear least squares for compositional responses and predictors
 }
 
 \description{
-Cross validation for the transformation-free linear regression for compositional responses and predictors.
+Cross-validation for the constrained linear least squares for compositional responses and predictors.
 }
 
 \usage{
-cv.tflr(y, x, nfolds = 10, folds = NULL, seed = FALSE)
+cv.olscompcomp(y, x, rs = 5, tol = 1e-4, nfolds = 10, folds = NULL, seed = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,12 @@ A matrix with compositional response data. Zero values are allowed.
 }
 \item{x}{
 A matrix with compositional predictors. Zero values are allowed.
+}
+\item{rs}{
+The number of times to run the constrained optimisation using different random starting values each time.
+}
+\item{tol}{
+The threshold upon which to stop the iterations of the constrained optimisation.
 }
 \item{nfolds}{
 The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
@@ -31,7 +37,7 @@ If seed is TRUE the results will always be the same.
 }
 
 \details{
-A k-fold cross validation for the transformation-free linear regression for compositional responses and predictors is performed.
+The function performs k-fold cross-validation for the least squares regression where the beta coefficients are constained to be positive and sum to 1.
 }
 
 \value{
@@ -50,19 +56,21 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
 }
 }
 
+%\references{
+  %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.
+  %}
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
-%%  ~~further notes~~
-%}
+  %%  ~~further notes~~
+    %}
 
 \seealso{
-\code{ \link{tflr}, \link{cv.olscompcomp}, \link{klalfapcr.tune}
-}
+\code{\link{ols.compcomp}, \link{cv.tflr}, \link{klalfapcr.tune} }
 }
 
 \examples{

@@ -43,8 +43,8 @@ The time required by the regression.
 \item{beta}{
 The beta coefficients.
 }
-\item{seb}{
-The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
+\item{covb}{
+The covariance matrix of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
 \item{est}{
 The fitted of xnew if xnew is not NULL.
@@ -57,9 +57,9 @@ Econometric Reviews 35(4): 515-552.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

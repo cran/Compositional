@@ -25,7 +25,7 @@ A value of \eqn{\alpha}.
 
 \details{
 This is a function for choosing or estimating the value of \eqn{\alpha} in the folded model
-(Tsagris and Stewart, 2019). It is called by \code{\link{a.est}}.
+(Tsagris and Stewart, 2020). It is called by \code{\link{a.est}}.
 }
 
 \value{
@@ -50,7 +50,8 @@ If "a.mle" is called, the log-likelihood is returned only.
 }
 
 \references{
-Tsagris Michail and Stewart Connie, (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics (to appear).
+Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis.
+Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.

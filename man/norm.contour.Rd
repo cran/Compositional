@@ -9,12 +9,15 @@ Contour plot of the normal distribution in \eqn{S^2}.
 }
 
 \usage{
-norm.contour(x, type = "alr", n = 100, appear = TRUE)
+norm.contour(m, s, type = "alr", n = 100, x = NULL)
 }
 
 \arguments{
-\item{x}{
-A matrix with the compositional data. It has to be a 3 column matrix.
+\item{m}{
+The mean vector.
+}
+\item{s}{
+The covariance matrix.
 }
 \item{type}{
 This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
@@ -22,8 +25,8 @@ This is either "alr" or "ilr", corresponding to the additive and the isometric l
 \item{n}{
 The number of grid points to consider over which the density is calculated.
 }
-\item{appear}{
-Should the available data appear on the ternary plot (TRUE) or not (FALSE)?
+\item{x}{
+This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
 }
 
@@ -58,8 +61,10 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 \examples{
 x <- as.matrix(iris[, 1:3])
 x <- x / rowSums(x)
-norm.contour(x)
-norm.contour(x, type = "ilr")
+y <- Compositional::alr(x)
+m <- colMeans(y)
+s <- cov(y)
+norm.contour(m, s)
 }
 
 \keyword{ contour plot }

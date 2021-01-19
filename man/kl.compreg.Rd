@@ -60,8 +60,8 @@ The log-likelihood. This is actually a quasi multinomial regression. This is bas
 \item{be}{
 The beta coefficients.
 }
-\item{seb}{
-The standard error of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
+\item{cov}{
+The covariance matrix of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
 \item{est}{
 The fitted values of xnew if xnew is not NULL.

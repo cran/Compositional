@@ -50,7 +50,7 @@ https://arxiv.org/pdf/2004.07881.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{cv.tflr}, \link{kl.alfapcr}
+\code{\link{cv.tflr}, \link{ols.compcomp} \link{kl.alfapcr}
 }
 }
 

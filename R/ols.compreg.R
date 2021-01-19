@@ -20,25 +20,25 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     mu <- mu1 / rowSums(mu1)
     sum( (y - mu)^2 )
   }
-  
+
   runtime <- proc.time()
   x <- model.matrix(y ~ ., data.frame(x) )
   n <- dim(y)[1]  ## sample size
   d <- dim(y)[2] - 1  ## dimensionality of the simplex
   ## the next lines minimize the reg function and obtain the estimated betas
   ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
-  oop <- options(warn = -1) 
+  oop <- options(warn = -1)
   qa <- nlm(olsreg, ini, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
   on.exit( options(oop) )
   beta <- matrix(qa$estimate, byrow = TRUE, ncol = d)
-  seb <- NULL
+  covb <- NULL
   runtime <- proc.time() - runtime
-  
+
   if (B > 1) {
     nc <- ncores
-    if (nc == 1) {
+    if (nc <= 1) {
       runtime <- proc.time()
       betaboot <- matrix(nrow = B, ncol = length(ini))
       for (i in 1:B) {
@@ -50,9 +50,8 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         betaboot[i, ] <- qa$estimate
-      }
-      s <- Rfast::colVars(betaboot, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
+      }  ##  end  for (i in 1:B) {
+      covb <- cov(betaboot)
       runtime <- proc.time() - runtime
 
     } else {
@@ -60,7 +59,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export = "olsreg") %dopar% {
+      betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = "olsreg") %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
@@ -69,22 +68,20 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         betaboot[i, ] <- qa$estimate
-      }
+      }  ##  end foreach
       parallel::stopCluster(cl)
-      s <- Rfast::colVars(ww, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
+      covb <- cov(betaboot)
       runtime <- proc.time() - runtime
-    }
-  }
-  
-  est <- NULL 
+    }  ## end if (nc <= 1) {
+  }  ## end if (B > 1) {
+
+  est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
-    mu <- cbind(1, exp(xnew %*% beta))
+    mu <- cbind( 1, exp(xnew %*% beta) )
     est <- mu / Rfast::rowsums(mu)
   }
 
   rownames(beta)  <- colnames(x)
-  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-  list(runtime = runtime, beta = beta, seb = seb, est = est)
+  list(runtime = runtime, beta = beta, covb = covb, est = est)
 }

@@ -18,12 +18,10 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
   for (vim in 1:nfolds) {
     id <- ina[ folds[[ vim ]] ]  ## groups of test sample
     ina2 <- ina[ -folds[[ vim ]] ]   ## groups of training sample
-    aba <- as.vector( folds[[ vim ]] )
-    aba <- aba[aba > 0]
     for ( i in 1:length(a) ) {
 	  z <- x^a[i]
       z <- x / Rfast::rowsums( z )
-      g <- Compositional::comp.knn(z[aba, , drop = FALSE], z[-aba, ], ina2, a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
+      g <- Compositional::comp.knn(z[folds[[ vim ]], , drop = FALSE], z[-folds[[ vim ]], ], ina2, a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, , i] <- Rfast::colmeans(be == 0)
     }

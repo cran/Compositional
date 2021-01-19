@@ -28,13 +28,13 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
   runtime <- proc.time()
   ini <- rnorm( d * dim(x)[2] )
-  oop <- options(warn = -1) 
+  oop <- options(warn = -1)
   on.exit( options(oop) )
   qa <- nlm(symkl, ini, y = y, x = x, d = d)
   qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
   be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
-  seb <- NULL
+  covb <- NULL
   runtime <- proc.time() - runtime
 
   if (B > 1) {
@@ -52,15 +52,14 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
         betaboot[i, ] <- qa$estimate
       }
-      s <- Rfast::colVars(betaboot, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
+      covb <- cov(betaboot)
       runtime <- proc.time() - runtime
 
     } else {
       runtime <- proc.time()
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
-      ww <- foreach::foreach(i = 1:B, .combine = rbind, .export = "symkl" ) %dopar% {
+      betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = "symkl" ) %dopar% {
         ida <- sample(1:n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
@@ -68,14 +67,13 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
         qa <- nlm(symkl, ini, y = yb, x = xb, d = d)
         qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
-        betaboot <- qa$estimate
-      }
+        return(qa$estimate)
+      }  ##  end foreach
       parallel::stopCluster(cl)
-      s <- Rfast::colVars(ww, std = TRUE)
-      seb <- matrix(s, byrow = TRUE, ncol = d)
+      covb <- cov(betaboot)
       runtime <- proc.time() - runtime
-    }
-  }
+    }  ##  end if (nc < 1)
+  }  ##  end if (B > 1) {
 
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
@@ -84,6 +82,5 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   }  else  est <- NULL
 
   rownames(be)  <- colnames(x)
-  if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
-  list(runtime = runtime, be = be, seb = seb, est = est)
+  list(runtime = runtime, be = be, covb = covb, est = est)
 }

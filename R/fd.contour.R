@@ -3,7 +3,7 @@
 #### Tsagris Michail 1/2013
 #### mtsagris@yahoo.gr
 ################################
-diri.contour <- function(a, n = 100, x = NULL) {
+fd.contour <- function(alpha, prob, tau, n = 100, x = NULL) {
   ## a are the estimated Dirichlet parameters
   ## n shows the number of points at which the density is calculated
   ## so, n^2 points are used.
@@ -12,7 +12,6 @@ diri.contour <- function(a, n = 100, x = NULL) {
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 1e-03, length = n)  ## coordinates of y
   mat <- matrix(nrow = n, ncol = n)
-  be <- prod( gamma(a)) / gamma(sum(a) )  ## beta function
 
   for ( i in 1:c(n/2) ) {
     for (j in 1:n) {
@@ -24,7 +23,7 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        can <- prod( w^(a - 1) ) / be
+        can <- Compositional::fd.density(w, alpha, prob, tau)
         if (abs(can) < Inf)  mat[i, j] <- can
       }
     }
@@ -39,13 +38,13 @@ diri.contour <- function(a, n = 100, x = NULL) {
         w2 <- x1[i] - x2[j]/sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        can <- prod( w^(a - 1) ) / be
+        can <- Compositional::fd.density(w, alpha, prob, tau)
         if (abs(can) < Inf)  mat[i, j] <- can
       }
     }
   }
   contour(x1, x2, mat, col = 3, xlab = " ", ylab = " ",
-        pty = "s", xaxt = "n", yaxt = "n", bty = "n")
+          pty = "s", xaxt = "n", yaxt = "n", bty = "n")
   b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt3/2, 0, 0, sqrt3/2)
   b <- cbind(b1, b2)
@@ -56,11 +55,11 @@ diri.contour <- function(a, n = 100, x = NULL) {
     proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
-  	nam <- colnames(x)
-  	if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
-  	points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
-  	text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
-  	text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
+    nam <- colnames(x)
+    if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
+    points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+    text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
+    text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
   }
 
 }

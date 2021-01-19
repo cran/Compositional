@@ -9,7 +9,7 @@ Helper Frechet mean for compositional data.
 }
 
 \usage{
-frechet2(x, di, a, k1)
+frechet2(x, di, a, k)
 }
 
 \arguments{
@@ -22,8 +22,8 @@ A matrix with indices as produced by the function "dista" of the package "Rfast"
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the closed geometric mean is calculated.
 }
-\item{k1}{
-The number of columns of "di" to exlude from the computation of the Frechet means.
+\item{k}{
+The number of nearest neighbours used for the computation of the Frechet means.
 }
 }
 
@@ -43,9 +43,9 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -66,7 +66,7 @@ xnew <- x[1:10, ]
 x <- x[-c(1:10), ]
 k <- 2:5
 di <- Rfast::dista( xnew, x, k = max(k), index = TRUE, square = TRUE )
-est <- frechet2(x, di, 0.2)
+est <- frechet2(x, di, 0.2, k)
 }
 }
 

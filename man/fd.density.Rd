@@ -17,13 +17,13 @@ fd.density(x, alpha, prob, tau)
 A vector or a matrix with compositional data.
 }
 \item{alpha}{
-A vector of the non-negative alpha parameters.
+A vector of the non-negative \eqn{alpha} parameters.
 }
 \item{prob}{
 A vector of the clusters' probabilities. It must sum to one.
 }
 \item{tau}{
-The non-negative scalar tau parameter.
+The non-negative scalar \eqn{tau} parameter.
 }
 }
 
@@ -36,9 +36,10 @@ The density value(s).
 }
 
 \references{
-Ongaro, A. and Migliorati, S. (2013) A generalization of the Dirichlet distribution. Journal of Multivariate Analysis, 114, 412--426.
+Ongaro A. and Migliorati S. (2013). A generalization of the Dirichlet distribution.
+Journal of Multivariate Analysis, 114, 412--426.
 
-Migliorati, S., Ongaro, A. and Monti, G. S. (2016) A structured Dirichlet mixture model for compositional data: inferential and applicative issues. Statistics and Computing, 1--21.
+Migliorati S., Ongaro A. and Monti G. S. (2017). A structured Dirichlet mixture model for compositional data: inferential and applicative issues. Statistics and Computing, 27, 963--983.
 }
 
 \author{

@@ -16,12 +16,12 @@ rfd(n, alpha, prob, tau)
 \item{n}{
 The sample size.
 }
-\item{alpha}{A vector of the non-negative alpha parameters.
+\item{alpha}{A vector of the non-negative \eqn{alpha} parameters.
 }
 \item{prob}{
 A vector of the clusters' probabilities that must sum to one.
 }
-\item{tau}{The non-negative scalar tau parameter.
+\item{tau}{The positive scalar \eqn{tau} parameter.
 }
 }
 
@@ -34,9 +34,10 @@ A matrix with compositional data.
 }
 
 \references{
-Ongaro, A. and Migliorati, S. (2013) A generalization of the Dirichlet distribution. Journal of Multivariate Analysis, 114, 412--426.
+Ongaro A. and Migliorati S. (2013). A generalization of the Dirichlet distribution.
+Journal of Multivariate Analysis, 114, 412--426.
 
-Migliorati, S., Ongaro, A. and Monti, G. S. (2016) A structured Dirichlet mixture model for compositional data: inferential and applicative issues. Statistics and Computing, 1--21.
+Migliorati S., Ongaro A. and Monti G. S. (2017). A structured Dirichlet mixture model for compositional data: inferential and applicative issues. Statistics and Computing, 27, 963--983.
 }
 
 \author{

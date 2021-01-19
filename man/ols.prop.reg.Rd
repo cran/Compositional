@@ -1,6 +1,5 @@
 \name{Distance based regression models for proportions}
 \alias{ols.prop.reg}
-\alias{js.prop.reg}
 \alias{helling.prop.reg}
 \title{
 Distance based regression models for proportions
@@ -12,7 +11,6 @@ Distance based regression models for proportions.
 
 \usage{
 ols.prop.reg(y, x, cov = FALSE, tol = 1e-07, maxiters = 100)
-js.prop.reg(y, x, tol = 1e-07, maxiters = 100)
 helling.prop.reg(y, x, tol = 1e-07, maxiters = 100)
 }
 
@@ -47,13 +45,10 @@ The sum of squres of errors for the "ols.prop.reg" function.
 The estimated regression coefficients.
 }
 \item{seb}{
-The standard error of the regression coefficients in "ols.prop.reg" if "cov" is TRUE.
+The standard error of the regression coefficients if "cov" is TRUE.
 }
 \item{covb}{
 The covariance matrix of the regression coefficients in "ols.prop.reg" if "cov" is TRUE.
-}
-\item{js}{
-The Jensen-Shannon divergence between the true and the obseervd proportions in "js.prop.reg".
 }
 \item{H}{
 The Hellinger distance between the true and the obseervd proportions in "helling.prop.reg".
@@ -88,7 +83,6 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 y <- rbeta(100, 1, 4)
 x <- matrix(rnorm(100 * 2), ncol = 2)
 a1 <- ols.prop.reg(y, x)
-a2 <- js.prop.reg(y, x)
-a3 <- helling.prop.reg(y, x)
+a2 <- helling.prop.reg(y, x)
 }
 

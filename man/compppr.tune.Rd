@@ -10,7 +10,7 @@ In addition, estimation of the rate of correct classification via K-fold cross-v
 }
 
 \usage{
-compppr.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10, 
+compppr.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10,
 type = "alr", yb = NULL, B = 1000 )
 
 }
@@ -26,7 +26,7 @@ A matrix with the continuous predictor variables.
 The number of folds to use.
 }
 \item{folds}{
-If you have the list with the folds supply it here. 
+If you have the list with the folds supply it here.
 }
 \item{seed}{
 If seed is TRUE the results will always be the same.
@@ -42,13 +42,13 @@ If you have already transformed the data using a log-ratio transformation put it
 Othewrise leave it NULL.
 }
 \item{B}{
-The number of bootstrap re-samples to use for the unbiased estimation of the performance of the 
+The number of bootstrap re-samples to use for the unbiased estimation of the performance of the
 projection pursuit regression. If B = 1, no bootstrap is applied.
 }
 }
 
 \details{
-The function performs tuning of the projection pursuit regression algorithm. 
+The function performs tuning of the projection pursuit regression algorithm.
 }
 
 \value{
@@ -69,9 +69,9 @@ The run time of the cross-validation procedure.
 Friedman, J. H. and Stuetzle, W. (1981). Projection pursuit regression. Journal of the American
 Statistical Association, 76, 817-823. doi: 10.2307/2287576.
 
-Tsamardinos I., Greasidou E. and Borboudakis G. (2018). 
-Bootstrapping the out-of-sample predictions for efficient and accurate cross-validation. 
-Machine Learning 107(12): 1895-1922.  
+Tsamardinos I., Greasidou E. and Borboudakis G. (2018).
+Bootstrapping the out-of-sample predictions for efficient and accurate cross-validation.
+Machine Learning 107(12): 1895-1922.
 https://link.springer.com/article/10.1007/s10994-018-5714-4
 }
 
@@ -95,8 +95,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 x <- as.matrix(iris[, 1:4])
 x <- x/ rowSums(x)
 ina <- iris[, 5]
-mod1 <- compknn.tune(x, ina, a = seq(1, 1, by = 0.1) )
-mod2 <- alfaknn.tune(x, ina, a = seq(-1, 1, by = 0.1) )
+mod <- compknn.tune(x, ina, a = seq(1, 1, by = 0.1) )
 }
 
 \keyword{ Regularised discriminant analysis }

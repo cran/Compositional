@@ -3,7 +3,7 @@
 #### Tsagris Michail 2/2013
 #### mtsagris@yahoo.gr
 ################################
-norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
+norm.contour <- function(m, s, type = "alr", n = 100, x = NULL) {
   ## the type parameter determines whether the additive or
   ## the isometric log-ratio transformation will be used.
   ## If type='alr' (the default) the additive
@@ -15,17 +15,6 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
   ha <- t( helm(3) )
-
-  if (type == "alr") {
-    ya <- log( x[, -1] / x[, 1] )
-  } else {
-    ya <- log(x)
-    ya <- ya - Rfast::rowmeans( ya )
-    ya <- as.matrix( ya %*% ha )
-  }
-
-  m <- Rfast::colmeans(ya)  ## mean vector
-  s <- Rfast::cova(ya)  ## covariance matrix
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)
 
@@ -76,15 +65,17 @@ norm.contour <- function(x, type = "alr", n = 100, appear = "TRUE") {
   b2 <- c( sqrt3/2, 0, 0, sqrt3/2 )
   b <- cbind(b1 ,b2)
   points( b[, 1], b[, 2], type = "l", xlab = " ", ylab = " " )
-  nam <- colnames(x)
-  if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
-  text( b[1, 1], b[1, 2] + 0.01, nam[3], cex = 1)
-  text( b[2:3, 1] + 0.01, b[2:3, 2] - 0.01, nam[1:2], cex = 1)
 
-  if ( appear ) {
-    proj <- matrix(c(0, 1, 1/2, 0, 0, sqrt3/2), ncol = 2)
+
+  if ( !is.null(x) ) {
+    proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt3/2), ncol = 2)
     xa <- x %*% proj
     points(xa[, 1], xa[, 2])
+    nam <- colnames(x)
+    if ( is.null(nam) )  nam <- paste("X", 1:3, sep = "")
+    points(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ")
+    text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
+    text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
   }
 
 }

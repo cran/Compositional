@@ -23,7 +23,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
 
   if (B == 1) {
     runtime <- proc.time() - runtime
-    res <-  list(runtime = runtime, iters = iters, loglik = loglik, be = be, seb = NULL, est = est)
+    res <-  list(runtime = runtime, iters = iters, loglik = loglik, be = be, covb = NULL, est = est)
   } else {
 
     if (ncores <= 1) {
@@ -46,7 +46,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
           mod <- nnet::multinom(yb ~ xb, trace = FALSE)
           bb <- t( coef(mod) )
         } else  betaboot[i, ] <- as.vector(bb)
-      }
+      }  ##  end  for (i in 1:B) {
     } else {
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
@@ -71,13 +71,13 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
           bb <- t( coef(mod) )
         }
         return( as.vector(bb) )
-      }
+      }  ##  end  foreach
       parallel::stopCluster(cl)
-    }
-    s <- Rfast::colVars(betaboot, std = TRUE)
-    seb <- matrix(s, byrow = TRUE, ncol = d)
+    }  ##  end if (ncores <= 1) {
+    covb <- cov(betaboot)
+
     runtime <- proc.time() - runtime
-    res <- list(runtime = runtime, iters = iters, loglik = loglik, be = be, seb = seb, est = est)
+    res <- list(runtime = runtime, iters = iters, loglik = loglik, be = be, covb = covb, est = est)
   }
   res
 }

@@ -4,8 +4,8 @@
 #### mtsagris@yahoo.gr
 ################################
 
-ternary <- function(x, means = TRUE, pca = FALSE) {
-  ## x contains the composiitonal data
+ternary <- function(x, means = TRUE, pca = FALSE, colour = NULL) {
+  ## x contains the compositional data
   ## if means==TRUE it will plot the arithmetic and the
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
@@ -14,7 +14,7 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   } else nam <- paste("X", 1:3, sep = " ")
 
   n <- dim(x)[1]
-  ina <- numeric(n) + 1
+  ina <- numeric(n) + 20
   ## m1 is the closed geometric mean
   g1 <- Rfast::colmeans( log(x[, -1] / x[, 1]) )
   g2 <- c( 1, exp(g1) )
@@ -23,7 +23,6 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   m2 <- Rfast::colmeans(x)
   x <- rbind(x, m1, m2)
   ## the next code checks for zeros
-  ina[ rowSums(x == 0) > 0 ] <- 3
   b1 <- c(0.5, 0, 1, 0.5)
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
@@ -31,15 +30,16 @@ ternary <- function(x, means = TRUE, pca = FALSE) {
   xaxt = "n", yaxt = "n", bty = "n")
   proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt(3)/2), ncol = 2)
   d <- x %*% proj
-  points( d[1:n, 1], d[1:n, 2], col = ina )
+  if ( is.null(colour) )  colour <- numeric(n) + 1
+  points( d[1:n, 1], d[1:n, 2], col = colour )
   text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
   text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
 
   if ( means ) {
     ## should the means appear in the plot?
-    points( d[c(n + 1), 1], d[c(n + 1), 2], pch = 2, col = 2 )
-    points( d[c(n + 2), 1], d[c(n + 2), 2], pch = 3, col = 3 )
-    legend(0.57, 0.9, c("closed geometric mean"," arithmetic mean"),
+    points( d[c(n + 1), 1], d[c(n + 1), 2], pch = 2, col = 2, lwd = 2 )
+    points( d[c(n + 2), 1], d[c(n + 2), 2], pch = 3, col = 3, lwd = 2 )
+    legend("topright", c("closed geometric mean"," arithmetic mean"),
     pch = c(2, 3), col = c(2, 3), bg = 'gray90')
   }
 

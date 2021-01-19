@@ -92,7 +92,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
 
-R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> and Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -109,7 +109,7 @@ library(MASS)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- alfa.pcr(y = y, x = x, 0.7, 1)
+mod <- alfa.pcr(y = y, x = x, a = 0.7, k = 1)
 mod
 }
 

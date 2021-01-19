@@ -81,7 +81,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{rda}, \link{alfa}
+\code{\link{rda}, \link{alfa}, \link{alfarda.tune}
 }
 }
 

@@ -18,7 +18,7 @@ alfafda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, folds = 
   ## if mat is NULL the folds happen internally
   ## if you already have folds, provide the indices of the data
   ## in a matrix form, each column corresponds to a fold
-  if ( min(x) == 0 )  a = a[ a > 0 ]   ## if you have zero values, only positive alphas are allowed
+  if ( min(x) == 0 )  a <- a[ a > 0 ]   ## if you have zero values, only positive alphas are allowed
   info <- list()
   ina <- as.numeric(ina)
   if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,

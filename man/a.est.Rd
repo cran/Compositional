@@ -20,7 +20,7 @@ A matrix with the compositional data. No zero vaues are allowed.
 
 \details{
 This is a function for choosing or estimating the value of \eqn{\alpha} in the folded
-model (Tsagris and Stewart, 2019).
+model (Tsagris and Stewart, 2020).
 }
 
 \value{

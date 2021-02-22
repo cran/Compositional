@@ -10,7 +10,7 @@
 ################################
 alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
                          apostasi = "euclidean", rann = FALSE, folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
-  if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
+  if ( min(x) == 0 )  a <- a[a > 0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina) ## makes sure ina is numeric
   if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,

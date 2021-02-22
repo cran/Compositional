@@ -1,11 +1,11 @@
-\name{Contour plot of the folded model in S^2}
+\name{Contour plot of the alpha-folded model in S^2}
 \alias{fold.contour}
 \title{
-Contour plot of the folded model in \eqn{S^2}
+Contour plot of the alpha-folded model in \eqn{S^2}
 }
 
 \description{
-Contour plot of the folded model in \eqn{S^2}.
+Contour plot of the alpha-folded model in \eqn{S^2}.
 }
 
 \usage{

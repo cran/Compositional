@@ -25,9 +25,9 @@ mixreg <- function(param, z) {
   mu2 <- exp(x2 %*% be )
   mu2[ind] <- 0
   mu2 <- mu2/rowsums(mu2)
-  zeros <- - sum( lgamma(phi * mu2[-ind]) ) + sum( (mu2 * phi - 1) * ly3 )
+  zeros <- - sum( lgamma(phi * mu2[mu2>0]), na.rm = TRUE ) + sum( (mu2 * phi - 1) * ly3, na.rm = TRUE )
   ba <- phi * mu
-  f <-  - n * lgamma(phi) + sum( lgamma( ba[ba>0] ) ) - sum( (ba - 1) * ly1 ) - zeros
+  f <-  - n * lgamma(phi) + sum( lgamma( ba[ba>0] ), na.rm = TRUE ) - sum( (ba - 1) * ly1, na.rm = TRUE ) - zeros
   f
 }
 

@@ -24,7 +24,7 @@ A numerical matrix with data to be closed into the simplex.
 }
 
 \details{
-The additive log-ratio transformation with the first component being the commn divisor is applied. The inverse of this trnasformation is also available.
+The additive log-ratio transformation with the first component being the commn divisor is applied. The inverse of this trnasformation is also available. This means that no zeros are allowed.
 }
 
 \value{
@@ -46,7 +46,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 %}
 
 \seealso{
-\code{\link{alfa}, \ link{alfainv} \link{alfa.profile}, \link{alfa.tune}
+\code{\link{bc}, \link{fp}, \link{green}, \link{alfa}, \link{alfainv} \link{alfa.profile}, \link{alfa.tune}
 }
 }
 

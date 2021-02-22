@@ -51,7 +51,7 @@ The \eqn{\alpha}-transformed data.
 }
 
 \references{
-Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis. 
+Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis.
 Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
 
@@ -73,7 +73,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 
 \seealso{
 \code{\link{alfainv}, \link{alfa.profile}, \link{alfa.tune}
-\link{a.est}, \link{alpha.mle}
+\link{a.est}, \link{alpha.mle}, \link{alr}, \link{bc}, \link{fp}, \link{green}
 }
 }
 

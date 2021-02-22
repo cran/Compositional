@@ -45,12 +45,21 @@ zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
     qa <- nlm( mixreg, qa$estimate, z = z )
     el2 <-  -qa$minimum
   }
-  qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE )
-  sigma <- Rfast::spdinv(qa$hessian)
-  seb <- sqrt( diag(sigma) )
-  seb <- matrix(seb[-1], ncol = d)
+  qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE, control = list(maxiters = 10000) )
+  sigma <- try( solve( qa$hessian ), silent = TRUE )
+  if ( !identical( class(sigma), "try-error") ) {
+    seb <- sqrt( diag(sigma) )
+    seb <- matrix(seb[-1], ncol = d)
+    colnames(seb) <- colnames( y[, -1] )
+    rownames(seb) <- colnames(x)
+  } else {
+    sigma <- NULL
+    seb <- NULL
+  }
   phi <- exp( qa$par[1] )  ## final phi value
   be <- matrix( qa$par[-1], ncol = d ) ## final beta values
+  colnames(be) <- colnames( y[, -1] )
+  rownames(be) <- colnames(x)
   est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., as.data.frame(xnew) )
@@ -59,8 +68,6 @@ zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
     colnames(est) <- colnames(y)
   }
   runtime <- proc.time() - runtime
-  colnames(be) <- colnames(seb) <- colnames( y[, -1] )
-  rownames(be) <- rownames(seb) <- colnames(x)
   list(runtime = runtime, loglik = -qa$value + con, phi = phi, be = be, seb = seb, sigma = sigma, est = est )
 }
 

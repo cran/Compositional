@@ -92,7 +92,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{compknn.tune}, \link{rda}, \link{alfa}, \link{esov}
+\code{\link{compknn.tune}, \link{alfa.rda}, \link{comp.nb}, \link{alfa.nb}, \link{alfa}, \link{esov}, \link{mix.compnorm}
 }
 }
 

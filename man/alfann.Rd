@@ -43,6 +43,10 @@ A matrix including the indices of the nearest neighbours of each xnew from x.
 Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020).
 The alpha-k-NN- regression for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
+
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
@@ -56,7 +60,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alfa.knn}, \link{aknn.reg}, \link{alfa}, \link{alfainv}
+\code{\link{alfa.knn}, \link{comp.nb}, \link{alfa.rda}, \link{alfa.nb}, link{aknn.reg}, \link{alfa}, \link{alfainv}
 }
 }
 

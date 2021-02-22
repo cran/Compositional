@@ -28,7 +28,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, gam = se
                                                            stratified = stratified, seed = seed)
   nfolds <- length(folds)
   ## if you have zero values, only positive alphas are allowed
-  if ( min(x) == 0 )  a = a[ a > 0 ]
+  if ( min(x) == 0 )  a <- a[ a > 0 ]
   info <- list()
   props <- ser <- array( dim = c( length(gam), length(del), length(a) ) )
 

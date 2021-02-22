@@ -4,7 +4,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
- comp.den <- function(x, type = "alr", dist = "normal", tol = 1e-09) {
+ comp.den <- function(x, type = "alr", dist = "normal", tol = 1e-07) {
   ## x is the compositional data
   ## type is the type of transformation, "alr", "ilr"
   ## dist is the distribution to be fitted,

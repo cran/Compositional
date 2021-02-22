@@ -12,7 +12,7 @@ comp.reg <- function(y, x, type = "classical", xnew = NULL, yb = NULL) {
   ## 'spatial' for spatial median regression.
   ## alr transformation with the first component being the base
   if ( is.null(yb) )  {
-    z <- log( y[, -1] / y[, 1] )
+    z <- Compositional::alr(y)
   } else  z <- yb
 
   if (type == "lmfit") {

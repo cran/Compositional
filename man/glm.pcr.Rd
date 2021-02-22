@@ -19,7 +19,7 @@ glm.pcr(y, x, k = 1, xnew = NULL)
 A numerical vector, a real values vector or a numeric vector with 0 and 1 (binary) or a vector with discrete (count) data.
 }
 \item{x}{
-A matrixc with the predictor variable(s), they have to be continuous.
+A matrix with the predictor variable(s), they have to be continuous.
 }
 \item{k}{
 A number greater than or equal to 1. How many principal components to use. In the case of "pcr" this can be a single number or a vector. In the second case you get results for the sequence of principal components.

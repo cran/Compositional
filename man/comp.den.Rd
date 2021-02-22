@@ -10,7 +10,7 @@ Estimating location and scatter parameters for compositional data in a robust an
 }
 
 \usage{
-comp.den(x, type = "alr", dist = "normal", tol = 1e-09)
+comp.den(x, type = "alr", dist = "normal", tol = 1e-07)
 }
 
 \arguments{

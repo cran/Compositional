@@ -54,7 +54,7 @@ The \eqn{\alpha}-transformation is applied to the compositional data first and t
 }
 
 \value{
-If graph is TRUE a fileld contour a filled contour will appear.
+If graph is TRUE a filled contour will appear.
 A list including:
 \item{mspe}{
 The MSPE where rows correspond to the \eqn{\alpha} values and the columns to the number of principal components.

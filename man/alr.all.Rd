@@ -19,7 +19,7 @@ A numerical matrix with the compositional data.
 }
 
 \details{
-The additive log-ratio transformation with the first component being the commn divisor is applied. Then all the other pairwise log-ratios are computed and added next to each column. For example, divide by the first component, then divide by the second component and so on.
+The additive log-ratio transformation with the first component being the commn divisor is applied. Then all the other pairwise log-ratios are computed and added next to each column. For example, divide by the first component, then divide by the second component and so on. This means that no zeros are allowed.
 }
 
 \value{
@@ -41,7 +41,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alr}, \ link{alfa}
+\code{\link{alr}, \link{alfa}
 }
 }
 

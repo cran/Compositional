@@ -28,7 +28,7 @@ the type of correlation to compute, the distance correlation ("edist"), the cano
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied toe ach composition and then the distance correlation or the canonical correlation is computed. If type = "cancor1" the function returns the value of \eqn{\alpha} that maximizes the product of the eigenvalues. If type = "cancor2" the function returns the value of \eqn{\alpha} that maximizes the the largest eigenvalue.
+The \eqn{\alpha}-transformation is applied to each composition and then the distance correlation or the canonical correlation is computed. If type = "cancor1" the function returns the value of \eqn{\alpha} that maximizes the product of the eigenvalues. If type = "cancor2" the function returns the value of \eqn{\alpha} that maximizes the the largest eigenvalue.
 }
 
 \value{

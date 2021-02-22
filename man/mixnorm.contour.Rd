@@ -1,11 +1,11 @@
-\name{Contour plot of a Gaussian mixture model in S^2}
+\name{Contour plot of the Gaussian mixture model in S^2}
 \alias{mixnorm.contour}
 \title{
-Contour plot of a Gaussian mixture model in \eqn{S^2}
+Contour plot of the Gaussian mixture model in \eqn{S^2}
 }
 
 \description{
-Contour plot of a Gaussian mixture model in \eqn{S^2}.
+Contour plot of the Gaussian mixture model in \eqn{S^2}.
 }
 
 \usage{

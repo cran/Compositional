@@ -1,11 +1,11 @@
-\name{Contour plot of a Kent distribution in S^2}
+\name{Contour plot of the Kent distribution in S^2}
 \alias{kent.contour}
 \title{
-Contour plot of a Kent distribution in \eqn{S^2}
+Contour plot of the Kent distribution in \eqn{S^2}
 }
 
 \description{
-Contour plot of a Kent distribution in \eqn{S^2}.
+Contour plot of the Kent distribution in \eqn{S^2}.
 }
 
 \usage{

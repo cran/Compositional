@@ -67,6 +67,10 @@ Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of sta
 Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. Journal of classification, 33(2): 243-261.
 https://arxiv.org/pdf/1106.1451.pdf
 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+https://arxiv.org/pdf/1106.1451.pdf
+
 Hastie, Tibshirani and Buja (1994). Flexible Disriminant Analysis by Optimal Scoring. Journal of the American Statistical Association, 89(428):1255-1270.
 }
 
@@ -81,7 +85,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{rda}, \link{alfa}, \link{alfarda.tune}
+\code{\link{rda}, \link{alfa}, \link{alfarda.tune}, \link{alfa.knn}, \link{alfa.nb}, \link{comp.nb}, \link{mix.compnorm}
 }
 }
 

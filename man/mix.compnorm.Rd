@@ -9,7 +9,7 @@ Gaussian mixture models for compositional data.
 }
 
 \usage{
-mix.compnorm(x, g, model, type = "alr")
+mix.compnorm(x, g, model = NULL, type = "alr", veo = FALSE)
 }
 
 \arguments{
@@ -20,7 +20,7 @@ A matrix with the compositional data.
 How many clusters to create.
 }
 \item{model}{
-The type of model to be used.
+The type of model to be used.If NULL all 14 of the ones listed below are fitted. Otherwise, choose one from below.
 \enumerate{
 \item "EII": All groups have the same diagonal covariance matrix, with the same variance for all variables.
 \item "VII": Different diagonal covariance matrices, with the same variance for all variables within each group.
@@ -41,10 +41,13 @@ The type of model to be used.
 \item{type}{
 Either the additive ("alr") or the isometric ("ilr") log-ratio transformation is to be used..
 }
+\item{veo}{
+Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds the number of observations, but the model is still fitted.
+}
 }
 
 \details{
-A log-ratio transformation is applied and then a Gaussian mixtued model is constructed.
+A log-ratio transformation is applied and then a Gaussian mixture model is constructed.
 }
 
 \value{
@@ -70,9 +73,9 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& 
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
 }
 %\note{
 %%  ~~further notes~~

@@ -118,7 +118,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{comp.knn}, \link{rda}, \link{alfa}
+\code{\link{comp.knn}, \link{alfarda.tune}, \link{cv.dda}, \link{cv.compnb}
 }
 }
 

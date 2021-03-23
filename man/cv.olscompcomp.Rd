@@ -76,11 +76,11 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 \examples{
 \donttest{
 library(MASS)
+set.seed(1234)
 y <- rdiri(214, runif(3, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- cv.tflr(y, x)
+mod <- cv.olscompcomp(y, x, rs = 1, tol = 1e-4, nfolds = 5, folds = NULL, seed = 12345)
 mod
 }
 }
-

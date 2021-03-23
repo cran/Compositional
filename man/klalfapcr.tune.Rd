@@ -1,7 +1,7 @@
 \name{Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the alpha-transformation}
 \alias{klalfapcr.tune}
 \title{
-Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the \eqn{alpha}-transformation
+Tuning of the divergence based regression for compositional data with compositional data in the covariates side using the \eqn{\alpha}-transformation
 }
 
 \description{
@@ -15,7 +15,7 @@ folds = NULL, graph = FALSE, tol = 1e-07, maxiters = 50, seed = FALSE)
 
 \arguments{
 \item{y}{
-A numerical matrixc with compositional data with or without zeros.
+A numerical matrix with compositional data with or without zeros.
 }
 \item{x}{
 A matrix with the predictor variables, the compositional data. Zero values are allowed.
@@ -87,7 +87,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
 
-R implementation and documentation: Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa} and Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

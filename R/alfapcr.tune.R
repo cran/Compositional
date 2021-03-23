@@ -65,7 +65,7 @@ alfapcr.tune <- function(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = s
   colnames(mspe) <- paste("PC", 1:d, sep = "")
 
   if ( graph )  filled.contour(a, 1:d, mean.mspe, xlab = expression( paste(alpha, " values") ),
-                               ylab = "Number of PCs", cex.lab = 1.3)
+                               ylab = "Number of PCs", cex.lab = 1.2, cex.axis = 1.2)
   best.par <- c( a[ best.par[1] ], best.par[2] )
   names(best.par) <- c("alpha", "PC")
   list(mspe = mean.mspe, best.par = best.par, performance = performance, runtime = toc)

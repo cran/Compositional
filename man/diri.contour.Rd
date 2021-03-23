@@ -48,7 +48,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{ \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour}
+\code{ \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour}, \link{diri.nr}, \link{dda}
 }
 }
 

@@ -8,8 +8,8 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean journal of statistics 6(2): 47-57
 ################################
-alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1), folds = NULL,
-                           ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE) {
+alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1),
+                           folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE) {
 
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)
@@ -23,8 +23,8 @@ alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda =
   tac <- proc.time()
   for ( i in 1:da ) {
     z <- Compositional::alfa(x, a[i])$aff
-    mod <- Compositional::ridge.tune(y, z, nfolds = nfolds, lambda = lambda, folds = folds, ncores = ncores,
-                                     seed = seed, graph = FALSE)
+    mod <- Compositional::ridge.tune(y, z, nfolds = nfolds, lambda = lambda, folds = folds,
+                                     ncores = ncores, seed = seed, graph = FALSE)
     mspe2[, , i] <- mod$msp
   }
 
@@ -38,7 +38,7 @@ alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda =
   rownames(mean.mspe) <- a
   colnames(mspe) <- lambda
   if ( graph )  filled.contour( a, lambda, mean.mspe, xlab = expression( paste(alpha, " values") ),
-                                ylab = expression( paste(lambda, " values") ), cex.lab = 1.3 )
+                       ylab = expression( paste(lambda, " values") ), cex.lab = 1.2, cex.axis = 1.2 )
 
   best.par <- c( a[ best.par[1] ], best.par[2] )
   names(best.par) <- c("alpha", "lambda")

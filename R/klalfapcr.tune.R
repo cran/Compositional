@@ -55,7 +55,7 @@ klalfapcr.tune <- function(y, x, covar = NULL, nfolds = 10, maxk = 50,
   names(params) <- c("best alpha", "best k")
   if ( graph ) {
     filled.contour(a, 1:maxk, performance, xlab = expression(paste(alpha, " values")),
-                   ylab = "Number of PCs", cex.lab = 1.3 )
+                   ylab = "Number of PCs", cex.lab = 1.2, cex.axis = 1.2 )
   }
   list(mspe = mspe, performance = performance, best.perf = min(performance), params = params)
 }

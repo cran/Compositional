@@ -32,6 +32,8 @@ importFrom("nnet", multinom)
 importFrom("codalm", codalm)
 importFrom("NlcOptim", solnl)
 importFrom("Directional", dkent)
+importFrom("glmnet", glmnet, cv.glmnet)
+importFrom("pchc", fedhc, pchc, mmhc, fedtabu, pctabu, mmtabu)
 
 import("doParallel")
 import("parallel")

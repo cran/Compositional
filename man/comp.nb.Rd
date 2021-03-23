@@ -78,7 +78,7 @@ New York: Springer.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
@@ -88,7 +88,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{cv.compnb}, \link{alfa.rda}, \link{alfa.knn}, \link{comp.knn}, \link{mix.compnorm}
+\code{\link{cv.compnb}, \link{alfa.rda}, \link{alfa.knn}, \link{comp.knn}, \link{mix.compnorm}, \link{dda}
 }
 }
 

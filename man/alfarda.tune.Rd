@@ -110,7 +110,7 @@ R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and
 %}
 
 \seealso{
-\code{ \link{alfa.rda}, \link{alfa.fda}, \link{rda.tune} }
+\code{ \link{alfa.rda}, \link{alfanb.tune}, \link{cv.dda}, \link{compknn.tune}, \link{rda.tune}, \link{cv.compnb} }
 }
 
 \examples{

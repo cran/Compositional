@@ -54,7 +54,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{
@@ -62,7 +62,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{diri.nr}, \link{diri.contour}, \link{rdiri}, \link{ddiri}
+\code{\link{diri.nr}, \link{diri.contour}, \link{rdiri}, \link{ddiri}, \link{dda}, \link{diri.reg}
 }
 }
 

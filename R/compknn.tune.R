@@ -21,7 +21,8 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     for ( i in 1:length(a) ) {
 	  z <- x^a[i]
       z <- x / Rfast::rowsums( z )
-      g <- Compositional::comp.knn(z[folds[[ vim ]], , drop = FALSE], z[-folds[[ vim ]], ], ina2, a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
+      g <- Compositional::comp.knn(z[folds[[ vim ]], , drop = FALSE], z[-folds[[ vim ]], ], ina2,
+                                   a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, , i] <- Rfast::colmeans(be == 0)
     }
@@ -37,7 +38,7 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     best_k <- which.max(ela) + 1
 
     if (graph)  plot(k, ela, type = "b", xlab = "k nearest neighbours", pch = 9, col = 2,
-                     ylab = "Estimated percentage of correct classification", cex.lab = 1.3)
+                     ylab = "Estimated percentage of correct classification", cex.lab = 1.2, cex.axis = 1.2)
     results <- list(ela = ela, performance = performance, best_k = which.max(ela) + 1, runtime = runtime)
 
   } else {
@@ -48,12 +49,13 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     rownames(ela) <- paste("alpha=", a, sep = "")
     ## The code for the heat plot of the estimated percentages
     if (graph)  filled.contour(a, k, ela, ylab = "k nearest-neighbours",
-                                   xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
+                       xlab = expression(paste(alpha, " values")), cex.lab = 1.2, cex.axis = 1.2 )
 
     performance <- max(ela)
     names(performance) <- c( "rate")
     confa <- which(ela == performance, arr.ind = TRUE)[1, ]
-    results <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    results <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1,
+                     runtime = runtime )
   }
   results
 }

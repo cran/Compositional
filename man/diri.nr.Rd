@@ -17,8 +17,8 @@ diri.nr(x, type = 1, tol = 1e-07)
 A matrix containing compositional data. Zeros are not allowed.
 }
 \item{type}{
-Type can either be 1, so that the Newton-Rapshon is used for the maximisation of the log-likelihood, as Minka (2012) suggested or it 
-can be 1. In the latter case the Newton-Raphson algorithm is implemented involving matrix inversions. In addition an even faster 
+Type can either be 1, so that the Newton-Rapshon is used for the maximisation of the log-likelihood, as Minka (2012) suggested or it
+can be 1. In the latter case the Newton-Raphson algorithm is implemented involving matrix inversions. In addition an even faster
 implementation has been implemented (in C++) in the package \bold{Rfast} and is used here.
 }
 \item{tol}{
@@ -55,14 +55,14 @@ The run time of the procedure.
 }
 
 \references{
-Thomas P. Minka (2003). Estimating a Dirichlet distribution. 
+Thomas P. Minka (2003). Estimating a Dirichlet distribution.
 http://research.microsoft.com/en-us/um/people/minka/papers/dirichlet/minka-dirichlet.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -70,7 +70,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{diri.est}, \link{diri.contour} \link{rdiri}, \link{ddiri}
+\code{\link{diri.est}, \link{diri.contour} \link{rdiri}, \link{ddiri}, \link{dda}
 }
 }
 

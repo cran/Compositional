@@ -18,7 +18,7 @@ apostasi = "euclidean", method = "average", folds = NULL, seed = FALSE, graph = 
   }
   runtime <- proc.time() - runtime
   if ( graph )  filled.contour(a, k, mspe, col = grey(1:11/11), ylab = "k nearest-neighbours",
-                                   xlab = expression(paste(alpha, " values")), cex.lab = 1.3)
+                       xlab = expression(paste(alpha, " values")), cex.lab = 1.2, cex.axis = 1.2)
   opt <- min(mspe)
   confa <- as.vector( which(mspe == opt, arr.ind = TRUE)[1, ] )
   list( mspe = mspe, performance = min(mspe), opt_a = a[ confa[1] ],

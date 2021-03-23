@@ -6,7 +6,7 @@
 #### Paul D. McNicholas (2015)
 #### R package mixture: Mixture Models for Clustering and Classification
 ################################
-bic.mixcompnorm <- function(x, G, type = "alr", graph = TRUE) {
+bic.mixcompnorm <- function(x, G, type = "alr", veo = FALSE, graph = TRUE) {
   ## x is the compositional data
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
@@ -17,12 +17,13 @@ bic.mixcompnorm <- function(x, G, type = "alr", graph = TRUE) {
     y <- tcrossprod( y1, helm(p) )
   } else  y <- log(x[, -1] / x[, 1])
 
-  mod <- mixture::gpcm(y, G = G, start = 0, atol = 0.01)
+  mod <- mixture::gpcm(y, G = G, mnames = NULL, start = 0, mmax = 100)
   mbic <- mod$BIC[, , 3]  ## BIC for all models
   ## Next, we plot the BIC for all models
   if ( graph ) {
     plot( G, mbic[, 1], type = "b", pch = 9, xlab = "Number of components",
-    ylab = "BIC values", ylim = c( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE) ) )
+    ylab = "BIC values", ylim = c( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE) ),
+    cex.lab = 1.3, )
     for ( i in 2:ncol(mbic) )  lines(G, mbic[, i], type = "b", pch = 9, col = i)
   }
   list(mod = mod, BIC = mbic)

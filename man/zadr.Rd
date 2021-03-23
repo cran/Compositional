@@ -38,8 +38,8 @@ Some arguments passed on to the mixreg helper function.
 }
 
 \details{
-A zero adjusted Dirichlet regression is being fittd. The likelihood conists of two components. The contributions of the non zero compositional values and the contributions of the compositional vectors with at least one zero value. The second component may have many different sub-categories, one for each pattern of zeros. 
-The function "mixreg" is a helper function and is not intended to be called directly by the user. 
+A zero adjusted Dirichlet regression is being fittd. The likelihood conists of two components. The contributions of the non zero compositional values and the contributions of the compositional vectors with at least one zero value. The second component may have many different sub-categories, one for each pattern of zeros.
+The function "mixreg" is a helper function and is not intended to be called directly by the user.
 }
 
 \value{

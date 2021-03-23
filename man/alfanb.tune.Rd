@@ -68,7 +68,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{alfa.nb}
+\code{ \link{alfa.nb}, \link{alfarda.tune}, \link{compknn.tune}, \link{cv.dda}, \link{cv.compnb}
 }
 }
 

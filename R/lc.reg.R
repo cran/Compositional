@@ -7,7 +7,7 @@ lc.reg <- function(y, x, xnew = NULL) {
  xxs <- solve( crossprod(x) )
  bols <- xxs %*% crossprod(x, y)
  com <- xxs %*% R %*% solve( R %*% xxs %*% R)
- be <- bols - com %*% R %*% bols - ca
+ be <- bols - as.vector( com %*% R %*% bols ) - ca 
  e <- y - x %*% be
  va <- sum(e^2) / (n - p + 1)
  covbe <- ( xxs - com %*% R %*% xxs ) * va

@@ -45,10 +45,12 @@ alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     colnames(ela) <- paste("k=", k, sep = "")
     rownames(ela) <- paste("alpha=", a, sep = "")
     runtime <- proc.time() - runtime
-    if ( graph )  filled.contour(a, k, ela, ylab = "k nearest-neighbours", xlab = expression(paste(alpha, " values")), cex.lab = 1.3)
+    if ( graph )  filled.contour(a, k, ela, ylab = "k nearest-neighbours",
+                         xlab = expression(paste(alpha, " values") ), cex.lab = 1.2, cex.axis = 1.2)
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
-    res <- list( ela = ela, performance = max(ela), best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    res <- list( ela = ela, performance = max(ela), best_a = a[ confa[1] ], best_k = confa[2] + 1,
+                 runtime = runtime )
     ## Non standard method
   } else {
     per <- array( dim = c( nfolds, length(k), length(a) ) )  ## The estimated percentages
@@ -59,7 +61,8 @@ alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
         ina2 <- ina[ -folds[[ vim ]] ]   ## groups of training sample
         aba <- as.vector( folds[[ vim ]] )
         aba <- aba[aba > 0]
-        g <- Compositional::alfa.knn(z[aba, ], z[-aba, ], ina = ina2, a = NULL, k = k, type = "NS", mesos = mesos, apostasi = apostasi)
+        g <- Compositional::alfa.knn(z[aba, ], z[-aba, ], ina = ina2, a = NULL, k = k, type = "NS",
+                                     mesos = mesos, apostasi = apostasi)
         be <- g - id
         per[vim, , i] <- Rfast::colmeans(be == 0)
       }
@@ -69,12 +72,13 @@ alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     rownames(ela) <- paste("alpha=", a, sep = "")
     runtime <- proc.time() - runtime
     if ( graph )  filled.contour(a, k, ela, col = grey(1:11/11), ylab = "k nearest-neighbours",
-                                     xlab = expression(paste(alpha, " values")), cex.lab = 1.3 )
+                         xlab = expression(paste(alpha, " values")), cex.lab = 1.2, cex.axis = 1.2 )
     opt <- max(ela)
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
     performance <- opt
     names(performance) <- "rate"
-    res <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1, runtime = runtime )
+    res <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1,
+                 runtime = runtime )
   }  ## end if (type == "S")
   res
 }

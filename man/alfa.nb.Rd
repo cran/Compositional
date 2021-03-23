@@ -46,7 +46,7 @@ Friedman J., Hastie T. and Tibshirani R. (2017). The elements of statistical lea
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

@@ -32,8 +32,8 @@ If you have new data use it, otherwise leave it NULL.
 
 \details{
 The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1.
-We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel, 
-Zeger and Datta (2020). 
+We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel,
+Zeger and Datta (2020).
 
 }
 
@@ -75,13 +75,12 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\donttest{
 library(MASS)
+set.seed(1234)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- ols.compcomp(y, x)
+mod <- ols.compcomp(y, x, rs = 1)
 mod
-}
 }
 

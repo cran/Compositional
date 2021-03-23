@@ -47,7 +47,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{diri.nr}, \link{diri.est}, \link{diri.contour}, \link{rdiri}
+\code{\link{diri.nr}, \link{diri.est}, \link{diri.contour}, \link{rdiri}, \link{dda}
 }
 }
 

@@ -9,7 +9,7 @@ Mixture model selection via BIC.
 }
 
 \usage{
-bic.mixcompnorm(x, G, type = "alr", graph = TRUE)
+bic.mixcompnorm(x, G, type = "alr", veo = FALSE, graph = TRUE)
 }
 
 \arguments{
@@ -22,14 +22,16 @@ A numeric vector with the number of components, clusters, to be considered.
 \item{type}{
 The type of trasformation to be used, either additive log-ratio ("alr") or the isometric log-ratio ("ilr").
 }
+\item{veo}{
+Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds the number of observations, but the model is still fitted.
+}
 \item{graph}{
 A boolean variable, TRUE or FALSE specifying whether a graph should be drawn or not.
 }
 }
 
 \details{
-The alr or the ilr-transformation is applied to the compositional data first and then mixtures of multivariate Gaussian distributions are fitted.
-BIC is used to decide on the optimal model and number of components.
+The alr or the ilr-transformation is applied to the compositional data first and then mixtures of multivariate Gaussian distributions are fitted. BIC is used to decide on the optimal model and number of components.
 }
 
 \value{

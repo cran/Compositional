@@ -25,13 +25,15 @@ A matrix containing the new compositional data whose response is to be predicted
 }
 
 \details{
-The function performs the log-contrast regression model as described in Aitchison (2003), pg. 84-85. The logarithm of the compositional predictor variables is used (hence no zero values are allowed). The response variable is linked to the log-transformed data with the constraint that the sum of the regression coefficients equals 0. Hence, we apply constrained least squares, which has a closed form solution.
-
-The constrained least squares is described in Chapter 8.2 of Hansen (2019). The idea is to inimise the sum of squares of the residuals under the constraint \eqn{R^T \beta = c}.
+The function performs the log-contrast regression model as described in Aitchison (2003), pg. 84-85. The logarithm of the compositional 
+predictor variables is used (hence no zero values are allowed). The response variable is linked to the log-transformed data with the 
+constraint that the sum of the regression coefficients equals 0. Hence, we apply constrained least squares, which has a closed form solution.
+The constrained least squares is described in Chapter 8.2 of Hansen (2019). The idea is to inimise the sum of squares of the residuals 
+under the constraint \eqn{R^T \beta = c}, where \eqn{c=0} in our case.
 }
 
 \value{
-A list tincluding:
+A list including:
 \item{be}{
 The constrained regression coefficients. Their sum equals 0.
 }
@@ -56,9 +58,9 @@ Hansen, B. E. (2019). Econometrics. \url{https://www.ssc.wisc.edu/~bhansen/econo
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -77,4 +79,3 @@ x <- x / rowSums(x)
 mod <- lc.reg(y, x)
 }
 
-\keyword{ principal components regression }

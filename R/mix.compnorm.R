@@ -6,7 +6,7 @@
 #### Paul D. McNicholas (2015)
 #### R package mixture: Mixture Models for Clustering and Classification
 ################################
-mix.compnorm <- function(x, g, model, type = "alr") {
+mix.compnorm <- function(x, g, model = NULL, type = "alr", veo = FALSE) {
   ## x is the compositional data
   ## g is the number of components to be used
   ## model is the type of model to be used
@@ -22,7 +22,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
     y <- tcrossprod( y1, helm(p) )
   }
 
-  mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, atol = 0.01)
+  mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, mmax = 100)
   param <- mod$gpar
   mu <- matrix(nrow = g, ncol = length( param[[ 1 ]]$mu) )
   su <- array( dim = c( length(param[[ 1 ]]$mu), length(param[[ 1 ]]$mu), g ) )
@@ -33,10 +33,7 @@ mix.compnorm <- function(x, g, model, type = "alr") {
   }
   prob <- param$pi  ## mixing probability of each component
 
-  ta <- matrix(nrow = n, ncol = g)
-  for (j in 1:g)   ta[, j] <-  - 0.5 * log( det(2 * pi * su[, , j]) ) - 0.5 * Rfast::mahala(y, mu[j, ], su[, , j])
-  probexpta <- prob * exp(ta)
-  pij <- probexpta / Rfast::rowsums(probexpta)
+  pij <- mod$z
   est <- Rfast::rowMaxs(pij)
   list(type = type, mu = mu, su = su, prob = prob, est = est)
 }

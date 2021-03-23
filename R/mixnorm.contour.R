@@ -9,7 +9,7 @@ mixnorm.contour <- function(x, mod) {
   ## log-ratio transformation will be used. If type='alr' (the default) the
   ## additive log-ratio transformation is used. If type='ilr', the isometric
   ## log-ratio is used
-  prob <- mod$prob  ## mixing probabilitiy of each cluster
+  prob <- mod$prob  ## mixing probability of each cluster
   mu <- mod$mu
   su <- mod$su
   type <- mod$type  ## the type of the log-ratio transformation, either "alr" or "ilr"

@@ -10,8 +10,8 @@ In addition, estimation of the rate of correct classification via K-fold cross-v
 }
 
 \usage{
-compppr.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10,
-type = "alr", yb = NULL, B = 1000 )
+compppr.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE,
+nterms = 1:10, type = "alr", yb = NULL )
 
 }
 
@@ -41,10 +41,6 @@ Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio t
 If you have already transformed the data using a log-ratio transformation put it here.
 Othewrise leave it NULL.
 }
-\item{B}{
-The number of bootstrap re-samples to use for the unbiased estimation of the performance of the
-projection pursuit regression. If B = 1, no bootstrap is applied.
-}
 }
 
 \details{
@@ -56,9 +52,8 @@ A list including:
 \item{kl}{
 The average Kullback-Leibler divergence.
 }
-\item{bc.perf}{
-The bootstrap bias corrected average Kullback-Leibler divergence. If no bootstrap was performed this is equal to
-the average Kullback-Leibler divergence.
+\item{perf}{
+The average Kullback-Leibler divergence.
 }
 \item{runtime}{
 The run time of the cross-validation procedure.
@@ -68,18 +63,13 @@ The run time of the cross-validation procedure.
 \references{
 Friedman, J. H. and Stuetzle, W. (1981). Projection pursuit regression. Journal of the American
 Statistical Association, 76, 817-823. doi: 10.2307/2287576.
-
-Tsamardinos I., Greasidou E. and Borboudakis G. (2018).
-Bootstrapping the out-of-sample predictions for efficient and accurate cross-validation.
-Machine Learning 107(12): 1895-1922.
-https://link.springer.com/article/10.1007/s10994-018-5714-4
 }
 
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -92,11 +82,10 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 }
 
 \examples{
-x <- as.matrix(iris[, 1:4])
-x <- x/ rowSums(x)
-ina <- iris[, 5]
-mod <- compknn.tune(x, ina, a = seq(1, 1, by = 0.1) )
+y <- as.matrix(iris[, 1:3])
+y <- y/ rowSums(y)
+x <- iris[, 4]
+mod <- compppr.tune(y, x)
 }
 
-\keyword{ Regularised discriminant analysis }
 

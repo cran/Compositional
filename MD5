@@ -1,11 +1,11 @@
-1da7e9c5ebe1aa0665b0f17c9e2f101f *DESCRIPTION
+9e4433dda1d2e99b55204d2592f5760c *DESCRIPTION
 c872a6323482f991d617edb1ec50b0da *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 eec1ee2841ba26bf17d848b0b8d5e56a *R/a.mle.R
 a39079a1b2174b4892c242e43419a5bc *R/acor.R
 9b6858b20b8dede790b7d0d6dde7faff *R/acor.tune.R
 e245a14344e5eb3ce4624a57c92b92dc *R/aknn.reg.R
-8cb4202cb13045c8688449097b597b2a *R/aknnreg.tune.R
+818afdb53fb16d82c382901ac7ec73bb *R/aknnreg.tune.R
 5022ca96ba4cce2db2bbbebce9e60aec *R/alef.R
 a9291dc27749a88def1c2604846eef85 *R/alfa.R
 93befcb00b8ae5124ddb5c5350504839 *R/alfa.fda.R
@@ -51,7 +51,7 @@ f1163f9c0aee7912de96378709019955 *R/comp.knn.R
 d25e505a16c43fe4ba55d0ce7fadd560 *R/comp.test.R
 89e64bae33f63be3cf6e8ec66d74c0bc *R/compbn.R
 59130ebc7582a080a8acc93069b75e2f *R/compknn.tune.R
-8f14008b3c4dc9995d3ee7d0a79879d5 *R/compppr.tune.R
+513a6f7759c6ac306638567c09409ca0 *R/compppr.tune.R
 5c6e2c9f5ffb55b038bc96fd0f0351ff *R/cv.comp.reg.R
 6b6d20d371cda543094c9fe66e1e0fd8 *R/cv.compnb.R
 3f2d265c9843a98f1903005e7c89fd6c *R/cv.dda.R
@@ -102,7 +102,7 @@ f9e8e04d8b60b603d8632190c07ead52 *R/klalfapcr.tune.R
 3a8aa8ec3f3ddd22834b8eca36989980 *R/kumar.est.R
 82e835d74a2caa0ca7d0dab0ffef74cc *R/lasso.klcompreg.R
 efbc215b3a0ae0b1c5149a51c9ac16af *R/lassocoef.plot.R
-9e3125b8ccf9f0a658e6db4ab4345acd *R/lc.reg.R
+ebd52f6503516fdda99b5c567a4bd4eb *R/lc.reg.R
 2de3d237d44c52ef54106fa4cfcb9608 *R/logitnorm.est.R
 5c889fa607431bf96b0f3cfe8bf9949e *R/logpca.R
 765ad6a4746d333baca3d84455c74101 *R/makefolds.R
@@ -153,12 +153,12 @@ b4aa5c0ef7b6741d8cb025ec116354ad *R/skewnorm.contour.R
 460e624ed9e2b4f4a3db35390a9df897 *R/zadr.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-f987b39794669386f6c8ffd02517d32f *man/Compositional-package.Rd
+3599e58c1a51b150e2a858179446bffb *man/Compositional-package.Rd
 f12bd9ec26ed2289bbc20957fdf1c1d4 *man/a.est.Rd
 c9cafbeb199fe1c8859be59682d3f32e *man/acor.Rd
 dee01af2df5e687b65f1bdc9cd5662fb *man/acor.tune.Rd
 afc7423584c73ad0cde2c82f0b77d2b0 *man/aknn.reg.Rd
-845c871c20d0cc0d15f9ef70611a5d16 *man/aknnreg.tune.Rd
+602fd75ecdd9e9839d99d81eeb92f42b *man/aknnreg.tune.Rd
 05923e134b1507a4d1028cfe85f3989f *man/alfa.Rd
 5b93d84e1fc8c657de5c52f22f059b18 *man/alfa.knn.reg.Rd
 349f85cc31f4aacd67376a69e7af863e *man/alfa.nb.Rd
@@ -197,7 +197,7 @@ fb2409c10d5a20000bea36d5fc6d09d9 *man/comp.reg.Rd
 11c66a07c00112549883b38861c3b460 *man/comp.test.Rd
 bd3f5c08a0f7e3ec49e94d10f13db8d8 *man/compbn.Rd
 d0485c531e10071d5d40a252b3ae4570 *man/compknn.tune.Rd
-e88fde0b108dad0b0e23a0326149aa61 *man/compppr.tune.Rd
+5a8ade64d87afb22ea78a85288ff7488 *man/compppr.tune.Rd
 2e45d5d8618a63b3d2236029ee24608f *man/cv.comp.reg.Rd
 2223da0ec440db10603089331e6f376b *man/cv.compnb.Rd
 c8565b31015c3b5b2824b2c08d336643 *man/cv.dda.Rd

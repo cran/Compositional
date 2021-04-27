@@ -10,7 +10,7 @@ Cross validation for the \eqn{\alpha}-k-NN regression for compositional response
 
 \usage{
 aknnreg.tune(y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean",
-nfolds = 10, folds = NULL, seed = FALSE, B = 1, rann = FALSE)
+nfolds = 10, folds = NULL, seed = FALSE, rann = FALSE)
 }
 
 \arguments{
@@ -39,9 +39,6 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 \item{seed}{
 If seed is TRUE the results will always be the same.
 }
-\item{B}{
-If you want to correct for the optimistic bias set this to more than 1, otherwise no bootstrap bias correction takes place. If you have large sample sizes, say 1000 or more, bootstrap bias correction may not be really necessary.
-}
 \item{rann}{
 If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
@@ -64,12 +61,6 @@ The minimum Kullback-Leibler divergence.
 }
 \item{jsmin}{
 The minimum Jensen-Shannon divergence.
-}
-\item{bc.kl}{
-The bootstrap bias corrected minimum Kullback-Leibler divergence.
-}
-\item{bs.js}{
-The bootstrap bias corrected minimum Jensen-Shannon divergence.
 }
 \item{kl.alpha}{
 The optimim \eqn{\alpha} that leads to the minimum Kullback-Leibler divergence.
@@ -94,7 +85,7 @@ https://arxiv.org/pdf/2002.05137.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

@@ -54,8 +54,8 @@ The fitted of xnew if xnew is not NULL.
 }
 
 \references{
-Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for compositional outcomes and predictors.
-https://arxiv.org/pdf/2004.07881.pdf
+Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for 
+compositional outcomes and predictors. https://arxiv.org/pdf/2004.07881.pdf
 
 %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.
 }

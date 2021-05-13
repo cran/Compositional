@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 4.6
-Date: 2021-04-27
+Version: 4.7
+Date: 2021-05-13
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"))
@@ -25,10 +25,10 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       g) Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros. Lobachevskii Journal of Mathematics,39(3): 398--412. <doi:10.1134/S1995080218030198>. 
 			       h) Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values. Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. 
 		         i) Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics, 62(2):249--277. <doi:10.1111/anzs.12289>. 
-			       j) Tsagris M., Alenazi A. and Stewart C. (2020). The alpha-k-NN regression for compositional data. <arXiv:2002.05137>. 
+			       j) Tsagris M., Alenazi A. and Stewart C. (2021). The alpha-k-NN regression for compositional data. <arXiv:2002.05137>. 
 			       We further include functions for percentages (or proportions).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2021-04-27 14:30:01 UTC; Michail
+Packaged: 2021-05-13 05:33:49 UTC; Michail
 Repository: CRAN
-Date/Publication: 2021-04-27 15:40:02 UTC
+Date/Publication: 2021-05-13 06:22:11 UTC

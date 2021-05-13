@@ -1,10 +1,11 @@
 \name{MLE of distributions defined in the (0, 1) interval}
 \alias{beta.est}
-\alias{ibeta.est}
 \alias{logitnorm.est}
 \alias{hsecant01.est}
 \alias{simplex.est}
 \alias{kumar.est}
+\alias{unitweibull.est}
+\alias{ibeta.est}
 \alias{zilogitnorm.est}
 \title{
 MLE of distributions defined in the (0, 1) interval
@@ -16,11 +17,12 @@ MLE of distributions defined in the (0, 1) interval.
 
 \usage{
 beta.est(x, tol = 1e-07)
-ibeta.est(x, tol = 1e-07)
 logitnorm.est(x)
 hsecant01.est(x, tol = 1e-07)
 simplex.est(x, tol = 1e-07)
 kumar.est(x, tol = 1e-07)
+unitweibull.est(x, tol = 1e-07, maxiters = 100)
+ibeta.est(x, tol = 1e-07)
 zilogitnorm.est(x)
 }
 
@@ -31,10 +33,15 @@ A numerical vector with proportions, i.e. numbers in (0, 1) (zeros and ones are 
 \item{tol}{
 The tolerance level up to which the maximisation stops.
 }
+\item{maxiters}{
+The maximum number of iterations the Newton-Raphson algorithm will perform.
+}
 }
 
 \details{
-Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" and "simplex.est" use the golden ratio search as is it faster than the Newton-Raphson (less computations). The "zilogitnorm.est" stands for the zero inflated logistic normal distribution.
+Maximum likelihood estimation of the parameters of some distributions are performed, some of which use the Newton-Raphson. Some distributions and hence the functions do not accept zeros. "logitnorm.mle" fits the logistic normal, hence no Newton-Raphson is required and the "hypersecant01.mle" and "simplex.est" use the golden ratio search as is it faster than the Newton-Raphson (less computations).
+The "zilogitnorm.est" stands for the zero inflated logistic normal distribution.
+The "ibeta.est" fits the zero or the one inflated beta distribution.
 }
 
 \value{
@@ -64,9 +71,9 @@ You can also check the relevant wikipedia pages.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Manos Papadakis <papadakm95@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

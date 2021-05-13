@@ -51,10 +51,10 @@ A k-fold cross validation for the \eqn{\alpha}-k-NN regression for compositional
 \value{
 A list including:
 \item{kl}{
-The Kullback-Leibler divergence for all combinations of \eqn{\alpha} and k.
+The Kullback-Leibler divergence for all combinations of \eqn{\alpha} and \eqn{k}.
 }
 \item{js}{
-The Jensen-Shannon divergence for all combinations of \eqn{\alpha} and k.
+The Jensen-Shannon divergence for all combinations of \eqn{\alpha} and \eqn{k}.
 }
 \item{klmin}{
 The minimum Kullback-Leibler divergence.
@@ -63,16 +63,16 @@ The minimum Kullback-Leibler divergence.
 The minimum Jensen-Shannon divergence.
 }
 \item{kl.alpha}{
-The optimim \eqn{\alpha} that leads to the minimum Kullback-Leibler divergence.
+The optimal \eqn{\alpha} that leads to the minimum Kullback-Leibler divergence.
 }
 \item{kl.k}{
-The optimim k that leads to the minimum Kullback-Leibler divergence.
+The optimal \eqn{k} that leads to the minimum Kullback-Leibler divergence.
 }
 \item{js.alpha}{
-The optimim \eqn{\alpha} that leads to the minimum Jensen-Shannon divergence.
+The optimal \eqn{\alpha} that leads to the minimum Jensen-Shannon divergence.
 }
 \item{js.k}{
-The optimim k that leads to the minimum Jensen-Shannon divergence.
+The optimal \eqn{k} that leads to the minimum Jensen-Shannon divergence.
 }
 \item{runtime}{
 The runtime of the cross-validation procedure.
@@ -80,7 +80,8 @@ The runtime of the cross-validation procedure.
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020). The alpha-k-NN regression for compositional data.
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021). 
+Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }
 

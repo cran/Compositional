@@ -89,7 +89,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{akern.reg}, \link{aknnreg.tune}, \link{alfa.rda}, \link{alfa.fda}, \link{rda.tune} }
+\code{\link{akern.reg}, \link{aknnreg.tune}, \link{aknn.reg}, \link{alfa.rda}, \link{alfa.fda}, \link{rda.tune} }
 }
 
 \examples{

@@ -49,7 +49,7 @@ Azzalini, A. and Dalla Valle, A. (1996). The multivariate skew-normal distributi
 Azzalini, A. and Capitanio, A. (1999). Statistical applications of the multivariate skew normal distribution. Journal of the Royal 
 Statistical Society Series B, 61(3):579-602. Full-length version available from http://arXiv.org/abs/0911.2093
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

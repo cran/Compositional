@@ -69,7 +69,7 @@ The estimated cluster membership values.
 \references{
 Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

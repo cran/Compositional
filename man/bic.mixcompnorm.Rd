@@ -50,7 +50,7 @@ Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2018). mixture: Mixture
 
 Ryan P. Browne and Paul D. McNicholas (2014). Estimating Common Principal Components in High Dimensions. Advances in Data Analysis and Classification, 8(2), 217-226.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

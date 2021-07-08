@@ -54,7 +54,7 @@ The fitted values of xnew if xnew is not NULL.
 \references{
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

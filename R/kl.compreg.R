@@ -77,7 +77,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
     covb <- cov(betaboot)
 
     runtime <- proc.time() - runtime
-    res <- list(runtime = runtime, iters = iters, loglik = loglik, be = be, covb = covb, est = est)
+    res <- list(runtime = runtime, iters = iters, loglik = loglik, be = be, covbe = covb, est = est)
   }
   res
 }

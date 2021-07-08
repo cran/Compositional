@@ -53,7 +53,7 @@ akernreg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, lengt
   bjs <- which( jsula == min(jsula, na.rm = TRUE), arr.ind = TRUE )
 
   res <- list( kl = kula, js = jsula, klmin = min(kula, na.rm = TRUE), jsmin = min(jsula, na.rm = TRUE),
-               kl.alpha = a[ bkl[1] ], kl.h = h[ bkl[2] ], kl.alpha = a[ bjs[1] ], kl.h = h[ bjs[2] ] )
+               kl.alpha = a[ bkl[1] ], kl.h = h[ bkl[2] ], js.alpha = a[ bjs[1] ], js.h = h[ bjs[2] ] )
 
   runtime <- proc.time() - runtime
   res$runtime <- runtime

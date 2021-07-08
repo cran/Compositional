@@ -83,5 +83,5 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   }
 
   rownames(beta)  <- colnames(x)
-  list(runtime = runtime, beta = beta, covb = covb, est = est)
+  list(runtime = runtime, beta = beta, covbe = covb, est = est)
 }

@@ -66,7 +66,7 @@ https://arxiv.org/pdf/1106.1451.pdf
 
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

@@ -32,7 +32,7 @@ A matrix with the alr transformed data (if alr is used) or with the compositiona
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

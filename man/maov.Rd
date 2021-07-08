@@ -39,7 +39,7 @@ The test statistic and the p-value.
 Johnson and Wichern (2007, 6th Edition). Applied Multivariate Statistical Analysis p. 302-303.
 
 Todorov V. and Filzmoser P. (2010). Robust Statistic for the One-way MANOVA.
-Computational Statistics \& Data Analysis 54(1):37-48.
+Computational Statistics & Data Analysis 54(1):37-48.
 }
 
 \author{

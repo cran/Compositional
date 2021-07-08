@@ -21,7 +21,7 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
 
 importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
-           pca)
+           pca, unitweibull.mle)
 importFrom("RANN", nn2)
 importFrom("mda", fda)
 importFrom("sn", msn.mle, rmsn)

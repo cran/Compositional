@@ -5,18 +5,19 @@ frechet2 <- function(x, di, a, k) {
   m <- sapply(knam, function(x) NULL)
   denom <- 1:max(k)
   m1 <- matrix(nrow = n, ncol = d * length(k) )
-  if ( a == 0 ) {
+  di <- t(di)
+  if ( abs(a) < 1e-12 ) {
     for ( i in 1:n ) {
-      lx <- Rfast::colCumSums( Rfast::Log( x[ di[i, ], ] ) ) / denom
+      lx <- Rfast::colCumSums( Rfast::Log( x[ di[, i], ] ) ) / denom
       esk <- exp( lx )
       est <- esk/Rfast::rowsums(esk)
-      m1[i, ] <- as.vector( t( est[k, , drop = FALSE] ) )
+      m1[i, ] <- as.vector( t(est[-1, ]) )      
     }
 
   } else {
     inva <- 1/a
     for ( i in 1:n ) {
-      xa <- x[ di[i, ], ]^a
+      xa <- x[ di[, i], ]^a
       z <- xa / Rfast::rowsums(xa)
       esk <- Rfast::colCumSums(z)^inva / denom
       est <- esk/Rfast::rowsums(esk)

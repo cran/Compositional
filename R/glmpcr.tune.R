@@ -102,7 +102,8 @@ glmpcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, 
   }
 
   mpd <- Rfast::colmeans(msp)
-  if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components", ylab = "Mean predicted deviance", type = "b" ,cex.alb = 1.3)
+  if ( graph )  plot( 1:maxk, mpd, xlab = "Number of principal components", 
+                      ylab = "Mean predicted deviance", type = "b", cex.lab = 1.2, cex.axis = 1.2 )
 
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
   performance <- min(mpd)

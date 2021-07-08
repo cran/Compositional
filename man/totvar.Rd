@@ -33,7 +33,7 @@ The total variability of the data in a given geometry as dictated by the value o
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

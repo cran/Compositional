@@ -1,18 +1,15 @@
-lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
- 
+ulc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
+
   if ( is.null(z) ) {
     x <- log(x)
+    x <- cbind(1, x)
     dm <- dim(x)
     n <- dm[1]  ;  p <- dm[2]
-    x <- cbind(1, x)
-    R <- c(0, rep(1, p) )  ;   ca <- 0
     xxs <- solve( crossprod(x) )
-    bols <- xxs %*% crossprod(x, y)
-    com <- xxs %*% R %*% solve( R %*% xxs %*% R)
-    be <- as.vector( bols - com %*% R %*% bols ) - ca
+    be <- xxs %*% crossprod(x, y)
     e <- y - x %*% be
-    va <- sum(e^2) / (n - p + 1)
-    covbe <- ( xxs - com %*% R %*% xxs ) * va
+    va <- sum(e^2) / (n - p)
+    covbe <- xxs * va
     nama <- colnames(x)
     if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:p, sep = "") )
     if ( nama[1] == "" )  nama[1] <- "constant"
@@ -26,17 +23,15 @@ lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     X <- cbind(1, log(x), z )
     dm <- dim(X)
     n <- dm[1]  ;  p <- dm[2]
-    d1 <- dim(x)[2]  ;  d2 <- p - d1 - 1
-    R <- c(0, rep(1, d1), numeric(d2) )  ;   ca <- 0
     xxs <- solve( crossprod(X) )
-    bols <- xxs %*% crossprod(X, y)
-    com <- xxs %*% R %*% solve( R %*% xxs %*% R)
-    be <- as.vector( bols - com %*% R %*% bols ) - ca
+    be <- xxs %*% crossprod(X, y)
     e <- y - X %*% be
-    va <- sum(e^2) / (n - p + 1)
-    covbe <- ( xxs - com %*% R %*% xxs ) * va
+    va <- sum(e^2) / (n - p)
+    covbe <- xxs * va
     nama <- colnames(X)
-    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:d1, sep = ""), 
+    d1 <- dim(x)[2]
+    d2 <- p - d1 - 1
+    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:d1, sep = ""),
                                      paste("Z", 1:d2, sep = "") )
     if ( nama[1] == "" )  nama[1] <- "constant"
     names(be) <- nama
@@ -46,9 +41,9 @@ lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
       znew <- model.matrix(~., data.frame(znew))
       est <- cbind(znew, log(xnew) ) %*% be
     }
- } 
+  }
 
- list(be = be, covbe = covbe, va = va, residuals = e, est = est)
+  list(be = be, covbe = covbe, va = va, residuals = e, est = est)
 }
 
 

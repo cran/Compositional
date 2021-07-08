@@ -1,11 +1,11 @@
-\name{MLE for the multivarite t distribution}
+\name{MLE for the multivariate t distribution}
 \alias{multivt}
 \title{
-MLE for the multivarite t distribution
+MLE for the multivariate t distribution
 }
 
 \description{
-MLE of the parameters of a multivarite t distribution.
+MLE of the parameters of a multivariate t distribution.
 }
 
 \usage{

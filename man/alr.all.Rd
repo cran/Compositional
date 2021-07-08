@@ -27,7 +27,7 @@ A matrix with all pairwise alr transformed data.
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

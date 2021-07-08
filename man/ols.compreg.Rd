@@ -43,7 +43,7 @@ The time required by the regression.
 \item{beta}{
 The beta coefficients.
 }
-\item{covb}{
+\item{covbe}{
 The covariance matrix of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
 }
 \item{est}{

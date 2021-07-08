@@ -1,5 +1,6 @@
-cv.lasso.klcompreg <- function(y, x, alpha = 1, type = "grouped", nfolds = 10,
+cv.lasso.compreg <- function(y, x, alpha = 1, nfolds = 10,
                                folds = NULL, seed = FALSE, graph = FALSE) {
+  y <- Compositional::alr(y)
   n <- dim(y)[1]  ## sample size
   ina <- 1:n
   if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
@@ -8,8 +9,8 @@ cv.lasso.klcompreg <- function(y, x, alpha = 1, type = "grouped", nfolds = 10,
   foldid <- numeric(n)
   for ( i in 1:nfolds )  foldid[ folds[[ i ]] ] <- i
 
-  mod <- glmnet::cv.glmnet(x, y, alpha = alpha, family = "multinomial", type.multinomial = type,
-                           foldid = foldid, type.measure = "deviance")
+  mod <- glmnet::cv.glmnet(x, y, alpha = alpha, family = "mgaussian",
+                           foldid = foldid, type.measure = "mse")
   if ( graph )  plot(mod)
   mod
 }

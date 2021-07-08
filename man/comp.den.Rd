@@ -45,7 +45,7 @@ P. J. Rousseeuw and K. van Driessen (1999) A fast algorithm for the minimum cova
 
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
 T. Karkkaminen and S. Ayramo (2005). On computation of spatial median for robust data mining. Evolutionary and Deterministic Methods for Design, 
 Optimization  and Control with Applications to Industrial and Societal Problems EUROGEN 2005.

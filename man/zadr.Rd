@@ -17,7 +17,7 @@ mixreg(param, z)
 
 \arguments{
 \item{y}{
-A matrix with the compositional data (dependent variable). The number of observations with at least one zero value should not be more
+A matrix with the compositional data (dependent variable). The number of observations (vectors) with no zero values should be more
 than the columns of the predictor variables. Otherwise, the initial values will not be calculated.
 }
 \item{x}{

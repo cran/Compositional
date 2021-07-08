@@ -16,26 +16,32 @@ lassocoef.plot(lasso, lambda = TRUE)
 An object where you have saved the result of the LASSO regression. See the examples for more details.
 }
 \item{lambda}{
-If you want the x-axis to contain the logarithm of the penalty parameter \eqn{\log(\lambda)} set this to TRUE. Otherwise the x-axis will contain the \eqn{L_1}-norm of the coefficients.
+If you want the x-axis to contain the logarithm of the penalty parameter \eqn{\log(\lambda)} set this to TRUE.
+Otherwise the x-axis will contain the \eqn{L_1}-norm of the coefficients.
 }
 }
 
 \details{
-This function plots the \eqn{L_2}-norm of the coefficients of each predictor variable versus the \eqn{\log(\lambda)} or the \eqn{L_1}-norm of the coefficients. This is the same plot as the one prpduced by the glmnet package with type.coef = "2norm".
+This function plots the \eqn{L_2}-norm of the coefficients of each predictor variable versus the
+\eqn{\log(\lambda)} or the \eqn{L_1}-norm of the coefficients. This is the same plot as the one produced
+by the glmnet package with type.coef = "2norm".
 }
 
 \value{
-A plot of the \eqn{L_2}-norm of the coefficients of each predictor variable (y-axis) versus the \eqn{L_1}-norm of all the coefficients (x-axis).
+A plot of the \eqn{L_2}-norm of the coefficients of each predictor variable (y-axis) versus the \eqn{L_1}-norm
+of all the coefficients (x-axis).
 }
 
 \references{
-Friedman, J., Hastie, T. and Tibshirani, R. (2010) Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
+Friedman, J., Hastie, T. and Tibshirani, R. (2010) Regularization Paths for Generalized Linear Models via
+Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
 }
 
 \author{
 Michail Tsagris and Abdulaziz Alenazi.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Abdulaziz Alenazi
+\email{a.alenazi@nbu.edu.sa}.
 }
 
 %\note{
@@ -43,7 +49,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{lasso.klcompreg}, \link{cv.lasso.klcompreg}, \link{kl.compreg}, \link{ols.compreg}, \link{alfa.pcr}, \link{alfa.knn.reg}
+\code{\link{lasso.klcompreg}, \link{cv.lasso.klcompreg}, \link{lasso.compreg}, \link{cv.lasso.compreg},
+\link{kl.compreg}, \link{comp.reg}
 }
 }
 
@@ -53,5 +60,7 @@ y <- y / rowSums(y)
 x <- matrix( rnorm(150 * 30), ncol = 30 )
 a <- lasso.klcompreg(y, x)
 lassocoef.plot(a)
+b <- lasso.compreg(y, x)
+lassocoef.plot(b)
 }
 

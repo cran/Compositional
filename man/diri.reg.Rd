@@ -88,12 +88,12 @@ Economics and Business, Vienna.
 http://epub.wu.ac.at/4077/1/Report125.pdf
 
 Gueorguieva, Ralitza, Robert Rosenheck, and Daniel Zelterman (2008). Dirichlet component
-regression and its applications to psychiatric data. Computational statistics \& data analysis
+regression and its applications to psychiatric data. Computational statistics & data analysis
 52(12): 5344-5355.
 
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

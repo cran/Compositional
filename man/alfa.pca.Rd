@@ -49,7 +49,7 @@ The eigenvectors.
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
 Aitchison, J. (1983). Principal component analysis of compositional data. Biometrika, 70(1), 57-65.
 

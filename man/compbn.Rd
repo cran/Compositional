@@ -84,7 +84,7 @@ The duration of the algorithm.
 \references{
 Tsagris M. (2021). A new scalable Bayesian network learning algorithm with applications to economics. Computational Economics, 57(1):341-367.
 
-Tsagris M. (2020). The FEDHC Bayesian network learning algorithm. https://arxiv.org/pdf/2012.00113.pdf.
+Tsagris M. (2021). The FEDHC Bayesian network learning algorithm. https://arxiv.org/pdf/2012.00113.pdf.
 
 Borboudakis G. and Tsamardinos I. (2019). Forward-backward selection with early dropping. Journal of Machine Learning Research, 20(8): 1-39.
 

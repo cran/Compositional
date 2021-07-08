@@ -40,7 +40,7 @@ A ternary diagram with the points (if appear = TRUE) and the bivariate normal co
 }
 
 \references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman \& Hall.
+Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{

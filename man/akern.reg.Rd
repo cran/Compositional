@@ -56,7 +56,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{akernreg.tune}, \link{aknn.reg}, \link{alfa.reg}, \link{comp.ppr}, \link{comp.reg}, \link{kl.compreg}
+\code{\link{akernreg.tune}, \link{aknn.reg}, \link{aknnreg.tune}, \link{alfa.reg}, \link{comp.ppr}, \link{comp.reg}, \link{kl.compreg}
 }
 }
 

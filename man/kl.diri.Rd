@@ -33,7 +33,7 @@ The value of the Kullback-Leibler divergence or the Bhattacharyya distance.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley \& Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
 }
 
 \author{

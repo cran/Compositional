@@ -3,7 +3,7 @@
 #### Tsagris Michail 5/2015
 #### mtsagris@yahoo.gr
 ################################
-mixnorm.contour <- function(x, mod) {
+mixnorm.contour <- function(x, type = "alr", mod) {
   ## mod is a mixture model containing all the parameters
   ## the type parameter determines whether the additive or the isometric
   ## log-ratio transformation will be used. If type='alr' (the default) the
@@ -22,6 +22,7 @@ mixnorm.contour <- function(x, mod) {
   ha <- t( Compositional::helm(3) )
   ldet <- numeric(g)
   for (k in 1:g)  ldet[k] <-  - 0.5 * log( det(2 * pi * su[, , k]) )
+  f1 <- sqrt(2/3)   ;   f2 <- sqrt(0.5)
 
   for ( i in 1:c(n/2) ) {
     for (j in 1:n) {
@@ -33,10 +34,14 @@ mixnorm.contour <- function(x, mod) {
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if ( type == "alr" )  y <- log( w[-1]/w[1] )  ## alr transformation
-        if ( type == "ilr" )  {  ## isometric log-ratio transformation
+        if ( type == "alr" )  {
+          y <- log( w[-1] / w[1] )  ## alr transformation
+        } else if ( type == "ilr" )  {  ## isometric log-ratio transformation
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
+        } else {
+          y <- c( f1 * ( log(w[1]) - 0.5 * log(w[2]) - 0.5 * log(w[3]) ),
+                  f2 * log( w[2] / w[3] ) )
         }
 
         ta <- numeric(g)
@@ -57,10 +62,14 @@ mixnorm.contour <- function(x, mod) {
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if ( type == "alr" )  y <- log( w[-1]/w[1] )  ## alr transformation
-        if ( type == "ilr" )  {  ## isometric log-ratio transformation
+        if ( type == "alr" )  {
+          y <- log( w[-1] / w[1] )  ## alr transformation
+        } else if ( type == "ilr" )  {  ## isometric log-ratio transformation
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
+        } else {
+          y <- c( f1 * ( log(w[1]) - 0.5 * log(w[2]) - 0.5 * log(w[3]) ),
+                  f2 * log( w[2] / w[3] ) )
         }
 
         ta <- numeric(g)

@@ -1,11 +1,11 @@
 \name{The k-nearest neighbours using the alpha-distance}
 \alias{alfann}
 \title{
-The k-nearest neighbours using the \eqn{alpha}-distance
+The k-nearest neighbours using the \eqn{\alpha}-distance
 }
 
 \description{
-The k-nearest neighbours using the \eqn{alpha}-distance.
+The k-nearest neighbours using the \eqn{\alpha}-distance.
 }
 
 \usage{

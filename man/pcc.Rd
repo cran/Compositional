@@ -27,7 +27,11 @@ A matrix with the alr transformed data (if alr is used) or with the compositiona
 }
 
 \references{
-Lovell D., Pawlowsky-Glahn V., Egozcue J. J., Marguerat S. and Bahler, J. (2015). Proportionality: a valid alternative to correlation for relative data. PLoS Computational Biology, 11(3), e1004075.
+Zheng, B. (2000). Summarizing the goodness of fit of generalized linear models for longitudinal data.
+Statistics in medicine, 19(10), 1265-1275.
+
+Lovell D., Pawlowsky-Glahn V., Egozcue J. J., Marguerat S. and Bahler, J. (2015). Proportionality: a valid alternative
+to correlation for relative data. PLoS Computational Biology, 11(3), e1004075.
 }
 
 \author{

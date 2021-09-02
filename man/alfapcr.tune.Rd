@@ -30,7 +30,7 @@ The number of folds for the K-fold cross validation, set to 10 by default.
 The maximum number of principal components to check.
 }
 \item{a}{
-The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. The estimated bias correction via the (Tibshirani and Tibshirani (2009) criterion is applied.
+A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
 \item{folds}{
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
@@ -83,9 +83,9 @@ Jolliffe I.T. (2002). Principal Component Analysis.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

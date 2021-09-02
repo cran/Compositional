@@ -20,7 +20,7 @@ The mean vector.
 The covariance matrix.
 }
 \item{type}{
-This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
+The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
 }
 \item{n}{
 The number of grid points to consider over which the density is calculated.
@@ -44,9 +44,9 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

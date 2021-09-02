@@ -73,12 +73,12 @@ The runtime of the cross-validation procedure.
 
 \references{
 Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020).
-The alpha-k-NN- regression for compositional data.
+Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

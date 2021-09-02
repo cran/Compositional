@@ -6,7 +6,7 @@
 #### Paul D. McNicholas (2015)
 #### R package mixture: Mixture Models for Clustering and Classification
 ################################
-mix.compnorm <- function(x, g, model, type = "alr", veo = FALSE) {
+alfa.mix.norm <- function(x, g, a, model, veo = FALSE) {
   ## x is the compositional data
   ## g is the number of components to be used
   ## model is the type of model to be used
@@ -14,15 +14,9 @@ mix.compnorm <- function(x, g, model, type = "alr", veo = FALSE) {
   p <- dim(x)[2]  ## dimensionality of the data
   n <- dim(x)[1]  ## sample size
 
-  if (type == "alr") {
-    y <- log(x[, -1]/x[, 1])
-  } else if ( type == "ilr" ) {
-    y0 <- log(x)
-    y1 <- y0 - Rfast::rowmeans( y0 )
-    y <- tcrossprod( y1, helm(p) )
-  } else if ( type == "pivot" ) {
-    y <- Compositional::pivot(x)
-  }
+  z <- Compositional::alfa(x, a)
+  y <- z$aff
+  ja <- z$sa
 
   mod <- mixture::gpcm(y, G = g, mnames = model, start = 0, mmax = 100, veo = veo)
   param <- mod$gpar
@@ -37,5 +31,5 @@ mix.compnorm <- function(x, g, model, type = "alr", veo = FALSE) {
 
   pij <- mod$z
   est <- Rfast::rowMaxs(pij)
-  list(type = type, mu = mu, su = su, prob = prob, est = est)
+  list(mu = mu, su = su, prob = prob, est = est)
 }

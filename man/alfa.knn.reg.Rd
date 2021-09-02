@@ -48,7 +48,7 @@ A matrix with the estimated response data for each value of k.
 
 \references{
 Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020).
-The alpha-k-NN- regression for compositional data.
+Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }
 

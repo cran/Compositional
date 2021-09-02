@@ -17,7 +17,7 @@ fd.density(x, alpha, prob, tau)
 A vector or a matrix with compositional data.
 }
 \item{alpha}{
-A vector of the non-negative \eqn{alpha} parameters.
+A vector of the non-negative \eqn{\alpha} parameters.
 }
 \item{prob}{
 A vector of the clusters' probabilities. It must sum to one.

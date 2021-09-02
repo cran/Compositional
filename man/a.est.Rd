@@ -46,7 +46,7 @@ The estimated covariance matrix of the folded model.
 }
 
 \references{
-Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis. 
+Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis.
 Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
 
@@ -55,9 +55,9 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

@@ -51,9 +51,9 @@ Journal of Applied Statistics, 31(7): 799-815.
 }
 
 \author{
- Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

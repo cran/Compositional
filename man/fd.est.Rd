@@ -31,7 +31,7 @@ For more information see the references.
 \value{
 A list including:
 \item{alpha}{
-Estimated values of the parameter vector \eqn{alpha}.
+Estimated values of the parameter vector \eqn{\alpha}.
 }
 \item{prob}{
 Estimated values of the parameter vector p.

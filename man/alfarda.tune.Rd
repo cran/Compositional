@@ -26,8 +26,7 @@ A matrix with the available compositional data. Zeros are allowed.
 A group indicator variable for the avaiable data.
 }
 \item{a}{
-A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0.
-If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
+A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
 \item{nfolds}{
 The number of folds. Set to 10 by default.

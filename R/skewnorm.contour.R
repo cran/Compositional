@@ -5,13 +5,6 @@
 #### References: Azzalini A. and Valle A. D. (1996).
 #### The multivariate skew-normal distribution. Biometrika 83(4):715-726.
 
-################################
-#### Contour plot of the bivariate skew normal distribution in S^2
-#### Tsagris Michail 2/2013
-#### mtsagris@yahoo.gr
-#### References: Azzalini A. and Valle A. D. (1996).
-#### The multivariate skew-normal distribution. Biometrika 83(4):715-726.
-
 skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE) {
   ## the type parameter determines whether the additive
   ## or the isometric log-ratio transformation will be used.

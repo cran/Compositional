@@ -16,7 +16,7 @@ rfd(n, alpha, prob, tau)
 \item{n}{
 The sample size.
 }
-\item{alpha}{A vector of the non-negative \eqn{alpha} parameters.
+\item{alpha}{A vector of the non-negative \eqn{\alpha} parameters.
 }
 \item{prob}{
 A vector of the clusters' probabilities that must sum to one.

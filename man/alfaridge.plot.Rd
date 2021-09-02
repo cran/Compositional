@@ -47,9 +47,9 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

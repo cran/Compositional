@@ -1,11 +1,11 @@
 \name{Contour plot of the alpha-folded model in S^2}
 \alias{fold.contour}
 \title{
-Contour plot of the alpha-folded model in \eqn{S^2}
+Contour plot of the \eqn{\alpha}-folded model in \eqn{S^2}
 }
 
 \description{
-Contour plot of the alpha-folded model in \eqn{S^2}.
+Contour plot of the \eqn{\alpha}-folded model in \eqn{S^2}.
 }
 
 \usage{
@@ -34,7 +34,8 @@ This is either NULL (no data) or contains a 3 column matrix with compositional d
 }
 
 \details{
-The \eqn{alpha}-transformation is applied to the compositional data and then for a grid of points within the 2-dimensional simplex the folded model's density is calculated and the contours are plotted.
+The \eqn{\alpha}-transformation is applied to the compositional data and then for a grid of points within the 
+2-dimensional simplex the folded model's density is calculated and the contours are plotted.
 }
 
 \value{
@@ -58,7 +59,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
+\code{\link{alfa.contour}, \link{norm.contour}, \link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
 }
 }
 

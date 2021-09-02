@@ -1,9 +1,4 @@
-################################
-#### Contour plot of the bivariate normal distribution in S^2
-#### Tsagris Michail 2/2013
-#### mtsagris@yahoo.gr
-################################
-norm.contour <- function(m, s, type = "alr", n = 100, x = NULL) {
+alfa.contour <- function(m, s, a, n = 100, x = NULL) {
   ## the type parameter determines whether the additive or
   ## the isometric log-ratio transformation will be used.
   ## If type='alr' (the default) the additive
@@ -17,7 +12,6 @@ norm.contour <- function(m, s, type = "alr", n = 100, x = NULL) {
   ha <- t( helm(3) )
   down <- det(2 * pi * s)^(-0.5)
   st <- solve(s)
-  f1 <- sqrt(2/3)   ;   f2 <- sqrt(0.5)
 
   for ( i in 1:c(n/2) ) {
     for ( j in 1:n ) {
@@ -28,16 +22,12 @@ norm.contour <- function(m, s, type = "alr", n = 100, x = NULL) {
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if (type == "alr") {
-          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
-        } else if ( type == "ilr" ) {
-          y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% ha )  ## isometric log-ratio transformation
-        } else {
-          y <- c( f1 * ( log(w[1]) - 0.5 * log(w[2]) - 0.5 * log(w[3]) ),
-                  f2 * log( w[2] / w[3] ) )
-        }
-
+        if ( abs(a) > 1e-10 ) {
+          z <- w^a
+          ta <- sum(z)
+          z <- 3 / a * z / ta - 1/a
+        } else  z <- log(w) - mean( log(w) )
+        y <- as.vector( z %*% ha ) ## multiply by the Helmert sub-matrix
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
         if ( abs(can) < Inf )  mat[i, j] <- can
       }
@@ -53,12 +43,12 @@ norm.contour <- function(m, s, type = "alr", n = 100, x = NULL) {
         w2 <- x1[i] - x2[j] / sqrt3
         w1 <- 1 - w2 - w3
         w <- c(w1, w2, w3)
-        if (type == "alr") {
-          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
-        } else {
-          y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% ha )
-        }  ## isometric log-ratio transformation
+        if ( abs(a) > 1e-10 ) {
+          z <- w^a
+          ta <- sum(z)
+          z <- 3 / a * z / ta - 1/a
+        } else  z <- log(w) - mean( log(w) )
+        y <- as.vector( z %*% ha ) ## multiply by the Helmert sub-matrix
         can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
         if ( abs(can) < Inf )   mat[i, j] <- can
       }

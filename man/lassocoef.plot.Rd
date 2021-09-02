@@ -40,7 +40,7 @@ Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
 \author{
 Michail Tsagris and Abdulaziz Alenazi.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Abdulaziz Alenazi
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa}.
 \email{a.alenazi@nbu.edu.sa}.
 }
 

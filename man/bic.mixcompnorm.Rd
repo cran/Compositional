@@ -20,7 +20,7 @@ A matrix with compositional data.
 A numeric vector with the number of components, clusters, to be considered.
 }
 \item{type}{
-The type of trasformation to be used, either additive log-ratio ("alr") or the isometric log-ratio ("ilr").
+The type of trasformation to be used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
 }
 \item{veo}{
 Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds the number of observations, but the model is still fitted.
@@ -35,7 +35,7 @@ The alr or the ilr-transformation is applied to the compositional data first and
 }
 
 \value{
-a plot with the BIC of the best model for each number of components versus the number of components.
+A plot with the BIC of the best model for each number of components versus the number of components.
 A list including:
 \item{mod}{
 A message informing the user about the best model.
@@ -64,7 +64,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{mix.compnorm}, \link{mixnorm.contour}, \link{rmixcomp}
+\code{\link{mix.compnorm}, \link{mixnorm.contour}, \link{rmixcomp}, \link{bic.alfamixnorm}
 }
 }
 

@@ -14,7 +14,7 @@ fd.contour(alpha, prob, tau, n = 100, x = NULL)
 
 \arguments{
 \item{alpha}{
-A vector of the non-negative \eqn{alpha} parameters.
+A vector of the non-negative \eqn{\alpha} parameters.
 }
 \item{prob}{
 A vector of the clusters' probabilities. It must sum to one.

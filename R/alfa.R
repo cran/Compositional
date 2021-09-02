@@ -4,7 +4,7 @@ alfa <- function(x, a, h = TRUE) {
   ## if h is TRUE the multiplication with the Helmert matrix takes place
   D <- dim(x)[2] ## number of components
   if ( D == 1 )   x <- t(x)
-  if ( a != 0 ) {
+  if ( abs(a) > 1e-10 ) {
     z <- x^a
     ta <- Rfast::rowsums(z)
     z <- D / a * z / ta - 1/a

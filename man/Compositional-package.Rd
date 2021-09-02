@@ -6,15 +6,15 @@ Compositional Data Analysis
 }
 
 \description{
-A collection of functions for compositional data analysis.
+A Collection of Functions for Compositional Data Analysis.
 }
 
 \details{
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 4.8 \cr
-Date: \tab 2021-07-08\cr
+Version: \tab 4.9 \cr
+Date: \tab 2021-09-02\cr
 License: \tab GPL-2\cr
 }
 }

@@ -62,9 +62,9 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{
@@ -72,7 +72,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{alfainv}, \link{alfa.profile}, \link{alfa.tune}
+\code{\link{alfainv}, \link{pivot}, \link{alfa.profile}, \link{alfa.tune}
 \link{a.est}, \link{alpha.mle}, \link{alr}, \link{bc}, \link{fp}, \link{green}
 }
 }

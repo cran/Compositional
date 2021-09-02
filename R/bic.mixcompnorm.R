@@ -11,13 +11,17 @@ bic.mixcompnorm <- function(x, G, type = "alr", veo = FALSE, graph = TRUE) {
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
   p <- dim(x)[2]  ## dimensionality of the data
-  if (type == "ilr") {
+  if ( type == "alr" ) {
+    y <- log(x[, -1] / x[, 1])
+  } else if (type == "ilr") {
     y0 <- log(x)
     y1 <- y0 - Rfast::rowmeans( y0 )
     y <- tcrossprod( y1, helm(p) )
-  } else  y <- log(x[, -1] / x[, 1])
+  } else if ( type == "pivot" ) {
+    y <- Compositional::pivot(x)
+  }
 
-  mod <- mixture::gpcm(y, G = G, mnames = NULL, start = 0, mmax = 100)
+  mod <- mixture::gpcm(y, G = G, mnames = NULL, start = 0, mmax = 100, veo = veo)
   mbic <- mod$BIC[, , 3]  ## BIC for all models
   ## Next, we plot the BIC for all models
   if ( graph ) {

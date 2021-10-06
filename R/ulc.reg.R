@@ -6,12 +6,12 @@ ulc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     dm <- dim(x)
     n <- dm[1]  ;  p <- dm[2]
     xxs <- solve( crossprod(x) )
-    be <- xxs %*% crossprod(x, y)
+    be <- as.vector( xxs %*% crossprod(x, y) )
     e <- y - x %*% be
     va <- sum(e^2) / (n - p)
     covbe <- xxs * va
     nama <- colnames(x)
-    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:p, sep = "") )
+    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:(p-1), sep = "") )
     if ( nama[1] == "" )  nama[1] <- "constant"
     names(be) <- nama
     colnames(covbe) <- rownames(covbe) <- nama
@@ -24,7 +24,7 @@ ulc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     dm <- dim(X)
     n <- dm[1]  ;  p <- dm[2]
     xxs <- solve( crossprod(X) )
-    be <- xxs %*% crossprod(X, y)
+    be <- as.vector( xxs %*% crossprod(X, y) )
     e <- y - X %*% be
     va <- sum(e^2) / (n - p)
     covbe <- xxs * va
@@ -38,8 +38,8 @@ ulc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     colnames(covbe) <- rownames(covbe) <- nama
     est <- NULL
     if ( !is.null(xnew)  &  !is.null(znew) ) {
-      znew <- model.matrix(~., data.frame(znew))
-      est <- cbind(znew, log(xnew) ) %*% be
+      znew <- model.matrix(~., data.frame(znew))[, -1]
+      est <- cbind(1, log(xnew), znew) %*% be
     }
   }
 

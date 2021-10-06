@@ -1,5 +1,5 @@
 lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
- 
+
   if ( is.null(z) ) {
     x <- log(x)
     dm <- dim(x)
@@ -21,7 +21,7 @@ lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     est <- NULL
     if ( !is.null(xnew) )  est <- cbind(1, log(xnew) ) %*% be
 
-  } else {
+  } else {  ## end  if is null(z)
     z <- model.matrix(y~., data = as.data.frame(z) )[, -1]
     X <- cbind(1, log(x), z )
     dm <- dim(X)
@@ -36,17 +36,17 @@ lc.reg <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     va <- sum(e^2) / (n - p + 1)
     covbe <- ( xxs - com %*% R %*% xxs ) * va
     nama <- colnames(X)
-    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:d1, sep = ""), 
+    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:d1, sep = ""),
                                      paste("Z", 1:d2, sep = "") )
     if ( nama[1] == "" )  nama[1] <- "constant"
     names(be) <- nama
     colnames(covbe) <- rownames(covbe) <- nama
     est <- NULL
     if ( !is.null(xnew)  &  !is.null(znew) ) {
-      znew <- model.matrix(~., data.frame(znew))
-      est <- cbind(znew, log(xnew) ) %*% be
+      znew <- model.matrix(~., data.frame(znew))[, -1]
+      est <- cbind(1, log(xnew), znew ) %*% be
     }
- } 
+ }
 
  list(be = be, covbe = covbe, va = va, residuals = e, est = est)
 }

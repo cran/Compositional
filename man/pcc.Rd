@@ -45,7 +45,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{acor}, \ link{alr}
+\code{\link{acor}, \link{alr}
 }
 }
 

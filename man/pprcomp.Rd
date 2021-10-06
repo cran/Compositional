@@ -1,43 +1,40 @@
-\name{Projection pursuit regression for compositional data}
-\alias{comp.ppr}
-
+\name{Projection pursuit regression with compositional predictor variables}
+\alias{pprcomp}
 \title{
-Projection pursuit regression for compositional data
+Projection pursuit regression with compositional predictor variables
 }
 
 \description{
-Projection pursuit regression for compositional data.
+Projection pursuit regression with compositional predictor variables.
 }
 
 \usage{
-comp.ppr(y, x, nterms = 3, type = "alr", xnew = NULL, yb = NULL )
+pprcomp(y, x, nterms = 3, type = "alr", xnew = NULL)
 }
 
 \arguments{
 \item{y}{
-A matrix with the compositional data.
+A numerical vector with the continuous variable.
 }
 \item{x}{
-A matrix with the continuous predictor variables or a data frame including categorical
-predictor variables.
+A matrix with the compositional data. No zero values are allowed.
 }
 \item{nterms}{
 The number of terms to include in the final model.
 }
 \item{type}{
-Either "alr" or "ilr" corresponding to the additive or the isometric log-ratio transformation respectively.
+Either "alr" or "log" corresponding to the additive log-ratio transformation or the simple
+logarithm applied to the compositional data.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
-}
-\item{yb}{
-If you have already transformed the data using a log-ratio transformation put it here.
-Othewrise leave it NULL.
 }
 }
 
 \details{
 This is the standard projection pursuit. See the built-in function "ppr" for more details.
+When the data are transformed with the additive log-ratio transformation this is close
+in spirit to the log-contrast regression.
 }
 
 \value{
@@ -69,15 +66,15 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{compppr.tune}, \link{aknn.reg}, \link{akern.reg}, \link{comp.reg}, \link{kl.compreg}, \link{alfa.reg}
+\code{ \link{pprcomp.tune}, \link{ice.pprcomp}, \link{alfa.pcr}, \link{lc.reg}, \link{comp.ppr}
 }
 }
 
 \examples{
-y <- as.matrix(iris[, 1:3])
-y <- y/ rowSums(y)
-x <- iris[, 4]
-mod <- comp.ppr(y, x)
+x <- as.matrix( iris[, 2:4] )
+x <- x/ rowSums(x)
+y <- iris[, 1]
+pprcomp(y, x)
 }
 
 

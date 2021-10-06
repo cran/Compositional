@@ -14,7 +14,7 @@ Regression for compositional data based on the Kullback-Leibler the Jensen-Shann
 \usage{
 kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50)
 js.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
-tv.compreg(y, x, B = 1, ncores = 1, xnew = NULL) 
+tv.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 symkl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
 }
 
@@ -43,9 +43,9 @@ The maximum number of Newton-Raphson iterations.
 }
 
 \details{
-In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. In case of problematic 
-convergence the "multinom" function by the "nnet" package is employed. This will obviously be slower. The 
-js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence. 
+In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. In case of problematic
+convergence the "multinom" function by the "nnet" package is employed. This will obviously be slower. The
+js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence.
 The tv.compreg uses the Total Variation divergence. There is no actual log-likelihood for neither regression.
 }
 
@@ -99,7 +99,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{js.compreg}, \link{ols.compreg}, \link{comp.reg}
+\code{\link{diri.reg}, \link{ols.compreg}, \link{comp.reg}
 }
 }
 

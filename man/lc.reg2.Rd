@@ -9,7 +9,7 @@ Log-contrast regression with multiple compositional predictors.
 }
 
 \usage{
-lc.reg2(y, x, z, xnew = NULL, znew = NULL)
+lc.reg2(y, x, z = NULL, xnew = NULL, znew = NULL)
 }
 
 \arguments{

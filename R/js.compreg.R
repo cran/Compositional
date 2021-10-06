@@ -14,10 +14,6 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   ## if B==1 no bootstrap is performed and no standard errors are reported
   ## if ncores=1, then 1 processor is used, otherwise
   ## more are used (parallel computing)
-  n <- dim(y)[1]  ## sample size
-  x <- model.matrix(y ~ ., data.frame(x) )
-  d <- dim(y)[2] - 1  ## dimensionality of the simplex
-
   jsreg <- function(para, y, x, d){
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
@@ -25,6 +21,16 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     M <- ( mu + y ) / 2
     sum( - y * log1p(mu / y) + mu * log(mu / M), na.rm = TRUE )
   }
+
+  n <- dim(y)[1]  ## sample size
+  x <- model.matrix(y ~ ., data.frame(x) )
+  p <- dim(x)[2]
+  d <- dim(y)[2] - 1  ## dimensionality of the simplex
+  namx <- colnames(x)
+  namy <- colnames(y)
+  if ( is.null( namy ) )  {
+    namy <- paste("Y", 1:d, sep = "")
+  } else namy <- namy[-1]
 
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
   runtime <- proc.time()
@@ -74,6 +80,9 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       covb <- cov(betaboot)
       runtime <- proc.time() - runtime
     }  ##  end (nc <= 1) {
+    nam <- NULL
+    for (i in 1:p)  nam <- c(nam, paste(namy, ":", namx[i], sep = "") )
+    colnames(covb) <- rownames(covb) <- nam
   }  ##  end if (B > 1) {
 
   if ( !is.null(xnew) ) {
@@ -82,6 +91,7 @@ js.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     est <- mu / Rfast::rowsums(mu)
   }  else  est <- NULL
 
-  rownames(be)  <- colnames(x)
+  colnames(be) <- namy
+  rownames(be) <- namx
   list(runtime = runtime, be = be, covbe = covb, est = est)
 }

@@ -25,7 +25,8 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-The transformation-free linear regression for compositional responses and predictors is implemented.
+The transformation-free linear regression for compositional responses and predictors is implemented. 
+The function to be minized is \eqn{-\sum_{i=1}^ny_i\log{y_i/(X_iB)}}.
 }
 
 \value{
@@ -34,7 +35,7 @@ A list including:
 The time required by the regression.
 }
 \item{loglik}{
-The log-likelihood \eqn{-\sum_{i=1}^ny_i\log{y_i/\hat{y}_i}}.
+The log-likelihood.
 }
 \item{be}{
 The beta coefficients.

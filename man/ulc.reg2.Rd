@@ -9,7 +9,7 @@ Unconstrained log-contrast regression with multiple compositional predictors.
 }
 
 \usage{
-ulc.reg2(y, x, z, xnew = NULL, znew = NULL)
+ulc.reg2(y, x, z = NULL, xnew = NULL, znew = NULL)
 }
 
 \arguments{
@@ -33,9 +33,13 @@ If you have no new data, leave this NULL as is by default.
 }
 
 \details{
-The function performs the unconstrained log-contrast regression model as opposed to the log-contrast regression described in Aitchison (2003), pg. 84-85. The logarithm of the compositional predictor variables is used
-(hence no zero values are allowed). The response variable is linked to the log-transformed data without the constraint that the sum of the regression coefficients equals 0. If you want the regression model with the zum-to-zero contraints see \code{\link{lc.reg2}}. Extra predictors variables are allowed as well, for instance categorical or continuous.
-Similarly to \code{\link{lc.reg2}} there are multiple compositions treated as predictor variables.
+The function performs the unconstrained log-contrast regression model as opposed to the log-contrast
+regression described in Aitchison (2003), pg. 84-85. The logarithm of the compositional predictor variables
+is used (hence no zero values are allowed). The response variable is linked to the log-transformed data
+\bold{without} the constraint that the sum of the regression coefficients equals 0. If you want the
+regression model with the zum-to-zero contraints see \code{\link{lc.reg2}}. Extra predictors variables
+are allowed as well, for instance categorical or continuous. Similarly to \code{\link{lc.reg2}} there
+are multiple compositions treated as predictor variables.
 }
 
 \value{

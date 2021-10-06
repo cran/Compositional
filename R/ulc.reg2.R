@@ -12,7 +12,7 @@ ulc.reg2 <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     n <- dm[1]  ;  p <- dm[2]
 
     xxs <- solve( crossprod(x) )
-    be <- xxs %*% crossprod(x, y)
+    be <- as.vector( xxs %*% crossprod(x, y) )
     e <- y - x %*% be
     va <- sum(e^2) / (n - p)
     covbe <- xxs * va
@@ -42,7 +42,7 @@ ulc.reg2 <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     n <- dm[1]  ;  p <- dm[2]
 
     xxs <- solve( crossprod(x) )
-    be <- xxs %*% crossprod(x, y)
+    be <- as.vector( xxs %*% crossprod(x, y) )
     e <- y - x %*% be
     va <- sum(e^2) / (n - p)
     covbe <- xxs * va

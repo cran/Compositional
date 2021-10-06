@@ -5,10 +5,10 @@ importFrom("MASS", cov.rob, cov.trob)
 importFrom("graphics", filled.contour, contour, lines, plot,
            points, abline, hist, legend, text, image)
 
-importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd,
-           qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq,
-           rgamma, mahalanobis, runif, qt, qf, pf, model.matrix, prcomp,
-           .lm.fit, na.omit, ppr, predict, coef, cancor)
+importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd, cmdscale,
+           qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq, rgamma,
+           mahalanobis, runif, qt, qf, pf, model.matrix, prcomp, .lm.fit, na.omit,
+           ppr, predict, coef, cancor, loess, fitted, as.dist)
 
 importFrom("grDevices", terrain.colors, grey)
 

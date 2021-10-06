@@ -5,8 +5,7 @@ Tuning of the projection pursuit regression for compositional data
 }
 
 \description{
-Tuning of the projection pursuit regression for compositional data
-In addition, estimation of the rate of correct classification via K-fold cross-validation.
+Tuning of the projection pursuit regression for compositional data.
 }
 
 \usage{
@@ -77,7 +76,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{comp.ppr}, \link{comp.reg}, \link{alfa}
+\code{ \link{comp.ppr}, \link{aknnreg.tune}, \link{akernreg.tune}
 }
 }
 

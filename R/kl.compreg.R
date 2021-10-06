@@ -21,12 +21,12 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
     est <- mod$est
   }  ##  end  if ( is.infinite(loglik)  |  identical( class(mod), "try-error") )  {
 
-  if (B == 1) {
+  if ( B == 1 ) {
     runtime <- proc.time() - runtime
     res <-  list(runtime = runtime, iters = iters, loglik = loglik, be = be, covb = NULL, est = est)
   } else {
 
-    if (ncores <= 1) {
+    if ( ncores <= 1 ) {
       X <- model.matrix( y~., data.frame(x) )
       p <- dim(X)[2]
       Y <- y[, -1, drop = FALSE]
@@ -75,6 +75,15 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
       parallel::stopCluster(cl)
     }  ##  end if (ncores <= 1) {
     covb <- cov(betaboot)
+
+    namx <- colnames(X)
+    namy <- colnames(y)
+    if ( is.null( namy ) )  {
+      namy <- paste("Y", 1:d, sep = "")
+    } else namy <- namy[-1]
+    nam <- NULL
+    for (i in 1:p)  nam <- c(nam, paste(namy, ":", namx[i], sep = "") )
+    colnames(covb) <- rownames(covb) <- nam
 
     runtime <- proc.time() - runtime
     res <- list(runtime = runtime, iters = iters, loglik = loglik, be = be, covbe = covb, est = est)

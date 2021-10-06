@@ -31,8 +31,8 @@ A boolean variable which is taken into consideration only when bootstrap calibra
 }
 
 \details{
-Multivariate analysis of variance without assuming equality of the covariance matrices. The p-value can be calculated either asymptotically or via bootstrap. 
-The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) is implemented. The James test uses a corrected chi-square distribution, 
+Multivariate analysis of variance without assuming equality of the covariance matrices. The p-value can be calculated either asymptotically or via bootstrap.
+The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) is implemented. The James test uses a corrected chi-square distribution,
 whereas the modified version uses an F distribution.
 }
 
@@ -58,10 +58,10 @@ The runtime of the bootstrap calibration.
 
 \references{
 G.S. James (1954). Tests of Linear Hypothese in Univariate and Multivariate Analysis
-when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19-43
+when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19-43.
 
 Krishnamoorthy K. and Yanping Xia.  On Selecting Tests for Equality of Two Normal Mean Vectors (2006).
-Multivariate Behavioral Research 41(4): 533-548
+Multivariate Behavioral Research 41(4): 533-548.
 }
 
 \author{
@@ -75,7 +75,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{hotel2T2}, \link{maovjames}, \link{el}, \link{comp.test}
+\code{\link{hotel2T2}, \link{maovjames}, \link{el.test2}, \link{eel.test2}, \link{comp.test}
 }
 }
 

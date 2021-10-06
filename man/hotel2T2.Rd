@@ -69,7 +69,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{james}, \link{maov}, \link{el.test2}, \link{comp.test}
+\code{\link{james}, \link{maov}, \link{el.test2}, \link{eel.test2}, \link{comp.test}
 }
 }
 

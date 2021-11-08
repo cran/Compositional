@@ -30,7 +30,7 @@ bic.alfamixnorm <- function(x, G, a = seq(-1, 1, by = 0.1), veo = FALSE, graph =
     for ( i in 1:length(a) )  bica[, i] <- Rfast::rowMaxs( abic[[ i ]], value = TRUE )
     plot( a, bica[1, ], type = "b", pch = 9, xlab = expression( paste(alpha, " values") ),
           ylab = "BIC values", ylim = c( min(bica, na.rm = TRUE), max(bica, na.rm = TRUE) ),
-          cex.lab = 1.3, cex.axis = 1.2)
+          cex.lab = 1.2, cex.axis = 1.2)
     for ( i in 2:max(G) )  lines(a, bica[i, ], type = "b", pch = 9, col = i)
   }
   abic

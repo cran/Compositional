@@ -7,10 +7,12 @@ esova <- function(xnew, x) {
   nu <- dim(xnew)[1]
   disa <- matrix(0, n, nu)
   tx <- t(x)
+  
   for (i in 1:nu) {
     xan <- xnew[i, ]
     ma <- 0.5 * ( tx + xan )
     disa[, i] <- colSums( xan * log( xan / ma ) + tx * log( tx/ma ), na.rm = TRUE )
   }
+  
   disa
 }

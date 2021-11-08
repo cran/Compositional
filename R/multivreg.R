@@ -27,8 +27,9 @@ multivreg <- function(y, x, plot = TRUE, xnew = NULL) {
   crit.x <- sqrt( qchisq(0.975, p) )
 
   if ( plot ) {
-    plot(dx, dres, xlim = c(0, max(dx) + 0.5), ylim = c(0, max(dres) + 0.5),
-         xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance of residuals")
+    plot( dx, dres, xlim = c(0, max(dx) + 0.5), ylim = c(0, max(dres) + 0.5),
+          xlab = "Mahalanobis distance of x", ylab = "Mahalanobis distance of residuals", 
+		  cex.lab = 1.2, cex.axis = 1.2 )
     abline(h = crit.res)
     abline(v = crit.x)
   }

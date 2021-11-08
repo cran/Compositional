@@ -1,19 +1,21 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 5.0
-Date: 2021-10-06
+Version: 5.2
+Date: 2021-11-08
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
-           person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"))
+           person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
+		   person("Christos", "Adam", role = "ctb", email = "pada4m4@gmail.com"))
 Author: Michail Tsagris [aut, cre],
   Giorgos Athineou [aut],
-  Abdulaziz Alenazi [ctb]
+  Abdulaziz Alenazi [ctb],
+  Christos Adam [ctb]
 Maintainer: Michail Tsagris <mtsagris@uoc.gr>
 Depends: R (>= 4.0)
 Imports: codalm, Directional, doParallel, emplik, FlexDir, foreach,
-        glmnet, MASS, mda, mixture, NlcOptim, nnet, parallel, pchc,
-        RANN, Rfast, Rfast2, sn, stats
+        glmnet, graphics, grDevices, MASS, mda, mixture, NlcOptim,
+        nnet, parallel, pchc, RANN, Rfast, Rfast2, sn, stats
 Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. 
              The standard textbook for such data is John Aitchison's (1986) "The statistical analysis of compositional data". Relevant papers include:
 			       a) Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. Fourth International International Workshop on Compositional Data Analysis. 
@@ -29,6 +31,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       We further include functions for percentages (or proportions).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2021-10-06 06:39:10 UTC; Michail
+Packaged: 2021-11-08 18:29:00 UTC; Michail
 Repository: CRAN
-Date/Publication: 2021-10-06 07:20:02 UTC
+Date/Publication: 2021-11-08 19:10:02 UTC

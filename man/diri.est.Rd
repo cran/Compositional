@@ -1,11 +1,11 @@
-\name{Fitting a Dirichlet distribution}
+\name{MLE of the Dirichlet distribution}
 \alias{diri.est}
 \title{
-Fitting a Dirichlet distribution
+MLE of the a Dirichlet distribution
 }
 
 \description{
-Estimation of the parameters of a fitted Dirichlet distribution.
+MLE of the parameters of a Dirichlet distribution.
 }
 
 \usage{
@@ -37,7 +37,7 @@ The estimated parameters.
 \item{phi}{
 The estimated precision parameter, if type = "prec".
 }
-\item{a}{
+\item{mu}{
 The estimated mean vector, if type = "prec".
 }
 \item{runtime}{

@@ -6,7 +6,7 @@ alpha.mle <- function(x, a) {
   d <- D - 1  ## dimensionality of the simplex
   ja <- sum( Rfast::Log(x) )  ## part of the Jacobian determinant
   #########
-  if ( abs(a) < 1e-10 ) {  ## i.e. if alpha = 0
+  if ( abs(a) < 1e-9 ) {  ## i.e. if alpha = 0
     mod <- alfa(x, 0)
     aff <- mod$aff
     su <- Rfast::cova(aff)

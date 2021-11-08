@@ -10,6 +10,7 @@ alfann <- function(xnew, x, a, k = 10, rann = FALSE) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
   D <- dim(x)[2]
+  
   if (a != 0 ) {
     y <- x^a
     ta <- Rfast::rowsums(y)
@@ -23,8 +24,10 @@ alfann <- function(xnew, x, a, k = 10, rann = FALSE) {
     ynew <- Rfast::Log(xnew)
     ynew <- ynew - Rfast::rowmeans( ynew )
   }
+  
   if (rann) {
     di <- RANN::nn2( data = y, query = ynew, k = k )$nn.idx
   } else  di <- Rfast::dista(ynew, y, k = k, index = TRUE, square = TRUE)
+  
   di
 }

@@ -9,7 +9,7 @@ Contour plot of the \eqn{\alpha}-folded model in \eqn{S^2}.
 }
 
 \usage{
-fold.contour(m, s, p, a, n = 100, x = NULL)
+fold.contour(m, s, p, a, n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
@@ -31,11 +31,15 @@ The number of grid points to consider over which the density is calculated.
 \item{x}{
 This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
+}
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data and then for a grid of points within the 
-2-dimensional simplex the folded model's density is calculated and the contours are plotted.
+The \eqn{\alpha}-transformation is applied to the compositional data and then for a grid
+of points within the 2-dimensional simplex the folded model's density is calculated and
+the contours are plotted.
 }
 
 \value{
@@ -49,9 +53,10 @@ https://arxiv.org/pdf/1802.07330.pdf
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{
@@ -59,7 +64,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alfa.contour}, \link{norm.contour}, \link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
+\code{\link{alfa.contour}, \link{norm.contour}, \link{diri.contour}, \link{mixnorm.contour},
+\link{bivt.contour}, \link{skewnorm.contour}
 }
 }
 

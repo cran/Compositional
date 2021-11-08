@@ -12,6 +12,7 @@ ice.pprcomp <- function(y, x, nterms = 3, k = 1, type = "alr") {
   xsel <- sort( x[, k] )  
   X <- x
   est <- matrix(NA, n, n)
+  
   for (i in 1:n) {
     for (j in 1:n) {
       X[i, k] <- xsel[j]    
@@ -19,9 +20,10 @@ ice.pprcomp <- function(y, x, nterms = 3, k = 1, type = "alr") {
       est[i, j] <- predict(mod, newdata = X)[1]
     }
   }
+  
   est <- est[, -1] - est[, 1]
   plot( xsel, est[, 1], type = "l", xlab = nam[k], ylab = "Centered fitted values",
-        cex.lab = 1.3, cex.axis = 1.3, ylim = c( min(est), max(est) ) )
+        cex.lab = 1.2, cex.axis = 1.2, ylim = c( min(est), max(est) ) )
   for (j in 2:c(n - 1) )  lines(xsel, est[, j])
   m <- Rfast::rowmeans(est)
   lines(xsel, m, col = 4, lwd = 3)

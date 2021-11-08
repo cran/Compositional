@@ -9,24 +9,27 @@ Contour plot of the Gaussian mixture model in \eqn{S^2}.
 }
 
 \usage{
-mixnorm.contour(x, type = "alr", mod)
+mixnorm.contour(mod, type = "alr", x = NULL, cont.line = FALSE)
 }
 
 \arguments{
-\item{x}{
-A matrix with the compositional data.
+\item{mod}{
+An object containing the output of a \code{\link{mix.compnorm}} model.
 }
 \item{type}{
 The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the
 pivot coordinate ("pivot") transformation.
 }
-\item{mod}{
-An object containing the output of a \code{\link{mix.compnorm}} model.
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
+}
+\item{x}{
+A matrix with the compositional data.
 }
 }
 
 \details{
-The contour plot of a Gaussian mixture model is plotted. For this you need the data and the fitted model.
+The contour plot of a Gaussian mixture model is plotted. For this you need the (fitted) model.
 }
 \value{
 A ternary plot with the data and the contour lines of the fitted Gaussian mixture model.
@@ -39,9 +42,10 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{

@@ -59,7 +59,8 @@ pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, see
   }
 
   mspe <- Rfast::colmeans(msp)
-  if ( graph )  plot(1:maxk, mspe, xlab = "Number of principal components", ylab = "MSPE", type = "b", cex.lab = 1.3)
+  if ( graph )  plot(1:maxk, mspe, xlab = "Number of principal components", ylab = "MSPE", type = "b",
+                     cex.lab = 1.2, cex.axis = 1.2)
   names(mspe) <- paste("PC", 1:maxk, sep = " ")
   performance <- min(mspe)
   names(performance) <- "MSPE"

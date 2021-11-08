@@ -9,15 +9,17 @@ Contour plot of the Kent distribution in \eqn{S^2}.
 }
 
 \usage{
-kent.contour(G, param, n = 100, x = NULL)
+kent.contour(G, param, n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
 \item{G}{
-A 3 x 3 matrix whose first column is the mean direction. The second and third columns are the major and minor axes respectively.
+A 3 x 3 matrix whose first column is the mean direction. The second and third columns are
+the major and minor axes respectively.
 }
 \item{param}{
-A vector with the concentration \eqn{kappa} and ovalness \eqn{\beta} parameters (the \eqn{\psi} parameter has been absorbed inside the matrix G).
+A vector with the concentration \eqn{kappa} and ovalness \eqn{\beta} parameters (the \eqn{\psi}
+parameter has been absorbed inside the matrix G).
 }
 \item{n}{
 The number of grid points to consider over which the density is calculated.
@@ -25,23 +27,29 @@ The number of grid points to consider over which the density is calculated.
 \item{x}{
 This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
+}
 }
 
 \details{
-The user can plot only the contour lines of a Dirichlet with a given vector of parameters, or can also add the relevant data should they wish to.
+The user can plot only the contour lines of a Dirichlet with a given vector of parameters,
+or can also add the relevant data should they wish to.
 }
 
 \value{
 A ternary diagram with the points and the Dirichlet contour lines.
 }
 \references{
-Graf, M. (2020). Regression for compositions based on a generalization of the Dirichlet distribution. Statistical Methods & Applications, (to appear).
+Graf, M. (2020). Regression for compositions based on a generalization of the Dirichlet distribution.
+Statistical Methods & Applications, (to appear).
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{

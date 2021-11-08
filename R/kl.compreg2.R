@@ -44,7 +44,7 @@ kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
   if ( class(res) == "try-error" )   b2 <- b1
   m <- cbind(1, m1)
   m <- m / Rfast::rowsums(m)
-  loglik <-  - sum( y * log(y/m), na.rm = TRUE )
+  loglik <- sum( y * log(m), na.rm = TRUE )
   colnames(b2) <- paste("Y", 1:d, sep = "")
   rownames(b2) <- colnames(X)
 

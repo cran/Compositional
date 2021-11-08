@@ -3,6 +3,7 @@ lassocoef.plot <- function(lasso, lambda = TRUE) {
   p <- dim( mod$beta[[ 1 ]] )[1]
   d <- length(mod$beta)
   be <- matrix( nrow = p, ncol = length(mod$lambda) )
+  
   for (i in 1:p) {
     be[i, ] <- mod$beta[[ 1 ]][i, ]^2
     for (j in 2:d) {
@@ -31,4 +32,5 @@ lassocoef.plot <- function(lasso, lambda = TRUE) {
     abline(h = seq(0, max(be), length = 10), col = "lightgrey", lty = 2)
     for ( i in 1:p )  lines( Lone, be[i, ], col = i, lwd = 2)
   }
+  
 }

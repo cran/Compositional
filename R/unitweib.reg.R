@@ -18,6 +18,7 @@ unitweib.reg <- function(y, x, tau = 0.5) {
                 control = list(maxit = 5000) )
   qa2 <- optim( qa1$par, uwr, y = y, x = x, tau = tau, n = n, ly = ly, 
                 control = list(maxit = 5000) )
+				
   while (qa1$value - qa2$value > 1e-05) {
     qa1 <- qa2
     qa2 <- optim( qa1$par, uwr, y = y, x = x, tau = tau, n = n, ly = ly, 

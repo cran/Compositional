@@ -1,6 +1,7 @@
 \name{The k-NN algorithm for compositional data}
 \alias{comp.knn}
 \alias{alfa.knn}
+\alias{ait.knn}
 
 \title{
 The k-NN algorithm for compositional data
@@ -16,6 +17,8 @@ comp.knn(xnew, x, ina, a = 1, k = 5, type = "S", apostasi = "ESOV", mesos = TRUE
 alfa.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE,
 apostasi = "euclidean", rann = FALSE)
 
+ait.knn(xnew, x, ina, a = 1, k = 5, type = "S", mesos = TRUE,
+apostasi = "euclidean", rann = FALSE)
 }
 
 \arguments{
@@ -49,12 +52,16 @@ The type of distance to use. For the compk.knn this can be one of the following:
  This is used in the non standard algorithm. If TRUE, the arithmetic mean of the distances is calulated, otherwise the harmonic mean is used (see details).
 }
 \item{rann}{
-If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". 
+In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 }
 
 \details{
-The k-NN algorithm is applied for the compositional data. There are many metrics and possibilities to choose from. The standard algorithm finds the k nearest observations to a new observation and allocates it to the class which appears most times in the neighbours. The non standard algorithm is slower but perhaps more accurate. For every group is finds the k nearest neighbours to the new observation. It then computes the arithmetic or the harmonic mean of the distances. The new point is allocated to the class with the minimum distance.
+The k-NN algorithm is applied for the compositional data. There are many metrics and possibilities to choose from. 
+The standard algorithm finds the k nearest observations to a new observation and allocates it to the class which appears most times in the neighbours. 
+The non standard algorithm is slower but perhaps more accurate. For every group is finds the k nearest neighbours to the new observation. 
+It then computes the arithmetic or the harmonic mean of the distances. The new point is allocated to the class with the minimum distance.
 }
 
 \value{
@@ -72,6 +79,9 @@ Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classificat
 
 Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros.
 Journal of Applied Statistics 44(7): 1137-1152.
+
+Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for the spatial analysis of Compositional Data. 
+https://arxiv.org/abs/2110.07967
 
 Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.
 Information Theory, IEEE Transactions on 49, 1858-1860.

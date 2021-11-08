@@ -11,12 +11,14 @@ rcompt <- function(n, m, s, dof, type = "alr") {
   ## dof is the degrees of freedom
   ## type is either alr or ilr
   x <- Rfast::rmvt(n, m, s, dof)
-  if (type == "alr") {
+  
+  if ( type == "alr" ) {
     y <- cbind( 1, exp(x) )
   } else {
     D <- dim(x)[2]
     y <- x %*% helm(D + 1)
     y < exp(y)
   }
+  
   y / Rfast::rowsums(y)
 }

@@ -27,6 +27,7 @@ ternary.reg <- function(y, est, id, labs) {
     d1 <- d1[ order(d1[, 1]), ]
     points(d1[, 1], d1[, 2], pch = 16, col = i)
   }
+  
   legend("topright", labs, lwd = rep(2, k), col = unique(id), text.col = unique(id), bg = 'gray90')
 
 }

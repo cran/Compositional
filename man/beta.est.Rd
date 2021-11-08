@@ -59,7 +59,7 @@ The estimated parameters. In the case of "hypersecant01.est" this is called "the
 
 \references{
 Kumaraswamy, P. (1980). A generalized probability density function for double-bounded random processes.
-Journal of Hydrology. 46 (1-2): 79-88.
+Journal of Hydrology. 46(1-2): 79-88.
 
 Jones, M.C. (2009). Kumaraswamy's distribution: A beta-type distribution with some tractability advantages.
 Statistical Methodology. 6(1): 70-81.

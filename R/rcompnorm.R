@@ -10,6 +10,7 @@ rcompnorm <- function(n, m, s, type = "alr") {
   ## s is the covariance matrix in R^d
   ## type is either alr or ilr
   x <- Rfast::rmvnorm(n, m, s)
+  
   if ( type == "alr" ) {
     y <- cbind( 1, exp(x) )
   } else {
@@ -17,5 +18,6 @@ rcompnorm <- function(n, m, s, type = "alr") {
     y <- x %*% helm(D + 1)
     y <- exp(y)
   }
+  
   y / Rfast::rowsums(y)
 }

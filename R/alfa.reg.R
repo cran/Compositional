@@ -11,26 +11,26 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
   ## x is the independent variables
   ## a is the value of alpha
   ## internal function for the alfa-regression
-  reg <- function(para, ya, x, ha, d, n, D) {
+  reg <- function(para, ya, x, ha, n, px, d, D) {
     be <- matrix(para, ncol = d)
     mu1 <- cbind( 1, exp(x %*% be) )
     zz <- mu1^a
     ta <- rowSums(zz)
     za <- zz / ta
     ma <- ( D / a * za - 1/a ) %*% ha
-    sa <- crossprod(ya - ma)
+    sa <- crossprod(ya - ma) / (n - px)
     det(sa, log = TRUE)
   }
-
-  D <- dim(y)[2]
-  d <- D - 1  ## dimensionality of the simplex
-  dm <- dim(x)
-  p <- dm[2]  ;    n <- dm[1]
 
   if ( is.null(yb) ) {
     ya <- Compositional::alfa(y, a)$aff
   } else  ya <- yb
   x <- model.matrix(ya ~., data.frame(x) )
+
+  D <- dim(y)[2]
+  d <- D - 1  ## dimensionality of the simplex
+  dm <- dim(x)
+  p <- dm[2]    ;    n <- dm[1]
 
   if ( a == 0 ) {
     mod <- Compositional::comp.reg(y, x[, -1], yb = yb)
@@ -43,12 +43,12 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
 
     ha <- t( helm(D) )
     ini <- as.vector( solve(crossprod(x), crossprod(x, ya) ) )
-    qa1 <- nlminb( ini, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(iter.max = 2000) )
-    qa1 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000) )
-    qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000) )
+    qa1 <- nlminb( ini, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(iter.max = 2000) )
+    qa1 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000) )
+    qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000) )
     while (qa1$value - qa2$value > 1e-05) {
       qa1 <- qa2
-      qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, d = d, n = n, D = D, control = list(maxit = 5000), hessian = TRUE )
+      qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000), hessian = TRUE )
     }
     be <- matrix(qa2$par, ncol = d)
     runtime <- proc.time() - runtime

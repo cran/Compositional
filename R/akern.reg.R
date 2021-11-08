@@ -12,7 +12,7 @@ akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, len
   di <-  -0.5 * Rfast::dista( xnew, x, square = TRUE)
 
   for ( i in 1:la ) {
-    if ( abs( a[i] ) < 1e-12 ) {
+    if ( abs( a[i] ) < 1e-9 ) {
       ua <- Compositional::alef(y, 0)$aff
 	  for ( j in 1:nh ) {
         w <- exp( di / h[j] )  
@@ -28,7 +28,7 @@ akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, len
         est[[ i ]][[ j ]] <- es / Rfast::rowsums(es)       
       }
 	}  
-  }
+  }  ##  end  for ( i in 1:la ) {
 
   est
 }

@@ -25,6 +25,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   va <- Rfast::Var(y - est) * (n - 1) / (n - p - 1)
   vab <- va * mahalanobis(W, numeric(p), xtx, inverted = TRUE)
   seb <- sqrt( vab )
+  
   if (B > 1) { ## bootstrap estimation of the standard errors
     be <- matrix(nrow = B, ncol = p )
     for ( i in 1:B) {
@@ -34,6 +35,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
     }
     seb <- Rfast::colVars(be, std = TRUE) ## bootstrap standard errors of betas
   }
+  
   ## seb contains the standard errors of the coefficients
   if ( is.null( colnames(x) ) ) {
     names(seb) <- paste("X", 1:p, sep = "")

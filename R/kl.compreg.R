@@ -47,6 +47,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
           bb <- t( coef(mod) )
         } else  betaboot[i, ] <- as.vector(bb)
       }  ##  end  for (i in 1:B) {
+	  
     } else {
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
@@ -79,7 +80,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
     namx <- colnames(X)
     namy <- colnames(y)
     if ( is.null( namy ) )  {
-      namy <- paste("Y", 1:d, sep = "")
+      namy <- paste("Y", 2:(d + 1), sep = "")
     } else namy <- namy[-1]
     nam <- NULL
     for (i in 1:p)  nam <- c(nam, paste(namy, ":", namx[i], sep = "") )

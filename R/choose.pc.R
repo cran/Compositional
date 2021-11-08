@@ -16,10 +16,12 @@ choose.pc <- function(x, plot = TRUE) {
     press[i] <- sum( (y - x)^2 )  ## calculation of the PRESS
   }
   runtime <- proc.time() - runtime
-  if( plot ) {
+  
+  if ( plot ) {
     plot(press, type = "b", pch = 9, xlab = "Number of components",
          ylab = "Reconstruction error", lwd = 2, cex.lab = 1.2, cex.axis = 1.2)
   }
+  
   val <- d^2 / (n - 1)
   cumprop <- cumsum(val) / sum(val)
   diffa <- diff( c(cumprop, 1) )

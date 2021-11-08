@@ -1,4 +1,4 @@
-diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
+diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
 
   dm <- dim(y)
   n <- dm[1]  ## sample size
@@ -24,7 +24,7 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   el <- NULL
-  oop <- options(warn = -1) 
+  oop <- options(warn = -1)
   on.exit( options(oop) )
   qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
   el1 <-  -qa$minimum
@@ -58,8 +58,9 @@ diri.reg <- function(y, x, plot = TRUE, xnew = NULL) {
     est <- mu / Rfast::rowsums(mu)  ## fitted values
     lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
     if ( plot ) {
-      plot(1:n, lev, main = "Influence values", xlab = "Observations",
-      ylab = expression( paste("Pearson ", chi^2, "statistic") ) )
+      plot( 1:n, lev, main = "Influence values", xlab = "Observations",
+            ylab = expression( paste("Pearson ", chi^2, "statistic") ),
+	        cex.lab = 1.2, cex.axis = 1.2 )
       lines(1:n, lev, type = "h")
       abline(h = qchisq(0.95, d), lty = 2, col = 2)
     }

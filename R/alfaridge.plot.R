@@ -14,5 +14,5 @@ alfaridge.plot <- function(y, x, a, lambda = seq(0, 5, by = 0.1) ){
   ## a is the value of a for the alpha-transformation
   ## lambda contains a grid of values of the ridge regularization parameter
   z <- alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
-  ridge.plot(y, z, lambda = lambda )
+  Compositional::ridge.plot(y, z, lambda = lambda )
 }

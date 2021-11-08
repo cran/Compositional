@@ -15,5 +15,6 @@ rfolded <- function(n, mu, su, a) {
     z <- exp(x1)
   } else  z <- (a * x1 + 1) ^ (1/a)
     z <- z / Rfast::rowsums(z)
+  
   z
 }

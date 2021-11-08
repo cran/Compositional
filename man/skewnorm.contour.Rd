@@ -9,21 +9,24 @@ Contour plot of the skew skew-normal distribution in \eqn{S^2}.
 }
 
 \usage{
-skewnorm.contour(x, type = "alr", n = 100, appear = TRUE)
+skewnorm.contour(x, type = "alr", n = 100, appear = TRUE, cont.line = FALSE)
 }
 
 \arguments{
-  \item{x}{
-  A matrix with the compositional data. It has to be a 3 column matrix.
+\item{x}{
+A matrix with the compositional data. It has to be a 3 column matrix.
 }
-  \item{type}{
-  This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
+\item{type}{
+This is either "alr" or "ilr", corresponding to the additive and the isometric log-ratio transformation respectively.
 }
-  \item{n}{
-  The number of grid points to consider over which the density is calculated.
+\item{n}{
+The number of grid points to consider over which the density is calculated.
 }
-  \item{appear}{
-  Should the available data appear on the ternary plot (TRUE) or not (FALSE)?
+\item{appear}{
+Should the available data appear on the ternary plot (TRUE) or not (FALSE)?
+}
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
 }
 }
 
@@ -43,9 +46,10 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{

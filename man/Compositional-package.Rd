@@ -13,15 +13,15 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 5.0 \cr
-Date: \tab 2021-10-06\cr
+Version: \tab 5.2 \cr
+Date: \tab 2021-11-08\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Michail Tsagris \email{mtsagris@uoc.gr}, Giorgos Athineou <gioathineou@gmail.com> and
-Abdulaziz Alenazi <a.alenazi@nbu.edu.sa>.
+Michail Tsagris \email{mtsagris@uoc.gr}, Giorgos Athineou <gioathineou@gmail.com>,
+Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> and Christos Adam \email{pada4m4@gmail.com}.
 }
 
 \section{Maintainers }{
@@ -44,7 +44,9 @@ Alabama suggested that I have a default value in the "mkde"" function. Van Thang
 spotted a bug in the "js.compreg" function and is greatly acknowledged for that. Claudia Wehrhahn Cortes spotted
 a bug in the "diri.reg"" function and she is greatly acknowledged for that. Philipp Kynast from Bruker Daltonik
 GmbH found a mistake in the function "mkde" which is now fixed. Jasmine Heyse from the university of Ghent spotted
-a bug in the function "kl.compreg" which is now fixed.
+a bug in the function "kl.compreg" which is now fixed. Magne Neby suggested to add names in the covariance matrix
+of the divergence based regression models. John Barry from the Centre for Environment, Fisheries, and Aquaculture Science
+(UK) suggested that I should add more explanation in the "diri.est" function. I hope it is clearer now.
 }
 
 \keyword{ Compositional data }

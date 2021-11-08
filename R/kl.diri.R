@@ -12,9 +12,11 @@ kl.diri <- function(a, b, type = "KL") {
   ## Dir(b) is calculated
   a0 <- sum(a)
   b0 <- sum(b)
+  
   if ( type == "KL" ) {
     f <- sum( (a - b) * ( digamma(a) - digamma(a0) ) ) + sum( lgamma(b) - lgamma(a) ) + lgamma(a0) - lgamma(b0)
   } else  f <- lgamma( 0.5 * sum(a + b) ) + 0.5 * sum( lgamma(a) + lgamma(b) ) - sum( lgamma( 0.5 * (a + b) ) ) -
           0.5 * ( lgamma(a0) + lgamma( b0) )
+  
   f
 }

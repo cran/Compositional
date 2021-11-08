@@ -9,7 +9,7 @@
 ################################
 diri.nr <- function(x, type = 1, tol = 1e-07) {
 
-  if (type == 1) {
+  if ( type == 1 ) {
     runtime <- proc.time()
     n <- dim(x)[1]  ## the sample size
     p <- dim(x)[2]  ## dimensionality

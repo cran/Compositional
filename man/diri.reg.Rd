@@ -10,7 +10,7 @@ Dirichlet regression.
 }
 
 \usage{
-diri.reg(y, x, plot = TRUE, xnew = NULL)
+diri.reg(y, x, plot = FALSE, xnew = NULL)
 
 diri.reg2(y, x, xnew = NULL)
 }

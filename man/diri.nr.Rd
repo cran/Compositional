@@ -1,11 +1,11 @@
-\name{Fitting a Dirichlet distribution via Newton-Rapshon}
+\name{MLE of the Dirichlet distribution via Newton-Rapshon}
 \alias{diri.nr}
 \title{
-Fitting a Dirichlet distribution via Newton-Rapshon
+MLE of the Dirichlet distribution via Newton-Rapshon
 }
 
 \description{
-Fitting a Dirichlet distribution via Newton-Rapshon.
+MLE of the Dirichlet distribution via Newton-Rapshon.
 }
 
 \usage{

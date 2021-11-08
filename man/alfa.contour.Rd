@@ -9,7 +9,7 @@ Contour plot of the \eqn{\alpha} multivariate normal in \eqn{S^2}.
 }
 
 \usage{
-alfa.contour(m, s, a, n = 100, x = NULL)
+alfa.contour(m, s, a, n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
@@ -28,6 +28,9 @@ The number of grid points to consider over which the density is calculated.
 \item{x}{
 This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
+}
 }
 
 \details{
@@ -45,9 +48,9 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{
@@ -63,8 +66,9 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 x <- as.matrix(iris[, 1:3])
 x <- x / rowSums(x)
 a <- a.est(x)$best
-mod <- alpha.mle(x, a)
-fold.contour(mod$mu, mod$su, mod$p, a)
+m <- colMeans(alfa(x, a)$aff)
+s <- cov(alfa(x, a)$aff)
+alfa.contour(m, s, a)
 }
 
 \keyword{ contour plot }

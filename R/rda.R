@@ -32,6 +32,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   sk <- vector("list", nc)
   mesos <- rowsum(x, ina) / ng
   sa <- 0
+  
   for (i in 1:nc) {
     xi <- x[ina == i, ]
     m <- sqrt(ng[i]) * mesos[i, ]
@@ -39,6 +40,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
     sa <- sa + sk[[ i ]]
     sk[[ i ]] <- sk[[ i ]] / (ng[i] - 1)   
   }
+  
   Sp <- sa/(n - nc)
   sp <- diag( sum( diag( Sp ) ) / D, D ) ## spherical covariance matrix
   Sa <- gam * Sp + (1 - gam) * sp  ## regularised covariance matrix

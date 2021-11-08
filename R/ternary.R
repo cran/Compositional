@@ -4,14 +4,14 @@
 #### mtsagris@yahoo.gr
 ################################
 
-ternary <- function(x, means = TRUE, pca = FALSE, colour = NULL) {
+ternary <- function(x, dg = FALSE, hg = FALSE, means = TRUE, pca = FALSE, colour = NULL) {
   ## x contains the compositional data
   ## if means==TRUE it will plot the arithmetic and the
   ## closed geometric mean
   ## if pca==TRUE it will plot the first principal component
   if ( !is.null( colnames(x) ) ) {
     nam <- colnames(x)
-  } else nam <- paste("X", 1:3, sep = " ")
+  } else nam <- paste("X", 1:3, sep = "")
 
   n <- dim(x)[1]
   ina <- numeric(n) + 20
@@ -58,6 +58,52 @@ ternary <- function(x, means = TRUE, pca = FALSE, colour = NULL) {
     wa <- wa1 %*% proj
     lines(wa, lwd = 2, lty = 2)
   }
+
+  if ( dg ) {
+    a1 <- matrix(0, nrow = 11, ncol = 3)
+    a1[, 2] <- seq(0, 1, by = 0.1)
+    a1[, 3] <- seq(1, 0, by = -0.1)
+    ## right
+    b1 <- a1 %*% proj
+    ## left
+    a2 <- cbind(a1[, 2], a1[, 1], a1[, 3])
+    b2 <- a2 %*% proj
+    ## horizontal
+    a3 <- cbind(a1[, 2], a1[, 3], a1[, 1])
+    b3 <- a3 %*% proj
+    
+    for ( i in 2:dim(b1)[1] ) {
+      segments(x0 = b1[i, 1], y0 = b1[i, 2], x1 = b3[12 - i, 1], y1 = b3[i, 2], col = "lightgrey", lty = 2)
+    }
+    for (i in 1:(dim(b1)[1] - 1 ) ) {
+      segments(x0 = b2[i, 1], y0 = b2[i, 2], x1 = b3[i, 1], y1 = b3[12 - i, 2], col = "lightgrey", lty = 2)
+    }
+    lines(b[, 1], b[, 2])
+    for ( i in 2:( dim(b1)[1] - 1 ) )  {
+      text(b1[i, 1] + 0.025, b1[i, 2] + 0.025, a1[i, 3], cex = 1)
+      text(b2[i, 1] - 0.025, b2[i, 2] + 0.02, a1[i, 2], cex = 1)
+      text(b3[i, 1], b3[i, 2] - 0.02, a1[i, 3], cex = 1)
+    }
+  } ## end if dg
+
+  if ( hg ) {
+    a1 <- matrix(0, nrow = 11, ncol = 3)
+    a1[, 2] <- seq(0, 1, by = 0.1)
+    a1[, 3] <- seq(1, 0, by = -0.1)
+    ## right
+    b1 <- a1 %*% proj
+    ## left
+    a2 <- cbind(a1[, 2], a1[, 1], a1[, 3])
+    b2 <- a2 %*% proj
+    for ( i in 2:c( dim(b1)[1] - 1) ) {
+      segments(x0 = b1[i, 1], y0 = b1[i, 2], x1 = b2[i, 1], y1 = b2[i, 2], col = "lightgrey", lty = 2)
+    }
+    lines(b[, 1], b[, 2])
+    for ( i in 2:( dim(b1)[1] - 1 ) )  {
+      text(b1[i, 1] + 0.025, b1[i, 2] + 0.025, a1[i, 3], cex = 1)
+      text(b2[i, 1] - 0.025, b1[i, 2] + 0.02, a1[i, 2], cex = 1)
+    }
+  } ## end if hg
 
   mu <- rbind(m1, m2)
   rownames(mu) <- c("closed geometric", "arithmetic mean")

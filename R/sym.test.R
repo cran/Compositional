@@ -17,9 +17,11 @@ sym.test <- function(x) {
   h0 <- as.numeric(t0$objective)
   test <- 2 * (h1 - h0)
   pvalue <- pchisq(test, D - 1, lower.tail = FALSE)
+  
   if ( is.null(colnames(x)) ) {
     names(a1) <- paste("X", 1:D, sep = "")
   } else  names(a1) <- colnames(x)
+  
   res <- c(h1, h0, test, pvalue, D - 1)
   names(res) <- c('loglik1', 'loglik0', 'test', 'pvalue', 'df')
   list(est.par = a1, one.par = a0, res = res )

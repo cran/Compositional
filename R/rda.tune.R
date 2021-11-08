@@ -95,7 +95,8 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
           per[k1, k2, vim] <- mean( g == id )
         }
       }
-    }
+	  
+    }  ##  end  for (vim in 1:nfolds) {
     runtime <- proc.time() - runtime
   }
 

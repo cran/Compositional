@@ -9,7 +9,7 @@ Contour plot of the normal distribution in \eqn{S^2}.
 }
 
 \usage{
-norm.contour(m, s, type = "alr", n = 100, x = NULL)
+norm.contour(m, s, type = "alr", n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
@@ -20,7 +20,8 @@ The mean vector.
 The covariance matrix.
 }
 \item{type}{
-The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
+The type of trasformation used, either the additive log-ratio ("alr"),
+the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
 }
 \item{n}{
 The number of grid points to consider over which the density is calculated.
@@ -28,26 +29,28 @@ The number of grid points to consider over which the density is calculated.
 \item{x}{
 This is either NULL (no data) or contains a 3 column matrix with compositional data.
 }
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
+}
 }
 
 \details{
-The alr or the ilr transformation is applied to the compositional data at first. Then for a grid of points within the 2-dimensional
-simplex the bivariate normal density is calculated and the contours are plotted along with the points.
+The alr or the ilr transformation is applied to the compositional data at first. Then
+for a grid  of points within the 2-dimensional simplex the bivariate normal density is
+calculated and the contours are plotted along with the points.
 }
 
 \value{
 A ternary diagram with the points (if appear = TRUE) and the bivariate normal contour lines.
 }
 
-\references{
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
-}
-
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{pada4m4@gmail.com}.
 }
+
 
 %\note{
 %%  ~~further notes~~

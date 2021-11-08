@@ -20,7 +20,9 @@ A matrix with the compositional data.
 A matrix with the compositional data.
 }
 \item{a}{
-The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied. If more than one values are supplied the distance or canonical correlation are computed for all values.
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. 
+If \eqn{\alpha=0} the isometric log-ratio transformation is applied. If more than one values are supplied the distance or 
+canonical correlation are computed for all values.
 }
 \item{type}{
 the type of correlation to compute, the distance correlation ("edist"), the canonical correlation ("cancor") or "both".
@@ -28,7 +30,9 @@ the type of correlation to compute, the distance correlation ("edist"), the cano
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied toe ach composition and then the distance correlation or the canonical correlation is computed. If one value of \eqn{\alpha} is supplied the type="cancor" will return all eigenvalues. If more than one values of \eqn{\alpha} are provided then the first eigenvalue only will be returned.
+The \eqn{\alpha}-transformation is applied to each composition and then the distance correlation or the canonical correlation is computed. 
+If one value of \eqn{\alpha} is supplied the type="cancor" will return all eigenvalues. If more than one values of \eqn{\alpha} are provided 
+then the first eigenvalue only will be returned.
 }
 
 \value{
@@ -42,7 +46,7 @@ A vector or a matrix depending on the length of the values of \eqn{\alpha} and t
 %}
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

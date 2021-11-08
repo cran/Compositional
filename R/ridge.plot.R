@@ -23,6 +23,6 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
 
   plot(lambda, be[1,], type = "l", col = 1, lty = 1,
        ylim = c( min(be), max(be) ), xlab = expression(paste(lambda, " values") ),
-       ylab = "Beta coefficients")
+       ylab = "Beta coefficients", cex.lab = 1.2, cex.axis = 1.2)
   for (i in 2:p)  lines(lambda, be[i, ], col = i, lty = i)
 }

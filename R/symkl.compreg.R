@@ -28,10 +28,10 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   namx <- colnames(x)
   namy <- colnames(y)
   if ( is.null( namy ) )  {
-    namy <- paste("Y", 1:d, sep = "")
+    namy <- paste("Y", 2:(d + 1), sep = "")
   } else namy <- namy[-1]
 
-  ## the next lines minimize the kl.compreg function and obtain the estimated betas
+  ## the next lines minimize the symkl function and obtain the estimated betas
   runtime <- proc.time()
   ini <- rnorm( d * dim(x)[2] )
   oop <- options(warn = -1)
@@ -79,6 +79,7 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       covb <- cov(betaboot)
       runtime <- proc.time() - runtime
     }  ##  end if (nc < 1)
+	
   nam <- NULL
   for (i in 1:p)  nam <- c(nam, paste(namy, ":", namx[i], sep = "") )
   colnames(covb) <- rownames(covb) <- nam

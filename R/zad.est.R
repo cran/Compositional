@@ -1,11 +1,11 @@
-zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
+zad.est <- function(y, tol = 1e-05) {
   ## y is the compositional data
   ## x is the independent variable(s)
   dm <- dim(y)
   D <- dm[2]   ;   d <- D - 1
   ## d is the dimensionality of the simplex
   n <- dm[1] ## sample size
-  x <- model.matrix(~., as.data.frame(x) )
+  x <- matrix(1, nrow = n, ncol = 1)
   runtime <- proc.time()
   ## next we separate the compositional vectors, those which contain
   ## zeros and those without. The same separation is performed for the
@@ -40,40 +40,21 @@ zadr <- function(y, x, xnew = NULL, tol = 1e-05) {
   el1 <- -qa$minimum
   qa <- nlm( mixreg, qa$estimate, z = z )
   el2 <-  - qa$minimum
-  
+
   while ( el2 - el1 > tol ) {  ## the tolerance value can of course change
     el1 <- el2
     qa <- nlm( mixreg, qa$estimate, z = z )
     el2 <-  -qa$minimum
   }
   qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE, control = list(maxiters = 10000) )
-  sigma <- try( solve( qa$hessian ), silent = TRUE )
-  
-  if ( !identical( class(sigma), "try-error") ) {
-    seb <- sqrt( diag(sigma) )
-    seb <- matrix(seb[-1], ncol = d)
-    colnames(seb) <- colnames( y[, -1] )
-    rownames(seb) <- colnames(x)
-  } else {
-    sigma <- NULL
-    seb <- NULL
-  }
-  
+
   phi <- exp( qa$par[1] )  ## final phi value
-  be <- matrix( qa$par[-1], ncol = d ) ## final beta values
-  colnames(be) <- colnames( y[, -1] )
-  rownames(be) <- colnames(x)
-  est <- NULL
-  
-  if ( !is.null(xnew) ) {
-    xnew <- model.matrix(~., as.data.frame(xnew) )
-    ma <- cbind(1, exp( xnew %*% be ) )
-    est <- ma / Rfast::rowsums(ma)  ## fitted values
-    colnames(est) <- colnames(y)
-  }
+  mu <- c(1, exp(qa$par[-1]) ) ## final beta values
+  mu <- mu / sum(mu)
+
   runtime <- proc.time() - runtime
-  
-  list(runtime = runtime, loglik = -qa$value + con, phi = phi, be = be, seb = seb, sigma = sigma, est = est )
+
+  list(loglik = -qa$value + con, phi = phi, mu = mu, runtime = runtime)
 }
 
 

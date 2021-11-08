@@ -6,5 +6,6 @@ perturbation <- function(x, y, oper = "+") {
     if (oper == "+")  a <- x * y
     if (oper == "-")  a <- x / y
   }
+  
   a / Rfast::rowsums(a)
 }

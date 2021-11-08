@@ -6,7 +6,9 @@ frechet2 <- function(x, di, a, k) {
   denom <- 1:max(k)
   m1 <- matrix(nrow = n, ncol = d * length(k) )
   di <- t(di)
-  if ( abs(a) < 1e-10 ) {
+  
+  if ( abs(a) < 1e-9 ) {
+  
     for ( i in 1:n ) {
       lx <- Rfast::colCumSums( Rfast::Log( x[ di[, i], ] ) ) / denom
       esk <- exp( lx )

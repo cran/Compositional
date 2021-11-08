@@ -70,16 +70,16 @@ The fitted or the predicted values (if xnew is not NULL).
 }
 
 \references{
-Tsagris M. and Stewart C. (2018). A Dirichlet Regression Model for Compositional Data with Zeros.
-Accepted at the Lobachevskii Journal of Mathematics.
+Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros.
+Lobachevskii Journal of Mathematics,39(3): 398--412.
 
 Preprint available from https://arxiv.org/pdf/1410.5011.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{
@@ -87,7 +87,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 %}
 
 \seealso{
-\code{\link{diri.reg}, \link{kl.compreg}, \link{ols.compreg}, \link{alfa.reg}
+\code{\link{zad.est}, \link{diri.reg}, \link{kl.compreg}, \link{ols.compreg}, \link{alfa.reg}
 }
 }
 

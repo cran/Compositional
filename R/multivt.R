@@ -32,8 +32,8 @@ multivt <- function(y, plot = FALSE) {
   if ( plot ) {
     lik <- deg <- seq(max(1, dof - 20), dof + 20, by = 0.1)
     for ( i in 1:length(deg) )  lik[i] <- mvt(y, deg[i])
-    plot(deg, lik, type = "l", xlab = "Degrees of freedom",
-    ylab = "Log likelihood")
+    plot( deg, lik, type = "l", xlab = "Degrees of freedom",
+    ylab = "Log likelihood", cex.lab = 1.2, cex.axis = 1.2 )
     b <- max(lik) - 1.92
     abline(h = b, col = 2)
     a1 <- min(deg[lik >= b])

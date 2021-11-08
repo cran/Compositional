@@ -37,7 +37,7 @@ Compositional Data Analysis With Worked Examples in R (pages 49 and 51). Springe
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

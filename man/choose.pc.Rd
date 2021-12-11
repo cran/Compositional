@@ -9,14 +9,14 @@ Choose the number of principal components via reconstruction error.
 }
 
 \usage{
-choose.pc(x, plot = TRUE)
+choose.pc(x, graph = TRUE)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with more rows than columns.
 }
-\item{plot}{
+\item{graph}{
 Should the plot of the PRESS values appear? Default value is TRUE.
 }
 }
@@ -49,7 +49,7 @@ Jolliffe I.T. (2002). Principal Component Analysis.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
@@ -66,6 +66,6 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 \examples{
 library(MASS)
 x <- as.matrix(fgl[, 2:9])
-a <- choose.pc(x, plot = FALSE)
+a <- choose.pc(x, graph = FALSE)
 }
 

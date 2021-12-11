@@ -14,15 +14,15 @@ Tuning of the k-NN algorithm for compositional data with and without using the p
 \usage{
 compknn.tune(x, ina, nfolds = 10, k = 2:5, type= "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "ESOV", folds = NULL,
-stratified = FALSE, seed = FALSE, graph = FALSE)
+stratified = TRUE, seed = FALSE, graph = FALSE)
 
 alfaknn.tune(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "euclidean", rann = FALSE, folds = NULL,
-stratified = FALSE, seed = FALSE, graph = FALSE)
+stratified = TRUE, seed = FALSE, graph = FALSE)
 
 aitknn.tune(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
 a = seq(-1, 1, by = 0.1), apostasi = "euclidean", rann = FALSE, folds = NULL,
-stratified = FALSE, seed = FALSE, graph = FALSE)
+stratified = TRUE, seed = FALSE, graph = FALSE)
 }
 
 \arguments{
@@ -77,7 +77,7 @@ harmonic mean of the distances. The new point is allocated to the class with the
 
 \value{
 A list including:
-\item{ela}{
+\item{per}{
 A matrix or a vector (depending on the distance chosen) with the averaged over all folds rates of correct classification for all hyper-parameters (\eqn{\alpha} and k).
 }
 \item{performance}{
@@ -95,20 +95,20 @@ The run time of the cross-validation procedure.
 }
 
 \references{
-Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present. 
+Tsagris, Michail (2014). The k-NN algorithm for compositional data: a revised approach with and without zero values present.
 Journal of Data Science, 12(3): 519-534.
 https://arxiv.org/pdf/1506.05216.pdf
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation. 
+Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation.
 Journal of classification 33(2): 243-261.
 https://arxiv.org/pdf/1506.04976v2.pdf
 
-Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros. 
+Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros.
 Journal of Applied Statistics 44(7): 1137-1152.
 
-Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for the spatial analysis of Compositional Data. 
+Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for the spatial analysis of Compositional Data.
 https://arxiv.org/abs/2110.07967
 
 Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.
@@ -122,7 +122,8 @@ Mathematics 55, 639-653.
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+and Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{

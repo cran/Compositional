@@ -23,7 +23,10 @@ seed = FALSE, graph = TRUE)
 
 \arguments{
 \item{y}{
-A real valued vector for "pcr.tune". A real valued vector for the "glmpcr.tune" with either two numbers, 0 and 1 for example, for the binomial regression or with positive discrete numbers for the poisson. For the "multinompcr.tune" a vector or a factor with more than just two values. This is a multinomial regression.
+A real valued vector for "pcr.tune". A real valued vector for the "glmpcr.tune" with 
+either two numbers, 0 and 1 for example, for the binomial regression or with positive 
+discrete numbers for the poisson. For the "multinompcr.tune" a vector or a factor with 
+more than just two values. This is a multinomial regression.
 }
 \item{x}{
 A matrix with the predictor variables, they have to be continuous.
@@ -38,7 +41,8 @@ The maximum number of principal components to check.
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{ncores}{
-The number of cores to use. If more than 1, parallel computing will take place. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
+The number of cores to use. If more than 1, parallel computing will take place. It is advisable 
+to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 \item{seed}{
 If seed is TRUE the results will always be the same.
@@ -49,7 +53,8 @@ If graph is TRUE a plot of the performance for each fold along the values of \eq
 }
 
 \details{
-Cross validation is performed to select the optimal number of principal components in the GLMs or the multinomial regression. This is used
+Cross validation is performed to select the optimal number of principal components in the GLMs 
+or the multinomial regression. This is used
 by \code{\link{alfapcr.tune}}.
 }
 
@@ -60,13 +65,15 @@ A list including:
 A matrix with the mean deviance of prediction or mean accuracy for every fold.
 }
 \item{mpd}{
-A vector with the mean deviance of prediction or mean accuracy, each value corresponds to a number of principal components.
+A vector with the mean deviance of prediction or mean accuracy, each value corresponds to a 
+number of principal components.
 }
 \item{k}{
 The number of principal components which minimizes the deviance or maximises the accuracy.
 }
 \item{performance}{
-The optimal performance, MSE for the linea regression, minimum deviance for the GLMs and maximum accuracy for the multinomial regression.
+The optimal performance, MSE for the linea regression, minimum deviance for the GLMs and maximum 
+accuracy for the multinomial regression.
 }
 \item{runtime}{
 The time required by the cross-validation procedure.
@@ -74,13 +81,14 @@ The time required by the cross-validation procedure.
 }
 
 \references{
-Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating logistic regression with high-dimensional multicollinear data. Computational Statistics & Data Analysis 50(8): 1905-1924.
+Aguilera A.M., Escabias M. and Valderrama M.J. (2006). Using principal components for estimating 
+logistic regression with high-dimensional multicollinear data. Computational Statistics & Data Analysis 50(8): 1905-1924.
 
 Jolliffe I.T. (2002). Principal Component Analysis.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

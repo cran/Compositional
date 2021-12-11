@@ -87,10 +87,11 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
   }
 
   if ( graph ) {
-    plot( a, kula[1, ], type = 'l', ylim = c( min(kula), max(kula) ), xlab = expression(alpha),
-	      ylab = 'Twice the Kullback Leibler divergence', cex.lab = 1.2, cex.axis = 1.2 )
-    for (i in 2:nfolds)  lines(a, kula[i, ])
-    lines(a, kl, col = 2, lty = 2, lwd = 2)
+    plot( a, kl, type = 'b', ylim = c( min(kl), max(kl) ), xlab = expression(alpha),
+	      ylab = '2 * Kullback Leibler divergence', cex.lab = 1.2, cex.axis = 1.2, pch = 16,
+	      col = "green", lwd = 2 )
+    abline(v = a, col = "lightgrey", lty = 2)
+    abline(h = seq(min(kl), max(kl), length = 10), col = "lightgrey", lty = 2)
   }
 
   list(runtime = apa, kula = kula, kl = kl, opt = opt, value = per)

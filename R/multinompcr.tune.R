@@ -26,6 +26,7 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
 
   if (ncores <= 1) {
     runtime <- proc.time()
+    msp <- matrix( nrow = nfolds, ncol = maxk )
     for (vim in 1:nfolds) {
       ytest <- y[ folds[[ vim ]] ]   ## test set dependent vars
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
@@ -33,7 +34,6 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
       xtest <- x[ folds[[ vim ]], , drop = FALSE ]  ## test set independent vars
       vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
-      msp <- matrix( nrow = nfolds, ncol = maxk )
 
       for ( j in 1:maxk) {
         mod <-try( Rfast::multinom.reg(ytrain, z[, 1:j]), silent = TRUE )
@@ -47,8 +47,8 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
           est <- Rfast::rowMaxs(est)
         }
         msp[vim, j] <- mean( est == ytest )
-      }
-    }
+      }  ##  end   for ( j in 1:maxk)
+    }  ##  end  for (vim in 1:nfolds)
     runtime <- proc.time() - runtime
 
   } else {
@@ -58,7 +58,7 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
     er <- numeric(maxk)
     if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
                                                              stratified = FALSE, seed = seed)
-    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
+      msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
       ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
       ytrain <-  y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
@@ -87,8 +87,10 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
 
   mpd <- Rfast::colmeans(msp)
   if ( graph )  plot(1:maxk, mpd, xlab = "Number of principal components",
-                     ylab = "Mean predicted deviance", type = "b", 
-					 cex.lab = 1.2, cex.axis = 1.2)
+                     ylab = "Mean predicted deviance", type = "b", pch = 16,
+					           cex.lab = 1.2, cex.axis = 1.2, col = "green")
+  abline(v = 1:maxk, col = "lightgrey", lty = 2)
+  abline(h = seq(min(mpd), max(mpd), length = 10), col = "lightgrey", lty = 2)
 
   names(mpd) <- paste("PC", 1:maxk, sep = " ")
   performance <- max(mpd)

@@ -9,7 +9,7 @@
 #### mtsagris@yahoo.gr
 ################################
 alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
-                         apostasi = "euclidean", rann = FALSE, folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
+                         apostasi = "euclidean", rann = FALSE, folds = NULL, stratified = TRUE, seed = FALSE, graph = FALSE) {
   if ( min(x) == 0 )  a <- a[a > 0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina) ## makes sure ina is numeric
@@ -77,7 +77,7 @@ alfaknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
     performance <- opt
     names(performance) <- "rate"
-    res <- list( ela = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1,
+    res <- list( per = ela, performance = performance, best_a = a[ confa[1] ], best_k = confa[2] + 1,
                  runtime = runtime )
   }  ## end if (type == "S")
   res

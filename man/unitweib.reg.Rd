@@ -45,7 +45,7 @@ Journal of Applied Statistics, 47(6): 954--974.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

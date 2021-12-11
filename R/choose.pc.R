@@ -1,4 +1,4 @@
-choose.pc <- function(x, plot = TRUE) {
+choose.pc <- function(x, graph = TRUE) {
   ## x contains the data
   n <- dim(x)[1]
   runtime <- proc.time()
@@ -16,12 +16,14 @@ choose.pc <- function(x, plot = TRUE) {
     press[i] <- sum( (y - x)^2 )  ## calculation of the PRESS
   }
   runtime <- proc.time() - runtime
-  
-  if ( plot ) {
-    plot(press, type = "b", pch = 9, xlab = "Number of components",
+
+  if ( graph ) {
+    plot(press, type = "b", pch = 9, xlab = "Number of components", col = "green",
          ylab = "Reconstruction error", lwd = 2, cex.lab = 1.2, cex.axis = 1.2)
+    abline(v = 1:p, col = "lightgrey", lty = 2)
+    abline(h = seq(min(press), max(press), length = 10), col = "lightgrey", lty = 2)
   }
-  
+
   val <- d^2 / (n - 1)
   cumprop <- cumsum(val) / sum(val)
   diffa <- diff( c(cumprop, 1) )

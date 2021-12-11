@@ -15,7 +15,9 @@ folds = NULL, seed = FALSE, graph = FALSE)
 
 \arguments{
 \item{y}{
-A numerical matrix with compositional data. Zero values are not allowed as the additive log-ratio transformation (\code{\link{alr}}) is applied to the compositional response prior to implementing the LASSO algortihm.
+A numerical matrix with compositional data. Zero values are not allowed as the additive 
+log-ratio transformation (\code{\link{alr}}) is applied to the compositional response prior to implementing 
+the LASSO algortihm.
 }
 \item{x}{
 A matrix with the predictor variables.

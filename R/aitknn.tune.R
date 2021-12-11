@@ -1,6 +1,6 @@
 aitknn.tune <- function (x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
     a = seq(-1, 1, by = 0.1), apostasi = "euclidean", rann = FALSE,
-    folds = NULL, stratified = FALSE, seed = FALSE, graph = FALSE) {
+    folds = NULL, stratified = TRUE, seed = FALSE, graph = FALSE) {
 
     if (min(x) == 0) a <- a[a > 0]
     n <- dim(x)[1]
@@ -9,7 +9,7 @@ aitknn.tune <- function (x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
         folds <- Compositional::makefolds(ina, nfolds = nfolds,
             stratified = stratified, seed = seed)
     nfolds <- length(folds)
-	
+
     if ( type == "S" ) {
         runtime <- proc.time()
         if (!rann) {
@@ -60,8 +60,8 @@ aitknn.tune <- function (x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
                 per[vim, , i] <- Rfast::colmeans(be == 0)
             }
         }
-		
-        ela <- t(colMeans(per))
+
+        ela <- t( colMeans(per) )
         colnames(ela) <- paste("k=", k, sep = "")
         rownames(ela) <- paste("alpha=", a, sep = "")
         runtime <- proc.time() - runtime
@@ -72,7 +72,7 @@ aitknn.tune <- function (x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
         confa <- as.vector( which(ela == opt, arr.ind = TRUE)[1, ] )
         performance <- opt
         names(performance) <- "rate"
-        res <- list(ela = ela, performance = performance, best_a = a[confa[1]],
+        res <- list(per = ela, performance = performance, best_a = a[confa[1]],
                     best_k = confa[2] + 1, runtime = runtime)
     }
     res

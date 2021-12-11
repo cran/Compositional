@@ -99,9 +99,10 @@ Hastie, Tibshirani and Buja (1994). Flexible Disriminant Analysis by Optimal Sco
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and Michail Tsagris \email{mtsagris@uoc.gr}
+R implementation and documentation: Giorgos Athineou <gioathineou@gmail.com> and 
+Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

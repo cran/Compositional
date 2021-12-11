@@ -50,7 +50,7 @@ Osterreicher, F. and Vajda, I. (2003). A new class of metric divergences on prob
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

@@ -20,10 +20,12 @@ A matrix with the compositional data (dependent variable). Zero values are allow
 The predictor variable(s), they have to be continuous.
 }
 \item{B}{
-If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
+If B is greater than 1 bootstrap estimates of the standard error are returned. 
+If B=1, no standard errors are returned.
 }
 \item{ncores}{
-If ncores is 2 or more parallel computing is performed. This is to be used for the case of bootstrap. If B=1, this is not taken into consideration.
+If ncores is 2 or more parallel computing is performed. This is to be used for the 
+case of bootstrap. If B=1, this is not taken into consideration.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -31,8 +33,9 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-The ordinary least squares between the observed and the fitted compositional data is adopted as the objective function.
-This involves numerical optimization since the relationship is non linear. There is no log-likelihood.
+The ordinary least squares between the observed and the fitted compositional data 
+is adopted as the objective function. This involves numerical optimization since 
+the relationship is non linear. There is no log-likelihood.
 }
 
 \value{

@@ -41,10 +41,12 @@ alfafda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, folds = 
   performance <- Rfast::rowmeans(per)
   names(performance) <- paste("alfa=", a, sep = "")
 
-  if ( graph ) plot( a, performance, type = "l", ylim = c( min(performance), max(performance) ),
-                    ylab = "Estimated performance", xlab = expression( paste(alpha, " values") ), 
-                    cex.lab = 1.2, cex.axis = 1.2 )
+  if ( graph ) plot( a, performance, type = "b", ylim = c( min(performance), max(performance) ),
+                    ylab = "Estimated performance", xlab = expression( paste(alpha, " values") ),
+                    cex.lab = 1.2, cex.axis = 1.2, pch = 16, col = "green" )
+  abline(v = a, col = "lightgrey", lty = 2)
+  abline(h = seq(min(performance), max(performance), length = 10), col = "lightgrey", lty = 2)
 
-  list( per = per, performance = performance, best_a = a[ which.max(per) ], runtime = runtime )
+  list( per = per, performance = performance, best_a = a[ which.max(performance) ], runtime = runtime )
 }
 

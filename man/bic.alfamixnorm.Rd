@@ -17,7 +17,7 @@ bic.alfamixnorm(x, G, a = seq(-1, 1, by = 0.1), veo = FALSE, graph = TRUE)
 A matrix with compositional data.
 }
 \item{G}{
-A numeric vector with the number of components, clusters, to be considered.
+A numeric vector with the number of components, clusters, to be considered, e.g. 1:3.
 }
 \item{a}{
 A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present
@@ -38,8 +38,22 @@ distributions are fitted. BIC is used to decide on the optimal model and number 
 }
 
 \value{
-A plot with the BIC of the best model for each number of components versus the number of components and a list with the
-results of the Gaussian mixture model for each value of \eqn{\alpha}.
+A list including:
+
+\item{abic}{
+A list that contains the matrices of all BIC values for all values of \eqn{\alpha}.
+}
+\item{optalpha}{
+The value of \eqn{\alpha} that leads to the highest BIC.
+}
+\item{optG}{
+The number of components with the highest BIC.
+}
+\item{optmodel}{
+The type of model corresponding to the highest BIC.
+}
+
+If graph is set equal to TRUE a plot with the BIC of the best model for each number of components versus the number of components and a list with the results of the Gaussian mixture model for each value of \eqn{\alpha}.
 }
 
 \references{
@@ -57,7 +71,7 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

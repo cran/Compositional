@@ -14,7 +14,7 @@ rmixcomp(n, prob, mu, sigma, type = "alr")
 
 \arguments{
 \item{n}{
-The sample size
+The sample size.
 }
 \item{prob}{
 A vector with mixing  probabilities. Its length is equal to the number of clusters.
@@ -26,7 +26,8 @@ A matrix where each row corresponds to the mean vector of each cluster.
 An array consisting of the covariance matrix of each cluster.
 }
 \item{type}{
-Should the additive ("type=alr") or the isometric (type="ilr") log-ration be used? The default value is for the additive log-ratio transformation.
+Should the additive ("type=alr") or the isometric (type="ilr") log-ration be used? 
+The default value is for the additive log-ratio transformation.
 }
 }
 
@@ -45,7 +46,8 @@ A matrix containing the simulated compositional data. The number of dimensions w
 }
 
 \references{
-Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification.
+Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture 
+Models for Clustering and Classification.
 }
 
 \author{

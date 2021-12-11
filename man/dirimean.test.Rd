@@ -17,12 +17,14 @@ dirimean.test(x, a)
 A matrix with the compositional data. No zero values are allowed.
 }
 \item{a}{
-A compositional mean vector. The concentration parameter is estimated at first. If the elements do not sum to 1, it is assumed that the Dirichlet parameters are supplied.
+A compositional mean vector. The concentration parameter is estimated at first. 
+If the elements do not sum to 1, it is assumed that the Dirichlet parameters are supplied.
 }
 }
 
 \details{
-Log-likelihood ratio test is performed for the hypothesis the given vector of parameters "a" describes the compositional data well.
+Log-likelihood ratio test is performed for the hypothesis the given vector of parameters 
+"a" describes the compositional data well.
 }
 
 \value{
@@ -39,13 +41,15 @@ The value of the test statistic and its relevant p-value.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: 
+Theory, methods and applications. John Wiley & Sons.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
+Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{

@@ -1,7 +1,7 @@
 \name{Cross validation for the ridge regression with compositional data as predictor using the alpha-transformation}
 \alias{alfaridge.tune}
 \title{
-  Cross validation for the ridge regression with compositional data as predictor using the \eqn{\alpha}-transformation
+Cross validation for the ridge regression with compositional data as predictor using the \eqn{\alpha}-transformation
 }
 
 \description{
@@ -69,7 +69,6 @@ The minimum mean squared error of prediction.
 The run time of the cross-validation procedure.
 }
 }
-
 
 \references{
 Hoerl A.E. and R.W. Kennard (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1):55-67.

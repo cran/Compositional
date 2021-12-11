@@ -21,10 +21,14 @@ A numerical matrix with compositional data with or without zeros.
 A matrix with the predictor variables.
 }
 \item{alpha}{
-The elastic net mixing parameter, with \eqn{0 \leq \alpha \leq 1}. The penalty is defined as a weighted combination of the ridge and of the Lasso regression. When \eqn{\alpha=1} LASSO is applied, while \eqn{\alpha=0} yields the ridge regression.
+The elastic net mixing parameter, with \eqn{0 \leq \alpha \leq 1}. The penalty is defined as a 
+weighted combination of the ridge and of the Lasso regression. When \eqn{\alpha=1} LASSO is 
+applied, while \eqn{\alpha=0} yields the ridge regression.
 }
 \item{type}{
-\bold{This information is copied from the package glmnet.}. If "grouped" then a grouped lasso penalty is used on the multinomial coefficients for a variable. This ensures they are all in our out together. The default in our case is "grouped".
+\bold{This information is copied from the package glmnet.}. If "grouped" then a grouped lasso 
+penalty is used on the multinomial coefficients for a variable. This ensures they are all in our out 
+together. The default in our case is "grouped".
 }
 \item{nfolds}{
 The number of folds for the K-fold cross validation, set to 10 by default.
@@ -41,21 +45,27 @@ If graph is TRUE (default value) a filled contour plot will appear.
 }
 
 \details{
-The K-fold cross validation is performed in order to select the optimal value for \eqn{\lambda}, the penalty parameter in LASSO.
+The K-fold cross validation is performed in order to select the optimal value for \eqn{\lambda}, 
+the penalty parameter in LASSO.
 }
 
 \value{
-The outcome is the same as in the R package glmnet. The extra addition is that if "graph = TRUE", then the plot of the cross-validated object is returned. The contains the logarithm of \eqn{\lambda} and the deviance. The numbers on top of the figure show the number of set of coefficients for each component, that are not zero.
+The outcome is the same as in the R package glmnet. The extra addition is that if "graph = TRUE", 
+then the plot of the cross-validated object is returned. The contains the logarithm of \eqn{\lambda} 
+and the deviance. The numbers on top of the figure show the number of set of coefficients for each 
+component, that are not zero.
 }
 
 \references{
-Friedman, J., Hastie, T. and Tibshirani, R. (2010) Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
+Friedman, J., Hastie, T. and Tibshirani, R. (2010) Regularization Paths for Generalized Linear 
+Models via Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
 }
 
 \author{
 Michail Tsagris and Abdulaziz Alenazi.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} 
+and Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa}.
 }
 
 %\note{

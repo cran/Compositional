@@ -17,13 +17,15 @@ bic.mixcompnorm(x, G, type = "alr", veo = FALSE, graph = TRUE)
 A matrix with compositional data.
 }
 \item{G}{
-A numeric vector with the number of components, clusters, to be considered.
+A numeric vector with the number of components, clusters, to be considered, e.g. 1:3.
 }
 \item{type}{
-The type of trasformation to be used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
+The type of trasformation to be used, either the additive log-ratio ("alr"), the isometric
+log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
 }
 \item{veo}{
-Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds the number of observations, but the model is still fitted.
+Stands for "Variables exceed observations". If TRUE then if the number variablesin the model
+exceeds the number of observations, but the model is still fitted.
 }
 \item{graph}{
 A boolean variable, TRUE or FALSE specifying whether a graph should be drawn or not.
@@ -31,7 +33,9 @@ A boolean variable, TRUE or FALSE specifying whether a graph should be drawn or 
 }
 
 \details{
-The alr or the ilr-transformation is applied to the compositional data first and then mixtures of multivariate Gaussian distributions are fitted. BIC is used to decide on the optimal model and number of components.
+The alr or the ilr-transformation is applied to the compositional data first and then mixtures of
+multivariate Gaussian distributions are fitted. BIC is used to decide on the optimal model and number
+of components.
 }
 
 \value{
@@ -43,18 +47,26 @@ A message informing the user about the best model.
 \item{BIC}{
 The BIC values for every possible model and number of components.
 }
+\item{optG}{
+The number of components with the highest BIC.
+}
+\item{optmodel}{
+The type of model corresponding to the highest BIC.
+}
 }
 
 \references{
-Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2018). mixture: Mixture Models for Clustering and Classification. R package version 1.5.
+Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2018). mixture: Mixture Models for Clustering and
+Classification. R package version 1.5.
 
-Ryan P. Browne and Paul D. McNicholas (2014). Estimating Common Principal Components in High Dimensions. Advances in Data Analysis and Classification, 8(2), 217-226.
+Ryan P. Browne and Paul D. McNicholas (2014). Estimating Common Principal Components in High Dimensions.
+Advances in Data Analysis and Classification, 8(2), 217-226.
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }

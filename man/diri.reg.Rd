@@ -97,10 +97,10 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou
-<gioathineou@gmail.com>
+<gioathineou@gmail.com>.
 }
 
 %\note{

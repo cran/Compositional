@@ -1,20 +1,23 @@
-\name{Contour plot of the Dirichlet distribution in S^2}
-\alias{diri.contour}
+\name{Contour plot of mixtures of Dirichlet distributions in S^2}
+\alias{mixdiri.contour}
 \title{
-Contour plot of the Dirichlet distribution in \eqn{S^2}
+Contour plot of mixtures of Dirichlet distributions in \eqn{S^2}
 }
 
 \description{
-Contour plot of the Dirichlet distribution in \eqn{S^2}.
+Contour plot of mixtures of Dirichlet distributions in \eqn{S^2}.
 }
 
 \usage{
-diri.contour(a, n = 100, x = NULL, cont.line = FALSE)
+mixdiri.contour(a, prob, n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
 \item{a}{
-A vector with three elements corresponding to the 3 (estimated) parameters.
+A matrix where each row contains the parameters of each Dirichlet disctribution.
+}
+\item{prob}{
+A vector with the mixing probabilities.
 }
 \item{n}{
 The number of grid points to consider over which the density is calculated.
@@ -54,16 +57,13 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{ \link{mixdiri.contour}, \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour},
+\code{ \link{diri.contour}, \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour},
 \link{diri.nr}, \link{dda}
 }
 }
 
 \examples{
-x <- as.matrix( iris[, 1:3] )
-x <- x / rowSums(x)
-diri.contour( a = c(3, 4, 2) )
+a <- matrix( c(12, 30, 45, 32, 50, 16), byrow = TRUE,ncol = 3)
+prob <- c(0.5, 0.5)
+mixdiri.contour(a, prob)
 }
-
-\keyword{ Dirichlet distribution }
-\keyword{ contour plot }

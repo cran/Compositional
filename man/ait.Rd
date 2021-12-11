@@ -29,7 +29,7 @@ Hence, from the simplex constraint the data go to another constraint.
 }
 
 \details{
-The \eqn{\alpha}-IT transformation is applied to the compositional data. 
+The \eqn{\alpha}-IT transformation is applied to the compositional data.
 }
 
 \value{
@@ -37,7 +37,8 @@ A matrix with the \eqn{\alpha}-IT transformed data.
 }
 
 \references{
-Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for the spatial analysis of Compositional Data. 
+Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for
+the spatial analysis of Compositional Data.
 https://arxiv.org/abs/2110.07967
 }
 

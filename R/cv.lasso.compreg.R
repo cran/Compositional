@@ -11,6 +11,6 @@ cv.lasso.compreg <- function(y, x, alpha = 1, nfolds = 10,
 
   mod <- glmnet::cv.glmnet(x, y, alpha = alpha, family = "mgaussian",
                            foldid = foldid, type.measure = "mse")
-  if ( graph )  plot(mod)
+  if ( graph )  plot(mod, cex.lab = 1.2, cex.axis = 1.2)
   mod
 }

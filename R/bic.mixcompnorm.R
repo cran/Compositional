@@ -11,7 +11,7 @@ bic.mixcompnorm <- function(x, G, type = "alr", veo = FALSE, graph = TRUE) {
   ## A is the maximum number of components to be considered
   ## type is either 'alr' or 'ilr'
   p <- dim(x)[2]  ## dimensionality of the data
-  
+
   if ( type == "alr" ) {
     y <- log(x[, -1] / x[, 1])
   } else if (type == "ilr") {
@@ -28,9 +28,16 @@ bic.mixcompnorm <- function(x, G, type = "alr", veo = FALSE, graph = TRUE) {
   if ( graph ) {
     plot( G, mbic[, 1], type = "b", pch = 9, xlab = "Number of components",
     ylab = "BIC values", ylim = c( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE) ),
-    cex.lab = 1.2, cex.axis = 1.2)
+    cex.lab = 1.2, cex.axis = 1.2, xaxt = "n")
+    axis(1, at = G, labels = G)
+    abline(v = G, col = "lightgrey", lty = 2)
+  	abline(h = seq( min(mbic), max(mbic), length = 10 ), col = "lightgrey", lty = 2)
     for ( i in 2:ncol(mbic) )  lines(G, mbic[, i], type = "b", pch = 9, col = i)
   }
-  
-  list(mod = mod, BIC = mbic)
+
+  pou <- which( mbic == max(mbic, na.rm = TRUE),arr.ind = TRUE )
+  optG <- G[ pou[1, 1] ]
+  optmodel <- colnames(mbic)[ pou[1, 2] ]
+
+  list(mod = mod, BIC = mbic, optG = optG, optmodel = optmodel)
 }

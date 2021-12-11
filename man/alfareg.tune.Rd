@@ -74,9 +74,10 @@ https://arxiv.org/pdf/1106.1451.pdf
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+and Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{
@@ -93,6 +94,6 @@ library(MASS)
 y <- as.matrix(fgl[1:40, 2:4])
 y <- y /rowSums(y)
 x <- as.vector(fgl[1:40, 1])
-mod <- alfareg.tune(y, x, a = c(0.2, 0.35, 0.05), nfolds = 5)
+mod <- alfareg.tune(y, x, a = seq(0, 1, by = 0.1), nfolds = 5)
 }
 

@@ -10,6 +10,6 @@ cv.lasso.klcompreg <- function(y, x, alpha = 1, type = "grouped", nfolds = 10,
 
   mod <- glmnet::cv.glmnet(x, y, alpha = alpha, family = "multinomial", type.multinomial = type,
                            foldid = foldid, type.measure = "deviance")
-  if ( graph )  plot(mod)
+  if ( graph )  plot(mod, cex.lab = 1.2, cex.axis = 1.2)
   mod
 }

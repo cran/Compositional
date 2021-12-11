@@ -17,8 +17,8 @@ mixnorm.contour(mod, type = "alr", x = NULL, cont.line = FALSE)
 An object containing the output of a \code{\link{mix.compnorm}} model.
 }
 \item{type}{
-The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the
-pivot coordinate ("pivot") transformation.
+The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio
+("ilr") or the pivot coordinate ("pivot") transformation.
 }
 \item{cont.line}{
 Do you want the contour lines to appear? If yes, set this TRUE.
@@ -36,7 +36,8 @@ A ternary plot with the data and the contour lines of the fitted Gaussian mixtur
 }
 
 \references{
-Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification
+Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for
+Clustering and Classification
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }

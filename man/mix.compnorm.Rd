@@ -25,28 +25,36 @@ The type of model to be used.
 \item "EII": All groups have the same diagonal covariance matrix, with the same variance for all variables.
 \item "VII": Different diagonal covariance matrices, with the same variance for all variables within each group.
 \item "EEI": All groups have the same diagonal covariance matrix.
-\item "VEI": Different diagonal covariance matrices. If we make all covariance matrices have determinant 1, (divide the matrix
+\item "VEI": Different diagonal covariance matrices. If we make all covariance matrices have determinant 1,
+(divide the matrix
 with the $p$-th root of its determinant) then all covariance matrices will be the same.
 \item "EVI": Different diagonal covariance matrices with the same determinant.
 \item "VVI": Different diagonal covariance matrices, with nothing in common.
 \item "EEE": All covariance matrices are the same.
-\item "EEV": Different covariance matrices, but with the same determinant and in addition, if we make them have determinant 1,
+\item "EEV": Different covariance matrices, but with the same determinant and in addition, if we make them
+have determinant 1,
 they will have the same trace.
-\item "VEV": Different covariance matrices but if we make the matrices have determinant 1, then they will have the same trace.
+\item "VEV": Different covariance matrices but if we make the matrices have determinant 1, then they will
+have the same trace.
 \item "VVV": Different covariance matrices with nothing in common.
-\item "EVE": Different covariance matrices, but with the same determinant. In addition, calculate the eigenvectors for each covariance matrix and you will see the extra similarities.
-\item "VVE": Different covariance matrices, but they have something in common with their directions. Calculate the eigenvectors
-of each covariance matrix and you will see the similarities.
-\item "VEE": Different covariance matrices, but if we make the matrices have determinant 1, then they will have the same trace.
+\item "EVE": Different covariance matrices, but with the same determinant. In addition, calculate the
+eigenvectors for each covariance matrix and you will see the extra similarities.
+\item "VVE": Different covariance matrices, but they have something in common with their directions.
+Calculate the eigenvectors of each covariance matrix and you will see the similarities.
+\item "VEE": Different covariance matrices, but if we make the matrices have determinant 1, then they will
+have the same trace.
 In addition, calculate the eigenvectors for each covariance matrix and you will see the extra similarities.
 \item "EVV": Different covariance matrices, but with the same determinant.
 }
 }
 \item{type}{
-The type of trasformation to be used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr") or the pivot coordinate ("pivot") transformation.
+The type of trasformation to be used, either the additive log-ratio ("alr"), the isometric log-ratio ("ilr")
+or the pivot coordinate ("pivot") transformation.
 }
 \item{veo}{
-Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds the number of observations, but the model is still fitted.
+Stands for "Variables exceed observations". If TRUE then if the number variablesin the model exceeds
+the number
+of observations, but the model is still fitted.
 }
 }
 
@@ -71,7 +79,8 @@ The estimated cluster membership values.
 }
 
 \references{
-Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models for Clustering and Classification.
+Ryan P. Browne, Aisha ElSherbiny and Paul D. McNicholas (2015). R package mixture: Mixture Models
+for Clustering and Classification.
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }
@@ -86,7 +95,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{bic.mixcompnorm}, \link{rmixcomp}, \link{mixnorm.contour}, \link{alfa.mix.norm}, \link{alfa.knn},
+\code{\link{bic.mixcompnorm}, \link{rmixcomp}, \link{mixnorm.contour}, \link{alfa.mix.norm},
+\link{alfa.knn},
 \link{alfa.rda}, \link{comp.nb}
 }
 }

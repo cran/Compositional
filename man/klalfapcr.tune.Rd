@@ -87,7 +87,8 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
 
-R implementation and documentation: Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa} and Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa} 
+and Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

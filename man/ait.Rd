@@ -37,9 +37,8 @@ A matrix with the \eqn{\alpha}-IT transformed data.
 }
 
 \references{
-Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for
-the spatial analysis of Compositional Data.
-https://arxiv.org/abs/2110.07967
+Clarotto L., Allard D. and Menafoglio A. (2022). A new class of \eqn{\alpha}-transformations for
+the spatial analysis of Compositional Data. Spatial Statistics, 47.
 }
 
 \author{

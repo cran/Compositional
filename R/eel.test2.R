@@ -9,7 +9,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   n1 <- dm[1]    ;    d <- dm[2]
   n2 <- dim(y2)[1]
 
-  eel2 <- function(x, y, n1, n2, d) {
+  eel2 <- function(x, y, n1, n2, d, tol) {
     ## next is the root finding function
     ### step 1
     lam1 <- numeric(d)
@@ -56,16 +56,19 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   }
 
   runtime <- proc.time()
-  res <- try( eel2(y1, y2, n1, n2, d), silent = TRUE )
-  res$runtime <- proc.time() - runtime
-  res$note <- paste("Chi-square approximation")
+  res <- try( eel2(y1, y2, n1, n2, d, tol), silent = TRUE )
 
-  if ( class(res) == "try-error" ) {
-    res$info[1] <- 1e10
-    res$info[2] <- 0
+  if ( identical( class(res), "try-error" ) ) {
+    res <- list()
     res$p1 <- NA
     res$p2 <- NA
+    res$lambda <- NA
+    res$iters <- NA
+    res$info <- c(1e10, 0, d)
+    names(res$info) <- c("statistic", "p-value", "degrees of freedom")
   }
+  res$runtime <- proc.time() - runtime
+  res$note <- paste("Chi-square approximation")
 
   if ( R == 0 || res$info[1] == 1e+10 ) {
     res <- res
@@ -73,7 +76,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   } else if ( R == 1 ) {
     test <- as.numeric( res$info[1] )
     d <- dim(y1)[2]
-    delta <- james(y1, y2, R = 1)$info[3]
+    delta <- Compositional::james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(stat, d, lower.tail = FALSE) )
     res$info[1] <- stat
@@ -83,7 +86,7 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
   } else if ( R == 2 ) {
     test <- as.numeric( res$info[1] )
     d <- dim(y1)[2]
-    dof <- james(y1, y2, R = 2)$info[5]
+    dof <- Compositional::james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
     stat <- dof / (v * d) * test
     pvalue <- pf(stat, d, dof, lower.tail = FALSE)

@@ -80,8 +80,8 @@ Tsagris Michail, Simon Preston and Andrew T.A. Wood (2016). Improved classificat
 Connie Stewart (2017). An approach to measure distance between compositional diet estimates containing essential zeros.
 Journal of Applied Statistics 44(7): 1137-1152.
 
-Clarotto L., Allard D. and Menafoglio A. (2021). A new class of \eqn{\alpha}-transformations for the spatial analysis of Compositional Data. 
-https://arxiv.org/abs/2110.07967
+Clarotto L., Allard D. and Menafoglio A. (2022). A new class of \eqn{\alpha}-transformations for
+the spatial analysis of Compositional Data. Spatial Statistics, 47.
 
 Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.
 Information Theory, IEEE Transactions on 49, 1858-1860.

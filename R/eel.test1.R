@@ -5,8 +5,11 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
   dm <- dim(x)
   d <- dm[2]
   n <- dm[1]
+  m <- Rfast::colmeans(x)
+  x <- Rfast::eachrow(x, m, oper = "-")
+  mu <- mu - m
 
-   eel <- function(x, mu, n, d) {
+   eel <- function(x, mu, n, d, tol) {
     lam_old <- numeric(d)
     f1 <- numeric(n)
     f2 <- n
@@ -39,14 +42,16 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
   }
 
   runtime <- proc.time()
-  res <- try( eel(x, mu, n, d), silent = TRUE )
+  res <- try( eel(x, mu, n, d, tol), silent = TRUE )
   runtime <- proc.time() - runtime
-  res$runtime <- runtime
 
-  if ( class(res) == "try-error" ) {
-    res$info[1] <- 1e10
-    res$info[2] <- 0
+  if ( identical( class(res), "try-error" ) ) {
+    res <- list()
     res$p <- NA
+    res$lambda <- NA
+    res$iters <- NA
+    res$info <- c(1e10, 0)
+    names(res$info) <- c("statistic", "p-value")
   }
 
   if (R > 1 ) {
@@ -67,9 +72,9 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
     res$info[2] <- pvalue
     durat <- proc.time() - durat
     runtime <- runtime + durat
-    res$runtime <- runtime
   }
 
+  res$runtime <- runtime
   res
 }
 

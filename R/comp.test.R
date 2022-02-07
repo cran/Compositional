@@ -19,7 +19,7 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
   ## ncores is the number of cores you want to use
   ## requires(doParallel)
   ## if graph is TRUE, the bootstrap statics are plotted
-  y <- alfa(x, 1)$aff  ## the alpha-transformation with alpha = 1
+  y <- Compositional::alfa(x, 1)$aff  ## the alpha-transformation with alpha = 1
   ina <- as.numeric(ina)  ## the group indicator variable
   k <- max(ina)  ## the number of groups
   ## default value in the case of MANOVA and bad specification of test

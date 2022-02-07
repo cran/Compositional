@@ -92,12 +92,12 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 
 \examples{
 ina <- rep(1:2, each = 50)
-x <- as.matrix(iris[, 1:4])
+x <- as.matrix(iris[1:100, 1:4])
 x <- x/ rowSums(x)
-comp.test( as.matrix(x[1:100, 1:4]), ina, test = "james", R = 0 )
-comp.test( as.matrix(x[1:100, 1:4]), ina, test = "hotel", R = 0 )
-comp.test( as.matrix(x[1:100, 1:4]), ina, test = "el", R = 0 )
-comp.test( as.matrix(x[1:100, 1:4]), ina, test = "eel", R = 0 )
+comp.test( x, ina, test = "james" )
+comp.test( x, ina, test = "hotel" )
+comp.test( x, ina, test = "el" )
+comp.test( x, ina, test = "eel" )
 }
 
 \keyword{ Multivariate hypothesis testing }

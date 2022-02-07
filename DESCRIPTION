@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 5.3
-Date: 2021-12-11
+Version: 5.4
+Date: 2022-02-07
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -31,6 +31,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       We further include functions for percentages (or proportions).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2021-12-11 14:47:20 UTC; Michail
+Packaged: 2022-02-07 20:05:57 UTC; Michail
 Repository: CRAN
-Date/Publication: 2021-12-11 18:40:06 UTC
+Date/Publication: 2022-02-07 21:00:09 UTC

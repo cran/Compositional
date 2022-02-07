@@ -28,9 +28,7 @@ The number of permutations to apply in order to compute the approximate p-value.
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to each composition and then the distance correlation or the canonical correlation is computed.
-If one value of \eqn{\alpha} is supplied the type="cancor" will return all eigenvalues. If more than one values of \eqn{\alpha} are provided
-then the first eigenvalue only will be returned.
+The \eqn{\alpha}-transformation is applied to each composition and then the energy distance of equality of distributions is applied for each value of \eqn{\alpha} or for the single value of \eqn{\alpha}.
 }
 
 \value{

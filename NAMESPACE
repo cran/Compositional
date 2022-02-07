@@ -8,7 +8,7 @@ importFrom("graphics", filled.contour, contour, lines, plot, axis, par,
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd, cmdscale,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq, rgamma,
            mahalanobis, runif, qt, qf, pf, model.matrix, prcomp, .lm.fit, na.omit,
-           ppr, predict, coef, cancor, loess, fitted, as.dist)
+           ppr, predict, coef, cancor, loess, fitted, as.dist, rweibull)
 
 importFrom("grDevices", terrain.colors, grey, colorRampPalette)
 
@@ -17,11 +17,12 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
-		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb)
+		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm)
 
 importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
-           pca, unitweibull.mle)
+           pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
+           rbeta1)
 
 importFrom("RANN", nn2)
 importFrom("mda", fda)

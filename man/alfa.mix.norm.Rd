@@ -89,7 +89,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{bic.alfamixnorm}, \link{bic.mixcompnorm}, \link{rmixcomp}, \link{mixnorm.contour}, \link{mix.compnorm},
+\code{\link{bic.alfamixnorm}, \link{bic.mixcompnorm}, \link{rmixcomp}, \link{mix.compnorm.contour}, \link{mix.compnorm},
 \link{alfa}, \link{alfa.knn}, \link{alfa.rda}, \link{comp.nb}
 }
 }

@@ -9,7 +9,8 @@ Tuning of the projection pursuit regression with compositional predictor variabl
 }
 
 \usage{
-pprcomp.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10, type = "alr")
+pprcomp.tune(y, x, nfolds = 10, folds = NULL, seed = NULL,
+nterms = 1:10, type = "log", graph = FALSE)
 }
 
 \arguments{
@@ -25,13 +26,17 @@ The number of folds to use.
 If you have the list with the folds supply it here.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{nterms}{
 The number of terms to try in the projection pursuit regression.
 }
 \item{type}{
-Either "alr" or "log" corresponding to the additive log-ratio transformation or the logarithm applied to the compositional predictor variables.
+Either "alr" or "log" corresponding to the additive log-ratio transformation
+or the logarithm applied to the compositional predictor variables.
+}
+\item{graph}{
+If graph is TRUE (default value) a filled contour plot will appear.
 }
 }
 
@@ -45,7 +50,13 @@ A list including:
 The run time of the cross-validation procedure.
 }
 \item{mse}{
-The mean squared error of prediction for each fold and number of terms.
+The mean squared error of prediction for each number of terms.
+}
+\item{opt.nterms}{
+The number of terms with the minimum mean squared error of prediction.
+}
+\item{performance}{
+The minimum mean squared error of prediction.
 }
 }
 

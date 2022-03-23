@@ -27,6 +27,5 @@ choose.pc <- function(x, graph = TRUE) {
   val <- d^2 / (n - 1)
   cumprop <- cumsum(val) / sum(val)
   diffa <- diff( c(cumprop, 1) )
-  list(values = val, cumprop = cumprop, differences = diffa, press = sqrt(press),
-       runtime = runtime)
+  list(values = val, cumprop = cumprop, differences = diffa, press = sqrt(press), runtime = runtime)
 }

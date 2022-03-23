@@ -1,6 +1,6 @@
 ## Response is compositional data
-akernreg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10),
-                          nfolds = 10, folds = NULL, seed = FALSE) {
+akernreg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10), type = "gauss",
+                          nfolds = 10, folds = NULL, seed = NULL) {
   runtime <- proc.time()
   D <- dim(y)[2]
   n <- dim(y)[1]
@@ -25,7 +25,7 @@ akernreg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, lengt
     xtrain <- x[-nu, , drop = FALSE]
     ytest <- y[nu, , drop = FALSE]
     xtest <- x[nu, , drop = FALSE]
-    est[[ i ]] <- akern.reg(xnew = xtest, y = ytrain, x = xtrain, a = a, h = h)
+    est[[ i ]] <- Compositional::akern.reg(xnew = xtest, y = ytrain, x = xtrain, a = a, h = h, type = type)
     kl[[ i ]] <- kl[[ 1 ]]
     js[[ i ]] <- js[[ 1 ]]
     for (j in 1:la)  {

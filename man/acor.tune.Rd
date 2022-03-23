@@ -20,15 +20,22 @@ A matrix with the compositional data.
 A matrix with the compositional data.
 }
 \item{a}{
-The range of values of the power transformation to search for the optimal one. If zero values are present it has to be greater than 0.
+The range of values of the power transformation to search for the optimal one.
+If zero values are present it has to be greater than 0.
 }
 \item{type}{
-the type of correlation to compute, the distance correlation ("edist"), the canonical correlation type 1 ("cancor1") or the canonical correlation type 2 ("cancor2"). See details for more information.
+the type of correlation to compute, the distance correlation ("edist"),
+the canonical correlation type 1 ("cancor1") or the canonical correlation
+type 2 ("cancor2"). See details for more information.
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to each composition and then the distance correlation or the canonical correlation is computed. If type = "cancor1" the function returns the value of \eqn{\alpha} that maximizes the product of the eigenvalues. If type = "cancor2" the function returns the value of \eqn{\alpha} that maximizes the the largest eigenvalue.
+The \eqn{\alpha}-transformation is applied to each composition and then the
+distance correlation or the canonical correlation is computed. If type =
+"cancor1" the function returns the value of \eqn{\alpha} that maximizes the
+product of the eigenvalues. If type = "cancor2" the function returns the value
+of \eqn{\alpha} that maximizes the the largest eigenvalue.
 }
 
 \value{

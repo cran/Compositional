@@ -1,70 +1,35 @@
  ################################
-#### Contour plot of the bivariate normal distribution in S^2
-#### Tsagris Michail 2/2013
+#### Contour plot of a normal mixture model in S^2
+#### Tsagris Michail 5/2015
 #### mtsagris@yahoo.gr
 ################################
-norm.contour <- function(m, s, type = "alr", n = 100, x = NULL, cont.line = FALSE) {
-  ## the type parameter determines whether the additive or
-  ## the isometric log-ratio transformation will be used.
-  ## If type='alr' (the default) the additive
-  ## log-ratio transformation is used.
-  ## If type='ilr', the isometric log-ratio is used
-  ## n is the number of points of each axis used
+mix.compnorm.contour <- function(mod, type = "alr", n= 100, x = NULL, cont.line = FALSE) {
+  ## mod is a mixture model containing all the parameters
+  ## the type parameter determines whether the additive or the isometric
+  ## log-ratio transformation will be used. If type='alr' (the default) the
+  ## additive log-ratio transformation is used. If type='ilr', the isometric
+  ## log-ratio is used
   nam <- c("X1", "X2", "X3")
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  mat <- matrix(nrow = n, ncol = n)
-  ha <- t( helm(3) )
-  down <- det(2 * pi * s)^(-0.5)
-  st <- solve(s)
-  f1 <- sqrt(2/3)   ;   f2 <- sqrt(0.5)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
 
-  for ( i in 1:c(n/2) ) {
-    for ( j in 1:n ) {
-      if ( x2[j] < sqrt3 * x1[i] ) {
-        ## This checks if the point will lie inside the triangle
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-        if (type == "alr") {
-          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
-        } else if ( type == "ilr" ) {
-          y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% ha )  ## isometric log-ratio transformation
-        } else {
-          y <- c( f1 * ( log(w[1]) - 0.5 * log(w[2]) - 0.5 * log(w[3]) ),
-                  f2 * log( w[2] / w[3] ) )
-        }
+  prob <- mod$prob
+  mu <- mod$mu
+  su <- mod$su
 
-        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if ( abs(can) < Inf )  mat[i, j] <- can
-      }
-    }
+  wa <- NULL
+  for ( i in 1:n ) {
+    w3 <- 2 * x2 / sqrt3
+    w2 <- x1[i] - x2/sqrt3
+    w1 <- 1 - w2 - w3
+    wa <- rbind(wa, cbind(w1, w2, w3) )
   }
 
-  for ( i in c(n/2 + 1):n ) {
-    for ( j in 1:n ) {
-      ## This checks if the point will lie inside the triangle
-      if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-        if (type == "alr") {
-          y <- log( w[-1] / w[1] )  ## additive log-ratio transformation
-        } else {
-          y <- log(w) - mean( log(w) )
-          y <- as.vector( y %*% ha )
-        }  ## isometric log-ratio transformation
-        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if ( abs(can) < Inf )   mat[i, j] <- can
-      }
-    }
-  }
+  can <- Compositional::dmix.compnorm(wa, mu, su, prob, type = type, logged = FALSE)
+  mat <- matrix(can, byrow = TRUE, nrow = n, ncol = n)
 
  # Create triangle corners
   b1 <- c(0.5, 0, 1, 0.5)

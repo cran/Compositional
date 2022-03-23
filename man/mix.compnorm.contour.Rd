@@ -1,5 +1,5 @@
 \name{Contour plot of the Gaussian mixture model in S^2}
-\alias{mixnorm.contour}
+\alias{mix.compnorm.contour}
 \title{
 Contour plot of the Gaussian mixture model in \eqn{S^2}
 }
@@ -9,7 +9,7 @@ Contour plot of the Gaussian mixture model in \eqn{S^2}.
 }
 
 \usage{
-mixnorm.contour(mod, type = "alr", x = NULL, cont.line = FALSE)
+mix.compnorm.contour(mod, type = "alr", n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
@@ -20,11 +20,14 @@ An object containing the output of a \code{\link{mix.compnorm}} model.
 The type of trasformation used, either the additive log-ratio ("alr"), the isometric log-ratio
 ("ilr") or the pivot coordinate ("pivot") transformation.
 }
-\item{cont.line}{
-Do you want the contour lines to appear? If yes, set this TRUE.
+\item{n}{
+The number of grid points to consider over which the density is calculated.
 }
 \item{x}{
 A matrix with the compositional data.
+}
+\item{cont.line}{
+Do you want the contour lines to appear? If yes, set this TRUE.
 }
 }
 
@@ -59,12 +62,10 @@ Christos Adam \email{pada4m4@gmail.com}.
 }
 
 \examples{
-\dontrun{
 x <- as.matrix(iris[, 1:3])
 x <- x / rowSums(x)
 mod <- mix.compnorm(x, 3, model = "EII")
-mixnorm.contour(x, "alr", mod)
-}
+mix.compnorm.contour(mod, "alr")
 }
 
 \keyword{ contour plot }

@@ -9,7 +9,7 @@
 #### mtsagris@yahoo.gr
 ################################
 alfafda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, folds = NULL,
-                         stratified = TRUE, seed = FALSE, graph = FALSE) {
+                         stratified = TRUE, seed = NULL, graph = FALSE) {
   ## x contains the compositonal data
   ## ina is the grouping variable
   ## a is the grid of values of a

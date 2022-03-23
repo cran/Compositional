@@ -25,7 +25,10 @@ A matrix with the compositional response data. Zeros are allowed.
 A matrix with the available predictor variables.
 }
 \item{a}{
-The value(s) of \eqn{\alpha}. Either a single value or a vector of values. As zero values in the compositional data are allowed, you must be careful to choose strictly positive vcalues of \eqn{\alpha}. However, if negative values are passed, the positive ones are used only.
+The value(s) of \eqn{\alpha}. Either a single value or a vector of values.
+As zero values in the compositional data are allowed, you must be careful
+to choose strictly positive vcalues of \eqn{\alpha}. However, if negative
+values are passed, the positive ones are used only.
 }
 \item{k}{
 The number of nearest neighbours to consider. It can be a single number or a vector.
@@ -47,7 +50,7 @@ A list with the estimated compositional response data for each value of \eqn{\al
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021). 
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021).
 Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }

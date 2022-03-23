@@ -11,64 +11,34 @@ skewnorm.contour <- function(x, type = 'alr', n = 100, appear = TRUE, cont.line 
   ## If type='ilr', the isometric log-ratio is used
   ## n is the number of points of each axis used
   nam <- c("X1", "X2", "X3")
-  ha <- t( Compositional::helm(3) )
+  x1 <- seq(0.001, 0.999, length = n)
+  sqrt3 <- sqrt(3)
+  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
 
   if (type == "alr") {
-    ya <- Compositional::alr(x)
-  } else {
-    ya <- log(x)
-    ya <- ya - Rfast::rowmeans( ya )
-    ya <- as.matrix( ya %*% ha )
+    y <- Compositional::alr(x) # additive log-ratio transformation
+  } else y <- Compositional::alfa(x, 0)$aff
+
+  mod <- sn::msn.mle(y = y)
+  param <- mod$dp
+  y <- NULL
+
+  wa <- NULL
+  for ( i in 1:n ) {
+    w3 <- 2 * x2 / sqrt3
+    w2 <- x1[i] - x2/sqrt3
+    w1 <- 1 - w2 - w3
+    wa <- rbind(wa, cbind(w1, w2, w3) )
   }
 
-  sqrt3 <- sqrt(3)
-  mod <- sn::msn.mle(y = ya)
-  param <- mod$dp
-  x1 <- seq(0.001, 0.999, length = n)
-  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  mat <- matrix(nrow = n, ncol = n)
+  if (type == "alr") {
+    y <- Compositional::alr(wa) # additive log-ratio transformation
+  } else y <- Compositional::alfa(wa, 0)$aff
 
-  for ( i in 1:c(n/2) ) {
-   for ( j in 1:n ) {
-     ## This checks if the point lies inside the triangle
-    if ( x2[j] < sqrt3 * x1[i] ) {
-     ## The next 4 lines calculate the composition
-     w3 <- 2 * x2[j] / sqrt3
-     w2 <- x1[i] - x2[j] / sqrt3
-     w1 <- 1 - w2 - w3
-     w <- c(w1, w2, w3)
-     if (type == 'alr') {
-           y <- log(w[-1] / w[1])  ## additive log-ratio transformation
-     } else {
-       y <- log(w) - mean( log(w) )
-       y <- as.vector( y %*% ha )
-         }  ## isometric log-ratio transformation
-     can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can
-    }
-   }  ##  end  for ( j in 1:n ) {
-  }  ## end  for ( i in 1:c(n/2) ) {
-
-  for ( i in c(n/2 + 1):n ) {
-   for ( j in  1:n ) {
-   ## This checks if the point will lie inside the triangle
-    if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
-     ## The next 4 lines calculate the composition
-     w3 <- 2 * x2[j] / sqrt3
-     w2 <- x1[i] - x2[j] / sqrt3
-     w1 <- 1 - w2 - w3
-     w <- c(w1, w2, w3)
-     if (type == 'alr') {
-           y <- log(w[-1] / w[1])  ## additive log-ratio transformation
-     } else {
-       y <- log(w) - mean(log(w))
-       y <- as.vector( y %*% ha )
-         }  ## isometric log-ratio transformation
-     can <- sn::dmsn(y, dp = param)
-     if ( abs(can) < Inf )  mat[i, j] <- can
-        }
-   }  ##  end  for ( j in  1:n ) {
-  }  ##  end  for ( i in c(n/2 + 1):n ) {
+  can <- sn::dmsn(y, dp = param)
+  mat <- matrix(can, byrow = TRUE, nrow = n, ncol = n)
 
  # Create triangle corners
   b1 <- c(0.5, 0, 1, 0.5)

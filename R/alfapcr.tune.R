@@ -9,7 +9,7 @@
 #### Chilean journal of statistics 6(2): 47-57
 ################################
 alfapcr.tune <- function(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-                         folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE) {
+                         folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = NULL) {
   ## model can be either "normal", "binomial" or "poisson"
   ## depending on the type of the independent variable
   ## "normal" is set by default

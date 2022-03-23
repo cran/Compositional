@@ -17,15 +17,19 @@ ddiri(x, a, logged = TRUE)
 A matrix containing compositional data. This can be a vector or a matrix with the data.
 }
 \item{a}{
-A vector of parameters. Its length must be equal to the number of components, or columns of the matrix with the compositional data and all values must be greater than zero.
+A vector of parameters. Its length must be equal to the number of components,
+or columns of the matrix with the compositional data and all values must be
+greater than zero.
 }
 \item{logged}{
-A boolean variable specifying whether the logarithm of the density values to be returned. It is set to TRUE by default.
+A boolean variable specifying whether the logarithm of the density values to
+be returned. It is set to TRUE by default.
 }
 }
 
 \details{
-The density of the Dirichlet distribution for a vector or a matrix of compositional data is returned.
+The density of the Dirichlet distribution for a vector or a matrix of compositional
+data is returned.
 }
 
 \value{
@@ -33,7 +37,9 @@ A vector with the density values.
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011).
+Dirichlet and related distributions: Theory, methods and applications.
+John Wiley & Sons.
 }
 
 \author{

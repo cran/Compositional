@@ -4,7 +4,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = NULL, ncores = 1, seed = FALSE, graph = FALSE) {
+ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = NULL, ncores = 1, seed = NULL, graph = FALSE) {
   ## x contains the independent variables(s)
   ## nfolds is the number of folds, set to 10 by default
   ## lambda is a vector with a grid of values of lambda

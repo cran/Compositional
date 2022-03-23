@@ -20,18 +20,25 @@ A matrix or a vector with new compositional data.
 A matrix with the compositional data.
 }
 \item{a}{
-The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0}, the isometric log-ratio transformation is applied.
+The value of the power transformation, it has to be between -1 and 1.
+If zero values are present it has to be greater than 0. If \eqn{\alpha=0},
+the isometric log-ratio transformation is applied.
 }
 \item{k}{
 The number of nearest neighbours to search for.
 }
 \item{rann}{
-If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
+If you have large scale datasets and want a faster k-NN search, you can use
+kd-trees implemented in the R package "RANN". In this case you must set this
+argument equal to TRUE. Note however, that in this case, the only available
+distance is by default "euclidean".
 }
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and the indices of the k-nearest neighbours using the Euclidean distance are returned.
+The \eqn{\alpha}-transformation is applied to the compositional data first
+and the indices of the k-nearest neighbours using the Euclidean distance
+are returned.
 }
 
 \value{
@@ -40,11 +47,12 @@ A matrix including the indices of the nearest neighbours of each xnew from x.
 
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021). 
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021).
 Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
+transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
 }
@@ -60,7 +68,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alfa.knn}, \link{comp.nb}, \link{alfa.rda}, \link{alfa.nb}, link{aknn.reg}, \link{alfa}, \link{alfainv}
+\code{\link{alfa.knn}, \link{comp.nb}, \link{alfa.rda}, \link{alfa.nb},
+link{aknn.reg}, \link{alfa}, \link{alfainv}
 }
 }
 

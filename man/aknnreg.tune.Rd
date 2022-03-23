@@ -1,16 +1,16 @@
-\name{Cross validation for the alpha-k-NN regression for compositional response data}
+\name{Cross validation for the alpha-k-NN regression with compositional response data}
 \alias{aknnreg.tune}
 \title{
-Cross validation for the \eqn{\alpha}-k-NN regression for compositional response data
+Cross validation for the \eqn{\alpha}-k-NN regression with compositional response data
 }
 
 \description{
-Cross validation for the \eqn{\alpha}-k-NN regression for compositional response data.
+Cross validation for the \eqn{\alpha}-k-NN regression with compositional response data.
 }
 
 \usage{
 aknnreg.tune(y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean",
-nfolds = 10, folds = NULL, seed = FALSE, rann = FALSE)
+nfolds = 10, folds = NULL, seed = NULL, rann = FALSE)
 }
 
 \arguments{
@@ -37,7 +37,7 @@ The number of folds. Set to 10 by default.
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{rann}{
 If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
@@ -80,7 +80,7 @@ The runtime of the cross-validation procedure.
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021). 
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021).
 Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }

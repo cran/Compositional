@@ -10,7 +10,7 @@ Cross-validation for the naive Bayes classifiers for compositional data.
 
 \usage{
 cv.compnb(x, ina, type = "beta", folds = NULL, nfolds = 10,
-      stratified = TRUE, seed = FALSE, pred.ret = FALSE)
+      stratified = TRUE, seed = NULL, pred.ret = FALSE)
 }
 \arguments{
 \item{x}{
@@ -33,7 +33,7 @@ Do you want the folds to be selected using stratified random sampling? This pres
 Make this TRUE if you wish.
 }
 \item{seed}{
-If you set this to TRUE, the same folds will be created every time.
+You can specify your own seed number here or leave it NULL.
 }
 \item{pred.ret}{
 If you want the predicted values returned set this to TRUE.

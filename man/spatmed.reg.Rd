@@ -26,8 +26,8 @@ If you have new data use it, otherwise leave it NULL.
 The threshold upon which to stop the iterations of the Newton-Rapshon algorithm.
 }
 \item{ses}{
-If you want to extract the standard errors of the parameters, set this to TRUE. Be careful though as this can slow 
-down the algorithm dramatically. In a run example with 10,000 observations and 10 variables for y and 30 for x, when 
+If you want to extract the standard errors of the parameters, set this to TRUE. Be careful though as this can slow
+down the algorithm dramatically. In a run example with 10,000 observations and 10 variables for y and 30 for x, when
 ses = FALSE the algorithm can take 0.20 seconds, but when ses = TRUE it can go up to 140 seconds.
 }
 }
@@ -57,7 +57,8 @@ The fitted of xnew if xnew is not NULL.
 }
 
 \references{
-Biman Chakraborty (2003) On multivariate quantile regression. Journal of Statistical Planning and Inference
+Biman Chakraborty (2003). On multivariate quantile regression.
+Journal of Statistical Planning and Inference, 110(1-2), 109-132.
 http://www.stat.nus.edu.sg/export/sites/dsap/research/documents/tr01_2000.pdf
 }
 

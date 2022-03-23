@@ -1,4 +1,4 @@
-cv.dda <- function(x, ina, nfolds = 10, folds = NULL, stratified = TRUE, seed= FALSE) {
+cv.dda <- function(x, ina, nfolds = 10, folds = NULL, stratified = TRUE, seed = NULL) {
   runtime <- proc.time()
   ina <- as.numeric(ina)
   g <- max(ina)  ## how many groups are there

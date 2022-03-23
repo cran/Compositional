@@ -81,7 +81,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{alfa.mix.norm}, \link{mix.compnorm}, \link{mixnorm.contour}, \link{rmixcomp}, \link{alfa}, \link{alfa.knn},
+\code{\link{alfa.mix.norm}, \link{mix.compnorm}, \link{mix.compnorm.contour}, \link{rmixcomp}, \link{alfa}, \link{alfa.knn},
 \link{alfa.rda}, \link{comp.nb}
 }
 }

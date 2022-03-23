@@ -1,4 +1,5 @@
-pprcomp.tune <- function(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10, type = "alr") {
+pprcomp.tune <- function(y, x, nfolds = 10, folds = NULL, seed = NULL,
+                         nterms = 1:10, type = "log", graph = FALSE) {
 
   runtime <- proc.time()
   if ( type == "alr" ) {
@@ -31,5 +32,16 @@ pprcomp.tune <- function(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms =
   }
 
   runtime <- proc.time() - runtime
-  list(runtime = runtime, mse = mse )
+  mse <- Rfast::colmeans(mse)
+
+  if ( graph ) {
+    plot(nterms, mse, type = "b", xlab = "Number of terms", pch = 19, cex.lab = 1.3, cex.axis = 1.3,
+      ylab = "Mean squared error of prediction", lwd = 2, col = "green")
+    abline(v = nterms, lty = 2, col = "lightgrey")
+    abline(h = seq(min(mse), max(mse), length = 10), lty = 2, col = "lightgrey" )
+  }
+
+  list(runtime = runtime, mse = mse, opt.nterms = nterms[ which.min(mse) ], performance = min(mse) )
 }
+
+

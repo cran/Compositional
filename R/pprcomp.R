@@ -1,7 +1,13 @@
-pprcomp <- function(y, x, nterms = 3, type = "alr", xnew = NULL) {
+pprcomp <- function(y, x, nterms = 3, type = "log", xnew = NULL) {
+
+  nam <- colnames(x)
   if ( type == "alr" ) {
     x <- Compositional::alr(x)
-  } else  x <- Rfast::Log(x)
+    colnames(x) <- nam[-1]
+  } else {
+    x <- Rfast::Log(x)
+    colnames(x) <- nam
+  }
 
   runtime <- proc.time()
   x <- as.data.frame(x)

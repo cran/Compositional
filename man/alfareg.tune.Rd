@@ -10,7 +10,7 @@ Tuning the value of \eqn{\alpha} in the \eqn{\alpha}-regression.
 
 \usage{
 alfareg.tune(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10,
-folds = NULL, nc = 1, seed = FALSE, graph = FALSE)
+folds = NULL, nc = 1, seed = NULL, graph = FALSE)
 }
 
 \arguments{
@@ -33,7 +33,7 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 The number of cores to use. IF you have a multicore computer it is advisable to use more than 1. It makes the procedure faster. It is advisable to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{graph}{
 If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.
@@ -65,7 +65,8 @@ The minimum value of twice the Kullback-Leibler.
 }
 
 \references{
-Tsagris Michail (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. 
+Chilean Journal of Statistics, 6(2): 47-57.
 https://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.

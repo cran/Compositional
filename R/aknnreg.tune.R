@@ -1,6 +1,6 @@
 ## Response is compositional data
 aknnreg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), k = 2:10, apostasi = "euclidean",
-                         nfolds = 10, folds = NULL, seed = FALSE, rann = FALSE ) {
+                         nfolds = 10, folds = NULL, seed = NULL, rann = FALSE ) {
   runtime <- proc.time()
   D <- dim(y)[2]
   n <- dim(y)[1]

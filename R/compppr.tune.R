@@ -1,4 +1,4 @@
-compppr.tune <- function(y, x, nfolds = 10, folds = NULL, seed = FALSE, nterms = 1:10, type = "alr", yb = NULL) {
+compppr.tune <- function(y, x, nfolds = 10, folds = NULL, seed = NULL, nterms = 1:10, type = "alr", yb = NULL) {
 
   runtime <- proc.time()
   if ( is.null(yb) )  {

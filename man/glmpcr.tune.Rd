@@ -12,13 +12,13 @@ Tuning the number of principal components in the generalised linear models.
 
 \usage{
 pcr.tune(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1,
-seed = FALSE, graph = TRUE)
+seed = NULL, graph = TRUE)
 
 glmpcr.tune(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1,
-seed = FALSE, graph = TRUE)
+seed = NULL, graph = TRUE)
 
 multinompcr.tune(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1,
-seed = FALSE, graph = TRUE)
+seed = NULL, graph = TRUE)
 }
 
 \arguments{
@@ -45,7 +45,7 @@ The number of cores to use. If more than 1, parallel computing will take place. 
 to use it if you have many observations and or many variables, otherwise it will slow down th process.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{graph}{
 If graph is TRUE a plot of the performance for each fold along the values of \eqn{\alpha} will appear.

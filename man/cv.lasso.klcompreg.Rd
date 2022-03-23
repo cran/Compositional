@@ -10,7 +10,7 @@ Cross-validation for the LASSO Kullback-Leibler divergence based regression.
 
 \usage{
 cv.lasso.klcompreg(y, x, alpha = 1, type = "grouped", nfolds = 10,
-folds = NULL, seed = FALSE, graph = FALSE)
+folds = NULL, seed = NULL, graph = FALSE)
 }
 
 \arguments{
@@ -37,7 +37,7 @@ The number of folds for the K-fold cross validation, set to 10 by default.
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{graph}{
 If graph is TRUE (default value) a filled contour plot will appear.

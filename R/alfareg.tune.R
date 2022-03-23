@@ -8,7 +8,7 @@
 #### Chilean Journal of Statistics, 6(2): 47-57
 ################################
 alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = NULL, nc = 1,
-                         seed = FALSE, graph = FALSE) {
+                         seed = NULL, graph = FALSE) {
   ## y is the compositional data (dependent variable)
   ## x is the independent variables
   ## a is a range of values of alpha

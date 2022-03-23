@@ -1,4 +1,4 @@
-akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10) ) {
+akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10), type = "gauss" ) {
 
   est <- list()
   if ( min(y) == 0 )  a <- a[a > 0]
@@ -11,23 +11,28 @@ akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, len
   est <- sapply(names, function(x) NULL)
   di <-  -0.5 * Rfast::dista( xnew, x, square = TRUE)
 
+  if (type == "gauss") {
+    di <-  - 0.5 * Rfast::dista( xnew, x, square = TRUE)
+    h <- h^2
+  } else  di <-  - Rfast::dista(xnew, x, type = "manhattan" )
+
   for ( i in 1:la ) {
     if ( abs( a[i] ) < 1e-9 ) {
       ua <- Compositional::alef(y, 0)$aff
 	  for ( j in 1:nh ) {
-        w <- exp( di / h[j] )  
-        es <- exp( w %*% ua ) 
-        est[[ i ]][[ j ]] <- es / Rfast::rowsums(es)       
+        w <- exp( di / h[j] )
+        es <- exp( w %*% ua )
+        est[[ i ]][[ j ]] <- es / Rfast::rowsums(es)
       }
 	} else {
-      ua <- y^a[i]  
+      ua <- y^a[i]
       ua <- ua / Rfast::rowsums(ua)
       for ( j in 1:nh ) {
-        w <- exp( di / h[j] )  
-        es <- ( w %*% ua )^( 1 / a[i] ) 
-        est[[ i ]][[ j ]] <- es / Rfast::rowsums(es)       
+        w <- exp( di / h[j] )
+        es <- ( w %*% ua )^( 1 / a[i] )
+        est[[ i ]][[ j ]] <- es / Rfast::rowsums(es)
       }
-	}  
+	}
   }  ##  end  for ( i in 1:la ) {
 
   est

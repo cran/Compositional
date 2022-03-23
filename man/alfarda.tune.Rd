@@ -12,10 +12,10 @@ Cross validation for the regularised and flexible discriminant analysis with com
 \usage{
 alfarda.tune(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10,
 gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
-ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE)
+ncores = 1, folds = NULL, stratified = TRUE, seed = NULL)
 
 alfafda.tune(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10,
-folds = NULL, stratified = TRUE, seed = FALSE, graph = FALSE)
+folds = NULL, stratified = TRUE, seed = NULL, graph = FALSE)
 }
 
 \arguments{
@@ -48,7 +48,7 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 Do you want the folds to be created in a stratified way? TRUE or FALSE.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{graph}{
 If graph is TRUE (default value) a filled contour plot will appear.

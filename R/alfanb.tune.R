@@ -1,5 +1,5 @@
 alfanb.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), type = "gaussian",
-               folds = NULL, nfolds = 10, stratified = TRUE, seed = FALSE) {
+               folds = NULL, nfolds = 10, stratified = TRUE, seed = NULL) {
 
   ina <- as.numeric(ina)
   if ( is.null(folds) ) {

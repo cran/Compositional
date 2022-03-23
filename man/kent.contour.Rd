@@ -57,7 +57,7 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{ \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour}
+\code{ \link{compnorm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mix.compnorm.contour}
 }
 }
 

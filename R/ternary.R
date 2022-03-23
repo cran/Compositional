@@ -27,13 +27,14 @@ ternary <- function(x, dg = FALSE, hg = FALSE, means = TRUE, pca = FALSE, colour
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
   plot(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ", pty = "s",
-  xaxt = "n", yaxt = "n", bty = "n")
+  xaxt = "n", yaxt = "n", bty = "n", lwd = 2)
   proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt(3)/2), ncol = 2)
   d <- x %*% proj
   if ( is.null(colour) )  colour <- numeric(n) + 1
   points( d[1:n, 1], d[1:n, 2], col = colour )
-  text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
-  text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
+  text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1.1 )
+  text( b[2, 1] + 0.02, b[2, 2] - 0.02, nam[1], cex = 1.1 )
+  text( b[3, 1] - 0.02, b[2, 2] - 0.02, nam[2], cex = 1.1 )
 
   if ( means ) {
     ## should the means appear in the plot?
@@ -71,7 +72,7 @@ ternary <- function(x, dg = FALSE, hg = FALSE, means = TRUE, pca = FALSE, colour
     ## horizontal
     a3 <- cbind(a1[, 2], a1[, 3], a1[, 1])
     b3 <- a3 %*% proj
-    
+
     for ( i in 2:dim(b1)[1] ) {
       segments(x0 = b1[i, 1], y0 = b1[i, 2], x1 = b3[12 - i, 1], y1 = b3[i, 2], col = "lightgrey", lty = 2)
     }

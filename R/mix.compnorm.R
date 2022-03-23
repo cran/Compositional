@@ -37,5 +37,5 @@ mix.compnorm <- function(x, g, model, type = "alr", veo = FALSE) {
 
   pij <- mod$z
   est <- Rfast::rowMaxs(pij)
-  list(type = type, mu = mu, su = su, prob = prob, est = est)
+  list(mu = mu, su = su, prob = prob, est = est)
 }

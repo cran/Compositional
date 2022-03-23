@@ -10,7 +10,7 @@ Cross-validation for the naive Bayes classifiers for compositional data using th
 
 \usage{
 alfanb.tune(x, ina, a = seq(-1, 1, by = 0.1), type = "gaussian",
-folds = NULL, nfolds = 10, stratified = TRUE, seed = FALSE)
+folds = NULL, nfolds = 10, stratified = TRUE, seed = NULL)
 }
 \arguments{
 \item{x}{
@@ -36,7 +36,7 @@ Do you want the folds to be selected using stratified random sampling? This pres
 Make this TRUE if you wish.
 }
 \item{seed}{
-If you set this to TRUE, the same folds will be created every time.
+You can specify your own seed number here or leave it NULL.
 }
 }
 

@@ -10,7 +10,7 @@ Cross validation for the \eqn{\alpha}-k-NN regression with compositional predict
 
 \usage{
 alfaknnreg.tune(y, x, a = seq(-1, 1, by = 0.1), k = 2:10, nfolds = 10,
-apostasi = "euclidean", method = "average", folds = NULL, seed = FALSE, graph = FALSE)
+apostasi = "euclidean", method = "average", folds = NULL, seed = NULL, graph = FALSE)
 }
 
 \arguments{

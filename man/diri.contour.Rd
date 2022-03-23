@@ -20,7 +20,8 @@ A vector with three elements corresponding to the 3 (estimated) parameters.
 The number of grid points to consider over which the density is calculated.
 }
 \item{x}{
-This is either NULL (no data) or contains a 3 column matrix with compositional data.
+This is either NULL (no data) or contains a 3 column matrix with
+compositional data.
 }
 \item{cont.line}{
 Do you want the contour lines to appear? If yes, set this TRUE.
@@ -28,7 +29,8 @@ Do you want the contour lines to appear? If yes, set this TRUE.
 }
 
 \details{
-The user can plot only the contour lines of a Dirichlet with a given vector of parameters,
+The user can plot only the contour lines of a Dirichlet with a given
+vector of parameters,
 or can also add the relevant data should he/she wish to.
 }
 
@@ -36,17 +38,18 @@ or can also add the relevant data should he/she wish to.
 A ternary diagram with the points and the Dirichlet contour lines.
 }
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions:
-Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and
+related distributions: Theory, methods and applications. John Wiley & Sons.
 
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Aitchison J. (1986). The statistical analysis of compositional data.
+Chapman & Hall.
 }
 
 \author{
 Michail Tsagris and Christos Adam.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
-Christos Adam \email{pada4m4@gmail.com}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
+and Christos Adam \email{pada4m4@gmail.com}.
 }
 
 %\note{
@@ -54,8 +57,8 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{ \link{mixdiri.contour}, \link{norm.contour}, \link{bivt.contour}, \link{comp.kerncontour}, \link{mixnorm.contour},
-\link{diri.nr}, \link{dda}
+\code{ \link{mixdiri.contour}, \link{compnorm.contour}, \link{bivt.contour},
+\link{comp.kerncontour}, \link{mix.compnorm.contour}
 }
 }
 

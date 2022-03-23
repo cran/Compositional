@@ -9,7 +9,7 @@ Contour plot of the kernel density estimate in \eqn{S^2}.
 }
 
 \usage{
-comp.kerncontour(x, type = "alr", n = 100, cont.line = FALSE)
+comp.kerncontour(x, type = "alr", n = 50, cont.line = FALSE)
 }
 
 \arguments{
@@ -53,7 +53,7 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{\link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{norm.contour}
+\code{\link{diri.contour}, \link{mix.compnorm.contour}, \link{bivt.contour}, \link{compnorm.contour}
 }
 }
 

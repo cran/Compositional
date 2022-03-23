@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 5.4
-Date: 2022-02-07
+Version: 5.5
+Date: 2022-03-22
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -28,9 +28,10 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       h) Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values. Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. 
 		         i) Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics, 62(2):249--277. <doi:10.1111/anzs.12289>. 
 			       j) Tsagris M., Alenazi A. and Stewart C. (2021). Non-parametric regression models for compositional data. <arXiv:2002.05137>. 
+             k) Alenazi A. (2021). Alenazi, A. (2021). A review of compositional data analysis and recent advances. Communications in Statistics-Theory and Methods (Accepted for publication). <doi:10.1080/03610926.2021.2014890>.
 			       We further include functions for percentages (or proportions).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2022-02-07 20:05:57 UTC; Michail
+Packaged: 2022-03-22 16:57:29 UTC; Michail
 Repository: CRAN
-Date/Publication: 2022-02-07 21:00:09 UTC
+Date/Publication: 2022-03-23 22:30:02 UTC

@@ -10,7 +10,7 @@ Cross validation for the ridge regression is performed. There is an option for t
 
 \usage{
 ridge.tune(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = NULL,
-ncores = 1, seed = FALSE, graph = FALSE)
+ncores = 1, seed = NULL, graph = FALSE)
 }
 
 \arguments{
@@ -34,7 +34,7 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 The number of cores to use. If it is more than 1 parallel computing is performed.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{graph}{
 If graph is set to TRUE the performances for each fold as a function of the \eqn{\lambda} values will appear.

@@ -28,12 +28,12 @@ mkde.tune <- function( x, low = 0.1, up = 3, s = cov(x) ) {
   a2a <- exp(-0.5 * a2a)
   ds <- 1 / prod(lam)^0.5
 
-  tune <- function(h) {
+  tune <- function(h, n1) {
     a <- a2a^( 1 / h^2 )
-    - d * log(h) + mean( log( rowSums( a ) - 1 ) )
+    - d * log(h) + sum( log( rowSums( a ) - 1 ) ) / n1
   }
-  
+
   low <- low     ;    up <- up
-  bar <- optimize(tune, c(low, up), maximum = TRUE)
+  bar <- optimize(tune, c(low, up), n1 = n - 1, maximum = TRUE)
   list( hopt = bar$maximum, maximum = bar$objective + log(ds) - d/2 * log(2 * pi) - log(n - 1) )
 }

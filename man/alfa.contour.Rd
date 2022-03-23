@@ -58,7 +58,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{fold.contour}, \link{norm.contour}, \link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
+\code{\link{folded.contour}, \link{compnorm.contour}, \link{diri.contour}, \link{mix.compnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
 }
 }
 

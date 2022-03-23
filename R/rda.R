@@ -1,24 +1,4 @@
-################################
-#### Regularised discriminant analysis
-#### Tsagris Michail 7/2012
-#### mtsagris@yahoo.gr
-#### References: Hastie T., Tibshirani R. & Friedman J. (2008)
-#### Elements of Statistical Learning (2nd edition) p. 112-113. Springer
-################################
 rda <- function(xnew, x, ina, gam = 1, del = 0) {
-  ## xnew is the new observation
-  ## x contains the data
-  ## ina is the grouping variable
-  ## gam is between pooled covariance and diagonal
-  ## gam*Spooled+(1-gam)*diagonal
-  ## del is between QDA and LDA
-  ## del*QDa+(1-del)*LDA
-  ## mesi is NULL by default or it can be a matrix with the group means
-  ## info can be NULL or it can be a list containing the
-  ## covariance matrix of each group, the pooled covariance matrix
-  ## and the spherical covariance matrix (this order must be followed)
-  ## the mesi and info are particularly useful for the tuning of the rda, as
-  ## they can speed the computations a lot.
   n <- dim(x)[1]
   D <- dim(x)[2]
   xnew <- as.matrix(xnew)
@@ -30,7 +10,7 @@ rda <- function(xnew, x, ina, gam = 1, del = 0) {
   ta <- matrix(nrow = nu, ncol = nc)
   ci <- 2 * log(ng / n)
   sk <- vector("list", nc)
-  mesos <- rowsum(x, ina) / ng
+  mesos <- Rfast2::colGroup(x, as.integer(ina) ) / ng
   sa <- 0
   
   for (i in 1:nc) {

@@ -9,7 +9,7 @@ Random folds for use in a cross validation are generated. There is the option fo
 }
 
 \usage{
-makefolds(ina, nfolds = 10, stratified = TRUE, seed = FALSE)
+makefolds(ina, nfolds = 10, stratified = TRUE, seed = NULL)
 }
 
 \arguments{
@@ -23,7 +23,7 @@ The number of folds to produce.
 A boolean variable specifying whether stratified random (TRUE) or simple random (FALSE) sampling is to be used when producing the folds.
 }
 \item{seed}{
-A boolean variable. If set to TRUE, the folds will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 

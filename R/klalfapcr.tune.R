@@ -1,6 +1,6 @@
 klalfapcr.tune <- function(y, x, covar = NULL, nfolds = 10, maxk = 50,
                            a = seq(-1, 1, by = 0.1), folds = NULL, graph = FALSE,
-                           tol = 1e-07, maxiters = 50, seed = FALSE) {
+                           tol = 1e-07, maxiters = 50, seed = NULL) {
   n <- dim(x)[1]
   p <- dim(x)[2] - 1
   if ( min(x) == 0 )  a <- a[ a > 0 ]

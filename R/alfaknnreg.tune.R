@@ -1,6 +1,6 @@
 ## Predictors are compositional data
 alfaknnreg.tune <- function(y, x, a = seq(-1, 1, by = 0.1), k = 2:10, nfolds = 10,
-apostasi = "euclidean", method = "average", folds = NULL, seed = FALSE, graph = FALSE) {
+apostasi = "euclidean", method = "average", folds = NULL, seed = NULL, graph = FALSE) {
 
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for any zeros in the data
   n <- dim(x)[1]  ## sample size

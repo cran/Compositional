@@ -51,5 +51,5 @@ x <- rfd(100, alpha, prob, 7)
 }
 
 \seealso{
-\code{ \link{fd.est}, \link{fd.density} }
+\code{ \link{fd.est}, \link{dfd} }
 }

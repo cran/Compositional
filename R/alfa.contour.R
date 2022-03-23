@@ -9,53 +9,20 @@ alfa.contour <- function(m, s, a, n = 100, x = NULL, cont.line = FALSE) {
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  mat <- matrix(nrow = n, ncol = n)
-  ha <- t( helm(3) )
-  down <- det(2 * pi * s)^(-0.5)
-  st <- solve(s)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
 
-  for ( i in 1:c(n/2) ) {
-    for ( j in 1:n ) {
-      if ( x2[j] < sqrt3 * x1[i] ) {
-        ## This checks if the point will lie inside the triangle
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-        if ( abs(a) > 1e-9 ) {
-          z <- w^a
-          ta <- sum(z)
-          z <- 3 / a * z / ta - 1/a
-        } else  z <- log(w) - mean( log(w) )
-        y <- as.vector( z %*% ha ) ## multiply by the Helmert sub-matrix
-        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if ( abs(can) < Inf )  mat[i, j] <- can
-      }
-    }
+  wa <- NULL
+  for ( i in 1:n ) {
+    w3 <- 2 * x2 / sqrt3
+    w2 <- x1[i] - x2/sqrt3
+    w1 <- 1 - w2 - w3
+    wa <- rbind(wa, cbind(w1, w2, w3) )
   }
 
-  for ( i in c(n/2 + 1):n ) {
-    for ( j in 1:n ) {
-      ## This checks if the point will lie inside the triangle
-      if ( x2[j] < sqrt3 - sqrt3 * x1[i] ) {
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-        if ( abs(a) > 1e-9 ) {
-          z <- w^a
-          ta <- sum(z)
-          z <- 3 / a * z / ta - 1/a
-        } else  z <- log(w) - mean( log(w) )
-        y <- as.vector( z %*% ha ) ## multiply by the Helmert sub-matrix
-        can <- down * exp( -0.5 * ( ( y - m ) %*% st %*% ( y - m ) ) )
-        if ( abs(can) < Inf )   mat[i, j] <- can
-      }
-    }
-  }
-
+  y <- Compositional::alfa(wa, a)$aff
+  can <- Rfast::dmvnorm(y, m, s, logged = FALSE)
+  mat <- matrix(can, byrow = TRUE, nrow = n, ncol = n)
 
   # Create triangle corners
   b1 <- c(0.5, 0, 1, 0.5)

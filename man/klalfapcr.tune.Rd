@@ -10,7 +10,7 @@ Tuning of the divergence based regression for compositional data with compositio
 
 \usage{
 klalfapcr.tune(y, x, covar = NULL, nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-folds = NULL, graph = FALSE, tol = 1e-07, maxiters = 50, seed = FALSE)
+folds = NULL, graph = FALSE, tol = 1e-07, maxiters = 50, seed = NULL)
 }
 
 \arguments{
@@ -37,7 +37,7 @@ If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{graph}{
-If graph is TRUE (default value) a filled contour plot will appear.
+If graph is TRUE (default value) a plot will appear.
 }
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson procedure.
@@ -46,7 +46,7 @@ The tolerance value to terminate the Newton-Raphson procedure.
 The maximum number of Newton-Raphson iterations.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 
@@ -87,7 +87,7 @@ http://arxiv.org/pdf/1106.1451.pdf
 \author{
 Initial code by Abdulaziz Alenazi. Modifications by Michail Tsagris.
 
-R implementation and documentation: Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa} 
+R implementation and documentation: Abdulaziz Alenazi \email{a.alenazi@nbu.edu.sa}
 and Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 

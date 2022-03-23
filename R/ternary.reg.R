@@ -14,7 +14,7 @@ ternary.reg <- function(y, est, id, labs) {
   b2 <- c(sqrt(3)/2, 0, 0, sqrt(3)/2)
   b <- cbind(b1, b2)
   plot(b[, 1], b[, 2], type = "l", xlab = " ", ylab = " ", pty = "s",
-       xaxt = "n", yaxt = "n", bty = "n")
+       xaxt = "n", yaxt = "n", bty = "n", lwd = 2)
   proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt(3)/2), ncol = 2)
   d <- y %*% proj
   points( d[, 1], d[, 2], col = ina )
@@ -27,7 +27,7 @@ ternary.reg <- function(y, est, id, labs) {
     d1 <- d1[ order(d1[, 1]), ]
     points(d1[, 1], d1[, 2], pch = 16, col = i)
   }
-  
+
   legend("topright", labs, lwd = rep(2, k), col = unique(id), text.col = unique(id), bg = 'gray90')
 
 }

@@ -6,7 +6,7 @@
 #### References: Jolliffe I.T. (2002)
 #### Principal Component Analysis p. 167-188.
 ################################
-pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, seed = FALSE, graph = TRUE) {
+pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, seed = NULL, graph = TRUE) {
   ## y is the univariate dependent variable
   ## x contains the independent variables(s)
   ## M is the number of folds, set to 10 by default

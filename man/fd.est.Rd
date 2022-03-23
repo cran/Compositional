@@ -64,5 +64,5 @@ ela
 }
 
 \seealso{
-\code{ \link{rfd}, \link{fd.density} }
+\code{ \link{rfd}, \link{rfd} }
 }

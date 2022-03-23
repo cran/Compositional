@@ -29,7 +29,7 @@ zad.est <- function(y, tol = 1e-05) {
   ly2 <- log( y[a2, , drop = FALSE] )
   x2 <- x[a2, , drop = FALSE]
   n1 <- nrow(y1)    ;    n2 <- n - n1
-  beta.ini <- .lm.fit(x1, ly1[, -1] - ly1[, 1])$coefficients  ## dirichlet regression on the non zeros part
+  beta.ini <- .lm.fit(x1, ly1[, -1] - ly1[, 1])$coefficients  
   ini.phi <- sum( Compositional::diri.nr(y1, type = 2)$param )
   ##############
   ini.par <- c( log(ini.phi), as.vector( t( beta.ini) ) )  ## initial parameter values

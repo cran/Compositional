@@ -41,7 +41,7 @@ kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
     b2 <- b1 + solve(der2, der)
   },
   silent = TRUE)
-  if ( class(res) == "try-error" )   b2 <- b1
+  if ( identical( class(res), "try-error") )  b2 <- b1
   m <- cbind(1, m1)
   m <- m / Rfast::rowsums(m)
   loglik <- sum( y * log(m), na.rm = TRUE )

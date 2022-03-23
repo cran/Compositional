@@ -5,7 +5,7 @@
 #### Tsagris Michail 1/2016
 #### mtsagris@yahoo.gr
 ################################
-multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, seed = FALSE, graph = TRUE) {
+multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, seed = NULL, graph = TRUE) {
   ## y is the UNIVARIATE dependent variable
   ## y is either a binary variable (binary logistic regression)
   ## or a discrete variable (Poisson regression)

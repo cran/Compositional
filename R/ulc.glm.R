@@ -18,8 +18,7 @@ ulc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL
     }
 
     nama <- colnames(x)
-    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:p, sep = ""),
-                                     paste("Z", 1:d, sep = "") )
+    if ( is.null(nama) )  nama <- c( "constant", paste("X", 1:p, sep = "") )
     if ( nama[1] == "" )  nama[1] <- "constant"
     be <- as.vector(mod$be)
     names(be) <- nama

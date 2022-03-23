@@ -1,5 +1,5 @@
 cv.compnb <- function(x, ina, type = "beta", folds = NULL, nfolds = 10,
-             stratified = TRUE, seed = FALSE, pred.ret = FALSE) {
+             stratified = TRUE, seed = NULL, pred.ret = FALSE) {
 
   ina <- as.numeric(ina)
   if ( is.null(folds) ) {

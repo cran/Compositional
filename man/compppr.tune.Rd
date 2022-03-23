@@ -9,7 +9,7 @@ Tuning of the projection pursuit regression for compositional data.
 }
 
 \usage{
-compppr.tune(y, x, nfolds = 10, folds = NULL, seed = FALSE,
+compppr.tune(y, x, nfolds = 10, folds = NULL, seed = NULL,
 nterms = 1:10, type = "alr", yb = NULL )
 
 }
@@ -28,7 +28,7 @@ The number of folds to use.
 If you have the list with the folds supply it here.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 \item{nterms}{
 The number of terms to try in the projection pursuit regression.

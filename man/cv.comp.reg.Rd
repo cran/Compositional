@@ -9,7 +9,7 @@ Cross validation for some compositional regression models.
 }
 
 \usage{
-cv.comp.reg(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed = FALSE)
+cv.comp.reg(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed = NULL)
 }
 
 \arguments{

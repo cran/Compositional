@@ -1,4 +1,4 @@
-cv.comp.reg <- function(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed = FALSE) {
+cv.comp.reg <- function(y, x, type = "comp.reg", nfolds = 10, folds = NULL, seed = NULL) {
 
    n <- dim(y)[1]
    ina <- 1:n

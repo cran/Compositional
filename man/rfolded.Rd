@@ -36,7 +36,7 @@ A matrix with compositional data.
 }
 
 \references{
-Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis. 
+Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis.
 Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
 }
@@ -62,8 +62,8 @@ s <-  c(0.1490676523, -0.4580818209,  0.0020395316, -0.0047446076, -0.4580818209
 0.0365384838, -0.0471448849, -0.0047446076,  0.0074836251, -0.0471448849,
 0.0611442781)
 s <- matrix(s, ncol = 4)
-m = c(1.715, 0.914, 0.115, 0.167)
-x = rfolded(100, m, s, 0.5)
+m <- c(1.715, 0.914, 0.115, 0.167)
+x <- rfolded(100, m, s, 0.5)
 a.est(x)
 }
 

@@ -17,7 +17,7 @@ rmixdiri(n, a, prob)
 The sample size.
 }
 \item{a}{
-A matrix where each row contains the parameters of each Dirichlet disctribution.
+A matrix where each row contains the parameters of each Dirichlet component.
 }
 \item{prob}{
 A vector with the mixing probabilities.
@@ -34,15 +34,14 @@ A list including:
 A numeric variable indicating the cluster of simulated vector.
 }
 \item{x}{
-A matrix containing the simulated compositional data. The number of dimensions will be + 1.
+A matrix containing the simulated compositional data.
 }
 }
 
 \references{
-Ng Kai Wang, Guo-Liang Tian and Man-Lai Tang (2011). Dirichlet and related distributions:
-Theory, methods and applications. John Wiley & Sons.
-
-Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
+Ye X., Yu Y. K. and Altschul S. F. (2011). On the inference of
+Dirichlet mixture priors for protein sequence comparison.
+Journal of Computational Biology, 18(8), 941-954.
 }
 
 \author{

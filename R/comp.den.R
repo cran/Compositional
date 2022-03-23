@@ -5,11 +5,6 @@
 #### mtsagris@yahoo.gr
 ################################
  comp.den <- function(x, type = "alr", dist = "normal", tol = 1e-07) {
-  ## x is the compositional data
-  ## type is the type of transformation, "alr", "ilr"
-  ## dist is the distribution to be fitted,
-  ## "normal", "rob", "spatial", "t", "skewnorm"
-  ## if type = "none" or dist = "dirichlet" the Dirichlet is fitted
   if (dist == "normal") {
     if (type == "alr") {  ## additive log-ratio transformation
       y <- Compositional::alr(x)

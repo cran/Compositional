@@ -1,5 +1,5 @@
 cv.lasso.compreg <- function(y, x, alpha = 1, nfolds = 10,
-                               folds = NULL, seed = FALSE, graph = FALSE) {
+                               folds = NULL, seed = NULL, graph = FALSE) {
   y <- Compositional::alr(y)
   n <- dim(y)[1]  ## sample size
   ina <- 1:n

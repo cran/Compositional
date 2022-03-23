@@ -1,21 +1,23 @@
-\name{The alpha-kernel regression for compositional response data}
+\name{The alpha-kernel regression with compositional response data}
 \alias{akern.reg}
 
 \title{
-The \eqn{\alpha}-kernel regression for compositional response data
+The \eqn{\alpha}-kernel regression with compositional response data
 }
 
 \description{
-The \eqn{\alpha}-kernel regression for compositional response data.
+The \eqn{\alpha}-kernel regression with compositional response data.
 }
 
 \usage{
-akern.reg( xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10) )
+akern.reg( xnew, y, x, a = seq(0.1, 1, by = 0.1),
+h = seq(0.1, 1, length = 10), type = "gauss" )
 }
 
 \arguments{
 \item{xnew}{
-A matrix with the new predictor variables whose compositions are to be predicted.
+A matrix with the new predictor variables whose compositions are to
+be predicted.
 }
 \item{y}{
 A matrix with the compositional response data. Zeros are allowed.
@@ -24,23 +26,31 @@ A matrix with the compositional response data. Zeros are allowed.
 A matrix with the available predictor variables.
 }
 \item{a}{
-The value(s) of \eqn{\alpha}. Either a single value or a vector of values. As zero values in the compositional data are allowed, you must be careful to choose strictly positive vcalues of \eqn{\alpha}. However, if negative values are passed, the positive ones are used only.
+The value(s) of \eqn{\alpha}. Either a single value or a vector of values.
+As zero values in the compositional data are allowed, you must be careful
+to choose strictly positive vcalues of \eqn{\alpha}. However, if negative
+values are passed, the positive ones are used only.
 }
 \item{h}{
 The bandwidth value(s) to consider.
 }
+\item{type}{
+The type of kernel to use, "gauss" or "laplace".
+}
 }
 
 \details{
-The \eqn{\alpha}-kernel regression for compositional response variables is applied.
+The \eqn{\alpha}-kernel regression for compositional response variables is
+applied.
 }
 
 \value{
-A list with the estimated compositional response data for each value of \eqn{\alpha} and h.
+A list with the estimated compositional response data for each value of
+\eqn{\alpha} and h.
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021).
+Tsagris M., Alenazi A. and Stewart C. (2021).
 Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }
@@ -56,7 +66,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{akernreg.tune}, \link{aknn.reg}, \link{aknnreg.tune}, \link{alfa.reg}, \link{comp.ppr}, \link{comp.reg}, \link{kl.compreg}
+\code{\link{akernreg.tune}, \link{aknn.reg}, \link{aknnreg.tune},
+\link{alfa.reg}, \link{comp.ppr}, \link{comp.reg}, \link{kl.compreg}
 }
 }
 

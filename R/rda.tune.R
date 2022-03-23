@@ -1,5 +1,5 @@
 rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
-                     ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE) {
+                     ncores = 1, folds = NULL, stratified = TRUE, seed = NULL) {
   ## x contains the data
   ## gam is between pooled covariance and diagonal
   ## gam*Spooled+(1-gam)*diagonal
@@ -33,7 +33,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
       ida <- ina[ -folds[[ vim ]] ]  ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )
-      mesi <- rowsum(train, ida) / na
+      mesi <- Rfast2::colGroup(train, as.integer(ida) ) / na
       na <- rep(na - 1, each = D^2)
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )
@@ -74,7 +74,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
       ida <- ina[ -folds[[ vim ]] ]   ## groups of training sample
       na <- tabulate(ida)
       ci <- 2 * log(na / sum(na) )
-      mesi <- rowsum(train, ida) / na
+      mesi <- Rfast2::colGroup(train, as.integer(ida) ) / na
       na <- rep(na - 1, each = D^2)
       ## the covariance matrix of each group is now calculated
       for (m in 1:nc)  sk[ , , m] <- Rfast::cova( train[ida == m, ] )

@@ -83,9 +83,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 
 \examples{
 y <- rbinom(150, 1, 0.5)
-x <- as.matrix(iris[, 2:4])
+x <- rdiri(150, runif(3, 1, 4) )
 x <- x / rowSums(x)
 mod1 <- lc.glm(y, x)
-mod2 <- lc.glm(y, x, z = iris[, 5])
 }
 

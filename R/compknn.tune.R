@@ -1,5 +1,5 @@
-compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE, a = seq(-1, 1, by = 0.1),
-                         apostasi = "ESOV", folds = NULL, stratified = TRUE, seed = FALSE, graph = FALSE) {
+compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, mesos = TRUE, a = seq(-1, 1, by = 0.1),
+                         apostasi = "ESOV", folds = NULL, stratified = TRUE, seed = NULL, graph = FALSE) {
   n <- dim(x)[1]  ## sample size
   ina <- as.numeric(ina)
   ## number  of nearest neighbours to use
@@ -22,7 +22,7 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
       id <- ina[ folds[[ vim ]] ]  ## groups of test sample
       ina2 <- ina[ -folds[[ vim ]] ]   ## groups of training sample
       g <- Compositional::comp.knn(z[folds[[ vim ]], , drop = FALSE], z[-folds[[ vim ]], ], ina2,
-                                     a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
+                                     a = NULL, k = k, apostasi = apostasi, mesos = mesos)
       be <- g - id
       per[vim, ] <- Rfast::colmeans(be == 0)
     }
@@ -53,7 +53,7 @@ compknn.tune <- function(x, ina, nfolds = 10, k = 2:5, type = "S", mesos = TRUE,
         z <- x^a[i]
         z <- x / Rfast::rowsums( z )
         g <- Compositional::comp.knn(z[folds[[ vim ]], , drop = FALSE], z[-folds[[ vim ]], ], ina2,
-                                     a = NULL, k = k, type = "S", apostasi = apostasi, mesos = mesos)
+                                     a = NULL, k = k, apostasi = apostasi, mesos = mesos)
         be <- g - id
         per[vim, , i] <- Rfast::colmeans(be == 0)
       }

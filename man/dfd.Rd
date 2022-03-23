@@ -1,5 +1,5 @@
 \name{Density of the Flexible Dirichlet distribution}
-\alias{fd.density}
+\alias{dfd}
 \title{
 Density of the Flexible Dirichlet distribution
 }
@@ -9,7 +9,7 @@ Density of the Flexible Dirichlet distribution
 }
 
 \usage{
-fd.density(x, alpha, prob, tau)
+dfd(x, alpha, prob, tau)
 }
 
 \arguments{
@@ -36,10 +36,12 @@ The density value(s).
 }
 
 \references{
-Ongaro A. and Migliorati S. (2013). A generalization of the Dirichlet distribution.
-Journal of Multivariate Analysis, 114, 412--426.
+Ongaro A. and Migliorati S. (2013). A generalization of the Dirichlet
+distribution. Journal of Multivariate Analysis, 114, 412--426.
 
-Migliorati S., Ongaro A. and Monti G. S. (2017). A structured Dirichlet mixture model for compositional data: inferential and applicative issues. Statistics and Computing, 27, 963--983.
+Migliorati S., Ongaro A. and Monti G. S. (2017). A structured Dirichlet mixture
+model for compositional data: inferential and applicative issues.
+Statistics and Computing, 27, 963--983.
 }
 
 \author{
@@ -51,7 +53,7 @@ alpha <- c(12, 11, 10)
 prob <- c(0.25, 0.25, 0.5)
 tau <- 8
 x <- rfd(20, alpha, prob, tau)
-fd.density(x, alpha, prob, tau)
+dfd(x, alpha, prob, tau)
 }
 
 \seealso{

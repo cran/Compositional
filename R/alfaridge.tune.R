@@ -9,7 +9,7 @@
 #### Chilean journal of statistics 6(2): 47-57
 ################################
 alfaridge.tune <- function(y, x, nfolds = 10, a = seq(-1, 1, by = 0.1), lambda = seq(0, 2, by = 0.1),
-                           folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE) {
+                           folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = NULL) {
 
   if ( min(x) == 0 )  a <- a[a>0]  ## checks for zero values in the data.
   da <- length(a)

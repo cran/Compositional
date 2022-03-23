@@ -19,9 +19,9 @@ ridge.plot <- function(y, x, lambda = seq(0, 5, by = 0.1) ) {
   d <- sa$d    ;    v <- t(sa$v)    ;     tu <- t(sa$u)
   d2 <- d^2    ;    A <- d * tu %*% yy
 
-  for (i in 1:R)  be[, i] <-  crossprod( v / ( d2 + lambda[i] ), A )
+  for (i in 1:R)  be[, i] <- crossprod( v / ( d2 + lambda[i] ), A )
 
-  plot(lambda, be[1,], type = "l", col = 1, lty = 1,
+  plot(lambda, be[1,], type = "l", col = 1, lty = 2,
        ylim = c( min(be), max(be) ), xlab = expression(paste(lambda, " values") ),
        ylab = "Beta coefficients", cex.lab = 1.2, cex.axis = 1.2, lwd = 2)
   abline(v = lambda, col = "lightgrey", lty = 2)

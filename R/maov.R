@@ -1,23 +1,10 @@
-################################
-#### Multivariate analysis of variance (MANOVA)
-#### Tsagris Michail 8/2015
-#### mtsagris@yahoo.gr
-#### References: Johnson and Wichern (2007, 6th Edition)
-#### Applied Multivariate Statistical Analysis p. 302-303.
-###########
-#### Todorov, Valentin and Filzmoser, Peter (2010)
-#### Robust Statistic for the One-way MANOVA
-#### Computational Statistics \& Data Analysis 54(1):37-48
-################################
 maov <- function(x, ina) {
-  ## x is a matrix with the data
-  ## ina is a grouping  variable indicating the groups
   ina <- as.numeric(ina)
   ni <- tabulate(ina)  ## group sample sizes
   n <- dim(x)[1]  ## total sample size
   g <- max(ina)  ## number of groups
   p <- dim(x)[2]  ## dimensionality of the data
-  m <- rowsum(x, ina) / ni
+  m <- Rfast2::colGroup(x, as.integer(ina) ) / ni
   me <- Rfast::colmeans(x)  ## total mean vector
   y <- sqrt(ni) * (m - rep(me, rep(g, p)) )
   B <- crossprod(y)

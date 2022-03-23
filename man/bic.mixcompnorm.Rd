@@ -76,7 +76,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{mix.compnorm}, \link{mixnorm.contour}, \link{rmixcomp}, \link{bic.alfamixnorm}
+\code{\link{mix.compnorm}, \link{mix.compnorm.contour}, \link{rmixcomp}, \link{bic.alfamixnorm}
 }
 }
 

@@ -10,7 +10,7 @@ This is a cross-validation procedure to decide on the number of principal compon
 
 \usage{
 alfapcr.tune(y, x, model = "gaussian", nfolds = 10, maxk = 50, a = seq(-1, 1, by = 0.1),
-folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = FALSE)
+folds = NULL, ncores = 1, graph = TRUE, col.nu = 15, seed = NULL)
 }
 
 \arguments{
@@ -45,7 +45,7 @@ If graph is TRUE (default value) a filled contour plot will appear.
 A number parameter for the filled contour plot, taken into account only if graph is TRUE.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 

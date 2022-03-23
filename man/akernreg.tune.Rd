@@ -1,16 +1,16 @@
-\name{Cross validation for the alpha-kernel regression for compositional response data}
+\name{Cross validation for the alpha-kernel regression with compositional response data}
 \alias{akernreg.tune}
 \title{
-Cross validation for the \eqn{\alpha}-kernel regression for compositional response data
+Cross validation for the \eqn{\alpha}-kernel regression with compositional response data
 }
 
 \description{
-Cross validation for the \eqn{\alpha}-kernel regression for compositional response data.
+Cross validation for the \eqn{\alpha}-kernel regression with compositional response data.
 }
 
 \usage{
 akernreg.tune(y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, length = 10),
-nfolds = 10, folds = NULL, seed = FALSE)
+type = "gauss", nfolds = 10, folds = NULL, seed = NULL)
 }
 
 \arguments{
@@ -26,6 +26,9 @@ A vector with a grid of values of the power transformation, it has to be between
 \item{h}{
 A vector with the bandwidth value(s) to consider.
 }
+\item{type}{
+The type of kernel to use, "gauss" or "laplace".
+}
 \item{nfolds}{
 The number of folds. Set to 10 by default.
 }
@@ -33,7 +36,7 @@ The number of folds. Set to 10 by default.
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 
@@ -73,7 +76,7 @@ The runtime of the cross-validation procedure.
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021). 
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2021).
 Non-parametric regression models for compositional data.
 https://arxiv.org/pdf/2002.05137.pdf
 }

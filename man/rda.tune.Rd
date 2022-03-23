@@ -10,7 +10,7 @@ Tuning the parameters of the regularised discriminant analysis for Eucldiean dat
 
 \usage{
 rda.tune(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0, 1, by = 0.1),
-ncores = 1, folds = NULL, stratified = TRUE, seed = FALSE)
+ncores = 1, folds = NULL, stratified = TRUE, seed = NULL)
 }
 
 \arguments{
@@ -40,7 +40,7 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 Do you want the folds to be created in a stratified way? TRUE or FALSE.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 
@@ -55,7 +55,7 @@ weight of Sa and 1-del the weight of each group covariance group. This function 
 
 \value{
 A list including:
-If graph is TRUE a plot of the performance versus the number of principal components will appear.
+If graph is TRUE a plot of a heatmap of the performance s will appear.
 \item{per}{
 An array with the estimate rate of correct classification for every fold. For each of the M matrices, the row values correspond to gam and the columns to the del parameter.
 }
@@ -74,9 +74,11 @@ The time required by the cross-validation procedure.
 }
 
 \references{
-Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). The elements of statistical learning, 2nd edition. Springer, Berlin
+Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009). 
+The elements of statistical learning, 2nd edition. Springer, Berlin
 
-Tsagris Michail, Simon Preston and Andrew TA Wood (2016). Improved classification for compositional data using the \eqn{\alpha}-transformation.
+Tsagris M., Preston S. and Wood A.T.A. (2016). Improved classification for 
+compositional data using the \eqn{\alpha}-transformation.
 Journal of classification, 33(2):243-261.
 http://arxiv.org/pdf/1106.1451.pdf
 }

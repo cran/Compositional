@@ -1,34 +1,37 @@
-ice.pprcomp <- function(y, x, nterms = 3, k = 1, type = "alr") {
+ice.pprcomp <- function(model, x, k = 1, frac = 0.1, type = "log") {
 
- if ( type == "alr" ) {
+  nam <- colnames(x)
+  if ( type == "alr" ) {
     x <- Compositional::alr(x)
-  } else  x <- Rfast::Log(x)
-
-  x <- as.data.frame(x)
-  nam <- colnames(x)
-  n <- dim(x)[1]   ;   p <- dim(x)[2]
-  if ( is.null(nam) )  colnames(x) <- paste("X", 1:p, sep = "")
-  nam <- colnames(x)
-  xsel <- sort( x[, k] )
-  X <- x
-  est <- matrix(NA, n, n)
-
-  for (i in 1:n) {
-    for (j in 1:n) {
-      X[i, k] <- xsel[j]
-      mod <- ppr(y ~., data = X, nterms = nterms)
-      est[i, j] <- predict(mod, newdata = X)[1]
-    }
+    colnames(x) <- nam[-1]
+  } else {
+    x <- Rfast::Log(x)
+    colnames(x) <- nam
   }
 
-  est <- est[, -1] - est[, 1]
-  plot( xsel, est[, 1], type = "l", xlab = nam[k], ylab = "Centered fitted values",
-        cex.lab = 1.2, cex.axis = 1.2, ylim = c( min(est), max(est) ) )
+  mod <- model$mod
+  dm <- dim(x)
+  n <- dm[1]  ;  p <- dm[2]
+  x <- as.data.frame(x)
+  nu <- ceiling( frac * n )
+  xsel <- sort( sample(x[, k], nu) )
+  est <- matrix(NA, n, nu)
+
+  for ( i in 1:nu ) {
+    X <- x
+    X[, k] <- xsel[i]
+    est[, i] <- predict(mod, newdata = X)
+  }
+
+  nam <- colnames(x)[k]
+  if ( is.null(nam) )  nam <- paste("Variable ", k, sep = "")
+
+  est <- est[-1, ] - est[1, ]
+  plot( xsel, est[1, ], type = "l", xlab = nam, ylab = "Centered fitted values",
+        cex.lab = 1.3, cex.axis = 1.3, ylim = c( min(est), max(est) ) )
   abline(v = seq( min(xsel), max(xsel), length = 10 ), col = "lightgrey", lty = 2)
   abline(h = seq(min(est), max(est), length = 10), col = "lightgrey", lty = 2)
-  for (j in 2:c(n - 1) )  lines(xsel, est[, j])
-  m <- Rfast::rowmeans(est)
+  for (i in 2:c(n - 1) )  lines(xsel, est[i, ])
+  m <- Rfast::colmeans(est)
   lines(xsel, m, col = 4, lwd = 3)
-  a <- loess( m ~ xsel )
-  lines(xsel, fitted(a), col = 5, lwd = 2)
 }

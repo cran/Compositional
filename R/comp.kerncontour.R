@@ -1,9 +1,9 @@
- ################################
+################################
 #### Contour plot of the kernel density estimate in S^2
 #### Tsagris Michail 2/2015
 #### mtsagris@yahoo.gr
 ################################
-comp.kerncontour <- function(x, type = "alr", n = 100, cont.line = FALSE) {
+comp.kerncontour <- function(x, type = "alr", n = 50, cont.line = FALSE) {
   ## x contains the compositional data
   ## type determines which log-ratio transformation will be used.
   ## If type='alr' (the default) the additive
@@ -24,7 +24,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100, cont.line = FALSE) {
 
   hopt <- Compositional::mkde.tune(z)$hopt
   con <- hopt^2
-  ts <- diag( 1/hopt^2, 2 )
+  ts <- diag( hopt^2, 2 )
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
   mat <- matrix(nrow = n, ncol = n)
@@ -43,8 +43,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100, cont.line = FALSE) {
             y <- log(w) - mean(log(w))
             y <- as.vector(y %*% ha )
         }
-        a <- numeric(nu)
-        for (l in 1:nu)   a[l] <- as.vector( t(z[l, ] - y) %*% ts %*% ( z[l, ] - y ) )
+        a <- Rfast::mahala(z, y, ts)
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
         if ( abs(can) < Inf )  mat[i, j] <- can
       }
@@ -65,8 +64,7 @@ comp.kerncontour <- function(x, type = "alr", n = 100, cont.line = FALSE) {
           y <- log(w) - mean(log(w))
           y <- as.vector( y %*% ha )
         }
-        a <- numeric(nu)
-        for (l in 1:nu) a[l] <- as.vector( t(z[l, ] - y ) %*% ts %*% (z[l, ] - y) )
+        a <- Rfast::mahala(z, y, ts)
         can <- 0.5 / pi / con * sum( exp(-0.5 * a) )/nu
         if (abs(can) < Inf)  mat[i, j] <- can
       }

@@ -1,15 +1,18 @@
 \name{Cross-validation for the constrained linear least squares for compositional responses and predictors}
 \alias{cv.olscompcomp}
 \title{
-Cross-validation for the constrained linear least squares for compositional responses and predictors
+Cross-validation for the constrained linear least squares for compositional
+responses and predictors
 }
 
 \description{
-Cross-validation for the constrained linear least squares for compositional responses and predictors.
+Cross-validation for the constrained linear least squares for compositional
+responses and predictors.
 }
 
 \usage{
-cv.olscompcomp(y, x, rs = 5, tol = 1e-4, nfolds = 10, folds = NULL, seed = FALSE)
+cv.olscompcomp(y, x, rs = 5, tol = 1e-4, nfolds = 10,
+folds = NULL, seed = NULL)
 }
 
 \arguments{
@@ -20,24 +23,28 @@ A matrix with compositional response data. Zero values are allowed.
 A matrix with compositional predictors. Zero values are allowed.
 }
 \item{rs}{
-The number of times to run the constrained optimisation using different random starting values each time.
+The number of times to run the constrained optimisation using different random
+starting values each time.
 }
 \item{tol}{
 The threshold upon which to stop the iterations of the constrained optimisation.
 }
 \item{nfolds}{
-The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
+The number of folds to be used. This is taken into consideration only if the
+folds argument is not supplied.
 }
 \item{folds}{
-If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
+If you have the list with the folds supply it here. You can also leave it NULL
+and it will create folds.
 }
 \item{seed}{
-If seed is TRUE the results will always be the same.
+You can specify your own seed number here or leave it NULL.
 }
 }
 
 \details{
-The function performs k-fold cross-validation for the least squares regression where the beta coefficients are constained to be positive and sum to 1.
+The function performs k-fold cross-validation for the least squares regression
+where the beta coefficients are constained to be positive and sum to 1.
 }
 
 \value{
@@ -57,7 +64,8 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
 }
 
 %\references{
-  %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.
+  %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis
+  %of multivariate fractional data. Econometric Reviews 35(4): 515-552.
   %}
 \author{
 Michail Tsagris.
@@ -80,7 +88,7 @@ set.seed(1234)
 y <- rdiri(214, runif(3, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- cv.olscompcomp(y, x, rs = 1, tol = 1e-4, nfolds = 5, folds = NULL, seed = 12345)
+mod <- cv.olscompcomp(y, x, rs = 1, tol = 1e-4, nfolds = 5, seed = 12345)
 mod
 }
 }

@@ -9,7 +9,7 @@ Projection pursuit regression with compositional predictor variables.
 }
 
 \usage{
-pprcomp(y, x, nterms = 3, type = "alr", xnew = NULL)
+pprcomp(y, x, nterms = 3, type = "log", xnew = NULL)
 }
 
 \arguments{
@@ -23,8 +23,8 @@ A matrix with the compositional data. No zero values are allowed.
 The number of terms to include in the final model.
 }
 \item{type}{
-Either "alr" or "log" corresponding to the additive log-ratio transformation or the simple
-logarithm applied to the compositional data.
+Either "alr" or "log" corresponding to the additive log-ratio transformation
+or the simple logarithm applied to the compositional data.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -32,9 +32,9 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-This is the standard projection pursuit. See the built-in function "ppr" for more details.
-When the data are transformed with the additive log-ratio transformation this is close
-in spirit to the log-contrast regression.
+This is the standard projection pursuit. See the built-in function "ppr" for
+more details. When the data are transformed with the additive log-ratio
+transformation this is close in spirit to the log-contrast regression.
 }
 
 \value{

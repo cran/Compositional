@@ -13,75 +13,35 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE, cont.line = FA
   ## n is the number of points of each axis used
   nam <- c("X1", "X2", "X3")
   sqrt3 <- sqrt(3)
+  x1 <- seq(0.001, 0.999, length = n)
+  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
 
-  if (type == 'alr') {
-    y <- Compositional::alr(x) ## additive log-ratio transformation
-  } else {
-    ha <- t( Compositional::helm(3) )
-    y <- log(x)
-    y <- y - Rfast::rowmeans( y )
-    y <- as.matrix( y %*% ha )
-  }
+  if (type == "alr") {
+    y <- Compositional::alr(x) # additive log-ratio transformation
+  } else y <- Compositional::alfa(x, 0)$aff
 
   mod <- Compositional::multivt(y)
   m <- mod$center
   s <- mod$scatter
   v <- mod$df
-  p <- 2
-  x1 <- seq(0.001, 0.999, length = n)
-  x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  mat <- matrix(nrow = n, ncol = n)
-  st <- solve(s)
+  y <- NULL
 
-  for (i in 1:c(n/2) ) {
-    for (j in 1:n) {
-
-      if (x2[j] < sqrt3 * x1[i]) { ## This checks if the point lies
-        ## inside the triangle
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-
-        if (type == 'alr') {
-          y <- log(w[-1] / w[1]) ## additive log-ratio transformation
-        } else {
-          y <- log(w) - mean(log(w))
-          y <- as.vector( y %*% ha )
-        }  ## isometric log-ratio transformation
-        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) ) - 0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
-        can <- exp(ca)
-        if (abs(can) < Inf)   mat[i, j] <- can
-      }
-    }
+  wa <- NULL
+  for ( i in 1:n ) {
+    w3 <- 2 * x2 / sqrt3
+    w2 <- x1[i] - x2/sqrt3
+    w1 <- 1 - w2 - w3
+    wa <- rbind(wa, cbind(w1, w2, w3) )
   }
 
-  for (i in c(n/2 + 1):n) {
-    for (j in  1:n) {
+  if (type == "alr") {
+    y <- Compositional::alr(wa) # additive log-ratio transformation
+  } else y <- Compositional::alfa(wa, 0)$aff
 
-      ## This checks if the point will lie inside the triangle
-      if (x2[j] < sqrt3 - sqrt3 * x1[i]) {
-        ## The next 4 lines calculate the composition
-        w3 <- 2 * x2[j] / sqrt3
-        w2 <- x1[i] - x2[j] / sqrt3
-        w1 <- 1 - w2 - w3
-        w <- c(w1, w2, w3)
-
-        if (type == 'alr') {
-          y <- log(w[-1]/w[1]) ## additive log-ratio transformation
-        } else  {
-          y <- log(w) - mean(log(w))
-          y <- as.vector( y %*% ha )
-        }  ## isometric log-ratio transformation
-
-        ca <- lgamma( (v + p)/2 ) - lgamma(v/2) - 0.5 * log( det(pi * v * s) ) - 0.5 * (v + p) * ( log1p( ( y - m ) %*% st %*% ( y - m) )/v )
-        can <- exp(ca)
-        if (abs(can) < Inf)  mat[i, j] <- can
-      }
-    }
-  }
-
+  can <- Rfast::dmvt(y, m, s, v, logged = FALSE)
+  mat <- matrix(can, byrow = TRUE, nrow = n, ncol = n)
 
 
   # Create triangle corners

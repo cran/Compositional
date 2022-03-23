@@ -1,15 +1,17 @@
 \name{Cross validation for the transformation-free linear regression for compositional responses and predictors}
 \alias{cv.tflr}
 \title{
-Cross validation for the transformation-free linear regression for compositional responses and predictors
+Cross validation for the transformation-free linear regression for compositional
+responses and predictors
 }
 
 \description{
-Cross validation for the transformation-free linear regression for compositional responses and predictors.
+Cross validation for the transformation-free linear regression for compositional
+responses and predictors.
 }
 
 \usage{
-cv.tflr(y, x, nfolds = 10, folds = NULL, seed = FALSE)
+cv.tflr(y, x, nfolds = 10, folds = NULL, seed = NULL)
 }
 
 \arguments{
@@ -20,10 +22,12 @@ A matrix with compositional response data. Zero values are allowed.
 A matrix with compositional predictors. Zero values are allowed.
 }
 \item{nfolds}{
-The number of folds to be used. This is taken into consideration only if the folds argument is not supplied.
+The number of folds to be used. This is taken into consideration only if the
+folds argument is not supplied.
 }
 \item{folds}{
-If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
+If you have the list with the folds supply it here. You can also leave it NULL
+and it will create folds.
 }
 \item{seed}{
 If seed is TRUE the results will always be the same.
@@ -31,7 +35,8 @@ If seed is TRUE the results will always be the same.
 }
 
 \details{
-A k-fold cross validation for the transformation-free linear regression for compositional responses and predictors is performed.
+A k-fold cross validation for the transformation-free linear regression for
+compositional responses and predictors is performed.
 }
 
 \value{

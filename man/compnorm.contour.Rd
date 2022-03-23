@@ -1,5 +1,5 @@
 \name{Contour plot of the normal distribution in S^2}
-\alias{norm.contour}
+\alias{compnorm.contour}
 \title{
 Contour plot of the normal distribution in \eqn{S^2}
 }
@@ -9,7 +9,7 @@ Contour plot of the normal distribution in \eqn{S^2}.
 }
 
 \usage{
-norm.contour(m, s, type = "alr", n = 100, x = NULL, cont.line = FALSE)
+compnorm.contour(m, s, type = "alr", n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
@@ -57,7 +57,7 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{\link{diri.contour}, \link{mixnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
+\code{\link{diri.contour}, \link{mix.compnorm.contour}, \link{bivt.contour}, \link{skewnorm.contour}
 }
 }
 
@@ -67,7 +67,7 @@ x <- x / rowSums(x)
 y <- Compositional::alr(x)
 m <- colMeans(y)
 s <- cov(y)
-norm.contour(m, s)
+compnorm.contour(m, s)
 }
 
 \keyword{ contour plot }

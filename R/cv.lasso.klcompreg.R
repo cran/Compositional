@@ -1,5 +1,5 @@
 cv.lasso.klcompreg <- function(y, x, alpha = 1, type = "grouped", nfolds = 10,
-                               folds = NULL, seed = FALSE, graph = FALSE) {
+                               folds = NULL, seed = NULL, graph = FALSE) {
   n <- dim(y)[1]  ## sample size
   ina <- 1:n
   if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,

@@ -56,7 +56,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{diri.contour}, \link{mixnorm.contour}, \link{norm.contour}, \link{skewnorm.contour}
+\code{\link{diri.contour}, \link{mix.compnorm.contour}, \link{compnorm.contour}, \link{skewnorm.contour}
 }
 }
 

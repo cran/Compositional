@@ -9,7 +9,7 @@ Cross-validation for the Dirichlet discriminant analysis.
 }
 
 \usage{
-cv.dda(x, ina, nfolds = 10, folds = NULL, stratified = TRUE, seed = FALSE)
+cv.dda(x, ina, nfolds = 10, folds = NULL, stratified = TRUE, seed = NULL)
 }
 \arguments{
 \item{x}{

@@ -63,6 +63,9 @@ symkl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
+	  oop <- options(warn = -1)
+      on.exit( options(oop) )
+      requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
       betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = "symkl" ) %dopar% {

@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 5.5 \cr
-Date: \tab 2022-03-22\cr
+Version: \tab 5.6 \cr
+Date: \tab 2022-05-11\cr
 License: \tab GPL-2\cr
 }
 }
@@ -45,8 +45,9 @@ spotted a bug in the "js.compreg" function and is greatly acknowledged for that.
 a bug in the "diri.reg"" function and she is greatly acknowledged for that. Philipp Kynast from Bruker Daltonik
 GmbH found a mistake in the function "mkde" which is now fixed. Jasmine Heyse from the university of Ghent spotted
 a bug in the function "kl.compreg" which is now fixed. Magne Neby suggested to add names in the covariance matrix
-of the divergence based regression models. John Barry from the Centre for Environment, Fisheries, and Aquaculture Science
-(UK) suggested that I should add more explanation in the "diri.est" function. I hope it is clearer now.
+of the divergence based regression models. John Barry from the Centre for Environment, Fisheries, and Aquaculture
+Science (UK) suggested that I should add more explanation in the "diri.est" function. I hope it is clearer now.
+Charlotte Fabri spotted a possible problem in the function "zadr" and she is greatly acknowledged for that.
 }
 
 \keyword{ Compositional data }

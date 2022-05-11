@@ -10,24 +10,32 @@ Zero adjusted Dirichlet regression.
 }
 
 \usage{
-zadr(y, x, xnew = NULL, tol = 1e-05)
+zadr(y, x, B = 1, ncores = 2, xnew = NULL)
 
 mixreg(param, z)
 }
 
 \arguments{
 \item{y}{
-A matrix with the compositional data (dependent variable). The number of observations (vectors) with no zero values should be more
-than the columns of the predictor variables. Otherwise, the initial values will not be calculated.
+A matrix with the compositional data (dependent variable). The number of observations
+(vectors) with no zero values should be more than the columns of the predictor variables.
+Otherwise, the initial values will not be calculated.
 }
 \item{x}{
 The predictor variable(s), they can be either continnuous or categorical or both.
 }
+\item{B}{
+If B is greater than 1 bootstrap estimates of the standard error are returned.
+If you set this greater than 1, then you must define the number of clusters in
+order to run in parallel.
+}
+\item{ncores}{
+The number of cores to use when B>1. This is to be used for the
+case of bootstrap. If B = 1, this is not taken into consideration.
+If this does not work then you might need to load the doParallel yourselves.
+}
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
-}
-\item{tol}{
-A tolerance level to terminate the maximisation process.
 }
 \item{param}{
 Some arguments passed on to the mixreg helper function.

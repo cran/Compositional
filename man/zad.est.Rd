@@ -9,7 +9,7 @@ MLE of the zero adjusted Dirichlet distribution.
 }
 
 \usage{
-zad.est(y, tol = 1e-05)
+zad.est(y)
 }
 
 \arguments{
@@ -17,9 +17,6 @@ zad.est(y, tol = 1e-05)
 A matrix with the compositional data (dependent variable). The number of observations (vectors)
 with no zero values should be more than the columns of the predictor variables. Otherwise,
 the initial values will not be calculated.
-}
-\item{tol}{
-A tolerance level to terminate the maximisation process.
 }
 }
 

@@ -30,7 +30,7 @@ Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformati
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
 
-John Aitchison (2003). The Statistical Analysis of Compositional Data p. 99 Blackburn Press.
+John Aitchison (2003). The Statistical Analysis of Compositional Data, p. 99. Blackburn Press.
 
 Lancaster H. O. (1965). The Helmert matrices. The American Mathematical Monthly 72(1): 4-12.
 }

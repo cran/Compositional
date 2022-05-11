@@ -22,12 +22,11 @@ a.mle <- function(a, x) {
     ## step 1
     ma <- Rfast::colmeans(y1)
     sa <- Rfast::cova(y1)
-    con <-  - 0.5 * n * log( det(sa) )
     f1 <- exp( -0.5 * Rfast::mahala(y1, ma, sa) )
     f2 <- lam^d * exp(-0.5 * Rfast::mahala(y2, ma, sa) )
     p <- f1/(f1 + f2)
     per <- sum(p) / n
-    ela1 <- sum( log(per * f1 + (1 - per) * f2), na.rm = TRUE ) + con
+    ela1 <- sum( log(per * f1 + (1 - per) * f2), na.rm = TRUE ) - 0.5 * n * log( det(sa) )
     ma <- colMeans(p * y1 + (1 - p) * y2, na.rm = TRUE)
     z1 <- sqrt(p) * ( y1 - rep(ma, rep(n, d)) )
     z1 <- na.omit(z1)

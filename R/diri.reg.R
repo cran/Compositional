@@ -31,7 +31,7 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
   el2 <-  -qa$minimum
   vim <- 2
-  while (el2 - el1 > 1e-06) {
+  while (el2 - el1 > 1e-04) {
     el1 <- el2
     qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
     el2 <- -qa$minimum

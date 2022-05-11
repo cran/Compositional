@@ -23,16 +23,20 @@ A matrix containing the Euclidean data of the second group.
 The significance level, set to 0.05 by default.
 }
 \item{R}{
-If R is 1 no bootstrap calibration is performed and the classical p-value via the F distribution is returned. If R is greater than 1, the bootstrap p-value is returned.
+If R is 1 no bootstrap calibration is performed and the classical p-value via the 
+F distribution is returned. If R is greater than 1, the bootstrap p-value is returned.
 }
 \item{graph}{
-A boolean variable which is taken into consideration only when bootstrap calibration is performed. IF TRUE the histogram of the bootstrap test statistic values is plotted.
+A boolean variable which is taken into consideration only when bootstrap calibration is performed. 
+If TRUE the histogram of the bootstrap test statistic values is plotted.
 }
 }
 
 \details{
-Multivariate analysis of variance without assuming equality of the covariance matrices. The p-value can be calculated either asymptotically or via bootstrap.
-The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) is implemented. The James test uses a corrected chi-square distribution,
+Multivariate analysis of variance without assuming equality of the covariance matrices. 
+The p-value can be calculated either asymptotically or via bootstrap.
+The James test (1954) or a modification proposed by Krishnamoorthy and Yanping (2006) 
+is implemented. The James test uses a corrected chi-square distribution,
 whereas the modified version uses an F distribution.
 }
 
@@ -45,8 +49,10 @@ A message informing the user about the test used.
 The two mean vectors.
 }
 \item{info}{
-The test statistic, the p-value, the correction factor and the corrected critical value of the chi-square distribution if the James test has been used or,
-the test statistic, the p-value, the critical value and the degrees of freedom (numerator and denominator) of the F distribution if the modified James test has been used.
+The test statistic, the p-value, the correction factor and the corrected critical value 
+of the chi-square distribution if the James test has been used or, the test statistic, 
+the p-value, the critical value and the degrees of freedom (numerator and denominator) 
+of the F distribution if the modified James test has been used.
 }
 \item{pvalue}{
 The bootstrap p-value if bootstrap is employed.
@@ -67,7 +73,8 @@ Multivariate Behavioral Research 41(4): 533-548.
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
+Giorgos Athineou <gioathineou@gmail.com>.
 }
 
 %\note{

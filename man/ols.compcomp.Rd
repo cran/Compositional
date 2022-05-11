@@ -9,7 +9,7 @@ Constrained linear least squares for compositional responses and predictors.
 }
 
 \usage{
-ols.compcomp(y, x, rs = 5, tol = 1e-4, xnew = NULL)
+ols.compcomp(y, x, rs = 5, xnew = NULL)
 }
 
 \arguments{
@@ -21,9 +21,6 @@ A matrix with the compositional predictors. Zero values are allowed.
 }
 \item{rs}{
 The number of times to run the constrained optimisation using different random starting values each time.
-}
-\item{tol}{
-The threshold upon which to stop the iterations of the constrained optimisation.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -54,7 +51,7 @@ The fitted of xnew if xnew is not NULL.
 }
 
 \references{
-Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for 
+Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for
 compositional outcomes and predictors. https://arxiv.org/pdf/2004.07881.pdf
 
 %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.

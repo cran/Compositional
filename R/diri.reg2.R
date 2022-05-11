@@ -34,7 +34,7 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   el1 <-  -qa$minimum
   qa <- nlm(dirireg2, qa$estimate)
   el2 <- -qa$minimum
-  while (el2 - el1 > 1e-06) {
+  while (el2 - el1 > 1e-04) {
     ## the tolerance value can of course change
     el1 < -el2
     qa <- nlm(dirireg2, qa$estimate)
@@ -54,7 +54,7 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   if ( !is.null( colnames(y) ) ) {
     colnames(be) <- colnames(seb) <- colnames(y[, -1])
   } else  colnames(beta) <- colnames(seb) <- paste("Y", 1:d, sep = "")
-  
+
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind( 1, exp(xnew %*% be) )

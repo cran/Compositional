@@ -1,4 +1,4 @@
-zad.est <- function(y, tol = 1e-05) {
+zad.est <- function(y) {
   ## y is the compositional data
   ## x is the independent variable(s)
   dm <- dim(y)
@@ -29,7 +29,7 @@ zad.est <- function(y, tol = 1e-05) {
   ly2 <- log( y[a2, , drop = FALSE] )
   x2 <- x[a2, , drop = FALSE]
   n1 <- nrow(y1)    ;    n2 <- n - n1
-  beta.ini <- .lm.fit(x1, ly1[, -1] - ly1[, 1])$coefficients  
+  beta.ini <- .lm.fit(x1, ly1[, -1] - ly1[, 1])$coefficients
   ini.phi <- sum( Compositional::diri.nr(y1, type = 2)$param )
   ##############
   ini.par <- c( log(ini.phi), as.vector( t( beta.ini) ) )  ## initial parameter values
@@ -40,12 +40,6 @@ zad.est <- function(y, tol = 1e-05) {
   el1 <- -qa$minimum
   qa <- nlm( mixreg, qa$estimate, z = z )
   el2 <-  - qa$minimum
-
-  while ( el2 - el1 > tol ) {  ## the tolerance value can of course change
-    el1 <- el2
-    qa <- nlm( mixreg, qa$estimate, z = z )
-    el2 <-  -qa$minimum
-  }
   qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE, control = list(maxiters = 10000) )
 
   phi <- exp( qa$par[1] )  ## final phi value

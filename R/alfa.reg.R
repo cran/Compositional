@@ -46,7 +46,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL, seb = FALSE) {
     qa1 <- nlminb( ini, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(iter.max = 2000) )
     qa1 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000) )
     qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000) )
-    while (qa1$value - qa2$value > 1e-05) {
+    while (qa1$value - qa2$value > 1e-04) {
       qa1 <- qa2
       qa2 <- optim( qa1$par, reg, ya = ya, x = x, ha = ha, n = n, px = p, d = d, D = D, control = list(maxit = 5000), hessian = TRUE )
     }

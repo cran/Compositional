@@ -1,4 +1,4 @@
-ols.compcomp <- function(y, x, rs = 5, tol = 1e-4, xnew = NULL) {
+ols.compcomp <- function(y, x, rs = 5, xnew = NULL) {
 
   con <- function(be){
     be <- matrix(be, byrow = TRUE, ncol = py)
@@ -22,7 +22,7 @@ ols.compcomp <- function(y, x, rs = 5, tol = 1e-4, xnew = NULL) {
   for (i in 1:rs) {
     f1 <- NlcOptim::solnl( X = runif(pyx), ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
     f2 <- NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
-    while ( f1$fn - f2$fn > tol ) {
+    while ( f1$fn - f2$fn > 1e-04 ) {
       f1 <- f2
       f1 <- NlcOptim::solnl( f2$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
       f2 <- NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )

@@ -1,5 +1,6 @@
-kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
-  X <- model.matrix(y~., data.frame(x))
+kl.compreg2 <- function(y, x, con = TRUE, xnew = NULL, tol = 1e-07, maxiters = 50) {
+  X <- model.matrix( y~., data.frame(x) )
+  if ( !con )  X <- X[, -1, drop = FALSE]
   p <- dim(X)[2]
   Y <- y[, -1, drop = FALSE]
   dm <- dim(Y)
@@ -51,6 +52,7 @@ kl.compreg2 <- function(y, x, xnew = NULL, tol = 1e-07, maxiters = 50) {
   est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix( ~., data.frame(xnew) )
+    if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     mu <- cbind( 1, exp(xnew %*% b2) )
     est <- mu/Rfast::rowsums(mu)
   }

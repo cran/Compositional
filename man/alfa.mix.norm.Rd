@@ -95,7 +95,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\dontrun{
+\donttest{
 x <- as.matrix(iris[, 1:4])
 x <- x/ rowSums(x)
 mod1 <- alfa.mix.norm(x, 3, 0.4, model = "EII" )

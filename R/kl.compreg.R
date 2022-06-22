@@ -1,8 +1,10 @@
-kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50) {
+kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50) {
 
   runtime <- proc.time()
-  mod <- try( Compositional::kl.compreg2(y, x, xnew = xnew, tol = tol, maxiters = maxiters), silent = TRUE )
+  mod <- try( Compositional::kl.compreg2(y, x, con = con, xnew = xnew, tol = tol, maxiters = maxiters), silent = TRUE )
   if ( is.infinite(mod$loglik)  |  identical( class(mod), "try-error") )  {
+    x <- model.matrix(y ~ ., data.frame(x) )
+    if ( !con )  x <- x[, -1, drop = FALSE]
     mod <- nnet::multinom(y ~ x, trace = FALSE)
     be <- t( coef(mod) )
     loglik <- mod$value
@@ -10,6 +12,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
     est <- NULL
     if ( !is.null(xnew) ) {
       xnew <- model.matrix( ~., data.frame(xnew) )
+      if ( !con )  xnew <- xnew[, -1, drop = FALSE]
       mu <- cbind( 1, exp(xnew %*% be) )
       est <- mu/Rfast::rowsums(mu)
     }
@@ -28,6 +31,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
 
     if ( ncores <= 1 ) {
       X <- model.matrix( y~., data.frame(x) )
+      if ( !con )  X <- X[, -1, drop = FALSE]
       p <- dim(X)[2]
       Y <- y[, -1, drop = FALSE]
       dm <- dim(Y)
@@ -38,7 +42,7 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
       der <- numeric(d * p)
       der2 <- matrix(0, p * d, p * d)
       for (i in 1:B) {
-        ida <- sample(1:n, n, replace = TRUE)
+        ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- Y[ida, ]
         xb <- X[ida, ]
         bb <- Compositional::klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)
@@ -47,14 +51,14 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
           bb <- t( coef(mod) )
         } else  betaboot[i, ] <- as.vector(bb)
       }  ##  end  for (i in 1:B) {
-	  
+
     } else {
-	  oop <- options(warn = -1)
-      on.exit( options(oop) )
+      #suppressWarnings()
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
       X <- model.matrix(y~., data.frame(x) )
+      if ( !con )  X <- X[, -1, drop = FALSE]
       p <- dim(X)[2]
       Y <- y[, -1, drop = FALSE]
       dm <- dim(Y)
@@ -64,9 +68,9 @@ kl.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxite
       id <- matrix(1:c(p * d), ncol = d)
       der <- numeric(d * p)
       der2 <- matrix(0, p * d, p * d)
-      betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = c("klcompreg.boot", "multinom"),
-                  .packages = c("Rfast", "nnet") ) %dopar% {
-        ida <- sample(1:n, n, replace = TRUE)
+      betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .packages = c("Rfast", "Rfast2", "nnet"),
+	              .export = c("klcompreg.boot", "multinom", "Sample.int") ) %dopar% {
+        ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- Y[ida, ]
         xb <- X[ida, ]
         bb <- Compositional::klcompreg.boot(yb, xb, der, der2, id, b1, n, p, d, tol = tol, maxiters = maxiters)

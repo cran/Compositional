@@ -10,7 +10,7 @@ Zero adjusted Dirichlet regression.
 }
 
 \usage{
-zadr(y, x, B = 1, ncores = 2, xnew = NULL)
+zadr(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL)
 
 mixreg(param, z)
 }
@@ -23,6 +23,9 @@ Otherwise, the initial values will not be calculated.
 }
 \item{x}{
 The predictor variable(s), they can be either continnuous or categorical or both.
+}
+\item{con}{
+If this is TRUE (default) then the constant term is estimated, otherwise the model includes no constant term.
 }
 \item{B}{
 If B is greater than 1 bootstrap estimates of the standard error are returned.

@@ -1,7 +1,7 @@
 rmixdiri <- function(n, a, prob) {
   p2 <- c(0, cumsum(prob))
   d <- dim(a)[2]  ## dimensionality of the data
-  u <- runif(n)
+  u <- Rfast2::Runif(n)
   g <- dim(a)[1]  ## how many clusters are there
   ina <- as.numeric( cut(u, breaks = p2) )  ## the cluster of each observation
   ina <- sort(ina)

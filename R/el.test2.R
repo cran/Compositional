@@ -63,8 +63,8 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
       runtime <- proc.time()
       tb <- numeric(R)
       for (i in 1:R) {
-        b1 <- sample(1:n1, n1, replace = TRUE)
-        b2 <- sample(1:n2, n2, replace = TRUE)
+        b1 <- Rfast2::Sample.int(n1, n1, replace = TRUE)
+        b2 <- Rfast2::Sample.int(n1, n2, replace = TRUE)
         y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
         tb[i] <- nlm( elpa, muc )$minimum
       }
@@ -74,11 +74,12 @@ el.test2 <- function(y1, y2, R = 0, ncores = 1, graph = FALSE) {
       runtime <- proc.time()
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl) ## make the cluster
-      tb <- foreach::foreach( i = 1:R, .combine = rbind, .packages = "emplik", .export = "el.test" ) %dopar% {
-            b1 <- sample(1:n1, n1, replace = TRUE)
-            b2 <- sample(1:n2, n2, replace = TRUE)
-            y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
-            ww <- nlm( elpa, muc )$minimum
+      tb <- foreach::foreach( i = 1:R, .combine = rbind, .packages = c("Rfast2", "emplik"),
+	          .export = c("Sample.int", "el.test") ) %dopar% {
+	      b1 <- Rfast2::Sample.int(n1, n1, replace = TRUE)
+        b2 <- Rfast2::Sample.int(n2, n2, replace = TRUE)
+        y1 <- z1[b1, ]    ;    y2 <- z2[b2, ]
+        ww <- nlm( elpa, muc )$minimum
       }
       parallel::stopCluster(cl) ## stop the cluster
       runtime <- proc.time() - runtime

@@ -14,7 +14,7 @@ ice.pprcomp <- function(model, x, k = 1, frac = 0.1, type = "log") {
   n <- dm[1]  ;  p <- dm[2]
   x <- as.data.frame(x)
   nu <- ceiling( frac * n )
-  xsel <- sort( sample(x[, k], nu) )
+  xsel <- sort( Rfast2::Sample(x[, k], nu) )
   est <- matrix(NA, n, nu)
 
   for ( i in 1:nu ) {

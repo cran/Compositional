@@ -12,10 +12,10 @@ Regression for compositional data based on the Kullback-Leibler the Jensen-Shann
 }
 
 \usage{
-kl.compreg(y, x, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50)
-js.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
-tv.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
-symkl.compreg(y, x, B = 1, ncores = 1, xnew = NULL)
+kl.compreg(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1e-07, maxiters = 50)
+js.compreg(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL)
+tv.compreg(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL)
+symkl.compreg(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL)
 }
 
 \arguments{
@@ -24,6 +24,9 @@ A matrix with the compositional data (dependent variable). Zero values are allow
 }
 \item{x}{
 The predictor variable(s), they can be either continnuous or categorical or both.
+}
+\item{con}{
+If this is TRUE (default) then the constant term is estimated, otherwise the model includes no constant term.
 }
 \item{B}{
 If B is greater than 1 bootstrap estimates of the standard error are returned. If B=1, no standard errors are returned.
@@ -91,7 +94,7 @@ Mathematics 55, 639-653.
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} 
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 and Giorgos Athineou <gioathineou@gmail.com>.
 }
 

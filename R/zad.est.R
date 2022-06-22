@@ -34,8 +34,7 @@ zad.est <- function(y) {
   ##############
   ini.par <- c( log(ini.phi), as.vector( t( beta.ini) ) )  ## initial parameter values
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-  oop <- options(warn = -1)
-  on.exit( options(oop) )
+  #suppressWarnings()
   qa <- nlm( mixreg, ini.par, z = z )
   el1 <- -qa$minimum
   qa <- nlm( mixreg, qa$estimate, z = z )

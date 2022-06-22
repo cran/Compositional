@@ -56,7 +56,7 @@ Michail Tsagris ported from the R package FlexDir. \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\dontrun{
+\donttest{
 x <- rfd(n = 50, a = c(12, 11, 10), p = c(0.25, 0.25, 0.5), tau = 4 )
 ela <- fd.est(x, ini.iter = 10, final.iter = 20)
 ela

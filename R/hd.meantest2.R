@@ -22,8 +22,8 @@ hd.meantest2 <- function(y1, y2, R = 1) {
     x2 <- Rfast::eachrow(z2, mc2, oper = "+")
     Mnb <- numeric(R)  
     for (i in 1:R) {
-      xb1 <- x1[sample(1:n1, n1, replace = TRUE), ]   	
-      xb2 <- x2[sample(1:n2, n2, replace = TRUE), ]
+      xb1 <- x1[Rfast2::Sample.int(n1, n1, replace = TRUE), ]   	
+      xb2 <- x2[Rfast2::Sample.int(n2, n2, replace = TRUE), ]
       m1 <- Rfast::colmeans(xb1)
       m2 <- Rfast::colmeans(xb2)
       s1 <- (n1 - 1) * Rfast::colVars(xb1)

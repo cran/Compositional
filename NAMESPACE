@@ -17,13 +17,13 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            rowMaxs, Dist, spat.med, lmfit, dista, Log, Var, knn, knn.cv, cova,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
-		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm,
-		       dmvnorm, dmvt)
+		   prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm,
+		   dmvnorm, dmvt)
 
 importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
-           rbeta1, colGroup)
+           rbeta1, colGroup, Sample.int, Sample, Runif)
 
 importFrom("RANN", nn2)
 importFrom("mda", fda)

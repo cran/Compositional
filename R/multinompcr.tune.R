@@ -58,7 +58,8 @@ multinompcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores 
     er <- numeric(maxk)
     if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
                                                              stratified = FALSE, seed = seed)
-      msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", .export = c("multinom.reg", "rowMaxs") ) %dopar% {
+      msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = "Rfast", 
+	         .export = c("multinom.reg", "rowMaxs") ) %dopar% {
       ytest <- y[ folds[[ vim ]] ]  ## test set dependent vars
       ytrain <-  y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars

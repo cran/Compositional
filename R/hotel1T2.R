@@ -34,7 +34,7 @@ hotel1T2 <- function(x, M, a = 0.05, R = 999, graph = FALSE) {
     y <- Rfast::eachrow(x, mm, oper = "+") ## brings the data
     ## under the null hypothesis, i.e. mean vector equal to M
     for (i in 1:R) {
-      b <- sample(1:n, n, replace = TRUE)
+      b <- Rfast2::Sample.int(n, n, replace = TRUE)
       yb <- y[b, ]
       sb <- Rfast::cova(yb)
       mb <- Rfast::colmeans(yb)

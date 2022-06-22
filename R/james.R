@@ -44,7 +44,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
   trb1 <- sum( diag(b1) )
   trb2 <- sum( diag(b2) )
 
-  if (R <= 1) {
+  if ( R <= 1 ) {
     ## James test
     A <- 1 + ( trb1^2/(n1 - 1) + trb2^2/(n2 - 1) ) / (2 * p)
     B <- ( sum(b1^2) / (n1 - 1) + sum(b2^2)/(n2 - 1) + 0.5 * trb1 ^ 2/ (n1 - 1) + 0.5 * trb2^2/(n2 - 1) ) / (p * (p + 2))
@@ -57,7 +57,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     note <- paste("James test")
     result <- list(note = note, mesoi = mesoi, info = info)
 
-  } else if (R == 2) {
+  } else if ( R == 2 ) {
     ## MNV test
     low <- ( sum( b1 %*% b1 ) + trb1^2 ) / n1 + ( sum( b2 %*% b2 ) + trb2^2 ) / n2
     v <- (p + p^2) / low
@@ -69,7 +69,7 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     note <- paste("MNV variant of James test")
     result <- list(note = note, mesoi = mesoi, info = info)
 
-  } else  if (R > 2) {
+  } else  if ( R > 2 ) {
     ## bootstrap calibration
     runtime <- proc.time()
     a1inv <- Rfast::spdinv(A1)
@@ -83,9 +83,9 @@ james <- function(y1, y2, a = 0.05, R = 999, graph = FALSE) {
     x1 <- Rfast::eachrow(y1, mc1, oper = "+")
     x2 <- Rfast::eachrow(y2, mc2, oper = "+" )
     tb <- numeric(R)
-    for (i in 1:R) {
-      b1 <- sample(1:n1, n1, replace = TRUE)
-      b2 <- sample(1:n2, n2, replace = TRUE)
+    for (i in 1:R) { 
+	  b1 <- Rfast2::Sample.int(n1, n1, replace = TRUE)
+	  b2 <- Rfast2::Sample.int(n2, n2, replace = TRUE)
       xb1 <- x1[b1, ]     ;      xb2 <- x2[b2, ]
       db <- Rfast::colmeans(xb1) - Rfast::colmeans(xb2)  ## difference of the two mean vectors
       Vb <- Rfast::cova(xb1) / n1 + Rfast::cova(xb2) / n2  ## covariance matrix of the difference

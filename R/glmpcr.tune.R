@@ -74,7 +74,7 @@ glmpcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, 
       ytrain <-  y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
-	    vec <- prcomp(xtrain, center = FALSE)$rotation
+	  vec <- prcomp(xtrain, center = FALSE)$rotation
       z <- xtrain %*% vec  ## PCA scores
 
       for ( j in 1:maxk) {

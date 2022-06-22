@@ -63,7 +63,7 @@ eel.test1 <- function(x, mu, tol = 1e-06, R = 1) {
       y <- x + rep(dm, rep(n, d) )
       tb <- numeric(R)
       for ( i in 1:R ) {
-        b <- sample(1:n, n, replace = TRUE)
+        b <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[b, ]
         tb[i] <- try( eel(yb, mu, n, d), silent = TRUE )$info[1]
       }

@@ -3,7 +3,7 @@ ice.kernreg <- function(y, x, h, type = "gauss", k = 1, frac = 0.1) {
   x <- as.matrix(x)
   n <- dim(x)[1]
   nu <- ceiling( frac * n )
-  xsel <- sort( sample(x[, k], nu) )
+  xsel <- sort( Rfast2::Sample(x[, k], nu) )
   est <- matrix(NA, n, nu)
 
   for ( i in 1:nu ) {

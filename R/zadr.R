@@ -1,4 +1,4 @@
-zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
+zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
   ## y is the compositional data
   ## x is the independent variable(s)
   dm <- dim(y)
@@ -6,11 +6,12 @@ zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
   ## d is the dimensionality of the simplex
   n <- dm[1] ## sample size
 
-  beta.ini <- Compositional::kl.compreg(y, x)$be
+  beta.ini <- Compositional::kl.compreg(y, x, con = con)$be
   ini.phi <- Compositional::zad.est(y)$phi
   xini <- x
-  
+
   x <- model.matrix(~., as.data.frame(x) )
+  if ( !con )  x <- x[, -1, drop = FALSE]
   runtime <- proc.time()
   ## next we separate the compositional vectors, those which contain
   ## zeros and those without. The same separation is performed for the
@@ -38,8 +39,7 @@ zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
   ##############
   ini.par <- c( log(ini.phi), as.vector(beta.ini) )  ## initial parameter values
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-  oop <- options(warn = -1)
-  on.exit( options(oop) )
+  #suppressWarnings()
   qa <- optim( ini.par, mixreg, z = z )
   qa <- optim( qa$par, mixreg, z = z )
   qa <- optim( qa$par, mixreg, z = z, hessian = TRUE, control = list(maxit = 1000) )
@@ -48,14 +48,13 @@ zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
 
   if ( B > 1 ) {
     runtime <- proc.time()
-    oop <- options(warn = -1)
-    on.exit( options(oop) )
+    #suppressWarnings()
     requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(cl)
-    betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .export = c("mixreg", "diri.nr"),
-                                 .packages = c("Compositional") ) %dopar% {
-      ida <- sample(1:n, n, replace = TRUE)
+    betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .export = c("Sample.int", "mixreg", "diri.nr"),
+                                 .packages = c("Rfast2", "Compositional") ) %dopar% {
+      ida <- Rfast2::Sample.int(n, n, replace = TRUE)
       yb <- y[ida, ]
       xb <- x[ida, ]
 
@@ -79,15 +78,14 @@ zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
       x2 <- xb[a2, , drop = FALSE]
       n1 <- nrow(y1)    ;    n2 <- n - n1
       ##############
-      beta.ini <- try( Compositional::kl.compreg(yb, xini[ida, ])$be, silent = TRUE )
+      beta.ini <- try( Compositional::kl.compreg(yb, xini[ida, ], con = con)$be, silent = TRUE )
       if ( identical(class(beta.ini), "try-error") ) {
         beta.ini <- be
       }
       ini.phi <- Compositional::zad.est(yb)$phi
       ini.par <- c( log(ini.phi), as.vector(beta.ini) )  ## initial parameter values
       z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-      oop <- options(warn = -1)
-      on.exit( options(oop) )
+      #suppressWarnings()
       qa <- optim( ini.par, mixreg, z = z )
       qa <- optim( qa$par, mixreg, z = z )
       qa <- optim( qa$par, mixreg, z = z, control = list(maxit = 1000) )
@@ -121,6 +119,7 @@ zadr <- function(y, x, B = 1, ncores = 2, xnew = NULL) {
 
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., as.data.frame(xnew) )
+    if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     ma <- cbind(1, exp( xnew %*% be ) )
     est <- ma / Rfast::rowsums(ma)  ## fitted values
     colnames(est) <- colnames(y)

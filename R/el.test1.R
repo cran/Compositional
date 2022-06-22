@@ -19,7 +19,7 @@ el.test1 <- function(x, mu, R = 1, ncores = 1, graph = FALSE) {
       ## under the null hypothesis, i.e. mean vector equal to M
       runtime <- proc.time()
       for (i in 1:R) {
-        b <- sample(1:n, n, replace = TRUE)
+        b <- Rfast2::Sample.int(n, n, replace = TRUE)
         tb[i] <- emplik::el.test(y[b, ], mu, maxit = 1000)$"-2LLR"
       }
       runtime <- proc.time() - runtime
@@ -28,9 +28,9 @@ el.test1 <- function(x, mu, R = 1, ncores = 1, graph = FALSE) {
       runtime <- proc.time()
       cl <- makePSOCKcluster(ncores)
       registerDoParallel(cl) ## make the cluster
-      tb <- foreach( i = 1:R, .combine = rbind, .packages = "emplik",
-        .export = "el.test" ) %dopar% {
-         b <- sample(1:n, n, replace = TRUE)
+      tb <- foreach( i = 1:R, .combine = rbind, .packages = c("emplik", "Rfast2"),
+        .export = c("el.test", "Sample.int") ) %dopar% {
+         b <- Rfast2::Sample.int(n, n, replace = TRUE)
          ww <- emplik::el.test(y[b, ], mu, maxit = 1000)$"-2LLR"
      }
       stopCluster(cl) ## stop the cluster

@@ -116,8 +116,8 @@ eel.test2 <- function(y1, y2, tol = 1e-07, R = 0, graph = FALSE) {
       zy <- y2 + rep( - m2 + mu, rep(n2, d) )
       tb <- numeric(R)
       for ( i in 1:R ) {
-        b1 <- sample(1:n1, n1, replace = TRUE)
-        b2 <- sample(1:n2, n2, replace = TRUE)
+        b1 <- Rfast2::Sample.int(n1, n1, replace = TRUE)
+        b2 <- Rfast2::Sample.int(n2, n2, replace = TRUE)
         tb[i] <- try( eel2(zx[b1, ], zy[b2, ], d), silent = TRUE )$info[1]
       }
       pvalue <- ( sum(tb > test ) + 1 ) / (R + 1)

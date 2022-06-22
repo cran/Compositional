@@ -29,7 +29,7 @@ ridge.reg <- function(y, x, lambda, B = 1, xnew = NULL) {
   if (B > 1) { ## bootstrap estimation of the standard errors
     be <- matrix(nrow = B, ncol = p )
     for ( i in 1:B) {
-      id <- sample(1:n, n, replace = TRUE)
+      id <- Rfast2::Sample.int(n, n, replace = TRUE)
       yb <- yy[id, ]     ;     xb <- x[id, ]
       be[i, ] <- solve( crossprod(xb) + lamip, crossprod(xb, yb) )
     }

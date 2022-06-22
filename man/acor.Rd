@@ -45,8 +45,7 @@ and the type of the correlation to be computed.
 
 \references{
 G.J. Szekely, M.L. Rizzo and N. K. Bakirov (2007). Measuring and Testing
-Independence by Correlation of
-Distances. Annals of Statistics, 35(6): 2769-2794.
+Independence by Correlation of Distances. Annals of Statistics, 35(6): 2769-2794.
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.

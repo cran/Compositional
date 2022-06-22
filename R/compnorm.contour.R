@@ -4,8 +4,7 @@ compnorm.contour <- function(m, s, type = "alr", n = 100, x = NULL, cont.line = 
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  oop <- options(warn = -1)
-  on.exit( options(oop) )
+  #suppressWarnings()
 
   wa <- NULL
   for ( i in 1:n ) {

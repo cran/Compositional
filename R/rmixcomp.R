@@ -13,7 +13,7 @@ rmixcomp <- function(n, prob, mu, sigma, type = "alr") {
   ## sigma is an array with the covariance matrices
   p2 <- c(0, cumsum(prob))
   p <- ncol(mu)  ## dimensionality of the data
-  u <- runif(n)
+  u <- Rfast2::Runif(n)
   g <- nrow(mu)  ## how many clusters are there
   ina <- as.numeric( cut(u, breaks = p2) )  ## the cluster of each observation
   ina <- sort(ina)

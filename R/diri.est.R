@@ -28,8 +28,7 @@ diri.est <- function(x, type = 'mle') {
 
   if (type == 'mle') {
     runtime <- proc.time()
-    oop <- options(warn = -1)
- 	on.exit( options(oop) )
+    #suppressWarnings()
     da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, n = n, iterlim = 10000)
     da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
     runtime <- proc.time() - runtime
@@ -39,8 +38,7 @@ diri.est <- function(x, type = 'mle') {
 
   if (type == 'prec') {
     runtime <- proc.time()
-    oop <- options(warn = -1)
-  	on.exit( options(oop) )
+    #suppressWarnings()
     da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, n = n, iterlim = 5000)
     da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
     phi <- exp(da$par[1])

@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\dontrun{
+\donttest{
 library(MASS)
 library(Rfast)
 x <- as.matrix(fgl[, 2:9])

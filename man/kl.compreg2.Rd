@@ -10,7 +10,7 @@ Helper functions for the Kullback-Leibler regression.
 }
 
 \usage{
-kl.compreg2(y, x, xnew = NULL, tol = 1e-07, maxiters = 50)
+kl.compreg2(y, x, con = TRUE, xnew = NULL, tol = 1e-07, maxiters = 50)
 klcompreg.boot(y, x, der, der2, id, b1, n, p, d, tol = 1e-07, maxiters = 50)
 }
 
@@ -19,7 +19,10 @@ klcompreg.boot(y, x, der, der2, id, b1, n, p, d, tol = 1e-07, maxiters = 50)
 A matrix with the compositional data (dependent variable). Zero values are allowed. For the klcompreg.boot the first column is removed.
 }
 \item{x}{
-The predictor variable(s), they can be either continuous or categorical or both. In the klcompreg.boot this is the design matrix, with the ones in the first column.
+The predictor variable(s), they can be either continuous or categorical or both. In the klcompreg.boot this is the design matrix.
+}
+\item{con}{
+If this is TRUE (default) then the constant term is estimated, otherwise the model includes no constant term.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.

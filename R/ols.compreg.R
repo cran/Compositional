@@ -6,7 +6,7 @@
 #### Regression analysis of multivariate fractional data
 #### Econometric Reviews (to appear)
 ################################
-ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
+ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
   ## y is dependent variable, the compositional data
   ## x is the independent variable(s)
   ## B is the number of bootstrap samples used to obtain
@@ -23,6 +23,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
   runtime <- proc.time()
   x <- model.matrix(y ~ ., data.frame(x) )
+  if ( !con )  x <- x[, -1, drop = FALSE]
   p <- dim(x)[2]
   n <- dim(y)[1]  ## sample size
   d <- dim(y)[2] - 1  ## dimensionality of the simplex
@@ -33,12 +34,11 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   } else namy <- namy[-1]
 
   ## the next lines minimize the reg function and obtain the estimated betas
-  ini <- as.vector( t( lm.fit(x, y[, -1])$coefficients ) )  ## initial values
-  oop <- options(warn = -1)
+  ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1], con = con)$be ) ) ## initial values
+  #suppressWarnings()
   qa <- nlm(olsreg, ini, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
-  on.exit( options(oop) )
   be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   covb <- NULL
   runtime <- proc.time() - runtime
@@ -47,12 +47,12 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
     nc <- ncores
     if (nc <= 1) {
       runtime <- proc.time()
-      betaboot <- matrix(nrow = B, ncol = length(ini))
+      betaboot <- matrix( nrow = B, ncol = length(ini) )
       for (i in 1:B) {
-        ida <- sample(1:n, n, replace = TRUE)
+        ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
+        ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
         qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
@@ -63,17 +63,17 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-	  oop <- options(warn = -1)
-      on.exit( options(oop) )
+      #suppressWarnings()
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
-      betaboot <- foreach::foreach(i = 1:B, .combine = rbind, .export = "olsreg") %dopar% {
-        ida <- sample(1:n, n, replace = TRUE)
+      betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .packages = "Rfast2",
+	              .export = c( "Sample.int", "olsreg" ) ) %dopar% {
+        ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( lm.fit(xb, yb[, -1])$coefficients ) )  ## initial values
+        ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
         qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
         qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
@@ -83,7 +83,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
       covb <- cov(betaboot)
       runtime <- proc.time() - runtime
     }  ## end if (nc <= 1) {
-	
+
     nam <- NULL
     for (i in 1:p)  nam <- c(nam, paste(namy, ":", namx[i], sep = "") )
     colnames(covb) <- rownames(covb) <- nam
@@ -92,6 +92,7 @@ ols.compreg <- function(y, x, B = 1, ncores = 1, xnew = NULL) {
   est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
+    if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     mu <- cbind( 1, exp(xnew %*% beta) )
     est <- mu / Rfast::rowsums(mu)
   }

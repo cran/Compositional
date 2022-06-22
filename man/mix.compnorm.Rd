@@ -102,7 +102,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\dontrun{
+\donttest{
 x <- as.matrix(iris[, 1:4])
 x <- x/ rowSums(x)
 mod1 <- mix.compnorm(x, 3, model = "EII" )

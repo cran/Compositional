@@ -15,7 +15,8 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE, cont.line = FA
   sqrt3 <- sqrt(3)
   x1 <- seq(0.001, 0.999, length = n)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
 
   if (type == "alr") {
     y <- Compositional::alr(x) # additive log-ratio transformation

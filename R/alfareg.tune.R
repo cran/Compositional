@@ -48,7 +48,8 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
 
   } else {
     apa <- proc.time()
-    #suppressWarnings()
+    oop <- options( warn = -1 )
+    on.exit( options(oop) )
     val <- matrix(a, ncol = nc) ## if the length of a is not equal to the
     ## dimensions of the matrix val a warning message should appear
     cl <- parallel::makePSOCKcluster(nc)

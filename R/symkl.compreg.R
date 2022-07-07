@@ -35,7 +35,8 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
   ## the next lines minimize the symkl function and obtain the estimated betas
   runtime <- proc.time()
   ini <- rnorm( d * dim(x)[2] )
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
   qa <- nlm(symkl, ini, y = y, x = x, d = d)
   qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
@@ -63,7 +64,8 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-      #suppressWarnings()
+      oop <- options( warn = -1 )
+      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)

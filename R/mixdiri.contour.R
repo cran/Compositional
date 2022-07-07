@@ -4,7 +4,8 @@ mixdiri.contour <- function(a, prob, n = 100, x = NULL, cont.line = FALSE) {
   x1 <- seq(0.001, 0.999, length = n)  ## coordinates of x
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 1e-03, length = n)  ## coordinates of y
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
 
   wa <- NULL
   for ( i in 1:n ) {

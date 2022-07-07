@@ -27,7 +27,7 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
   za[ za < 1 ] <- 0
   theta <- table( apply(za, 1, paste, collapse = ",") )
   theta <- as.vector(theta)
-  con <- n1 * log(n1/n) + sum( theta * log(theta/n) )
+  const <- n1 * log(n1/n) + sum( theta * log(theta/n) )
 
   y1 <- y[a1, , drop = FALSE]
   ly1 <- log( y1 )
@@ -39,7 +39,8 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
   ##############
   ini.par <- c( log(ini.phi), as.vector(beta.ini) )  ## initial parameter values
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
   qa <- optim( ini.par, mixreg, z = z )
   qa <- optim( qa$par, mixreg, z = z )
   qa <- optim( qa$par, mixreg, z = z, hessian = TRUE, control = list(maxit = 1000) )
@@ -48,7 +49,8 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
 
   if ( B > 1 ) {
     runtime <- proc.time()
-    #suppressWarnings()
+    oop <- options( warn = -1 )
+    on.exit( options(oop) )
     requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(cl)
@@ -69,7 +71,7 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
       za[ za < 1 ] <- 0
       theta <- table( apply(za, 1, paste, collapse = ",") )
       theta <- as.vector(theta)
-      con <- n1 * log(n1/n) + sum( theta * log(theta/n) )
+      const <- n1 * log(n1/n) + sum( theta * log(theta/n) )
 
       y1 <- yb[a1, , drop = FALSE]
       ly1 <- log( y1 )
@@ -85,7 +87,8 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
       ini.phi <- Compositional::zad.est(yb)$phi
       ini.par <- c( log(ini.phi), as.vector(beta.ini) )  ## initial parameter values
       z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
-      #suppressWarnings()
+      oop <- options( warn = -1 )
+      on.exit( options(oop) )
       qa <- optim( ini.par, mixreg, z = z )
       qa <- optim( qa$par, mixreg, z = z )
       qa <- optim( qa$par, mixreg, z = z, control = list(maxit = 1000) )
@@ -126,7 +129,7 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
   }
   runtime <- proc.time() - runtime
 
-  list(runtime = runtime, loglik = -qa$value + con, phi = phi, be = be, seb = seb, sigma = sigma, est = est )
+  list(runtime = runtime, loglik = -qa$value + const, phi = phi, be = be, seb = seb, sigma = sigma, est = est )
 }
 
 

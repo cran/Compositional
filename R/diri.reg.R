@@ -24,7 +24,8 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   el <- NULL
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
   qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
   el1 <-  -qa$minimum
   qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)

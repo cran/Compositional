@@ -35,7 +35,8 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
   ## the next lines minimize the reg function and obtain the estimated betas
   ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1], con = con)$be ) ) ## initial values
-  #suppressWarnings()
+  oop <- options( warn = -1 )
+  on.exit( options(oop) )
   qa <- nlm(olsreg, ini, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
   qa <- nlm(olsreg, qa$estimate, y = y, x = x, d = d)
@@ -63,7 +64,8 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-      #suppressWarnings()
+      oop <- options( warn = -1 )
+      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       betaboot <- matrix(nrow = B, ncol = length(ini) )
       cl <- parallel::makePSOCKcluster(ncores)

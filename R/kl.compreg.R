@@ -4,8 +4,10 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
   mod <- try( Compositional::kl.compreg2(y, x, con = con, xnew = xnew, tol = tol, maxiters = maxiters), silent = TRUE )
   if ( is.infinite(mod$loglik)  |  identical( class(mod), "try-error") )  {
     x <- model.matrix(y ~ ., data.frame(x) )
-    if ( !con )  x <- x[, -1, drop = FALSE]
-    mod <- nnet::multinom(y ~ x, trace = FALSE)
+    x <- x[, -1, drop = FALSE]
+    if ( !con )  {
+       mod <- nnet::multinom(y ~ x - 1, trace = FALSE)
+    } else  mod <- nnet::multinom(y ~ x, trace = FALSE)
     be <- t( coef(mod) )
     loglik <- mod$value
     iters <- maxiters
@@ -53,7 +55,8 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
       }  ##  end  for (i in 1:B) {
 
     } else {
-      #suppressWarnings()
+      oop <- options( warn = -1 )
+      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)

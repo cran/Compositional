@@ -11,7 +11,7 @@ diri.reg2 <- function(y, x, xnew = NULL) {
   d <- dim(y)[2] - 1
   ly <- Rfast::Log(y)  ## dimensionality of the simplex
 
-    dirireg2 <- function(param) {
+    dirireg2 <- function(param, ly, x) {
       ## param contains the parameter values
       phipar <- param[1:p]
       para <- param[ -c(1:p) ]
@@ -24,24 +24,23 @@ diri.reg2 <- function(y, x, xnew = NULL) {
     }
 
   runtime <- proc.time()
-  rla <- ly[, -1] - ly[, 1]    ##  log( y[, -1] / y[, 1] )  ## additive log-ratio transformation
-  ini <- as.vector( lm.fit(x, rla)$coefficients )  ## initial values
+  ini <- as.vector( Rfast::lmfit(x, ly)$be )  ## initial values
   ## based on the logistic normal
   ## the next lines optimize the dirireg2 function and
   ## estimate the parameter values
   el <- NULL
-  qa <- nlm(dirireg2, c(rnorm(p, 0, 0.1), as.vector( t(ini) ) ) )
-  el1 <-  -qa$minimum
-  qa <- nlm(dirireg2, qa$estimate)
-  el2 <- -qa$minimum
+  qa <- optim( ini, dirireg2, ly = ly, x = x, control = list(maxit = 5000)  )
+  el1 <-  -qa$value
+  qa <- optim(qa$par, dirireg2, ly = ly, x = x, control = list(maxit = 5000) )
+  el2 <- -qa$value
   while (el2 - el1 > 1e-04) {
     ## the tolerance value can of course change
     el1 < -el2
-    qa <- nlm(dirireg2, qa$estimate)
-    el2 <-  -qa$minimum
+    qa <- optim(qa$par, dirireg2, ly = ly, x = x, control = list(maxit = 5000) )
+    el2 <-  -qa$value
   }
 
-  qa <- optim(qa$estimate, dirireg2, hessian = TRUE)
+  qa <- optim( qa$par, dirireg2, ly = ly, x = x, hessian = TRUE, control = list(maxit = 5000) )
   phipar <- qa$par[1:p]
   be <- matrix(qa$par[-c(1:p)], nrow = p)  ## matrix of the betas
   phi <- as.numeric( exp(x %*% phipar) )  ## estimated beta parameters of phi

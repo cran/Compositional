@@ -1,11 +1,11 @@
-\name{Non parametric zero replacement strategies}
+\name{Non-parametric zero replacement strategies}
 \alias{zeroreplace}
 \title{
-Non parametric zero replacement strategies
+Non-parametric zero replacement strategies
 }
 
 \description{
-Non parametric zero replacement strategies.
+Non-parametric zero replacement strategies.
 }
 
 \usage{

@@ -72,8 +72,8 @@ The runtime of the cross-validation procedure.
 }
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2020).
-Non-parametric regression models for compositional data.
+Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2022).
+Flexible non-parametric regression models for compositional response data with zeros.
 https://arxiv.org/pdf/2002.05137.pdf
 }
 

@@ -18,25 +18,17 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
     }
 
   runtime <- proc.time()
-  rla <- z[, -1] - z[, 1]   ##  log(y[, -1] / y[, 1])  ## additive log-ratio transformation
-  ini <-  as.vector(  solve( crossprod(x), crossprod(x, rla) ) )  ## initial values
+  ini.beta <- as.vector( Compositional::kl.compreg(y, x[, -1], con = TRUE)$be )
+  ini.phi <- sum( Compositional::diri.nr(y)$param )
   ## based on the logistic normal
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   el <- NULL
-  oop <- options( warn = -1 )
-  on.exit( options(oop) )
-  qa <- nlm(dirireg, c(3, ini), z = z, x = x, n = n, d = d)
-  el1 <-  -qa$minimum
-  qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
-  el2 <-  -qa$minimum
-  vim <- 2
-  while (el2 - el1 > 1e-04) {
-    el1 <- el2
-    qa <- nlm(dirireg, qa$estimate, z = z, x = x, n = n, d = d)
-    el2 <- -qa$minimum
-  }
-  qa <- optim(qa$estimate, dirireg, z = z, x = x, n = n, d = d, hessian = TRUE)
+  suppressWarnings({
+    qa <- optim( c(ini.phi, ini.beta), dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000) )
+    qa <- optim( qa$par, dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000)  )
+    qa <- optim(qa$par, dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000), hessian = TRUE)
+  })
   log.phi <- qa$par[1]
   be <- matrix(qa$par[-1], ncol = d)  ## matrix of the betas
   colnames(be) <- colnames(y[, -1])  ## names of the betas

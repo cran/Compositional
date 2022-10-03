@@ -67,7 +67,7 @@ If the arguments "xnew" and "znew" were given these are the predicted or estimat
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
-Hansen B. E. (2019). Econometrics. \url{https://www.ssc.wisc.edu/~bhansen/econometrics/Econometrics.pdf}.
+Hansen, B. E. (2022). Econometrics. Princeton University Press.
 
 Xiaokang Liu, Xiaomei Cong, Gen Li, Kendra Maas and Kun Chen (2020). Multivariate Log-Contrast Regression
 with Sub-Compositional Predictors: Testing the Association Between Preterm Infants' Gut Microbiome and

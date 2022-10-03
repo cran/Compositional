@@ -36,12 +36,10 @@ zad.est <- function(y) {
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
   oop <- options( warn = -1 )
   on.exit( options(oop) )
-  qa <- nlm( mixreg, ini.par, z = z )
-  el1 <- -qa$minimum
-  qa <- nlm( mixreg, qa$estimate, z = z )
-  el2 <-  - qa$minimum
-  qa <- optim( qa$estimate, mixreg, z = z, hessian = TRUE, control = list(maxit = 10000) )
-
+  suppressWarnings({
+  qa <- optim( ini.par, mixreg, z = z, hessian = TRUE, control = list(maxit = 10000) )
+  qa <- optim( qa$par, mixreg, z = z, hessian = TRUE, control = list(maxit = 10000) )
+  })
   phi <- exp( qa$par[1] )  ## final phi value
   mu <- c(1, exp(qa$par[-1]) ) ## final beta values
   mu <- mu / sum(mu)

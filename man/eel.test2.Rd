@@ -36,7 +36,7 @@ statistic values is plotted.
 }
 
 \details{
-Exponential empirical likelihood is a non parametric hypothesis testing
+Exponential empirical likelihood is a non-parametric hypothesis testing
 procedure for one sample. The generalization to two (or more samples) is via
 searching for the mean vector that minimises the sum of the two test statistics.
 }

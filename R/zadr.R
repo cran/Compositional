@@ -41,9 +41,11 @@ zadr <- function(y, x, con = TRUE, B = 1, ncores = 2, xnew = NULL) {
   z <- list(ly1 = ly1, ly2 = ly2, x1 = x1, x2 = x2, a1 = a1, a2 = a2)
   oop <- options( warn = -1 )
   on.exit( options(oop) )
-  qa <- optim( ini.par, mixreg, z = z )
-  qa <- optim( qa$par, mixreg, z = z )
-  qa <- optim( qa$par, mixreg, z = z, hessian = TRUE, control = list(maxit = 1000) )
+  suppressWarnings({
+    qa <- optim( ini.par, mixreg, z = z )
+    qa <- optim( qa$par, mixreg, z = z )
+    qa <- optim( qa$par, mixreg, z = z, hessian = TRUE, control = list(maxit = 1000) )
+  })
   phi <- exp( qa$par[1] )  ## final phi value
   be <- matrix( qa$par[-1], ncol = d ) ## final beta values
 

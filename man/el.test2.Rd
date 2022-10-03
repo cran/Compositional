@@ -33,7 +33,7 @@ statistic values is plotted.
 }
 
 \details{
-Empirical likelihood is a non parametric hypothesis testing procedure for one sample. The generalization to two (or more samples) is via searching
+Empirical likelihood is a non-parametric hypothesis testing procedure for one sample. The generalization to two (or more samples) is via searching
 for the mean vector that minimizes the sum of the two test statistics.
 }
 

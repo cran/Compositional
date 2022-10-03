@@ -1,20 +1,23 @@
-\name{Contour plot of the Dirichlet distribution in S^2}
-\alias{diri.contour}
+\name{Contour plot of the generaised Dirichlet distribution in S^2}
+\alias{gendiri.contour}
 \title{
-Contour plot of the Dirichlet distribution in \eqn{S^2}
+Contour plot of the generaised Dirichlet distribution in \eqn{S^2}
 }
 
 \description{
-Contour plot of the Dirichlet distribution in \eqn{S^2}.
+Contour plot of the generaised Dirichlet distribution in \eqn{S^2}.
 }
 
 \usage{
-diri.contour(a, n = 100, x = NULL, cont.line = FALSE)
+gendiri.contour(a, b, n = 100, x = NULL, cont.line = FALSE)
 }
 
 \arguments{
 \item{a}{
-A vector with three elements corresponding to the 3 (estimated) parameters.
+A vector with three elements corresponding to the 3 (estimated) shape parameter values.
+}
+\item{b}{
+A vector with three elements corresponding to the 3 (estimated) scale parameter values.
 }
 \item{n}{
 The number of grid points to consider over which the density is calculated.
@@ -57,7 +60,7 @@ and Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{ \link{mixdiri.contour}, \link{gendiri.contour}, \link{compnorm.contour},
+\code{ \link{diri.contour}, \link{mixdiri.contour}, \link{compnorm.contour},
 \link{comp.kerncontour}, \link{mix.compnorm.contour}
 }
 }
@@ -65,7 +68,7 @@ and Christos Adam \email{pada4m4@gmail.com}.
 \examples{
 x <- as.matrix( iris[, 1:3] )
 x <- x / rowSums(x)
-diri.contour( a = c(3, 4, 2) )
+gendiri.contour( a = c(3, 4, 2), b = c(1, 2, 3) )
 }
 
 \keyword{ Dirichlet distribution }

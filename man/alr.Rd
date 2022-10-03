@@ -24,7 +24,7 @@ A numerical matrix with data to be closed into the simplex.
 }
 
 \details{
-The additive log-ratio transformation with the first component being the common divisor is applied. 
+The additive log-ratio transformation with the first component being the common divisor is applied.
 The inverse of this transformation is also available. This means that no zeros are allowed.
 }
 
@@ -47,7 +47,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{bc}, \link{pivot}, \link{fp}, \link{green}, \link{alfa}, \link{alfainv} \link{alfa.profile}, \link{alfa.tune}
+\code{\link{bc}, \link{pivot}, \link{fp}, \link{green}, \link{alfa}, \link{alfainv}
 }
 }
 

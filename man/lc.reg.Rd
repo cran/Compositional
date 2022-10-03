@@ -65,7 +65,7 @@ If the arguments "xnew" and znew were given these are the predicted or estimated
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
-Hansen, B. E. (2019). Econometrics. \url{https://www.ssc.wisc.edu/~bhansen/econometrics/Econometrics.pdf}
+Hansen, B. E. (2022). Econometrics. Princeton University Press.
 }
 
 \author{

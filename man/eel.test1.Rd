@@ -28,7 +28,7 @@ The number of bootstrap samples used to calculate the p-value. If R = 1 (default
 }
 
 \details{
-Multivariate hypothesis test for a one sample mean vector. This is a non parametric test and it works for univariate and multivariate data. 
+Multivariate hypothesis test for a one sample mean vector. This is a non-parametric test and it works for univariate and multivariate data. 
 }
 
 \value{

@@ -51,7 +51,7 @@ js.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
     if (nc <= 1) {
       runtime <- proc.time()
       for (i in 1:B) {
-	    ida <- Rfast2::Sample(n, n, replace = TRUE)
+	      ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
         ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1, drop = FALSE], con = con)$be ) ) ## initial values

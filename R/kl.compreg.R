@@ -51,7 +51,7 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
         if ( is.infinite(bb$loglik)  |  identical( class(bb), "try-error") )  {
           mod <- nnet::multinom(yb ~ xb, trace = FALSE)
           bb <- t( coef(mod) )
-        } else  betaboot[i, ] <- as.vector(bb)
+        } else  betaboot[i, ] <- as.vector(bb$be)
       }  ##  end  for (i in 1:B) {
 
     } else {
@@ -81,7 +81,7 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
           mod <- nnet::multinom(yb ~ xb, trace = FALSE)
           bb <- t( coef(mod) )
         }
-        return( as.vector(bb) )
+        return( as.vector(bb$be) )
       }  ##  end  foreach
       parallel::stopCluster(cl)
     }  ##  end if (ncores <= 1) {

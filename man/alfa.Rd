@@ -51,6 +51,9 @@ The \eqn{\alpha}-transformed data.
 }
 
 \references{
+Tsagris M. and Stewart C. (2022). A Review of Flexible Transformations for Modeling Compositional Data. In Advances and Innovations in Statistics and Data Science, pp. 225--234.
+https://link.springer.com/chapter/10.1007/978-3-031-08329-7_10
+
 Tsagris Michail and Stewart Connie (2020). A folded model for compositional data analysis.
 Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
@@ -64,7 +67,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} 
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 and Giorgos Athineou <gioathineou@gmail.com>.
 }
 

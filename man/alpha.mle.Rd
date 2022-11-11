@@ -50,12 +50,15 @@ If "a.mle" is called, the log-likelihood is returned only.
 }
 
 \references{
+Tsagris M. and Stewart C. (2022). A Review of Flexible Transformations for Modeling Compositional Data. In Advances and Innovations in Statistics and Data Science, pp. 225--234.
+https://link.springer.com/chapter/10.1007/978-3-031-08329-7_10
+
 Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis.
 Australian and New Zealand Journal of Statistics, 62(2): 249-277.
 https://arxiv.org/pdf/1802.07330.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation 
-for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, 
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation
+for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop,
 Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
 }

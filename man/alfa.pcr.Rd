@@ -25,7 +25,7 @@ The value of the power transformation, it has to be between -1 and 1. If zero va
 If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
 }
 \item{k}{
-A number at least equal to 1. How many principal components to use.
+How many principal components to use. You may also specify a vector and in this case the results produced will refer to each number of principal components.
 }
 \item{model}{
 The type of regression model to fit. The possible values are "gaussian", "multinomial", "binomial" and "poisson".
@@ -54,7 +54,7 @@ The percentage of variance explained by the first k principal components.
 The first k principal components, loadings or eigenvectors. These are useful for future prediction in the sense that one needs not fit the whole model again.
 }
 \item{est}{
-If the argument "xnew" was given these are the predicted or estimated values, otherwise it is NULL.
+If the argument "xnew" was given these are the predicted or estimated values (if xnew is not NULL). If the argument \code{k} is a vector then this is a matrix with the estimated values for each number of components.
 }
 }
 

@@ -18,7 +18,7 @@ alfa.pcr <- function(y, x, a, k, model = "gaussian", xnew = NULL) {
   x <- Compositional::alfa(x, a, h = TRUE)$aff ## apply the alpha-transformation
   dm <- dim(x)
   p <- dm[2]
-  if (k > p)   k <- p
+  if ( max(k) > p)   k <- p
 
   if (model == 'gaussian') {
     if ( !is.null(xnew) ) {

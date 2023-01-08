@@ -1,4 +1,4 @@
-3df1bb255c01b0134eb499b4739080a8 *DESCRIPTION
+2133b38db3cf8a3acfc31a159462f18e *DESCRIPTION
 8c5ae8edda843acd6687529689de50e2 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
@@ -25,7 +25,7 @@ c0d2e7f89d93928bafad8f80e1fd4115 *R/alfa.knn.R
 ca4e34301c135294da694ebc82524250 *R/alfa.mix.norm.R
 53d3d7af3feb1d39ed7e32e6362774b2 *R/alfa.nb.R
 1ee3e5589b5fde83fa144408c54a4d92 *R/alfa.pca.R
-eb64b78f9759cbc75751cb1c0d004ef2 *R/alfa.pcr.R
+4968708e69de66cde14444c2a571baaf *R/alfa.pcr.R
 86395d92e765d2b4306cb5c77acafb96 *R/alfa.profile.R
 fbf80c4ab819fb874d0316f16d0485d0 *R/alfa.rda.R
 000e6af520f8dc16ae4ae988e07a9070 *R/alfa.reg.R
@@ -126,7 +126,7 @@ b712baa3c5e241dcd610e56c87b9d9b9 *R/kern.reg.R
 5f874f90bf7da39c76e82018e2946456 *R/kernreg.tune.R
 67fd40e56d3ad9d5638698490e4f389c *R/kl.alfapcr.R
 72932accb5a937d27092192187b7d2e9 *R/kl.compreg.R
-d0e9bf90bf6c5261c37f426641cf4524 *R/kl.compreg2.R
+9e30d0dfc320610849e71b89fc1447ee *R/kl.compreg2.R
 16c92c38cd24df676ce4effd5f460bc1 *R/kl.diri.R
 622ae10e1e3cd994c8a9cf5aab0e0e64 *R/kl.diri.normal.R
 b8f625869ecab24872a8e68e410292ed *R/klalfapcr.tune.R
@@ -160,7 +160,7 @@ f40700e02774fd9dd79226912387ed2d *R/ols.compreg.R
 7c58070d27e8a53e5b0ed5277aaa55b8 *R/ols.prop.reg.R
 bbaa4d423a8bf1ad9bde8a4c4a7e600a *R/pcc.R
 41f3d4f4102841fe95b455f312ed1151 *R/pcr.R
-22c32a8efaa0aea195c20b55a129871b *R/pcr.tune.R
+ca7c2e45a8e43691c812fb820b92e932 *R/pcr.tune.R
 2ce81b1314fc28a732d51f8eb32aa90f *R/perturbation.R
 c8f062ef0d36663b1306eea5c8bca7ef *R/pivot.R
 15209cecb0a910dec9f819190b7df585 *R/pivotinv.R
@@ -206,7 +206,7 @@ a5cbe188cf488b9c13692797cf7a284b *R/zad.est.R
 fa4e4229b3258b2d98485696612e0969 *R/zadr.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-99406db6d0e1222f35f0e9626e49ec86 *man/Compositional-package.Rd
+50d4eb22f6c74e3f6e079ec098897c64 *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 b9a70713e28e1c3ce4ea386d6a66e2cc *man/acor.Rd
 c658c3c2211cddee4c91dd0480cc0f92 *man/acor.tune.Rd
@@ -225,7 +225,7 @@ a12daa8fc1c704b8b8cb51ae232dd705 *man/alfa.mds.Rd
 8563754e6dadba71f27c661df9af2e6a *man/alfa.mix.norm.Rd
 349f85cc31f4aacd67376a69e7af863e *man/alfa.nb.Rd
 ffc7f4b001734f81d9c367203f15fa44 *man/alfa.pca.Rd
-76637165ff89ce004f2b85c6133d82f5 *man/alfa.pcr.Rd
+74666033d4c5f1a1944286755caf61a2 *man/alfa.pcr.Rd
 045640d408b5e1a87f55f2f81ea7b795 *man/alfa.profile.Rd
 e02f5ae72edcd89f7270cecec24b040f *man/alfa.rda.Rd
 fa7a5a8ac94f29db352c23a034971fd4 *man/alfa.reg.Rd
@@ -297,7 +297,7 @@ b4aca7929ff82f8e4b742fee7cbb2773 *man/esov.Rd
 a85fd8b15e66b7fc5583a5c46db3f596 *man/frechet.Rd
 a098406ed9798806162fb7ef64b4888e *man/frechet2.Rd
 15eccc0417f063897a0d1cae1e9185a9 *man/gendiri.contour.Rd
-a7c82f848948459729584e3bf332e951 *man/glm.pcr.Rd
+db5d6fe70e44a31941a324f03c77b2f5 *man/glm.pcr.Rd
 df088de03065bcddf4ab14c5cee307b4 *man/glmpcr.tune.Rd
 4ed20bfa941bcfe26d2507570226d497 *man/green.Rd
 d394bdfe1022657d776f49a46dcdefdb *man/hd.meantest2.Rd

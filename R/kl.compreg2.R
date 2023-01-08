@@ -14,7 +14,7 @@ kl.compreg2 <- function(y, x, con = TRUE, xnew = NULL, tol = 1e-07, maxiters = 5
   der <- numeric(d * p)
   der2 <- matrix(0, p * d, p * d)
   for (i in 1:d) {
-    der[id[, i]] <- Rfast::colsums( e[, i] * X )
+    der[id[, i]] <- Rfast::eachcol.apply(X, e[, i])
     for (j in i:d) {
       if (i != j) {
         der2[id[, i], id[, j]] <- der2[id[, j], id[, i]] <-  - crossprod(m[i] * m[j] * X, X)
@@ -32,7 +32,7 @@ kl.compreg2 <- function(y, x, con = TRUE, xnew = NULL, tol = 1e-07, maxiters = 5
     m <- m1 / (Rfast::rowsums(m1) + 1)
     e <- Y - m
     for (i in 1:d) {
-      der[id[, i]] <- Rfast::colsums( e[, i] * X )
+      der[id[, i]] <- Rfast::eachcol.apply(X, e[, i])
       for (j in i:d) {
         if (i != j) {
           der2[id[, i], id[, j]] <- der2[id[, j], id[, i]] <-   - crossprod(m[, i] * m[, j] * X, X)

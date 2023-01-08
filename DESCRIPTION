@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 6.0
-Date: 2022-11-12
+Version: 6.1
+Date: 2023-01-08
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -32,6 +32,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       l) Tsagris M., Alenazi A. and Stewart C. (2022). Flexible non-parametric regression models for compositional response data with zeros. <arXiv:2002.05137>. 
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2022-11-11 23:38:04 UTC; Michail
+Packaged: 2023-01-08 08:02:28 UTC; Michail
 Repository: CRAN
-Date/Publication: 2022-11-12 00:50:02 UTC
+Date/Publication: 2023-01-08 21:10:05 UTC

@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 6.0 \cr
-Date: \tab 2022-11-12\cr
+Version: \tab 6.1 \cr
+Date: \tab 2023-01-08\cr
 License: \tab GPL-2\cr
 }
 }

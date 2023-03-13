@@ -35,11 +35,11 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
   ## the next lines minimize the symkl function and obtain the estimated betas
   runtime <- proc.time()
   ini <- rnorm( d * dim(x)[2] )
-  oop <- options( warn = -1 )
-  on.exit( options(oop) )
-  qa <- nlm(symkl, ini, y = y, x = x, d = d)
-  qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
-  qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
+  suppressWarnings({
+    qa <- nlm(symkl, ini, y = y, x = x, d = d)
+    qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
+    qa <- nlm(symkl, qa$estimate, y = y, x = x, d = d)
+  })
   be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   covb <- NULL
   runtime <- proc.time() - runtime
@@ -64,8 +64,6 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-      oop <- options( warn = -1 )
-      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
@@ -75,9 +73,11 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         ini <- rnorm( d * dim(x)[2] )
-        qa <- nlm(symkl, ini, y = yb, x = xb, d = d)
-        qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
-        qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
+		suppressWarnings({
+          qa <- nlm(symkl, ini, y = yb, x = xb, d = d)
+          qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
+          qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
+        })
         return(qa$estimate)
       }  ##  end foreach
       parallel::stopCluster(cl)

@@ -55,8 +55,6 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
       }  ##  end  for (i in 1:B) {
 
     } else {
-      oop <- options( warn = -1 )
-      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)

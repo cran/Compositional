@@ -28,10 +28,10 @@ diri.est <- function(x, type = 'mle') {
 
   if (type == 'mle') {
     runtime <- proc.time()
-    oop <- options( warn = -1 )
-    on.exit( options(oop) )
-    da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, n = n, iterlim = 10000)
-    da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
+    suppressWarnings({
+      da <- nlm(loglik, Rfast::colmeans(x) * 10, z = z, n = n, iterlim = 10000)
+      da <- optim(da$estimate, loglik, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
+    })
     runtime <- proc.time() - runtime
     result <- list( loglik = -da$value, param = exp(da$par),
     std = sqrt( diag( solve(da$hessian) ) ), runtime = runtime  )
@@ -39,10 +39,10 @@ diri.est <- function(x, type = 'mle') {
 
   if (type == 'prec') {
     runtime <- proc.time()
-    oop <- options( warn = -1 )
-    on.exit( options(oop) )
-    da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, n = n, iterlim = 5000)
-    da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
+    suppressWarnings({
+      da <- nlm(diriphi, c(10, Rfast::colmeans(x)[-1]), z = z, n = n, iterlim = 5000)
+      da <- optim(da$estimate, diriphi, z = z, n = n, control = list(maxit = 5000), hessian = TRUE)
+    })
     phi <- exp(da$par[1])
     a <- c( 1, exp(da$par[-1]) )
     a <- a / sum(a)

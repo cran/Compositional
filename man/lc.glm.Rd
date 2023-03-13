@@ -52,7 +52,7 @@ The duration of the algorithm required to minimize the deviance.
 The residual deviance of the logistic or Poisson regression model.
 }
 \item{be}{
-The constrained regression coefficients. Their sum equals 0.
+The constrained regression coefficients. Their sum (excluding the constant) equals 0.
 }
 \item{est}{
 If the arguments "xnew" and znew were given these are the predicted or estimated values, otherwise it is NULL.

@@ -23,7 +23,7 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
 importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
-           rbeta1, colGroup, Sample.int, Sample, Runif)
+           rbeta1, colGroup, Sample.int, Sample, Runif, gammareg)
 
 importFrom("RANN", nn2)
 importFrom("mda", fda)

@@ -77,9 +77,9 @@ The fitted values of xnew if xnew is not NULL.
 }
 
 \references{
-Alenazi A. (2019). Regression for compositional data with compositioanl data as predictor variables with or without zero values.
+Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values.
 Journal of Data Science, 17(1): 219-238.
-http://www.jds-online.com/file_download/688/01+No.10+315+REGRESSION+FOR+COMPOSITIONAL+DATA+WITH+COMPOSITIONAL+DATA+AS+PREDICTOR+VARIABLES+WITH+OR+WITHOUT+ZERO+VALUES.pdf
+https://jds-online.org/journal/JDS/article/136/file/pdf
 
 Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
 http://arxiv.org/pdf/1508.01913v1.pdf

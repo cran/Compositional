@@ -3,7 +3,7 @@
 #### Tsagris Michail 5/2015
 #### mtsagris@yahoo.gr
 ################################
-mix.compnorm.contour <- function(mod, type = "alr", n= 100, x = NULL, cont.line = FALSE) {
+mix.compnorm.contour <- function(mod, type = "alr", n = 100, x = NULL, cont.line = FALSE) {
   ## mod is a mixture model containing all the parameters
   ## the type parameter determines whether the additive or the isometric
   ## log-ratio transformation will be used. If type='alr' (the default) the
@@ -13,8 +13,6 @@ mix.compnorm.contour <- function(mod, type = "alr", n= 100, x = NULL, cont.line 
   x1 <- seq(0.001, 0.999, length = n)
   sqrt3 <- sqrt(3)
   x2 <- seq(0.001, sqrt3/2 - 0.001, length = n)
-  oop <- options( warn = -1 )
-  on.exit( options(oop) )
 
   prob <- mod$prob
   mu <- mod$mu

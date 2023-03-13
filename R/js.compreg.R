@@ -36,11 +36,11 @@ js.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
   ## the next lines minimize the kl.compreg function and obtain the estimated betas
   runtime <- proc.time()
   ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1, drop = FALSE], con = con)$be ) )
-  oop <- options( warn = -1 )
-  on.exit( options(oop) )
-  qa <- nlm(jsreg, ini, y = y, x = x, d = d)
-  qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
-  qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
+  suppressWarnings({
+    qa <- nlm(jsreg, ini, y = y, x = x, d = d)
+    qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
+    qa <- nlm(jsreg, qa$estimate, y = y, x = x, d = d)
+  })
   be <- matrix(qa$estimate, byrow = TRUE, ncol = d)
   covb <- NULL
   runtime <- proc.time() - runtime
@@ -65,8 +65,6 @@ js.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
     } else {
       runtime <- proc.time()
-      oop <- options( warn = -1 )
-      on.exit( options(oop) )
       requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
@@ -75,10 +73,12 @@ js.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 		  ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1, drop = FALSE], con = con)$be ) ) ## initial values
-        qa <- nlm(jsreg, ini, y = yb, x = xb, d = d)
-        qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
-        qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
+        suppressWarnings({
+          ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1, drop = FALSE], con = con)$be ) ) ## initial values
+          qa <- nlm(jsreg, ini, y = yb, x = xb, d = d)
+          qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
+          qa <- nlm(jsreg, qa$estimate, y = yb, x = xb, d = d)
+        })
         return( qa$estimate )
       }  ##  end foreach
       parallel::stopCluster(cl)

@@ -72,11 +72,11 @@ The values of \eqn{\alpha} and k corresponding to the minimum KL divergence.
 }
 
 \references{
-Alenazi A. (2019). Regression for compositional data with compositioanl data as predictor variables with or without zero values.
-Journal of Data Science, 17(1): 219-238.
-http://www.jds-online.com/file_download/688/01+No.10+315+REGRESSION+FOR+COMPOSITIONAL+DATA+WITH+COMPOSITIONAL+DATA+AS+PREDICTOR+VARIABLES+WITH+OR+WITHOUT+ZERO+VALUES.pdf
+Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values.
+Journal of Data Science, 17(1): 219--238.
+https://jds-online.org/journal/JDS/article/136/file/pdf
 
-Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47--57.
 http://arxiv.org/pdf/1508.01913v1.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.

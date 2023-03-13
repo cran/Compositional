@@ -1,11 +1,11 @@
-\name{Tuning of the alpha generalised correlations between two compositional datasets}
+\name{Tuning of the alpha-generalised correlations between two compositional datasets}
 \alias{acor.tune}
 \title{
-Tuning of the alpha generalised correlations between two compositional datasets
+Tuning of the \eqn{\alpha}-generalised correlations between two compositional datasets
 }
 
 \description{
-Tuning of the alpha generalised correlations between two compositional datasets.
+Tuning of the \eqn{alpha}-generalised correlations between two compositional datasets.
 }
 
 \usage{
@@ -31,7 +31,7 @@ type 2 ("cancor2"). See details for more information.
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to each composition and then the
+The \eqn{\alpha}-transformation is applied to each composition and then, if type="dcor" the
 distance correlation or the canonical correlation is computed. If type =
 "cancor1" the function returns the value of \eqn{\alpha} that maximizes the
 product of the eigenvalues. If type = "cancor2" the function returns the value
@@ -50,11 +50,11 @@ The runtime of the optimization
 }
 }
 
-%\references{
-%  Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
-%  In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-%  https://arxiv.org/pdf/1106.1451.pdf
-%}
+\references{
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+https://arxiv.org/pdf/1106.1451.pdf
+}
 
 \author{
 Michail Tsagris.

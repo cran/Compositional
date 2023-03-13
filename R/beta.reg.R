@@ -13,10 +13,10 @@ beta.reg <- function(y, x, xnew = NULL) {
   iniphi <- log( sum( y * (1 - y) ) / Rfast::Var(y) / n )
   ly1 <- log(1 - y)     ;    ly <- log(y) - ly1
   sly1 <- sum(ly1)      ;    sly2 <- sum( log(y) ) + sly1
-  oop <- options( warn = -1 )
-  on.exit( options(oop) )
-  mod1 <- nlm(regbeta, c( iniphi, numeric(dim(x)[2]) ), ly = ly, sly1 = sly1, x = x, n = n, iterlim = 10000 )
-  mod2 <- optim(mod1$estimate, regbeta, ly = ly, sly1 = sly1, x = x, n = n, control = list(maxiters = 1000), hessian = TRUE )
+  suppressWarnings({
+    mod1 <- nlm(regbeta, c( iniphi, numeric(dim(x)[2]) ), ly = ly, sly1 = sly1, x = x, n = n, iterlim = 10000 )
+    mod2 <- optim(mod1$estimate, regbeta, ly = ly, sly1 = sly1, x = x, n = n, control = list(maxiters = 1000), hessian = TRUE )
+  })
   be <- mod2$par[-1]
   se <- sqrt( diag( solve(mod2$hessian) )[-1] )
   stat <- (be/se)^2

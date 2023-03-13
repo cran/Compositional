@@ -1,6 +1,7 @@
 \name{Dirichlet regression}
 \alias{diri.reg}
 \alias{diri.reg2}
+\alias{diri.reg3}
 \title{
 Dirichlet regression
 }
@@ -13,6 +14,8 @@ Dirichlet regression.
 diri.reg(y, x, plot = FALSE, xnew = NULL)
 
 diri.reg2(y, x, xnew = NULL)
+
+diri.reg3(y, x, xnew = NULL)
 }
 
 \arguments{
@@ -33,8 +36,11 @@ If you have new data use it, otherwise leave it NULL.
 
 \details{
 A Dirichlet distribution is assumed for the regression. This involves numerical optimization.
-The function "diri.reg2" allows for the covariates to be linked with the precision parameter
-\eqn{\phi} via the exponential link function \eqn{\phi = e^{x*b}}.
+The function "diri.reg2()" allows for the covariates to be linked with the precision parameter
+\eqn{\phi} via the exponential link function \eqn{\phi = e^{x*b}}. The function "diri.reg3()"
+links the covariates to the alpha parameters of the Dirichlet distribution, i.e. it uses the
+classical parametrization of the distribution. This means, that there is a set of regression
+parameters for each component.
 }
 
 \value{
@@ -46,7 +52,7 @@ The time required by the regression.
 The value of the log-likelihood.
 }
 \item{phi}{
-The precision parameter. If covariates are linked with it (function "diri.reg2"), this will
+The precision parameter. If covariates are linked with it (function "diri.reg2()"), this will
 be a vector.
 }
 \item{phipar}{
@@ -68,16 +74,14 @@ The beta coefficients.
 The standard error of the beta coefficients.
 }
 \item{sigma}{
-Th covariance matrix of the regression parameters (for the mean vector and the phi parameter) in
-the function "diri.reg2".
+Th covariance matrix of the regression parameters (for the mean vector and the phi parameter)".
 }
 \item{lev}{
 The leverage values.
 }
 \item{est}{
 For the "diri.reg" this contains the fitted or the predicted values (if xnew is not NULL).
-For the "diri.reg2" if xnew is NULL, this
-is also NULL.
+For the "diri.reg2" if xnew is NULL, this is also NULL.
 }
 }
 

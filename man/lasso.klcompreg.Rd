@@ -64,8 +64,11 @@ with the fitted values, where each matrix corresponds to each value of \eqn{\lam
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
+Alenazi, A. A. (2022). f-divergence regression models for compositional data. 
+Pakistan Journal of Statistics and Operation Research, 867--882.
+
 Friedman, J., Hastie, T. and Tibshirani, R. (2010) Regularization Paths for Generalized Linear Models 
-via Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1-22.
+via Coordinate Descent. Journal of Statistical Software, Vol. 33(1), 1--22.
 }
 
 \author{

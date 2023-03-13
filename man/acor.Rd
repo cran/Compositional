@@ -1,11 +1,11 @@
-\name{Alpha generalised correlations between two compositional datasets}
+\name{Alpha-generalised correlations between two compositional datasets}
 \alias{acor}
 \title{
-\eqn{\alpha} generalised correlations between two compositional datasets
+\eqn{\alpha}-generalised correlations between two compositional datasets
 }
 
 \description{
-\eqn{\alpha} generalised correlations between two compositional datasets.
+\eqn{\alpha}-generalised correlations between two compositional datasets.
 }
 
 \usage{

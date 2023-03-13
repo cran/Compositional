@@ -46,10 +46,10 @@ Extra predictors variables are allowed as well, for instance categorical or cont
 \value{
 A list including:
 \item{be}{
-The constrained regression coefficients. Their sum equals 0.
+The constrained regression coefficients. Their sum (excluding the constant) equals 0.
 }
 \item{covbe}{
-If covariance matrix of the constrained regression coefficients.
+The covariance matrix of the constrained regression coefficients.
 }
 \item{va}{
 The estimated regression variance.

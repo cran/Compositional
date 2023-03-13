@@ -36,25 +36,26 @@ If you have no new data, leave this NULL as is by default.
 The function performs the log-contrast regression model as described in Aitchison (2003), pg. 84-85.
 The logarithm of the compositional predictor variables is used (hence no zero values are allowed).
 The response variable is linked to the log-transformed data with the constraint that the sum of the
-regression coefficients equals 0. Hence, we apply constrained least squares, which has a closed form
-solution. The constrained least squares is described in Chapter 8.2 of Hansen (2019). The idea is to
-minimise the sum of squares of the residuals under the constraint \eqn{R^T \beta = c}, where \eqn{c=0}
-in our case. If you want the regression without the zum-to-zero contraints see \code{\link{ulc.reg2}}.
-Extra predictors variables are allowed as well, for instance categorical or continuous. The difference
-with \code{\link{lc.reg}} is that instead of one, there are multiple compositions treated as predictor
-variables.
+regression coefficients for each composition equals 0. Hence, we apply constrained least squares, 
+which has a closed form solution. The constrained least squares is described in Chapter 8.2 of Hansen (2019). 
+The idea is to minimise the sum of squares of the residuals under the constraint \eqn{R^T \beta = c}, 
+where \eqn{c=0} in our case. If you want the regression without the zum-to-zero contraints see 
+\code{\link{ulc.reg2}}. Extra predictors variables are allowed as well, for instance categorical 
+or continuous. The difference with \code{\link{lc.reg}} is that instead of one, there are multiple 
+compositions treated as predictor variables.
 }
 
 \value{
 A list including:
 \item{be}{
-The constrained regression coefficients. Their sum equals 0.
+The constrained regression coefficients. The sum of the sets of coefficients (excluding the constant) 
+corresponding to each predictor composition sums to 0. 
 }
 \item{covbe}{
 If covariance matrix of the constrained regression coefficients.
 }
 \item{va}{
-The estimated regression variance.
+The variance of the estimated regression coefficients.
 }
 \item{residuals}{
 The vector of residuals.
@@ -99,5 +100,9 @@ x[[ 1 ]] <- x1
 x[[ 2 ]] <- rdiri(150, runif(4) )
 x[[ 3 ]] <- rdiri(150, runif(5) )
 mod <- lc.reg2(y, x)
+be <- mod$be
+sum(be[2:4])
+sum(be[5:8])
+sum(be[9:13])
 }
 

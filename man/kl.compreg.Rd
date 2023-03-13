@@ -46,10 +46,10 @@ The maximum number of Newton-Raphson iterations.
 }
 
 \details{
-In the kl.compreg the Kullback-Leibler divergence is adopted as the objective function. In case of problematic
+In the kl.compreg() the Kullback-Leibler divergence is adopted as the objective function. In case of problematic
 convergence the "multinom" function by the "nnet" package is employed. This will obviously be slower. The
-js.compreg uses the Jensen-Shannon divergence and the symkl.compreg uses the symmetric Kullback-Leibler divergence.
-The tv.compreg uses the Total Variation divergence. There is no actual log-likelihood for neither regression.
+js.compreg() uses the Jensen-Shannon divergence and the symkl.compreg() uses the symmetric Kullback-Leibler divergence.
+The tv.compreg() uses the Total Variation divergence. There is no actual log-likelihood for the last three regression models.
 }
 
 \value{
@@ -61,7 +61,7 @@ The time required by the regression.
 The number of iterations required by the Newton-Raphson in the kl.compreg function.
 }
 \item{loglik}{
-The log-likelihood. This is actually a quasi multinomial regression. This is bascially minus the half deviance, or
+The log-likelihood. This is actually a quasi multinomial regression. This is bascially half the negative deviance, or
 \eqn{- \sum_{i=1}^ny_i\log{y_i/\hat{y}_i}}.
 }
 \item{be}{

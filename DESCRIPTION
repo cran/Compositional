@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 6.2
-Date: 2023-03-13
+Version: 6.3
+Date: 2023-06-29
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -27,12 +27,12 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       g) Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros. Lobachevskii Journal of Mathematics, 39(3): 398--412. <doi:10.1134/S1995080218030198>. 
 			       h) Alenazi A. (2019). Regression for compositional data with compositional data as predictor variables with or without zero values. Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. 
 		         i) Tsagris M. and Stewart C. (2020). A folded model for compositional data analysis. Australian and New Zealand Journal of Statistics, 62(2):249--277. <doi:10.1111/anzs.12289>. 
-		         j) Alenazi A. (2021). Alenazi, A. (2021). A review of compositional data analysis and recent advances. Communications in Statistics-Theory and Methods (Accepted for publication). <doi:10.1080/03610926.2021.2014890>.
+		         j) Alenazi A. (2021). Alenazi, A. (2021). A review of compositional data analysis and recent advances. Communications in Statistics--Theory and Methods (Accepted for publication). <doi:10.1080/03610926.2021.2014890>.
 		         k) Alenazi, A. A. (2022). f-divergence regression models for compositional data. Pakistan Journal of Statistics and Operation Research, 867--882. <doi:10.18187/pjsor.v18i4.3969>.
 		         l) Tsagris M. and Stewart C. (2022). A Review of Flexible Transformations for Modeling Compositional Data. In Advances and Innovations in Statistics and Data Science, pp. 225--234. <doi:10.1007/978-3-031-08329-7_10>.
 			       m) Tsagris M., Alenazi A. and Stewart C. (2022). Flexible non-parametric regression models for compositional response data with zeros. <arXiv:2002.05137>. 
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2023-03-13 17:22:30 UTC; Michail
+Packaged: 2023-06-29 09:32:36 UTC; Michail
 Repository: CRAN
-Date/Publication: 2023-03-13 18:30:02 UTC
+Date/Publication: 2023-06-29 19:10:02 UTC

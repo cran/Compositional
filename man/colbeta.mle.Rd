@@ -2,7 +2,6 @@
 \alias{colbeta.est}
 \alias{collogitnorm.est}
 \alias{colunitweibull.est}
-\alias{colsimplex.est}
 
 \title{
 Column-wise MLE of some univariate distributions
@@ -16,7 +15,6 @@ Column-wise MLE of some univariate distributions.
 colbeta.est(x, tol = 1e-07, maxiters = 100, parallel = FALSE)
 collogitnorm.est(x)
 colunitweibull.est(x, tol = 1e-07, maxiters = 100, parallel = FALSE)
-colsimplex.est(x, tol = 1e-07)
 }
 
 \arguments{

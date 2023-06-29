@@ -3,7 +3,7 @@
 importFrom("MASS", cov.rob, cov.trob)
 
 importFrom("graphics", filled.contour, contour, lines, plot, axis, par,
-           points, abline, hist, legend, text, image, segments)
+           points, abline, hist, legend, text, image, segments, mtext)
 
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd, cmdscale,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq, rgamma,
@@ -20,7 +20,7 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
 		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm,
 		       dmvnorm, dmvt)
 
-importFrom("Rfast2", simplex.mle, kumar.mle, propols.reg, prophelling.reg, zil.mle,
+importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
            rbeta1, colGroup, Sample.int, Sample, Runif, gammareg)

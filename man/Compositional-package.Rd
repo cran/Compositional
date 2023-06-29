@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 6.2 \cr
-Date: \tab 2023-03-13\cr
+Version: \tab 6.3 \cr
+Date: \tab 2023-06-29\cr
 License: \tab GPL-2\cr
 }
 }
@@ -24,7 +24,7 @@ Michail Tsagris \email{mtsagris@uoc.gr}, Giorgos Athineou <gioathineou@gmail.com
 Abdulaziz Alenazi <a.alenazi@nbu.edu.sa> and Christos Adam \email{pada4m4@gmail.com}.
 }
 
-\section{Maintainers }{
+\section{Maintainers}{
 Michail Tsagris <mtsagris@uoc.gr>
 }
 

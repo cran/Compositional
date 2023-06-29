@@ -1,5 +1,5 @@
-8d57b1a445dd2e42ec198a4643ddcab2 *DESCRIPTION
-08bda08d777539bd23e899fd78cb74f7 *NAMESPACE
+80d428cf0aeedb542ca401c214a4031d *DESCRIPTION
+bb979271a328b390ed9dcd8044a853c4 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
 a39079a1b2174b4892c242e43419a5bc *R/acor.R
@@ -57,7 +57,6 @@ f50d5f7be6bff7ee8352589555a8f671 *R/alrinv.R
 83d48aa3ed69efe1b4700f823f9e230d *R/choose.pc.R
 0aac7312f46b0f6ac9cf0f10f050c9d1 *R/colbeta.est.R
 2bad4a8f2a5377b0533f1e0a8ff8983c *R/collogitnorm.est.R
-7056ed5107e154eb3e755fdbd10d715a *R/colsimplex.est.R
 285a6e15ae39c6e9cacb26ac409becd0 *R/colunitweibull.est.R
 aa20f0a45aec5ed17e29d6b0733199cc *R/comp.den.R
 3939f3a0ecc0f15f6744253e17f2beac *R/comp.kern.R
@@ -118,6 +117,8 @@ c59d53b087228f528478e79ab9b9cdd9 *R/glm.pcr.R
 1ffec47ff6723a93bbec32c393d27aaa *R/hotel2T2.R
 593e0324a8f79d402c4e6b93e664c6fd *R/hsecant01.est.R
 a175ec88766e879d80c7374c1aa286bc *R/ibeta.est.R
+7ab3ccd783464d3528a1292490674f33 *R/ice.akernreg.R
+92d299fbb2b46bc15bb362c96787f16a *R/ice.aknnreg.R
 928facc76ba04ce2ebc3efd94b4df45d *R/ice.kernreg.R
 c7a9c12cbdaa3f1030ab6f0523dc106c *R/ice.pprcomp.R
 4b3857f46afafb59f009a09f34fb7c58 *R/james.R
@@ -187,7 +188,6 @@ f75b2d20c870ad85f6aeb095ab751a7a *R/ridge.tune.R
 4e445b447bbbad85b74b5db9dba7e4c7 *R/rmixcomp.R
 03e96c42655ba23996bc8e0f20541357 *R/rmixdiri.R
 63a4b7fc852d1879a4cc0632a702ca2d *R/runitweibull.R
-b677b5f0612908c4e855a3de87e07693 *R/simplex.est.R
 05f570049ed17cc905b0b7b90fc1ee2f *R/skewnorm.contour.R
 32c1834997e5f86b316f8ddefdb143f3 *R/spatmed.reg.R
 52291b1cd3d7fbb9b36f3ed0f6d7d4c7 *R/sym.test.R
@@ -207,7 +207,7 @@ bc38a9a5236d593728997eada64fd749 *R/zad.est.R
 cf6ccdd48ebaae7ca91821e484e50caf *R/zadr2.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-5a8ae3ed8a3cda387195985d8a9d714f *man/Compositional-package.Rd
+ce95e074e1f5d65e37454733a8f0eeb7 *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 34fab95c9920ab8cf05595ebedfc361e *man/acor.Rd
 a2d90a4f450cbb99af71f665b8519840 *man/acor.tune.Rd
@@ -246,13 +246,13 @@ be2ed068df1f1ecd5467909a89be520c *man/alpha.mle.Rd
 6b458245ef0c878e895b355d1ef04cbb *man/alr.Rd
 ef65eca755222037bf620818b7b388c9 *man/alr.all.Rd
 df4a11616bed4795eb036e28bd5c5109 *man/bc.Rd
-487556085813a22acf512bc02c8eee21 *man/beta.est.Rd
+2658fa87afb9738b750d44e2631294c3 *man/beta.est.Rd
 7d8f7f222b4f35f10a008a0d1c9dda46 *man/beta.reg.Rd
 268ad3e06abf1d639191827b3ca17cdf *man/bic.alfamixnorm.Rd
 ca77ef342b239263a59231d4cff8f729 *man/bic.mixcompnorm.Rd
 2c13b83f9cb0d201c46d7905e4083cb1 *man/bivt.contour.Rd
 1973ce530a8a7bbea37fd97071e4a3d0 *man/choose.pc.Rd
-111c835a818bc3d9ae1188418aeffd65 *man/colbeta.mle.Rd
+f870c85e0fda7e001e9a7a636c96da33 *man/colbeta.mle.Rd
 9a36d0bbad9a857f338cddce7b6053c6 *man/comp.den.Rd
 10d81369a19aea8a03ee2c0e402dd107 *man/comp.kern.Rd
 3e27c9c63d0676cc1adfcb1d6e0e8321 *man/comp.kerncontour.Rd
@@ -305,6 +305,8 @@ d394bdfe1022657d776f49a46dcdefdb *man/hd.meantest2.Rd
 620321dd778befc2120cf3924c69a071 *man/helm.Rd
 d4f6ff8d68d44441be3931f4db938b19 *man/hotel1T2.Rd
 b42a1255c110a682a646f6d19054dc03 *man/hotel2T2.Rd
+a2949115502839ac725609e69d4242e0 *man/ice.akernreg.Rd
+bae16d63dd9bb4713fe460905b7e672f *man/ice.aknnreg.Rd
 a7beff2c74ce21153a49bbf5008ccad2 *man/ice.kernreg.Rd
 80cd418de430fc070f2a31e3c19a51d5 *man/ice.pprcomp.Rd
 9868835298e9a812afdd5b0c2c70d4bb *man/james.Rd

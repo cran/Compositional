@@ -26,7 +26,7 @@ rda.tune <- function(x, ina, nfolds = 10, gam = seq(0, 1, by = 0.1), del = seq(0
     doParallel::registerDoParallel(cl)
     if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,
                                                              stratified = stratified, seed = seed)
-    ww <- foreach(vim = 1:nfolds, .combine = cbind, .export = c("mahala", "rowMaxs"), 
+    ww <- foreach(vim = 1:nfolds, .combine = cbind, .export = c("mahala", "rowMaxs", "colGroup", "cova"), 
 	      .packages = c("Rfast", "Rfast2") ) %dopar% {
       test <- x[ folds[[ vim ]], , drop = FALSE]  ## test sample
       id <- ina[ folds[[ vim ]] ] ## groups of test sample

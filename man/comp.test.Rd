@@ -86,7 +86,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{ \link{hd.meantest2}, \link{maovjames}, \link{maov}, \link{hotel2T2}, \link{el.test2}, \link{eel.test2}
+\code{ \link{hd.meantest2}, \link{maovjames}, \link{maov}, \link{hotel2T2}, 
+\link{el.test2}, \link{eel.test2}, \link{dptest}
 }
 }
 

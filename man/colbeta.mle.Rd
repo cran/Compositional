@@ -2,6 +2,7 @@
 \alias{colbeta.est}
 \alias{collogitnorm.est}
 \alias{colunitweibull.est}
+\alias{colzilogitnorm.est}
 
 \title{
 Column-wise MLE of some univariate distributions
@@ -15,12 +16,12 @@ Column-wise MLE of some univariate distributions.
 colbeta.est(x, tol = 1e-07, maxiters = 100, parallel = FALSE)
 collogitnorm.est(x)
 colunitweibull.est(x, tol = 1e-07, maxiters = 100, parallel = FALSE)
+colzilogitnorm.est(x)
 }
 
 \arguments{
 \item{x}{
-A numerical matrix with data. Each column refers to a different vector of observations of the same distribution.
-The values must by percentages, exluding 0 and 1,
+A numerical matrix with data. Each column refers to a different vector of observations of the same distribution. The values must by percentages, exluding 0 and 1,
 }
 \item{tol}{
 The tolerance value to terminate the Newton-Fisher algorithm.
@@ -38,8 +39,7 @@ For each column, the same distribution is fitted and its parameters and log-like
 }
 
 \value{
-A matrix with two or three columns. The first one or the first two contain the parameter(s) of the distribution
-and the second or third column the relevant log-likelihood.
+A matrix with two, three or four columns. The first one, two or three columns contain the parameter(s) of the distribution, while the last column contains the relevant log-likelihood.
 }
 
 \references{

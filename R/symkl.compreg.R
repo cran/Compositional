@@ -95,6 +95,7 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
     if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
+    colnames(est) <- colnames(y)
   }  else  est <- NULL
 
   colnames(be) <- namy

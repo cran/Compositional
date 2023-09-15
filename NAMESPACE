@@ -8,7 +8,7 @@ importFrom("graphics", filled.contour, contour, lines, plot, axis, par,
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd, cmdscale,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq, rgamma,
            mahalanobis, runif, qt, qf, pf, model.matrix, prcomp, .lm.fit, na.omit,
-           ppr, predict, coef, cancor, loess, fitted, as.dist, rweibull)
+           ppr, predict, coef, cancor, loess, fitted, as.dist, rweibull, ks.test)
 
 importFrom("grDevices", terrain.colors, grey, colorRampPalette)
 
@@ -34,7 +34,7 @@ importFrom("FlexDir", FD.estimation, FD.density, FD.generate)
 importFrom("nnet", multinom)
 importFrom("codalm", codalm)
 importFrom("NlcOptim", solnl)
-importFrom("Directional", dkent)
+importFrom("Directional", dkent, riag)
 importFrom("glmnet", glmnet, cv.glmnet)
 importFrom("pchc", fedhc, pchc, mmhc, fedtabu, pctabu, mmtabu)
 importFrom("energy", eqdist.etest)

@@ -20,12 +20,15 @@ ols.compcomp <- function(y, x, rs = 5, xnew = NULL) {
 
   runtime <- proc.time()
   for (i in 1:rs) {
-    f1 <- NlcOptim::solnl( X = runif(pyx), ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
-    f2 <- NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
+    f1 <- try( NlcOptim::solnl( X = runif(pyx), ols, con, lb = rep(0, pyx), ub = rep(1, pyx) ), silent = TRUE )
+    while ( identical( class(f1), "try-error" ) ) {
+      f1 <- try( NlcOptim::solnl( X = runif(pyx), ols, con, lb = rep(0, pyx), ub = rep(1, pyx) ), silent = TRUE )
+    }
+    f2 <- try( NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) ), silent = TRUE )
     while ( f1$fn - f2$fn > 1e-04 ) {
       f1 <- f2
-      f1 <- NlcOptim::solnl( f2$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
-      f2 <- NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) )
+      f1 <- try( NlcOptim::solnl( f2$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) ), silent = TRUE )
+      f2 <- try( NlcOptim::solnl( f1$par, ols, con, lb = rep(0, pyx), ub = rep(1, pyx) ), silent = TRUE )
     }
     sse[i] <- f2$fn
     bers[, i] <- f2$par

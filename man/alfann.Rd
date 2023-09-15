@@ -47,9 +47,10 @@ A matrix including the indices of the nearest neighbours of each xnew from x.
 
 
 \references{
-Michail Tsagris, Abdulaziz Alenazi and Connie Stewart (2022).
+MTsagris M., Alenazi A. and Stewart C. (2023).
 Flexible non-parametric regression models for compositional response data with zeros.
-https://arxiv.org/pdf/2002.05137.pdf
+Statistics and Computing, 33(5): 1--17.
+https://link.springer.com/article/10.1007/s11222-023-10277-5
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.

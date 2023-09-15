@@ -3,7 +3,7 @@ pprcomp.tune <- function(y, x, nfolds = 10, folds = NULL, seed = NULL,
 
   runtime <- proc.time()
   if ( type == "alr" ) {
-    x <- alr(x)
+    x <- Compositional::alr(x)
   } else  x <- Rfast::Log(x)
   x <- as.data.frame(x)
 

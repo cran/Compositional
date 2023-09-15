@@ -20,6 +20,7 @@ A matrix with the available data, the predictor variables.
 A vector of data. The response variable, which is categorical (factor is acceptable).
 }
 \item{a}{
+The value of \eqn{\alpha} for the \eqn{\alpha}-transformation.
 This can be a vector of values or a single number.
 }
 \item{type}{

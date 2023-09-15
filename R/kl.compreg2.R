@@ -55,6 +55,7 @@ kl.compreg2 <- function(y, x, con = TRUE, xnew = NULL, tol = 1e-07, maxiters = 5
     if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     mu <- cbind( 1, exp(xnew %*% b2) )
     est <- mu/Rfast::rowsums(mu)
+    colnames(est) <- colnames(y)
   }
 
   list(iters = k, loglik = loglik, be = b2, est = est)

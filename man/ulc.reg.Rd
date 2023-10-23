@@ -1,11 +1,11 @@
-\name{Unconstrained log-contrast regression with compositional predictor variables}
+\name{Unconstrained linear regression with compositional predictor variables}
 \alias{ulc.reg}
 \title{
-Unconstrained log-contrast regression with compositional predictor variables
+Unconstrained linear regression with compositional predictor variables
 }
 
 \description{
-Unconstrained log-contrast regression with compositional predictor variables.
+Unconstrained linear regression with compositional predictor variables.
 }
 
 \usage{
@@ -44,7 +44,7 @@ for instance categorical or continuous.
 \value{
 A list including:
 \item{be}{
-The constrained regression coefficients. Their sum equals 0.
+The unconstrained regression coefficients. Their sum does not equal 0.
 }
 \item{covbe}{
 If covariance matrix of the constrained regression coefficients.

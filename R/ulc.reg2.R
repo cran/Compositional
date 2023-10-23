@@ -20,7 +20,7 @@ ulc.reg2 <- function(y, x, z = NULL, xnew = NULL, znew = NULL) {
     if ( is.null(nama) ) {
       nama <- "constant"
       p1 <- diff(p1)
-      for ( i in 1:3 )  nama <- c(nama, paste("X", i, ".", 1:p1[i], sep = "") )
+      for ( i in 1:length(p1) )  nama <- c(nama, paste("X", i, ".", 1:p1[i], sep = "") )
     }
     names(be) <- nama
     colnames(covbe) <- rownames(covbe) <- nama

@@ -1,11 +1,11 @@
-\name{Contour plot of the generaised Dirichlet distribution in S^2}
+\name{Contour plot of the generalised Dirichlet distribution in S^2}
 \alias{gendiri.contour}
 \title{
-Contour plot of the generaised Dirichlet distribution in \eqn{S^2}
+Contour plot of the generalised Dirichlet distribution in \eqn{S^2}
 }
 
 \description{
-Contour plot of the generaised Dirichlet distribution in \eqn{S^2}.
+Contour plot of the generalised Dirichlet distribution in \eqn{S^2}.
 }
 
 \usage{

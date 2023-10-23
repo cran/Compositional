@@ -11,7 +11,7 @@ responses and predictors.
 }
 
 \usage{
-cv.olscompcomp(y, x, rs = 5, tol = 1e-4, nfolds = 10,
+cv.olscompcomp(y, x, tol = 1e-4, nfolds = 10,
 folds = NULL, seed = NULL)
 }
 
@@ -21,10 +21,6 @@ A matrix with compositional response data. Zero values are allowed.
 }
 \item{x}{
 A matrix with compositional predictors. Zero values are allowed.
-}
-\item{rs}{
-The number of times to run the constrained optimisation using different random
-starting values each time.
 }
 \item{tol}{
 The threshold upon which to stop the iterations of the constrained optimisation.
@@ -88,7 +84,7 @@ set.seed(1234)
 y <- rdiri(214, runif(3, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- cv.olscompcomp(y, x, rs = 1, tol = 1e-4, nfolds = 5, seed = 12345)
+mod <- cv.olscompcomp(y, x, tol = 1e-4, nfolds = 5, seed = 12345)
 mod
 }
 }

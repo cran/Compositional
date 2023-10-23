@@ -14,7 +14,7 @@ lc.glm(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
 
 \arguments{
 \item{y}{
-A numerical vector containing the response variable values. This must be a continuous variable.
+A numerical vector containing the response variable values. This is either a binary variable or a vector with counts.
 }
 \item{x}{
 A matrix with the predictor variables, the compositional data. No zero values are allowed.
@@ -45,9 +45,6 @@ Extra predictors variables are allowed as well, for instance categorical or cont
 
 \value{
 A list including:
-\item{runtime}{
-The duration of the algorithm required to minimize the deviance.
-}
 \item{devi}{
 The residual deviance of the logistic or Poisson regression model.
 }
@@ -62,8 +59,8 @@ If the arguments "xnew" and znew were given these are the predicted or estimated
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
-Lu J., Shi P., and Li H. (2019). Generalized linear models with linear constraints
-for microbiome compositional data. Biometrics, 75(1): 235-244.
+Lu J., Shi P. and Li H. (2019). Generalized linear models with linear constraints
+for microbiome compositional data. Biometrics, 75(1): 235--244.
 }
 
 \author{
@@ -77,14 +74,13 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{ulc.glm}, \link{lc.reg}, \link{lc.reg2}, \link{alfa.pcr}, \link{glm.pcr}
+\code{\link{ulc.glm}, \link{lc.glm2}, \link{ulc.glm2}, \link{lcglm.aov}
 }
 }
 
 \examples{
 y <- rbinom(150, 1, 0.5)
 x <- rdiri(150, runif(3, 1, 4) )
-x <- x / rowSums(x)
 mod1 <- lc.glm(y, x)
 }
 

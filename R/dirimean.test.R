@@ -21,7 +21,7 @@ dirimean.test <- function(x, a) {
       ell0 <- mod0$objective
       phi0 <- exp( mod0$maximum )
       par0 <- phi0 * a
-    } else if ( phi > 1 ) {
+    } else {
       ell0 <-  n * lgamma( phi ) - n * sum( lgamma(a) ) + sum( z * ( a - 1 )  )
       par0 <- a
     }

@@ -1,15 +1,15 @@
-\name{Unconstrained logistic or Poisson regression with compositional predictor variables}
-\alias{ulc.glm}
+\name{Log-contrast logistic or Poisson regression with with multiple compositional predictors}
+\alias{lc.glm2}
 \title{
-Unconstrained logistic or Poisson regression with compositional predictor variables
+Log-contrast logistic or Poisson regression with with multiple compositional predictors
 }
 
 \description{
-Unconstrained logistic or Poisson regression with compositional predictor variables.
+Log-contrast logistic or Poisson regression with with multiple compositional predictors.
 }
 
 \usage{
-ulc.glm(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
+lc.glm2(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
 }
 
 \arguments{
@@ -36,10 +36,10 @@ If you have no new data, leave this NULL as is by default.
 }
 
 \details{
-The function performs the unconstrained log-contrast logistic or Poisson regression model. The logarithm of the
+The function performs the log-contrast logistic or Poisson regression model. The logarithm of the
 compositional predictor variables is used (hence no zero values are allowed). The response variable
-is linked to the log-transformed data \bold{without} the constraint that the sum of the regression coefficients
-equals 0. If you want the regression without the zum-to-zero contraints see \code{\link{lc.glm}}.
+is linked to the log-transformed data with the constraint that the sum of the regression coefficients
+equals 0. If you want the regression without the zum-to-zero contraints see \code{\link{ulc.glm2}}.
 Extra predictors variables are allowed as well, for instance categorical or continuous.
 }
 
@@ -49,7 +49,7 @@ A list including:
 The residual deviance of the logistic or Poisson regression model.
 }
 \item{be}{
-The unconstrained regression coefficients. Their sum does not equal 0.
+The constrained regression coefficients. Their sum (excluding the constant) equals 0.
 }
 \item{est}{
 If the arguments "xnew" and znew were given these are the predicted or estimated values, otherwise it is NULL.
@@ -59,8 +59,8 @@ If the arguments "xnew" and znew were given these are the predicted or estimated
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
-Lu J., Shi P., and Li H. (2019). Generalized linear models with linear constraints
-for microbiome compositional data. Biometrics, 75(1): 235-244.
+Lu J., Shi P. and Li H. (2019). Generalized linear models with linear constraints
+for microbiome compositional data. Biometrics, 75(1): 235--244.
 }
 
 \author{
@@ -74,13 +74,18 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{lc.glm}, \link{lc.glm2}, \link{ulc.glm2},  \link{lcglm.aov}
+\code{\link{ulc.glm2}, \link{ulc.glm}, \link{lc.glm}
 }
 }
 
 \examples{
 y <- rbinom(150, 1, 0.5)
-x <- rdiri(150, runif(3, 1,3))
-mod <- ulc.glm(y, x)
+x <- list()
+x1 <- as.matrix(iris[, 2:4])
+x1 <- x1 / rowSums(x1)
+x[[ 1 ]] <- x1
+x[[ 2 ]] <- rdiri(150, runif(4) )
+x[[ 3 ]] <- rdiri(150, runif(5) )
+mod <- lc.glm2(y, x)
 }
 

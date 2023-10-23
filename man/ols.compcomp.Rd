@@ -9,7 +9,7 @@ Constrained linear least squares for compositional responses and predictors.
 }
 
 \usage{
-ols.compcomp(y, x, rs = 5, xnew = NULL)
+ols.compcomp(y, x, xnew = NULL)
 }
 
 \arguments{
@@ -18,9 +18,6 @@ A matrix with the compositional data (dependent variable). Zero values are allow
 }
 \item{x}{
 A matrix with the compositional predictors. Zero values are allowed.
-}
-\item{rs}{
-The number of times to run the constrained optimisation using different random starting values each time.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -77,7 +74,7 @@ set.seed(1234)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- ols.compcomp(y, x, rs = 1)
+mod <- ols.compcomp(y, x)
 mod
 }
 

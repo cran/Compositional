@@ -50,11 +50,13 @@ A matrix including the indices of the nearest neighbours of each xnew from x.
 MTsagris M., Alenazi A. and Stewart C. (2023).
 Flexible non-parametric regression models for compositional response data with zeros.
 Statistics and Computing, 33(5): 1--17.
+
 https://link.springer.com/article/10.1007/s11222-023-10277-5
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
+
 https://arxiv.org/pdf/1106.1451.pdf
 }
 

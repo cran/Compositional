@@ -1,11 +1,11 @@
-\name{ANOVA for the log-contrast regression versus the uncostrained log-contrast regression}
+\name{ANOVA for the log-contrast regression versus the uncostrained linear regression}
 \alias{lcreg.aov}
 \title{
-ANOVA for the log-contrast regression versus the uncostrained log-contrast regression
+ANOVA for the log-contrast regression versus the uncostrained linear regression
 }
 
 \description{
-ANOVA for the log-contrast regression versus the uncostrained log-contrast regression.
+ANOVA for the log-contrast regression versus the uncostrained linear regression.
 }
 
 \usage{
@@ -17,7 +17,7 @@ lcreg.aov(mod0, mod1)
 The log-contrast regression model. The object returned by \code{\link{lc.reg}}.
 }
 \item{mod1}{
-The unconstrained log-contrast regression model. The object returned by \code{\link{ulc.reg}}.
+The unconstrained linear regression model. The object returned by \code{\link{ulc.reg}}.
 }
 }
 
@@ -26,7 +26,7 @@ An F-test is performed to test the zero-to-sum constraints of the regression coe
 }
 
 \value{
-A vector with two vaues, the F-statistic and its associated p-value.
+A vector with two values, the F test statistic and its associated p-value.
 }
 
 %\references{

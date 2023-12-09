@@ -23,7 +23,6 @@ ulc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL
   } else {
 
     z <- model.matrix( y~., as.data.frame(z) )[, -1]
-    d <- dim(z)[2]
     x <- cbind(log(x), z)
 
     if ( model == "logistic" ) {

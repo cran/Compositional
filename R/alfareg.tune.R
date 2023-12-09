@@ -65,7 +65,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
             yu <- y[ folds[[ i ]], ]
             xa <- x[ -folds[[ i ]], -1]
             yb <- ytr[ -folds[[ i ]], ]
-            mod <- alfa.reg(yu, xa, ba[l], xnew = xu, yb = yb)
+            mod <- Compositional::alfa.reg(yu, xa, ba[l], xnew = xu, yb = yb)
             yest <- mod$est
             ww[i, l] <- 2 * mean(yu * log(yu / yest), na.rm = TRUE)
           }

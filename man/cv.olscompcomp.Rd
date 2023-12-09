@@ -63,6 +63,7 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
   %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis
   %of multivariate fractional data. Econometric Reviews 35(4): 515-552.
   %}
+  
 \author{
 Michail Tsagris.
 

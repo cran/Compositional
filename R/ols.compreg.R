@@ -18,7 +18,7 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
     be <- matrix(para, byrow = TRUE, ncol = d)
     mu1 <- cbind(1, exp(x %*% be))
     mu <- mu1 / rowSums(mu1)
-    sum( (y - mu)^2 )
+    - 2 * sum( y * mu ) + sum( mu^2 )
   }
 
   runtime <- proc.time()
@@ -69,7 +69,7 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
       betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .packages = "Rfast2",
-	              .export = c( "Sample.int", "olsreg" ) ) %dopar% {
+                      .export = c( "Sample.int", "olsreg" ) ) %dopar% {
         ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
@@ -97,7 +97,7 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
     if ( !con )  xnew <- xnew[, -1, drop = FALSE]
     mu <- cbind( 1, exp(xnew %*% beta) )
     est <- mu / Rfast::rowsums(mu)
-    colnames(est) <- colnames(y)	
+    colnames(est) <- colnames(y)        
   }
 
   colnames(be) <- namy

@@ -45,7 +45,7 @@ For "alfadist" a matrix including the pairwise distances of all observations or 
 
 \references{
 Tsagris M.T., Preston S. and Wood A.T.A. (2016). Improved classification for compositional data using the
-\eqn{\alpha}-transformation. Journal of Classification. 33(2):243--261.
+\eqn{\alpha}-transformation. Journal of Classification. 33(2): 243--261.
 https://arxiv.org/pdf/1506.04976v2.pdf
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.

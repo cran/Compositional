@@ -110,7 +110,7 @@ Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{alfa.rda}, \link{alfanb.tune}, \link{cv.dda}, \link{compknn.tune}, \link{rda.tune}, \link{cv.compnb} }
+\code{ \link{alfa.rda}, \link{alfanb.tune}, \link{cv.dda}, \link{compknn.tune} \link{cv.compnb} }
 }
 
 \examples{

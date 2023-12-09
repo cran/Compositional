@@ -46,7 +46,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \seealso{
-\code{\link{rda.tune} }
+\code{\link{compknn.tune} }
 }
 
 \examples{

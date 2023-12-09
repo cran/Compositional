@@ -34,7 +34,7 @@ alfarda.tune <- function(x, ina, a = seq(-1, 1, by = 0.1), nfolds = 10, gam = se
 
   for ( k in 1:length(a) ) {
     z <- Compositional::alfa(x, a[k])$aff  ## apply the alpha-transformation
-    mod <- Compositional::rda.tune(x = z, ina = ina, nfolds = nfolds, gam = gam, del = del, ncores = ncores,
+    mod <- regda::rda.tune(x = z, ina = ina, nfolds = nfolds, gam = gam, del = del, ncores = ncores,
                     folds = folds, stratified = stratified, seed = seed)
     ## since seed is TRUE, for every value of alpha, the same splits will occur
     ## thus, the percentages for all values of alpha are comparable

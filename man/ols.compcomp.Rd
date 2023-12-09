@@ -25,17 +25,11 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1.
-We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel,
-Zeger and Datta (2020).
-
+The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1. We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel, Zeger and Datta (2020). Our implementation now uses quadratic programming instead of the function \code{\link{optim}}, and the solution is more accurate and extremely fast.
 }
 
 \value{
 A list including:
-\item{runtime}{
-The time required by the regression.
-}
 \item{mse}{
 The mean squared errors.
 }
@@ -47,12 +41,12 @@ The fitted of xnew if xnew is not NULL.
 }
 }
 
-\references{
-Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for
-compositional outcomes and predictors. https://arxiv.org/pdf/2004.07881.pdf
+%\references{
+%Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for
+%compositional outcomes and predictors. https://arxiv.org/pdf/2004.07881.pdf
 
 %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.
-}
+%}
 
 \author{
 Michail Tsagris.

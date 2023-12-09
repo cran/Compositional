@@ -29,7 +29,7 @@ The number of nearest neighbours to search for.
 }
 \item{rann}{
 If you have large scale datasets and want a faster k-NN search, you can use
-kd-trees implemented in the R package "RANN". In this case you must set this
+kd-trees implemented in the R package "Rnanoflann". In this case you must set this
 argument equal to TRUE. Note however, that in this case, the only available
 distance is by default "euclidean".
 }
@@ -49,7 +49,7 @@ A matrix including the indices of the nearest neighbours of each xnew from x.
 \references{
 MTsagris M., Alenazi A. and Stewart C. (2023).
 Flexible non-parametric regression models for compositional response data with zeros.
-Statistics and Computing, 33(5): 1--17.
+Statistics and Computing, 33(106).
 
 https://link.springer.com/article/10.1007/s11222-023-10277-5
 

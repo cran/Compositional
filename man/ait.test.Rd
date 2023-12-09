@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{comp.test}, \link{maovjames}, \link{el.test2}, \link{eel.test2},
+\code{ \link{comp.test}
 }
 }
 

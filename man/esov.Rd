@@ -37,7 +37,11 @@ The ESOV distance is calculated.
 }
 
 \value{
-For "esov" a matrix including the pairwise distances of all observations or the distances between xnew and x. For "esova" a matrix including the pairwise distances of all observations or the distances between xnew and x. For "es" a number, the ESOV distance between x1 and x2.
+For "esov()" a matrix including the pairwise distances of all observations or the distances between xnew and x.
+
+For "esova()" a matrix including the pairwise distances of all observations or the distances between xnew and x.
+
+For "es()" a number, the ESOV distance between x1 and x2.
 }
 
 

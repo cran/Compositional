@@ -49,7 +49,7 @@ A matrix with the estimated response data for each value of k.
 \references{
 Tsagris M., Alenazi A. and Stewart C. (2023).
 Flexible non-parametric regression models for compositional response data with zeros.
-Statistics and Computing, 33(5): 1--17.
+Statistics and Computing, 33(106).
 
 https://link.springer.com/article/10.1007/s11222-023-10277-5
 }

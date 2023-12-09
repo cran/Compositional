@@ -86,7 +86,7 @@ and Giorgos Athineou <gioathineou@gmail.com>.
 %}
 
 \seealso{
-\code{\link{rda}, \link{alfa}, \link{alfarda.tune}, \link{alfa.knn}, \link{alfa.nb}, \link{comp.nb}, \link{mix.compnorm}
+\code{ \link{alfa}, \link{alfarda.tune}, \link{alfa.knn}, \link{alfa.nb}, \link{comp.nb}, \link{mix.compnorm}
 }
 }
 

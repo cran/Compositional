@@ -11,8 +11,10 @@ esova <- function(xnew, x) {
   for (i in 1:nu) {
     xan <- xnew[i, ]
     ma <- 0.5 * ( tx + xan )
-    disa[, i] <- Rfast::colsums( xan * log( xan / ma ) + tx * log( tx/ma ), na.rm = TRUE )
+    disa[, i] <- colSums( xan * log( xan / ma ) + tx * log( tx/ma ), na.rm = TRUE )
   }
 
-  disa
+  t(disa)
 }
+
+

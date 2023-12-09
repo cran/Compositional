@@ -1,5 +1,7 @@
 \name{Regression with compositional data using the alpha-transformation}
 \alias{alfa.reg}
+\alias{alfa.reg2}
+\alias{alfa.reg3}
 \title{
 Regression with compositional data using the \eqn{\alpha}-transformation
 }
@@ -10,6 +12,8 @@ Regression with compositional data using the \eqn{\alpha}-transformation.
 
 \usage{
 alfa.reg(y, x, a, xnew = NULL, yb = NULL, seb = FALSE)
+alfa.reg2(y, x, a, xnew = NULL, yb = NULL, seb = FALSE)
+alfa.reg3(y, x, a = c(-1, 1), xnew = NULL, seb = FALSE)
 }
 
 \arguments{
@@ -20,7 +24,7 @@ A matrix with the compositional data.
 A matrix with the continuous predictor variables or a data frame including categorical predictor variables.
 }
 \item{a}{
-The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression.
+The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. For the alfa.reg2() this should be a vector of \eqn{\alpha} values and the function call repeatedly the alfa.reg() function. For the alfa.reg3() function it should be a vector with two values, the endpoints of the interval of \eqn{\alpha}. This function searches for the optimal vaue of \eqn{\alpha} that minimizes the sum of squares of the errors. Using the \code{\link{optimize}} function it searches for the optimal value of \eqn{\alpha}. Instead of choosing the value of \eqn{\alpha} using \code{\link{alfareg.tune}} (that uses cross-validation) one can select it this way.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -41,7 +45,7 @@ The \eqn{\alpha}-transformation is applied to the compositional data first and t
 }
 
 \value{
-A list including:
+For the alfa.reg() function a list including:
 \item{runtime}{
 The time required by the regression.
 }
@@ -54,6 +58,10 @@ The standard error of the beta coefficients.
 \item{est}{
 The fitted values for xnew if xnew is not NULL.
 }
+
+For the alfa.reg2() function a list with as many sublists as the number of values of \eqn{\alpha}. Each element (sublist) of the list contains the above outcomes of the alfa.reg() function.
+
+For the alfa.reg3() function a list with all previous elements plus an output "alfa", the optimal value of \eqn{\alpha}.
 }
 
 \references{

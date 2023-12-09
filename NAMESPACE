@@ -18,14 +18,18 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
 		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm,
-		       dmvnorm, dmvt)
+		       dmvnorm, dmvt, normlog.reg)
 
 importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
-           rbeta1, colGroup, Sample.int, Sample, Runif, gammareg)
+           rbeta1, colGroup, Sample.int, Sample, Runif, gammareg, censweib.reg,
+           negbin.reg)
 
-importFrom("RANN", nn2)
+importFrom("regda", rda, rda.tune)
+
+importFrom("quadprog", solve.QP)
+importFrom("Rnanoflann", nn)
 importFrom("mda", fda)
 importFrom("sn", msn.mle, rmsn)
 importFrom("mixture", gpcm)
@@ -37,6 +41,7 @@ importFrom("Directional", dkent, riag)
 importFrom("glmnet", glmnet, cv.glmnet)
 importFrom("pchc", fedhc, pchc, mmhc, fedtabu, pctabu, mmtabu)
 importFrom("energy", eqdist.etest)
+importFrom("mvhtests", james, maovjames, hotel2T2, el.test2, eel.test2)
 
 import("doParallel")
 import("parallel")

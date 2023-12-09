@@ -17,7 +17,8 @@ frechet2(x, di, a, k)
 A matrix with the compositional data.
 }
 \item{di}{
-A matrix with indices as produced by the function "dista" of the package "Rfast"" or the function "nn2" of the package "RANN". Better see the details section.
+A matrix with indices as produced by the function "dista" of the package "Rfast"" or the function "nn" 
+of the package "Rnanoflann". Better see the details section.
 }
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the closed geometric mean is calculated.

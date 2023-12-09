@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 6.5 \cr
-Date: \tab 2023-10-23\cr
+Version: \tab 6.6 \cr
+Date: \tab 2023-12-09\cr
 License: \tab GPL-2\cr
 }
 }
@@ -35,7 +35,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \note{
 Acknowledgments:
 
-Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Dr Simon
+Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Professor Simon
 Preston from the university of Nottingham for being his supervisors during his PhD in compositional data analysis.
 
 We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team)
@@ -45,9 +45,9 @@ Manos Papadakis, undergraduate student in the department of computer science, un
 
 Ermanno Affuso from the university of South Alabama suggested that I have a default value in the function \code{\link{mkde}}.
 
-Van Thang Hoang from Hasselt university spotted a bug in the function \code{\link{js.compreg}} function and is greatly acknowledged for that.
+Van Thang Hoang from Hasselt university spotted a bug in the function \code{\link{js.compreg}}.
 
-Claudia Wehrhahn Cortes spotted a bug in the function \code{\link{diri.reg}} and she is greatly acknowledged for that.
+Claudia Wehrhahn Cortes spotted a bug in the function \code{\link{diri.reg}}.
 
 Philipp Kynast from Bruker Daltonik GmbH found a mistake in the function \code{\link{mkde}} which is now fixed.
 

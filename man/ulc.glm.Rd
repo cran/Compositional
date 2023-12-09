@@ -1,11 +1,11 @@
-\name{Unconstrained logistic or Poisson regression with compositional predictor variables}
+\name{Unconstrained GLMs with compositional predictor variables}
 \alias{ulc.glm}
 \title{
-Unconstrained logistic or Poisson regression with compositional predictor variables
+Unconstrained GLMs with compositional predictor variables
 }
 
 \description{
-Unconstrained logistic or Poisson regression with compositional predictor variables.
+Unconstrained GLMs with compositional predictor variables.
 }
 
 \usage{
@@ -23,7 +23,7 @@ A matrix with the predictor variables, the compositional data. No zero values ar
 A matrix, data.frame, factor or a vector with some other covariate(s).
 }
 \item{model}{
-This can be either "logistic" or "poisson".
+For the ulc.glm(), this can be either "logistic" or "poisson". 
 }
 \item{xnew}{
 A matrix containing the new compositional data whose response is to be predicted.

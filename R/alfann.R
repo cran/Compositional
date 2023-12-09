@@ -26,7 +26,7 @@ alfann <- function(xnew, x, a, k = 10, rann = FALSE) {
   }
   
   if (rann) {
-    di <- RANN::nn2( data = y, query = ynew, k = k )$nn.idx
+    di <- Rnanoflann::nn( data = y, points = ynew, k = k, square = TRUE )$indices
   } else  di <- Rfast::dista(ynew, y, k = k, index = TRUE, square = TRUE)
   
   di

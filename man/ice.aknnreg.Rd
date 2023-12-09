@@ -30,7 +30,9 @@ The number of nearest neighbours to consider.
 The type of distance to use, either "euclidean" or "manhattan".
 }
 \item{rann}{
-If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the 
+R package "Rnanoflann". In this case you must set this argument equal to TRUE. 
+Note however, that in this case, the only available distance is by default "euclidean".
 }
 \item{ind}{
 Which variable to select?.

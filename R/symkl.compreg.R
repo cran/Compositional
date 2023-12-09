@@ -73,7 +73,7 @@ symkl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
         yb <- y[ida, ]
         xb <- x[ida, ]
         ini <- rnorm( d * dim(x)[2] )
-		suppressWarnings({
+		    suppressWarnings({
           qa <- nlm(symkl, ini, y = yb, x = xb, d = d)
           qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)
           qa <- nlm(symkl, qa$estimate, y = yb, x = xb, d = d)

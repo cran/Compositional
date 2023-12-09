@@ -58,7 +58,7 @@ for them. For the alfa.knn this can be either "euclidean" or "manhattan".
 }
 \item{rann}{
 If you have large scale datasets and want a faster k-NN search, you can use
-kd-trees implemented in the R package "RANN". In this case you must set this
+kd-trees implemented in the R package "Rnanoflann". In this case you must set this
 argument equal to TRUE. Note however, that in this case, the only available
 distance is by default "euclidean".
 }
@@ -108,7 +108,7 @@ The run time of the cross-validation procedure.
 \references{
 Tsagris, Michail (2014). The k-NN algorithm for compositional data:
 a revised approach with and without zero values present.
-Journal of Data Science, 12(3): 519-534.
+Journal of Data Science, 12(3): 519--534.
 https://arxiv.org/pdf/1506.05216.pdf
 
 Friedman Jerome, Trevor Hastie and Robert Tibshirani (2009).
@@ -117,23 +117,23 @@ The elements of statistical learning,
 
 Tsagris M., Preston S. and Wood A.T.A. (2016). Improved classification for
 compositional data using the \eqn{\alpha}-transformation.
-Journal of classification, 33(2):243-261.
+Journal of Classification, 33(2): 243--261.
 http://arxiv.org/pdf/1106.1451.pdf
 
 Connie Stewart (2017). An approach to measure distance between
 compositional diet estimates containing essential zeros.
-Journal of Applied Statistics 44(7): 1137-1152.
+Journal of Applied Statistics 44(7): 1137--1152.
 
 Clarotto L., Allard D. and Menafoglio A. (2022).
 A new class of \eqn{\alpha}-transformations for the spatial analysis
 of Compositional Data. Spatial Statistics, 47.
 
 Endres, D. M. and Schindelin, J. E. (2003). A new metric for probability distributions.
-Information Theory, IEEE Transactions on 49, 1858-1860.
+Information Theory, IEEE Transactions on 49, 1858--1860.
 
 Osterreicher, F. and Vajda, I. (2003). A new class of metric divergences on
 probability spaces and its applicability in statistics.
-Annals of the Institute of Statistical Mathematics 55, 639-653.
+Annals of the Institute of Statistical Mathematics 55, 639--653.
 }
 
 \author{

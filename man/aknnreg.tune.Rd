@@ -40,7 +40,8 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 You can specify your own seed number here or leave it NULL.
 }
 \item{rann}{
-If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "RANN". In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "Rnanoflann". 
+In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 }
 
@@ -82,7 +83,7 @@ The runtime of the cross-validation procedure.
 \references{
 Tsagris M., Alenazi A. and Stewart C. (2023).
 Flexible non-parametric regression models for compositional response data with zeros.
-Statistics and Computing, 33(5): 1--17.
+Statistics and Computing, 33(106).
 
 https://link.springer.com/article/10.1007/s11222-023-10277-5
 }

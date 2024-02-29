@@ -9,9 +9,9 @@
 frechet <- function(x, a) {
   ## x contains the compositional data
   ## a is the power parameter, usually between -1 and 1
-  
+
   if ( length(a) == 1 ) {
-  
+
     if ( abs(a) < 1e-9 ) {
       m1 <- exp( Rfast::colmeans( Rfast::Log(x) ) )
       m <- m1 / sum( m1 )  ## closed geometric mean
@@ -31,13 +31,13 @@ frechet <- function(x, a) {
         m[i, ] <- m1 / sum( m1 )  ## closed geometric mean
       } else {
         xa <- x^a[i]
-        z <- xa / Rfast::rowmeans(xa)
+        z <- xa / Rfast::rowsums(xa)
         m1 <- Rfast::colmeans(z) ^ ( 1 / a[i] )
         m[i, ] <- m1 / sum(m1)  ## frechet mean in general
       }
     }  ##  end for ( i in 1:length(a) ) {
-	
+
   }
-  
+
   m
 }

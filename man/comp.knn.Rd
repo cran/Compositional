@@ -25,12 +25,12 @@ apostasi = "euclidean", rann = FALSE)
 \arguments{
 \item{xnew}{
 A matrix with the new compositional data whose group is to be predicted. Zeros
-are allowed, but you must be carefull to choose strictly positive values
+are allowed, but you must be careful to choose strictly positive values
 of \eqn{\alpha} or not to set apostasi= "Ait".
 }
 \item{x}{
 A matrix with the available compositional data. Zeros are allowed, but you
-must be carefull to choose strictly positive values of \eqn{\alpha} or not
+must be careful to choose strictly positive values of \eqn{\alpha} or not
 to set apostasi= "Ait".
 }
 \item{ina}{

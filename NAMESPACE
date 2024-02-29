@@ -24,10 +24,9 @@ importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
            rbeta1, colGroup, Sample.int, Sample, Runif, gammareg, censweib.reg,
-           negbin.reg)
+           negbin.reg, colaccs, colmses)
 
 importFrom("regda", rda, rda.tune)
-
 importFrom("quadprog", solve.QP)
 importFrom("Rnanoflann", nn)
 importFrom("mda", fda)

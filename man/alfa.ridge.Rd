@@ -17,7 +17,7 @@ alfa.ridge(y, x, a, lambda, B = 1, xnew = NULL)
 A numerical vector containing the response variable values. If they are percentages, they are mapped onto \eqn{R} using the logit transformation.
 }
 \item{x}{
-A matrix with the predictor variables, the compositional data. Zero values are allowed, but you must be carefull to choose strictly positive vcalues of \eqn{\alpha}.
+A matrix with the predictor variables, the compositional data. Zero values are allowed, but you must be careful to choose strictly positive vcalues of \eqn{\alpha}.
 }
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.

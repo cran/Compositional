@@ -41,7 +41,7 @@ Do you want the standard error of the coefficients to be returned? In the \code{
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then multivariate regression is applied. This involves numerical optimisation.
+The \eqn{\alpha}-transformation is applied to the compositional data first and then multivariate regression is applied. This involves numerical optimisation. The alfa.reg2() function accepts a vector with many values of \eqn{\alpha}, while the the alfa.reg3() function searches for the value of \eqn{\alpha} that minimizes the Kulback-Leibler divergence between the observed and the fitted compositional values.
 }
 
 \value{
@@ -88,7 +88,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{alfareg.tune}, \link{diri.reg}, \link{js.compreg}, \link{kl.compreg}, \link{ols.compreg}, \link{comp.reg}
+\code{\link{alfareg.tune}, \link{diri.reg}, \link{js.compreg}, \link{kl.compreg},
+\link{ols.compreg}, \link{comp.reg}
 }
 }
 
@@ -100,4 +101,3 @@ y <- y / rowSums(y)
 mod <- alfa.reg(y, x, 0.2)
 }
 
-\keyword{ multivariate regression }

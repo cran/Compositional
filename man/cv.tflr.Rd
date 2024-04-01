@@ -1,13 +1,11 @@
-\name{Cross validation for the transformation-free linear regression for compositional responses and predictors}
+\name{Cross validation for the TFLR model}
 \alias{cv.tflr}
 \title{
-Cross validation for the transformation-free linear regression for compositional
-responses and predictors
+Cross validation for the TFLR model
 }
 
 \description{
-Cross validation for the transformation-free linear regression for compositional
-responses and predictors.
+Cross validation for the TFLR model.
 }
 
 \usage{
@@ -55,6 +53,13 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
 }
 }
 
+\references{
+Fiksel J., Zeger S. and Datta A. (2022). A transformation-free linear regression for compositional outcomes and predictors. Biometrics, 78(3): 974--987.
+
+Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
+https://arxiv.org/pdf/2403.19835.pdf
+}
+
 \author{
 Michail Tsagris.
 
@@ -66,15 +71,15 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{tflr}, \link{cv.olscompcomp}, \link{klalfapcr.tune}
+\code{ \link{tflr}, \link{cv.scls}, \link{klalfapcr.tune}
 }
 }
 
 \examples{
 \donttest{
 library(MASS)
-y <- rdiri(214, runif(3, 1, 3))
-x <- as.matrix(fgl[, 2:9])
+y <- rdiri(100, runif(3, 1, 3))
+x <- as.matrix(fgl[1:100, 2:9])
 x <- x / rowSums(x)
 mod <- cv.tflr(y, x)
 mod

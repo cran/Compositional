@@ -37,7 +37,7 @@ aitknn.tune <- function (x, ina, nfolds = 10, k = 2:5, mesos = TRUE,
   colnames(ela) <- paste("k=", k, sep = "")
   rownames(ela) <- paste("alpha=", a, sep = "")
   runtime <- proc.time() - runtime
-  if ( graph )  filled.contour(a, k, ela, ylab = "k nearest-neighbours", cex.lab = 1.2, cex.axis = 1.2,
+  if ( graph )  filled.contour(a, k, ela, ylab = "k nearest-neighbours", cex.lab = 1.3, cex.axis = 1.3,
                                xlab = expression(paste(alpha, " values")) )
   opt <- max(ela)
   confa <- as.vector(which(ela == opt, arr.ind = TRUE)[1, ])

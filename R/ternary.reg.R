@@ -18,8 +18,8 @@ ternary.reg <- function(y, est, id, labs) {
   proj <- matrix(c(0, 1, 0.5, 0, 0, sqrt(3)/2), ncol = 2)
   d <- y %*% proj
   points( d[, 1], d[, 2], col = ina )
-  text( b[1, 1], b[1, 2] + 0.02, nam[3], cex = 1 )
-  text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], cex = 1 )
+  text( b[1, 1], b[1, 2] + 0.02, nam[3], col = "black", font = 2 )
+  text( b[2:3, 1], b[2:3, 2] - 0.02, nam[1:2], col = "black", font = 2)
 
   d <- est %*% proj
   for (i in 1:k)  {

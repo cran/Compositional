@@ -153,7 +153,7 @@ if ( !is.null(nam2) )  nam <- nam2
                                # Draw triangle in two dimensions
                                 points(b[, 1], b[, 2],
                                        type = "l",
-                                       lwd = 4.5,
+                                       lwd = 2,
                                        col = "black");
 
 

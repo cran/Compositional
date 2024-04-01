@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 6.7 \cr
-Date: \tab 2024-02-29\cr
+Version: \tab 6.8 \cr
+Date: \tab 2024-04-01\cr
 License: \tab GPL-2\cr
 }
 }
@@ -38,8 +38,7 @@ Acknowledgments:
 Michail Tsagris would like to express his acknowledgments to Professor Andy Wood and Professor Simon
 Preston from the university of Nottingham for being his supervisors during his PhD in compositional data analysis.
 
-We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team)
-for his help with this package.
+We would also like to express our acknowledgments to Profesor Kurt Hornik (and also the rest of the R core team) for his help with this package.
 
 Manos Papadakis, undergraduate student in the department of computer science, university of Crete, is also acknowledged for his programming tips.
 

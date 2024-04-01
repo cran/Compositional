@@ -51,7 +51,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{ternary}, \link{diri.contour}, \link{comp.kerncontour}
+\code{\link{ternary}, \link{ternary.mcr}, \link{diri.contour}
 }
 }
 

@@ -9,6 +9,7 @@ lc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
     if ( model == "logistic" ) {
       mod <- Rfast::glm_logistic(x, y)
     } else  mod <- Rfast::glm_poisson(x, y)
+    be <- c( mod$be[1], -sum(mod$be[-1]), mod$be[-1] )
 
     est <- NULL
     if ( !is.null(xnew) ) {
@@ -18,7 +19,6 @@ lc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
       } else  est <- exp(est)
     }
 
-    be <- c( mod$be[1], -sum(mod$be[-1]), mod$be[-1] )
     res <- list( devi = mod$devi, be = be, est = est )
 
   } else {
@@ -30,6 +30,7 @@ lc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
     if ( model == "logistic" ) {
       mod <- Rfast::glm_logistic(x, y)
     } else  mod <- Rfast::glm_poisson(x, y)
+    be <- c( mod$be[1], -sum(mod$be[2:p]), mod$be[-1] )
 
     est <- NULL
     if ( !is.null(xnew)  &  !is.null(znew) ) {
@@ -40,7 +41,6 @@ lc.glm <- function(y, x, z = NULL, model = "logistic", xnew = NULL, znew = NULL)
       } else  est <- exp(est)
     }
 
-    be <- c( mod$be[1], -sum(mod$be[2:p]), mod$be[-1] )
     res <- list( devi = mod$devi, be = be, est = est )
 
   }

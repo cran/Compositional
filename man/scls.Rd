@@ -1,15 +1,15 @@
-\name{Constrained linear least squares for compositional responses and predictors}
-\alias{ols.compcomp}
+\name{The SCLS model}
+\alias{scls}
 \title{
-Constrained linear least squares for compositional responses and predictors
+Simplicial constrained linear least squares (SCLS) for compositional responses and predictors
 }
 
 \description{
-Constrained linear least squares for compositional responses and predictors.
+Simplicial constrained linear least squares (SCLS) for compositional responses and predictors.
 }
 
 \usage{
-ols.compcomp(y, x, xnew = NULL)
+scls(y, x, xnew = NULL)
 }
 
 \arguments{
@@ -31,7 +31,7 @@ The function performs least squares regression where the beta coefficients are c
 \value{
 A list including:
 \item{mse}{
-The mean squared errors.
+The mean squared error.
 }
 \item{be}{
 The beta coefficients.
@@ -41,12 +41,10 @@ The fitted of xnew if xnew is not NULL.
 }
 }
 
-%\references{
-%Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for
-%compositional outcomes and predictors. https://arxiv.org/pdf/2004.07881.pdf
-
-%Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis of multivariate fractional data. Econometric Reviews 35(4): 515-552.
-%}
+\references{
+Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
+https://arxiv.org/pdf/2403.19835.pdf
+}
 
 \author{
 Michail Tsagris.
@@ -59,7 +57,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{cv.olscompcomp}, \link{tflr}, \link{kl.alfapcr}  }
+\code{\link{cv.scls}, \link{tflr}, \link{scls.indeptest}  }
 }
 
 \examples{
@@ -68,7 +66,7 @@ set.seed(1234)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- ols.compcomp(y, x)
+mod <- scls(y, x)
 mod
 }
 

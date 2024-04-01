@@ -1,11 +1,11 @@
-\name{Transformation-free linear regression for compositional responses and predictors}
+\name{The transformation-free linear regression (TFLR) for compositional responses and predictors}
 \alias{tflr}
 \title{
-Transformation-free linear regression for compositional responses and predictors
+Transformation-free linear regression (TFLR) for compositional responses and predictors
 }
 
 \description{
-Transformation-free linear regression for compositional responses and predictors.
+Transformation-free linear regression (TFLR) for compositional responses and predictors.
 }
 
 \usage{
@@ -17,7 +17,7 @@ tflr(y, x, xnew = NULL)
 A matrix with the compositional response. Zero values are allowed.
 }
 \item{x}{
-A matrix with the compositional predictors. Zero values are allowed.
+A matrix with the compositional predictors. Zero values are in general allowed, but there can be cases when these are problematic.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
@@ -25,8 +25,8 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-The transformation-free linear regression for compositional responses and predictors is implemented. 
-The function to be minized is \eqn{-\sum_{i=1}^ny_i\log{y_i/(X_iB)}}.
+The transformation-free linear regression for compositional responses and predictors is implemented.
+The function to be minized is \eqn{-\sum_{i=1}^ny_i\log{y_i/(X_iB)}}. This is a self implementation of the function that can be found in the package codalm.
 }
 
 \value{
@@ -34,8 +34,11 @@ A list including:
 \item{runtime}{
 The time required by the regression.
 }
-\item{loglik}{
-The log-likelihood.
+\item{iters}{
+The number of iterations implemented by the EM algortihm.
+}
+\item{kl}{
+The Kullback-Leibler divergence between the observed and the fitted response compositional data.
 }
 \item{be}{
 The beta coefficients.
@@ -46,8 +49,10 @@ The fitted values of xnew if xnew is not NULL.
 }
 
 \references{
-Jacob Fiksel, Scott Zeger and Abhirup Datta (2020). A transformation-free linear regression for compositional outcomes and predictors.
-https://arxiv.org/pdf/2004.07881.pdf
+Fiksel J., Zeger S. and Datta A. (2022). A transformation-free linear regression for compositional outcomes and predictors. Biometrics, 78(3): 974--987.
+
+Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
+https://arxiv.org/pdf/2403.19835.pdf
 }
 
 \author{
@@ -61,7 +66,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{cv.tflr}, \link{ols.compcomp} \link{kl.alfapcr}
+\code{\link{cv.tflr}, \link{scls} \link{kl.alfapcr}
 }
 }
 

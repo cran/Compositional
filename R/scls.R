@@ -1,4 +1,4 @@
-ols.compcomp <- function(y, x, xnew = NULL) {
+scls <- function(y, x, xnew = NULL) {
 
   py <- dim(y)[2]   ;    px <- dim(x)[2]
   pyx <- py * px    ;    n <- dim(y)[1]
@@ -6,15 +6,21 @@ ols.compcomp <- function(y, x, xnew = NULL) {
   dvec <-  2 * as.vector( crossprod(x, y) )
   xx <- crossprod(x)
   XX <- matrix(0, pyx, pyx)
-  ind <- matrix( 1:pyx, ncol = px, byrow = TRUE)
+  ind <- matrix( 1:pyx, ncol = px, byrow = TRUE )
   for ( i in 1:py )  XX[ ind[i, ], ind[i, ] ] <- xx
   A <- matrix(0, pyx, pyx)
   for ( i in 1:px )  A[i, ind[, i]] <- 1
   A <- t( rbind( A, diag(pyx), -diag(pyx) ) )
   A <- A[, -c( (px + 1): pyx) ]
   bvec <- c( rep(1, px), rep(0, pyx), rep(-1, pyx) )
-  f <- quadprog::solve.QP(Dmat = 2 * XX, dvec = dvec, Amat = A, bvec = bvec, meq = px, factorized=FALSE)
-  be <- matrix(f$solution, ncol = py)
+
+  f <- try( quadprog::solve.QP( Dmat = 2 * XX, dvec = dvec, Amat = A, bvec = bvec,
+                                meq = px ), silent = TRUE )
+  if ( identical(class(f), "try-error") ) {
+    f <- quadprog::solve.QP( Dmat = 2 * Matrix::nearPD(XX)$mat, dvec = dvec, Amat = A, bvec = bvec, meq = px )
+  }
+
+  be <- matrix( abs(f$solution), ncol = py)
   mse <- ( sum(y^2) + f$value ) / n
 
   if ( is.null( colnames(y) ) ) {

@@ -81,7 +81,7 @@ b_y4 <- seq(from = 0, to = sqrt3/2, length.out = 11)
                                # Draw triangle in two dimensions
                                 points(b[, 1], b[, 2],
                                        type = "l",
-                                       lwd = 4.5,
+                                       lwd = 2,
                                        col = "black");
                        # Add 3-part compositional data
                        if ( !is.null(x) ) {

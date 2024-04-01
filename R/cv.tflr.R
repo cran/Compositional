@@ -2,7 +2,8 @@ cv.tflr <- function(y, x, nfolds = 10, folds = NULL, seed = NULL) {
 
   n <- dim(y)[1]
   ina <- 1:n
-  if (is.null(folds))  folds <- Compositional::makefolds(ina, nfolds = nfolds, stratified = FALSE, seed = seed)
+  if (is.null(folds))  folds <- Compositional::makefolds(ina, nfolds = nfolds,
+                                                         stratified = FALSE, seed = seed)
   nfolds <- length(folds)
   kl <- numeric(nfolds)
   js <- kl
@@ -11,10 +12,9 @@ cv.tflr <- function(y, x, nfolds = 10, folds = NULL, seed = NULL) {
   for ( i in 1:nfolds) {
     ytest <- y[ folds[[ i ]], ]  ## test set dependent vars
     ytrain <- y[ -folds[[ i ]], ]  ## train set dependent vars
-    xtest <- x[ folds[[ i ]], -1, drop = FALSE]  ## test set independent vars
-    xtrain <- x[ -folds[[ i ]], -1, drop = FALSE]  ## train set independent vars
-    be <- codalm::codalm(ytrain, xtrain)
-    est <- xtest %*% be
+    xtest <- x[ folds[[ i ]], ]  ## test set independent vars
+    xtrain <- x[ -folds[[ i ]], ]  ## train set independent vars
+    est <- Compositional::tflr(ytrain, xtrain, xnew = xtest)$est
     ela <- abs( ytest * log( ytest / est ) )
     ela[ is.infinite(ela) ] <- NA
     kl[i] <-  2 * mean(ela, na.rm = TRUE)

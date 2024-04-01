@@ -106,7 +106,7 @@ bivt.contour <- function(x, type = 'alr', n = 100, appear = TRUE, cont.line = FA
                    # Draw triangle in two dimensions
                    points(b[, 1], b[, 2],
                           type = "l",
-                          lwd = 4.5,
+                          lwd = 2,
                           col = "black");
                    # Add contour lines
                    if ( cont.line ) {

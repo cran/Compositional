@@ -1,18 +1,15 @@
-\name{Cross-validation for the constrained linear least squares for compositional responses and predictors}
-\alias{cv.olscompcomp}
+\name{Cross-validation for the SCLS model}
+\alias{cv.scls}
 \title{
-Cross-validation for the constrained linear least squares for compositional
-responses and predictors
+Cross-validation for the SCLS model
 }
 
 \description{
-Cross-validation for the constrained linear least squares for compositional
-responses and predictors.
+Cross-validation for the SCLS model.
 }
 
 \usage{
-cv.olscompcomp(y, x, tol = 1e-4, nfolds = 10,
-folds = NULL, seed = NULL)
+cv.scls(y, x, nfolds = 10, folds = NULL, seed = NULL)
 }
 
 \arguments{
@@ -21,9 +18,6 @@ A matrix with compositional response data. Zero values are allowed.
 }
 \item{x}{
 A matrix with compositional predictors. Zero values are allowed.
-}
-\item{tol}{
-The threshold upon which to stop the iterations of the constrained optimisation.
 }
 \item{nfolds}{
 The number of folds to be used. This is taken into consideration only if the
@@ -59,11 +53,11 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
 }
 }
 
-%\references{
-  %Murteira, Jose MR, and Joaquim JS Ramalho 2016. Regression analysis
-  %of multivariate fractional data. Econometric Reviews 35(4): 515-552.
-  %}
-  
+\references{
+Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
+https://arxiv.org/pdf/2403.19835.pdf
+}
+
 \author{
 Michail Tsagris.
 
@@ -75,7 +69,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{ols.compcomp}, \link{cv.tflr}, \link{klalfapcr.tune} }
+\code{\link{scls}, \link{cv.tflr}, \link{klalfapcr.tune} }
 }
 
 \examples{
@@ -85,7 +79,7 @@ set.seed(1234)
 y <- rdiri(214, runif(3, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- cv.olscompcomp(y, x, tol = 1e-4, nfolds = 5, seed = 12345)
+mod <- cv.scls(y, x, nfolds = 5, seed = 12345)
 mod
 }
 }

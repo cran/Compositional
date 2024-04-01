@@ -100,7 +100,7 @@ gendiri.contour <- function(a, b, n = 100, x = NULL, cont.line = FALSE) {
                    # Draw triangle in two dimensions
                    points(b[, 1], b[, 2],
                           type = "l",
-                          lwd = 4.5,
+                          lwd = 2,
                           col = "black");
 
 

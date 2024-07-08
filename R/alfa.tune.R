@@ -46,6 +46,7 @@ alfa.tune <- function(x, B = 1, ncores = 1) {
 
     } else {
       runtime <- proc.time()
+      requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
       ab <- foreach::foreach( i = 1:B, .combine = rbind, .packages = c("Rfast", "Rfast2"), 

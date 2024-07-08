@@ -1,15 +1,15 @@
-\name{The SCLS model}
-\alias{scls}
+\name{Simplicial constrained median regression for compositional responses and predictors model}
+\alias{scrq}
 \title{
-Simplicial constrained linear least squares (SCLS) for compositional responses and predictors
+Simplicial constrained median regression for compositional responses and predictors
 }
 
 \description{
-Simplicial constrained linear least squares (SCLS) for compositional responses and predictors.
+Simplicial constrained median regression for compositional responses and predictors.
 }
 
 \usage{
-scls(y, x, xnew = NULL)
+scrq(y, x, xnew = NULL)
 }
 
 \arguments{
@@ -25,13 +25,13 @@ If you have new data use it, otherwise leave it NULL.
 }
 
 \details{
-The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1. We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel, Zeger and Datta (2020). Our implementation now uses quadratic programming instead of the function \code{\link{optim}}, and the solution is more accurate and extremely fast.
+The function performs median regression where the beta coefficients are constained to be positive and sum to 1.
 }
 
 \value{
 A list including:
-\item{mse}{
-The mean squared error.
+\item{mlad}{
+The mean absolute deviation.
 }
 \item{be}{
 The beta coefficients.
@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{cv.scls}, \link{tflr}, \link{scls.indeptest}, \link{scrq}  }
+\code{\link{scls}, \link{tflr}, \link{scls.indeptest}  }
 }
 
 \examples{
@@ -66,7 +66,7 @@ set.seed(1234)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-mod <- scls(y, x)
+mod <- scrq(y, x)
 mod
 }
 

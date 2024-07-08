@@ -26,7 +26,7 @@ A vector of the clusters' probabilities that must sum to one.
 }
 
 \details{
-For more information see the references.
+For more information see the references and the package FlxeDir.
 }
 
 \value{
@@ -51,5 +51,5 @@ x <- rfd(100, alpha, prob, 7)
 }
 
 \seealso{
-\code{ \link{fd.est}, \link{dfd} }
+\code{ \link{dfd} }
 }

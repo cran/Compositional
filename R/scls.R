@@ -26,7 +26,7 @@ scls <- function(y, x, xnew = NULL) {
   if ( is.null( colnames(y) ) ) {
     colnames(be) <- paste("Y", 1:py, sep = "")
   } else colnames(be) <- colnames(y)
-  if ( is.null( rownames(y) ) ) {
+  if ( is.null( colnames(x) ) ) {
     rownames(be) <- paste("X", 1:px, sep = "")
   } else rownames(be) <- colnames(x)
 

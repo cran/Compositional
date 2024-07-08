@@ -29,7 +29,7 @@ pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, see
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
-      est <- Compositional::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
+      est <- Rfast2::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
       msp[vim, ] <- Rfast::colmeans( (est - ytest)^2 )
     }
 
@@ -38,18 +38,18 @@ pcr.tune <- function(y, x, nfolds = 10, maxk = 50, folds = NULL, ncores = 1, see
   } else {
 
     runtime <- proc.time()
-
+    requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(cl)
     er <- numeric(maxk)
     if ( is.null(folds) )  folds <- Compositional::makefolds(y, nfolds = nfolds,
                                                              stratified = FALSE, seed = seed)
-    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = c("Rfast", "Compositional") ) %dopar% {
+    msp <- foreach::foreach(vim = 1:nfolds, .combine = rbind, .packages = c("Rfast", "Compositional", "Rfast2") ) %dopar% {
       ytest <-  y[ folds[[ vim ]] ]  ## test set dependent vars
       ytrain <- y[ -folds[[ vim ]] ]   ## train set dependent vars
       xtrain <- x[ -folds[[ vim ]], , drop = FALSE]   ## train set independent vars
       xtest <- x[ folds[[ vim ]], , drop = FALSE]  ## test set independent vars
-      est <- Compositional::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
+      est <- Rfast2::pcr(ytrain, xtrain, k = 1:maxk, xnew = xtest)$est
       er <- Rfast::colmeans( (est - ytest)^2 )
       return(er)
     }

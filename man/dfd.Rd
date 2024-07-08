@@ -28,7 +28,7 @@ The non-negative scalar \eqn{tau} parameter.
 }
 
 \details{
-For more information see the references.
+For more information see the references and the package FlxeDir.
 }
 
 \value{
@@ -45,7 +45,9 @@ Statistics and Computing, 27, 963--983.
 }
 
 \author{
-Michail Tsagris ported from the R package FlexDir. \email{mtsagris@uoc.gr}.
+Michail Tsagris.
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
@@ -57,6 +59,6 @@ dfd(x, alpha, prob, tau)
 }
 
 \seealso{
-\code{ \link{fd.est}, \link{rfd} }
+\code{\link{rfd} }
 }
 

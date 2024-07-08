@@ -23,7 +23,7 @@ A matrix with the predictor variables, the compositional data. No zero values ar
 A matrix, data.frame, factor or a vector with some other covariate(s).
 }
 \item{model}{
-For the ulc.glm(), this can be either "logistic" or "poisson". 
+For the ulc.glm(), this can be either "logistic" or "poisson".
 }
 \item{xnew}{
 A matrix containing the new compositional data whose response is to be predicted.
@@ -60,7 +60,7 @@ If the arguments "xnew" and znew were given these are the predicted or estimated
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
 Lu J., Shi P., and Li H. (2019). Generalized linear models with linear constraints
-for microbiome compositional data. Biometrics, 75(1): 235-244.
+for microbiome compositional data. Biometrics, 75(1): 235--244.
 }
 
 \author{

@@ -8,7 +8,8 @@ importFrom("graphics", filled.contour, contour, lines, plot, axis, par,
 importFrom("stats", cor, lm, cov, optim, optimize, quantile, rnorm, sd, cmdscale,
            qnorm, nlminb, nlm, lm.fit, rchisq, deviance, pchisq, qchisq, rgamma,
            mahalanobis, runif, qt, qf, pf, model.matrix, prcomp, .lm.fit, na.omit,
-           ppr, predict, coef, cancor, loess, fitted, as.dist, rweibull, ks.test)
+           ppr, predict, coef, cancor, loess, fitted, as.dist, rweibull, ks.test,
+           rmultinom, quasibinomial)
 
 importFrom("grDevices", terrain.colors, grey, colorRampPalette)
 
@@ -24,7 +25,7 @@ importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
            rbeta1, colGroup, Sample.int, Sample, Runif, gammareg, censweib.reg,
-           negbin.reg, colaccs, colmses)
+           negbin.reg, colaccs, colmses, pcr)
 
 importFrom("regda", rda, rda.tune)
 importFrom("quadprog", solve.QP)
@@ -34,14 +35,13 @@ importFrom("mda", fda)
 importFrom("sn", msn.mle, rmsn)
 importFrom("mixture", gpcm)
 importFrom("emplik", el.test)
-importFrom("FlexDir", FD.estimation, FD.density, FD.generate)
 importFrom("nnet", multinom)
-importFrom("Directional", dkent, riag)
 importFrom("glmnet", glmnet, cv.glmnet)
-importFrom("pchc", fedhc, pchc, mmhc, fedtabu, pctabu, mmtabu)
 importFrom("energy", eqdist.etest)
 importFrom("mvhtests", james, maovjames, hotel2T2, el.test2, eel.test2)
 importFrom("cluster", ellipsoidhull)
+importFrom("minpack.lm", nls.lm)
+importFrom("quantreg", rq)
 
 import("doParallel")
 import("parallel")

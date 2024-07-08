@@ -63,7 +63,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and 
 %}
 
 \seealso{
-\code{\link{bivt.contour}, \link{comp.den}, \link{rmvt}
+\code{\link{bivt.contour}, \link{comp.den}
 }
 }
 

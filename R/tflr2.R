@@ -33,7 +33,7 @@ tflr2 <- function(y, x, wei = FALSE, xnew = NULL) {
     }
 
     est <- list()
-    for (i in 1:dx)  est[[ i ]] <- x[[ i ]] %*% ini.be[(px[i] + 1):px[i + 1], ]
+    for ( i in 1:dx )  est[[ i ]] <- x[[ i ]] %*% ini.be[(px[i] + 1):px[i + 1], ]
     suppressWarnings( f <- optim( rnorm(dx - 1), reg, y = y, est = est, control = list(maxit = 5000) ) )
     a <- f$par
     b <- c(1, exp(a) )
@@ -46,10 +46,12 @@ tflr2 <- function(y, x, wei = FALSE, xnew = NULL) {
     est <- NULL
     if ( !is.null(xnew) ) {
       est <- 0
-      for (i in 1:dx) est <- est + xnew[[ i ]] %*% be[(px[i] + 1):px[i + 1], ]
+      for ( i in 1:dx ) est <- est + xnew[[ i ]] %*% be[(px[i] + 1):px[i + 1], ]
     }
   }
 
   list(ini.kl = mod$kl, be = ini.be, kl = kl, weights = weights, am = am, est = est)
 }
+
+
 

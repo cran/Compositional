@@ -1,11 +1,11 @@
 \name{Ridge regression}
 \alias{ridge.reg}
 \title{
-  Ridge regression
+Ridge regression
 }
 
 \description{
-  Ridge regression.
+Ridge regression.
 }
 
 \usage{
@@ -31,7 +31,7 @@ If you have new data whose response value you want to predict put it here, other
 }
 
 \details{
-This is used in the function \code{\link{alfa.ridge}}. There is also a built-in function available from the MASS library, called \code{\link{lm.ridge}}.
+This is used in the function \code{\link{alfa.ridge}}. There is also a built-in function available from the MASS library, called "lm.ridge".
 }
 
 \value{
@@ -56,7 +56,7 @@ Brown P. J. (1994). Measurement, Regression and Calibration. Oxford Science Publ
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} 
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}
 and Giorgos Athineou <gioathineou@gmail.com>.
 }
 
@@ -76,5 +76,3 @@ mod1 <- ridge.reg(y, x, lambda = 0.1)
 mod2 <- ridge.reg(y, x, lambda = 0)
 }
 
-\keyword{ ridge regression }
-\keyword{ regularisation }

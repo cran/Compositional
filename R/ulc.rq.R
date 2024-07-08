@@ -1,0 +1,35 @@
+ulc.rq <- function(y, x, z = NULL, tau = 0.5, xnew = NULL, znew = NULL) {
+
+  p <- dim(x)[2]
+  x <- log(x)
+
+  if ( is.null(z) ) {
+
+    mod <- quantreg::rq(y~., data = as.data.frame(x), tau = tau)
+
+    est <- NULL
+    if ( !is.null(xnew) )  est <- cbind(1, log(xnew) ) %*% be
+
+    be <- as.vector(mod$be)
+    res <- list( mod = mod, be = be, est = est )
+
+  } else {
+
+    z <- model.matrix( y~., as.data.frame(z) )[, -1]
+    x <- cbind(log(x), z)
+    mod <- quantreg::rq(y~., data = as.data.frame(x), tau = tau)
+
+    est <- NULL
+    if ( !is.null(xnew)  &  !is.null(znew) ) {
+      znew <- model.matrix( ~., data.frame(znew) )[, -1]
+      est <- cbind(1, log(xnew), znew) %*% be
+    }
+
+    be <- as.vector(mod$be)
+    res <- list( mod = mod, be = be, est = est )
+
+  }
+
+  res
+
+}

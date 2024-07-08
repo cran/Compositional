@@ -49,9 +49,6 @@ The value of the log-likelihood.
 \item{param}{
 The estimated parameters.
 }
-\item{runtime}{
-The run time of the procedure.
-}
 }
 
 \references{

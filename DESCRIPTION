@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 6.8
-Date: 2024-04-01
+Version: 6.9
+Date: 2024-07-08
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -13,11 +13,11 @@ Author: Michail Tsagris [aut, cre],
   Christos Adam [ctb]
 Maintainer: Michail Tsagris <mtsagris@uoc.gr>
 Depends: R (>= 4.0)
-Imports: cluster, Directional, doParallel, emplik, energy, foreach,
-        FlexDir, glmnet, graphics, grDevices, MASS, Matrix, mda,
-        mixture, mvhtests, nnet, pchc, quadprog, regda, Rfast, Rfast2,
+Imports: cluster, doParallel, emplik, energy, foreach, glmnet,
+        graphics, grDevices, quantreg, MASS, Matrix, mda, minpack.lm,
+        mixture, mvhtests, nnet, quadprog, regda, Rfast, Rfast2,
         Rnanoflann, sn, stats
-Suggests: codalm
+Suggests: codalm, FlexDir
 Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. We further include functions for percentages (or proportions).
              The standard textbook for such data is John Aitchison's (1986) "The statistical analysis of compositional data". Relevant papers include:
 			       a) Tsagris M.T., Preston S. and Wood A.T.A. (2011). "A data-based power transformation for compositional data". Fourth International International Workshop on Compositional Data Analysis. <doi:10.48550/arXiv.1106.1451>
@@ -33,9 +33,9 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 		         k) Alenazi A.A. (2022). "f-divergence regression models for compositional data". Pakistan Journal of Statistics and Operation Research, 18(4): 867--882. <doi:10.18187/pjsor.v18i4.3969>.
 		         l) Tsagris M. and Stewart C. (2022). "A Review of Flexible Transformations for Modeling Compositional Data". In Advances and Innovations in Statistics and Data Science, pp. 225--234. <doi:10.1007/978-3-031-08329-7_10>.
 			       m) Tsagris M., Alenazi A. and Stewart C. (2023). "Flexible non-parametric regression models for compositional response data with zeros". Statistics and Computing, 33(106). <doi:10.1007/s11222-023-10277-5>. 
-			       n) Tsagris. M. (2024). "Constrained least squares simplicial-simplicial regression". <arxiv:2403.19835>.  
+			       n) Tsagris. M. (2024). "Constrained least squares simplicial-simplicial regression". <doi:10.48550/arXiv.2403.19835>.  
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2024-04-01 12:47:17 UTC; mtsag
+Packaged: 2024-07-08 15:57:43 UTC; mtsag
 Repository: CRAN
-Date/Publication: 2024-04-01 14:40:02 UTC
+Date/Publication: 2024-07-08 16:30:02 UTC

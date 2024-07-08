@@ -11,9 +11,9 @@ Regression with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
-alfa.reg(y, x, a, xnew = NULL, yb = NULL, seb = FALSE)
-alfa.reg2(y, x, a, xnew = NULL, yb = NULL, seb = FALSE)
-alfa.reg3(y, x, a = c(-1, 1), xnew = NULL, seb = FALSE)
+alfa.reg(y, x, a, xnew = NULL, yb = NULL)
+alfa.reg2(y, x, a, xnew = NULL)
+alfa.reg3(y, x, a = c(-1, 1), xnew = NULL)
 }
 
 \arguments{
@@ -35,13 +35,10 @@ If you have already transformed the data using the \eqn{\alpha}-transformation w
 This is intended to be used in the function \code{\link{alfareg.tune}} in order to speed up the process. The time difference in that function is small for small samples.
 But, if you have a few thousands and or a few more components, there will be bigger differences.
 }
-\item{seb}{
-Do you want the standard error of the coefficients to be returned? In the \code{\link{alfareg.tune}} function this extra computation that is avoided can save some time.
-}
 }
 
 \details{
-The \eqn{\alpha}-transformation is applied to the compositional data first and then multivariate regression is applied. This involves numerical optimisation. The alfa.reg2() function accepts a vector with many values of \eqn{\alpha}, while the the alfa.reg3() function searches for the value of \eqn{\alpha} that minimizes the Kulback-Leibler divergence between the observed and the fitted compositional values.
+The \eqn{\alpha}-transformation is applied to the compositional data first and then multivariate regression is applied. This involves numerical optimisation. The alfa.reg2() function accepts a vector with many values of \eqn{\alpha}, while the the alfa.reg3() function searches for the value of \eqn{\alpha} that minimizes the Kulback-Leibler divergence between the observed and the fitted compositional values. The functions are highly optimized.
 }
 
 \value{
@@ -65,10 +62,12 @@ For the alfa.reg3() function a list with all previous elements plus an output "a
 }
 
 \references{
-Tsagris M. (2015). Regression analysis with compositional data containing zero values. Chilean Journal of Statistics, 6(2): 47-57.
+Tsagris M. (2015). Regression analysis with compositional data containing zero values.
+Chilean Journal of Statistics, 6(2): 47-57.
 https://arxiv.org/pdf/1508.01913v1.pdf
 
-Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
+Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for
+compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
 
@@ -80,7 +79,7 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 \author{
 Michail Tsagris.
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and Giorgos Athineou <gioathineou@gmail.com>.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 %\note{

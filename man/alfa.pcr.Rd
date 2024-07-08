@@ -78,7 +78,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
+\code{\link{glm.pcr}, \link{alfapcr.tune}
 }
 }
 

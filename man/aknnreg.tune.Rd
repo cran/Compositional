@@ -40,7 +40,7 @@ If you have the list with the folds supply it here. You can also leave it NULL a
 You can specify your own seed number here or leave it NULL.
 }
 \item{rann}{
-If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "Rnanoflann". 
+If you have large scale datasets and want a faster k-NN search, you can use kd-trees implemented in the R package "Rnanoflann".
 In this case you must set this argument equal to TRUE. Note however, that in this case, the only available distance is by default "euclidean".
 }
 }
@@ -99,7 +99,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{aknn.reg}, \link{akernreg.tune}, \link{akern.reg}, \link{alfa.rda}, \link{alfa.fda}, \link{rda.tune} }
+\code{\link{aknn.reg}, \link{akernreg.tune}, \link{akern.reg}, \link{alfa.rda}, \link{alfa.fda} }
 }
 
 \examples{

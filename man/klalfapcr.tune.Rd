@@ -96,7 +96,7 @@ and Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{kl.alfapcr}, \link{cv.tflr}, \link{pcr}, \link{glm.pcr}, \link{alfapcr.tune}
+\code{\link{kl.alfapcr}, \link{cv.tflr}, \link{glm.pcr}, \link{alfapcr.tune}
 }
 }
 

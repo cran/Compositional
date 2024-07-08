@@ -60,7 +60,7 @@ If the arguments "xnew" and znew were given these are the predicted or estimated
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
 Lu J., Shi P., and Li H. (2019). Generalized linear models with linear constraints
-for microbiome compositional data. Biometrics, 75(1): 235-244.
+for microbiome compositional data. Biometrics, 75(1): 235--244.
 }
 
 \author{

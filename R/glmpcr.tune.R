@@ -64,6 +64,7 @@ glmpcr.tune <- function(y, x, nfolds = 10, maxk = 10, folds = NULL, ncores = 1, 
 
   } else {
     runtime <- proc.time()
+    requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(cl)
     er <- numeric(maxk)

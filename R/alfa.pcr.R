@@ -21,14 +21,14 @@ alfa.pcr <- function(y, x, a, k, model = "gaussian", xnew = NULL) {
   if ( length(k) == 1  & k > p ) k <- p
   if ( length(k)> 1  &  max(k) > p )  k <- 1:p
 
-  if (model == 'gaussian') {
+  if ( model == 'gaussian' ) {
     if ( !is.null(xnew) ) {
       xnew <- matrix(xnew, ncol = p + 1)
       xnew <- Compositional::alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
     }
-    mod <- Compositional::pcr(y, x, k, xnew = xnew)
+    mod <- Rfast2::pcr(y, x, k, xnew = xnew)
 
-  } else if (model == "multinomial") {
+  } else if ( model == "multinomial" ) {
     p <- dim(x)[2]
     eig <- prcomp(x, center = FALSE, scale = FALSE)
     values <- eig$sdev^2  ## eigenvalues
@@ -52,7 +52,7 @@ alfa.pcr <- function(y, x, a, k, model = "gaussian", xnew = NULL) {
     }
     mod <- list(model = mod, per = per[k], vec = vec, est = est)
 
-  } else if (model == "poisson" | model == "binomial") {
+  } else if ( model == "poisson" | model == "binomial" ) {
     if ( !is.null(xnew) ) {
       xnew <- matrix(xnew, ncol = p + 1)
       xnew <- Compositional::alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation

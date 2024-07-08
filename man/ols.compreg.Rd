@@ -50,7 +50,7 @@ The time required by the regression.
 The beta coefficients.
 }
 \item{covbe}{
-The covariance matrix of the beta coefficients, if bootstrap is chosen, i.e. if B > 1.
+The covariance matrix of the beta coefficients. If B=1, this is based on the observed information (Hessian matrix), otherwise if B> this is the bootstrap estimate.
 }
 \item{est}{
 The fitted of xnew if xnew is not NULL.

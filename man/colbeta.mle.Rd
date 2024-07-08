@@ -64,7 +64,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{censpois.mle}, \link{gammapois.mle}
+\code{ \link{beta.est}
 }
 }
 

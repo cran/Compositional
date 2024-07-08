@@ -14,14 +14,12 @@ zad.est(y)
 
 \arguments{
 \item{y}{
-A matrix with the compositional data (dependent variable). The number of observations (vectors)
-with no zero values should be more than the columns of the predictor variables. Otherwise,
-the initial values will not be calculated.
+A matrix with the compositional data.
 }
 }
 
 \details{
-A zero adjusted Dirichlet distribution is being fittd and its parameters are estimated.
+A zero adjusted Dirichlet distribution is being fitted and its parameters are estimated.
 }
 
 \value{

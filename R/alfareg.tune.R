@@ -50,6 +50,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
     apa <- proc.time()
     val <- matrix(a, ncol = nc) ## if the length of a is not equal to the
     ## dimensions of the matrix val a warning message should appear
+    requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(nc)
     doParallel::registerDoParallel(cl)
     if ( is.null(folds) )  folds <- Compositional::makefolds(ina, nfolds = nfolds,

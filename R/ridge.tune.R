@@ -45,6 +45,7 @@ ridge.tune <- function(y, x, nfolds = 10, lambda = seq(0, 2, by = 0.1), folds = 
 
   } else {
     runtime <- proc.time()
+    requireNamespace("doParallel", quietly = TRUE, warn.conflicts = FALSE)
     cl <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(cl)
     pe <- numeric(k)

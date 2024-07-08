@@ -26,17 +26,11 @@ If you have new data use it, otherwise leave it NULL.
 
 \details{
 The transformation-free linear regression for compositional responses and predictors is implemented.
-The function to be minized is \eqn{-\sum_{i=1}^ny_i\log{y_i/(X_iB)}}. This is a self implementation of the function that can be found in the package codalm.
+The function to be minized is \eqn{-\sum_{i=1}^ny_i\log{y_i/(X_iB)}}. This is an efficient self implementation.
 }
 
 \value{
 A list including:
-\item{runtime}{
-The time required by the regression.
-}
-\item{iters}{
-The number of iterations implemented by the EM algortihm.
-}
 \item{kl}{
 The Kullback-Leibler divergence between the observed and the fitted response compositional data.
 }

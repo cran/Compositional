@@ -61,7 +61,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{beta.est}, \link{prop.reg}, \link{diri.reg} }
+\code{ \link{beta.est}, \link{propreg}, \link{diri.reg} }
 }
 
 \examples{

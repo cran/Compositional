@@ -7,13 +7,13 @@ ait <- function(x, a, h = TRUE) {
 
   if (a != 0) {
     z <- x^a
-    z <- 1/a * ( z - Rfast::rowmeans(z) )
+    z <- 1/a * z - Rfast::rowmeans(z) / a
   } else {
     z <- Rfast::Log(x)
     z <- z - Rfast::rowmeans(z)
   }
 
-  if (h)  z <- tcrossprod(z, helm(D))
+  if (h)  z <- tcrossprod(z, Compositional::helm(D))
   z
 }
 

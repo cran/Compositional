@@ -7,8 +7,8 @@ tflr.betest <- function(y, x, B, R = 999, ncores = 1) {
   n <- dim(y)[1]
   pkl <- numeric(R)
 
-  if (ncores <= 1) {
-    for (i in 1:R) {
+  if ( ncores <= 1 ) {
+    for ( i in 1:R ) {
       id <- Rfast2::Sample.int(n, n)
       pkl[i] <- Compositional::tflr(y, x[id, ])$kl
     }

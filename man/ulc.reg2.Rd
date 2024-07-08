@@ -64,10 +64,7 @@ If the arguments "xnew" and "znew" were given these are the predicted or estimat
 \references{
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 
-Xiaokang Liu, Xiaomei Cong, Gen Li, Kendra Maas and Kun Chen (2020). Multivariate Log-Contrast Regression
-with Sub-Compositional Predictors: Testing the Association Between Preterm Infants' Gut Microbiome and
-Neurobehavioral Outcome.
-\url{https://arxiv.org/pdf/2006.00487.pdf}.
+Xiaokang Liu, Xiaomei Cong, Gen Li, Kendra Maas and Kun Chen (2020). Multivariate Log-Contrast Regression with Sub-Compositional Predictors: Testing the Association Between Preterm Infants' Gut Microbiome and Neurobehavioral Outcome.
 }
 
 \author{

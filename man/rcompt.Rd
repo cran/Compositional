@@ -54,7 +54,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{comp.den}, \link{rdiri}, \link{rcompnorm}, \link{rmvt}
+\code{\link{comp.den}, \link{rdiri}, \link{rcompnorm}
 }
 }
 

@@ -24,26 +24,26 @@ A value of \eqn{\alpha}.
 }
 
 \details{
-This is a function for choosing or estimating the value of \eqn{\alpha} in the folded model
+This is a function for choosing or estimating the value of \eqn{\alpha} in the \eqn{\alpha}-folded model
 (Tsagris and Stewart, 2020). It is called by \code{\link{a.est}}.
 }
 
 \value{
 If "alpha.mle" is called, a list including:
 \item{iters}{
-The nubmer of iterations the EM algorithm required.
+The number of iterations the EM algorithm required.
 }
 \item{loglik}{
 The maximimized log-likelihood of the folded model.
 }
 \item{p}{
-The estimated probability inside the simplex of the folded model.
+The estimated probability inside the simplex of the \eqn{\alpha}-folded model.
 }
 \item{mu}{
-The estimated mean vector of the folded model.
+The estimated mean vector of the \eqn{\alpha}-folded model.
 }
 \item{su}{
-The estimated covariance matrix of the folded model.
+The estimated covariance matrix of the \eqn{\alpha}-folded model.
 }
 
 If "a.mle" is called, the log-likelihood is returned only.

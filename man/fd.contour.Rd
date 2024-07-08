@@ -62,7 +62,7 @@ Christos Adam \email{pada4m4@gmail.com}.
 %}
 
 \seealso{
-\code{\link{fd.est}, \link{compnorm.contour}, \link{folded.contour}, \link{bivt.contour},
+\code{ \link{compnorm.contour}, \link{folded.contour}, \link{bivt.contour},
 \link{comp.kerncontour}, \link{mix.compnorm.contour}
 }
 }

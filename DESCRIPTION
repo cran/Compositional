@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 6.9
-Date: 2024-07-08
+Version: 7.0
+Date: 2024-08-23
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -36,6 +36,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       n) Tsagris. M. (2024). "Constrained least squares simplicial-simplicial regression". <doi:10.48550/arXiv.2403.19835>.  
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2024-07-08 15:57:43 UTC; mtsag
+Packaged: 2024-08-23 07:58:50 UTC; mtsag
 Repository: CRAN
-Date/Publication: 2024-07-08 16:30:02 UTC
+Date/Publication: 2024-08-23 08:40:02 UTC

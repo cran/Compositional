@@ -32,24 +32,29 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   log.phi <- qa$par[1]
   be <- matrix(qa$par[-1], ncol = d)  ## matrix of the betas
   colnames(be) <- colnames(y[, -1])  ## names of the betas
-  seb <- sqrt( diag( solve(qa$hessian) ) )  ## std of the estimated betas
-  std.logphi <- seb[1]  ## std of the estimated log of phi
-  seb <- matrix(seb[-1], ncol = d)  ## std of the estimated betas
 
-  if ( !is.null( colnames(y) ) ) {
-    colnames(seb) <- colnames(y[, -1])
-  } else  colnames(seb) <- paste("Y", 1:d, sep = "")
+  seb <- try( solve( qa$hessian ), silent = TRUE )
+  if ( !identical( class(seb), "try-error") ) {
+    std.logphi <- seb[1]  ## std of the estimated log of phi
+    seb <- matrix( sqrt( diag(seb)[-1] ), ncol = d)  ## std of the estimated betas
+    if ( !is.null( colnames(y) ) ) {
+      colnames(seb) <- colnames(y[, -1])
+    } else  colnames(seb) <- paste("Y", 1:d, sep = "")
+    rownames(seb) <- colnames(x)
+  } else  seb <- NULL
+
+  est <- NULL
+  lev <- NULL
 
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., data.frame(xnew) )
     mu <- cbind( 1, exp(xnew %*% be) )
     est <- mu / Rfast::rowsums(mu)
-    lev <- NULL
   } else {
+    if ( plot ) {
     mu <- cbind( 1, exp(x %*% be) )
     est <- mu / Rfast::rowsums(mu)  ## fitted values
     lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
-    if ( plot ) {
       plot( 1:n, lev, main = "Influence values", xlab = "Observations",
             ylab = expression( paste("Pearson ", chi^2, "statistic") ),
 	        cex.lab = 1.2, cex.axis = 1.2 )

@@ -1,4 +1,4 @@
-c684b019c37d29b88f4943dc9bc8c87b *DESCRIPTION
+62c815a2e65a536205928b652ebb0de2 *DESCRIPTION
 93bad64310ad85cad69b700bc15afbdd *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
@@ -94,7 +94,7 @@ a693ca784c290d5da5c8db769d0a43db *R/dfolded.R
 3ecd8788fe34cc4f952642015437f122 *R/diri.contour.R
 5888eacedf3d61cb30a55aa4dfda27ed *R/diri.est.R
 d367c694e7867eaae21897d02eb24105 *R/diri.nr.R
-62a184a81b2f09ef59a4c509bc8b3670 *R/diri.reg.R
+dff9b2edca243cde465262828c1be5c1 *R/diri.reg.R
 024d6574d5c4716ca581d752c64b9ff0 *R/diri.reg2.R
 7882997818c5143304d6d185de4976c0 *R/diri.reg3.R
 3539ff14b9911d27ac8ca136fe86bde5 *R/dirimean.test.R
@@ -128,7 +128,7 @@ c7a9c12cbdaa3f1030ab6f0523dc106c *R/ice.pprcomp.R
 b712baa3c5e241dcd610e56c87b9d9b9 *R/kern.reg.R
 5f874f90bf7da39c76e82018e2946456 *R/kernreg.tune.R
 67fd40e56d3ad9d5638698490e4f389c *R/kl.alfapcr.R
-33b984c77d9587586732a8da04e99fa3 *R/kl.compreg.R
+c46c03818fbc25946ae6a9e42ed27804 *R/kl.compreg.R
 ae436432de64274de1aede5c0d9fd10c *R/kl.compreg2.R
 16c92c38cd24df676ce4effd5f460bc1 *R/kl.diri.R
 622ae10e1e3cd994c8a9cf5aab0e0e64 *R/kl.diri.normal.R
@@ -221,7 +221,7 @@ b3c5c7c061aca03170426255821131af *R/zadr.R
 cf6ccdd48ebaae7ca91821e484e50caf *R/zadr2.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-2f6b58c1a440e7ac3e9cbaeb560ddaec *man/Compositional-package.Rd
+187fd595d59ebb13a6dba52b966329fa *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 34fab95c9920ab8cf05595ebedfc361e *man/acor.Rd
 a2d90a4f450cbb99af71f665b8519840 *man/acor.tune.Rd
@@ -400,6 +400,6 @@ b1bb01e4d79f911a5c0857e4809dabb6 *man/ulc.reg2.Rd
 a7832d80665c43916fa52e912cfe62fc *man/ulc.rq.Rd
 1bc3b08c43452ceef6614b8d9c976036 *man/ulc.rq2.Rd
 7ba3c1a9da1a3a2c16e577f288c5e2bd *man/unitweib.reg.Rd
-b53059879d35ec04bbef41610e8d26b9 *man/zad.est.Rd
+d080bc1961c610255814f65e5f16a249 *man/zad.est.Rd
 f6db5ed507cc69fb3facc8caf793fb7e *man/zadr.Rd
 1278aa5a35ef5b9fbe0fa190837d1425 *man/zeroreplace.Rd

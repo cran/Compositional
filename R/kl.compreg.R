@@ -2,7 +2,7 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
 
   runtime <- proc.time()
   mod <- try( Compositional::kl.compreg2(y, x, con = con, xnew = xnew, tol = tol, maxiters = maxiters), silent = TRUE )
-  if ( is.infinite(mod$loglik)  |  identical( class(mod), "try-error") )  {
+  if ( identical( class(mod), "try-error") )  {
     x <- model.matrix(y ~ ., data.frame(x) )
     x <- x[, -1, drop = FALSE]
     if ( !con )  {
@@ -25,8 +25,27 @@ kl.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL, tol = 1
     loglik <- mod$loglik
     be <- mod$be
     est <- mod$est
-  }  ##  end  if ( is.infinite(loglik)  |  identical( class(mod), "try-error") )  {
-
+	
+	if ( is.infinite(loglik) )  {
+      x <- model.matrix(y ~ ., data.frame(x) )
+      x <- x[, -1, drop = FALSE]
+      if ( !con )  {
+        mod <- nnet::multinom(y ~ x - 1, trace = FALSE)
+      } else  mod <- nnet::multinom(y ~ x, trace = FALSE)
+      be <- t( coef(mod) )
+      loglik <- mod$value
+      iters <- maxiters
+      est <- NULL
+      if ( !is.null(xnew) ) {
+        xnew <- model.matrix( ~., data.frame(xnew) )
+        if ( !con )  xnew <- xnew[, -1, drop = FALSE]
+        mu <- cbind( 1, exp(xnew %*% be) )
+        est <- mu/Rfast::rowsums(mu)
+	    colnames(est) <- colnames(y)
+      }
+    }
+  }  ##  end  if ( is.infinite(loglik) )  {
+  
   if ( B == 1 ) {
     runtime <- proc.time() - runtime
     res <-  list(runtime = runtime, iters = iters, loglik = loglik, be = be, covb = NULL, est = est)

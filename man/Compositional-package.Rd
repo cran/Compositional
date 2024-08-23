@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 6.9 \cr
-Date: \tab 2024-07-08\cr
+Version: \tab 7.0 \cr
+Date: \tab 2024-08-23\cr
 License: \tab GPL-2\cr
 }
 }
@@ -63,6 +63,9 @@ Levi Bankston found a bug in the bootstrap version of the function \code{\link{k
 Sucharitha Dodamgodage suggested to add an extra case in the function \code{\link{dirimean.test}}.
 
 Loic Mangnier found a bug in the function \code{\link{lc.glm}} which is now fixed and also became faster.
+
+Ravi Varadhan found a bug in \code{\link{diri.reg}} and he is acknowledged for that.
+
 }
 
 \keyword{ Compositional data }

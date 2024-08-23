@@ -35,13 +35,13 @@ be a vector.
 The mean vector of the distribution.
 }
 \item{runtime}{
-The time required by the regression.
+The time required by the model..
 }
 }
 
 \references{
 Tsagris M. and Stewart C. (2018). A Dirichlet regression model for compositional data with zeros.
-Lobachevskii Journal of Mathematics,39(3): 398--412.
+Lobachevskii Journal of Mathematics, 39(3): 398--412.
 
 Preprint available from https://arxiv.org/pdf/1410.5011.pdf
 }

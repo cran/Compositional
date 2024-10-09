@@ -53,7 +53,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{tflr}, \link{cv.atflr}, \link{scls} }
+\code{\link{tflr}, \link{cv.atflr}, \link{ascls}
+}
 }
 
 \examples{

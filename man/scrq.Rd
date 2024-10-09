@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{scls}, \link{tflr}, \link{scls.indeptest}  }
+\code{\link{scls}, \link{tflr}  }
 }
 
 \examples{

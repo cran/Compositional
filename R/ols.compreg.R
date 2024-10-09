@@ -25,7 +25,7 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
 
   runtime <- proc.time()
   ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1], con = con)$be ) ) ## initial values
-  mod <- minpack.lm::nls.lm(par = ini, fn = olsreg, y = y, x = x, d = d, control = list(maxiter = 500))
+  mod <- minpack.lm::nls.lm(par = ini, fn = olsreg, y = y, x = x, d = d, control = list(maxiter = 5000))
   be <- matrix(mod$par, ncol = d)
   runtime <- proc.time() - runtime
   covbe <- solve(mod$hessian)

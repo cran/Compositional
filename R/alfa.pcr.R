@@ -23,7 +23,6 @@ alfa.pcr <- function(y, x, a, k, model = "gaussian", xnew = NULL) {
 
   if ( model == 'gaussian' ) {
     if ( !is.null(xnew) ) {
-      xnew <- matrix(xnew, ncol = p + 1)
       xnew <- Compositional::alfa(xnew, a, h = TRUE)$aff ## apply the alpha-transformation
     }
     mod <- Rfast2::pcr(y, x, k, xnew = xnew)

@@ -51,7 +51,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
     %}
 
 \seealso{
-\code{\link{scls}, \link{cv.ascls}, \link{tflr} }
+\code{\link{scls}, \link{cv.ascls}, \link{atflr} }
 }
 
 \examples{

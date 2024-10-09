@@ -1,10 +1,21 @@
-scls <- function(y, x, xnew = NULL) {
+scls <- function(y, x, xnew = NULL, nbcores = 4) {
 
   py <- dim(y)[2]   ;    px <- dim(x)[2]
   pyx <- py * px    ;    n <- dim(y)[1]
 
-  dvec <-  2 * as.vector( crossprod(x, y) )
-  xx <- crossprod(x)
+  if ( identical( class(x)[1], "FBM") ) {
+    xx <- bigstatsr::big_crossprodSelf(x)
+    xx <- xx[1:px, 1:px]
+    a1 <- bigstatsr::FBM(px, py)
+    dvec <- bigstatsr::big_apply(y, function(X, ind, x, res) {
+      res[, ind] <- bigstatsr::big_cprodMat(x, X[, ind, drop = FALSE])
+    }, a.combine  = "c", block.size = 500, ncores = nbcores, x = x, res = a1)
+    dvec <-  2 * dvec[1:pyx]
+  } else {
+    dvec <-  2 * as.vector( crossprod(x, y) )
+    xx <- crossprod(x)
+  }
+
   XX <- matrix(0, pyx, pyx)
   ind <- matrix( 1:pyx, ncol = px, byrow = TRUE )
   for ( i in 1:py )  XX[ ind[i, ], ind[i, ] ] <- xx

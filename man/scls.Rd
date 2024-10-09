@@ -9,23 +9,28 @@ Simplicial constrained linear least squares (SCLS) for compositional responses a
 }
 
 \usage{
-scls(y, x, xnew = NULL)
+scls(y, x, xnew = NULL, nbcores = 4)
 }
 
 \arguments{
 \item{y}{
-A matrix with the compositional data (dependent variable). Zero values are allowed.
+A matrix with the compositional data (dependent variable). Zero values are allowed. It may also by a big matrix of the FBM class.
 }
 \item{x}{
-A matrix with the compositional predictors. Zero values are allowed.
+A matrix with the compositional predictors. Zero values are allowed. It may also by a big matrix of the FBM class.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
 }
+\item{nbcores}{
+The number of cores to use in the case of an FBM class (big) matrix. If you do not know how many to cores to use, you may try the command \bold{nb_cores()} from the \bold{bigparallelr} package.
+}
 }
 
 \details{
-The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1. We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel, Zeger and Datta (2020). Our implementation now uses quadratic programming instead of the function \code{\link{optim}}, and the solution is more accurate and extremely fast.
+The function performs least squares regression where the beta coefficients are constained to be positive and sum to 1. We were inspired by the transformation-free linear regression for compositional responses and predictors of Fiksel, Zeger and Datta (2022). Our implementation now uses quadratic programming instead of the function \code{\link{optim}}, and the solution is more accurate and extremely fast.
+
+Big matrices, of FBM class, are now accepted.
 }
 
 \value{
@@ -44,6 +49,8 @@ The fitted of xnew if xnew is not NULL.
 \references{
 Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
 https://arxiv.org/pdf/2403.19835.pdf
+
+Fiksel J., Zeger S. and Datta A. (2022). A transformation-free linear regression for compositional outcomes and predictors. Biometrics, 78(3): 974--987.
 }
 
 \author{

@@ -42,6 +42,7 @@ importFrom("mvhtests", james, maovjames, hotel2T2, el.test2, eel.test2)
 importFrom("cluster", ellipsoidhull)
 importFrom("minpack.lm", nls.lm)
 importFrom("quantreg", rq)
+importFrom("bigstatsr", big_crossprodSelf, big_apply, big_cprodMat, FBM, big_read)
 
 import("doParallel")
 import("parallel")

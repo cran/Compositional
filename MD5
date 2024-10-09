@@ -1,5 +1,5 @@
-62c815a2e65a536205928b652ebb0de2 *DESCRIPTION
-93bad64310ad85cad69b700bc15afbdd *NAMESPACE
+acd876c25fcab0d003cf44429cbaeec1 *DESCRIPTION
+2838a1868840b2838216ff72871fece0 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
 a39079a1b2174b4892c242e43419a5bc *R/acor.R
@@ -26,7 +26,7 @@ f1546fb725b0f3700873030719eb5b75 *R/alfa.lasso.R
 ca4e34301c135294da694ebc82524250 *R/alfa.mix.norm.R
 53d3d7af3feb1d39ed7e32e6362774b2 *R/alfa.nb.R
 1ee3e5589b5fde83fa144408c54a4d92 *R/alfa.pca.R
-75ed4eaf2bdccd86129d552e51bd14d1 *R/alfa.pcr.R
+ee65c98c5fd008f1bca3a54130c0b66c *R/alfa.pcr.R
 fed10acd0a48960f466e5c1cee01db63 *R/alfa.pprcomp.R
 86395d92e765d2b4306cb5c77acafb96 *R/alfa.profile.R
 a7bac82101746ef2bd50e3ad5e75c589 *R/alfa.rda.R
@@ -85,6 +85,7 @@ f2d67180444fd31d1fa573b12344ebe7 *R/cv.ascls.R
 e59f0468822b9db827e77d4337548d8a *R/cv.lasso.compreg.R
 73fda4908ccebc7db6dd2e591782a217 *R/cv.lasso.klcompreg.R
 c5bcc153607c408eb3684bcaa4a4292a *R/cv.scls.R
+8b268cfdb767c2209dbfe106848ac421 *R/cv.scrq.R
 19c0c35a32a8fba04402825420d13f17 *R/cv.tflr.R
 3a1f212da385b9295e9d49cd049fda4d *R/dda.R
 98f951304cb2718fd8e5e22e3ffd5515 *R/ddiri.R
@@ -159,7 +160,7 @@ df391ec6fe47d1c20cdcb05d634754fe *R/mlrinv.R
 359797f6cd48306e5870c75438229370 *R/multinompcr.tune.R
 b949aaa76847d1483ade1f22f9f23160 *R/multivreg.R
 f95d3e96ceeee09de7f8996f195900ec *R/multivt.R
-2aeefe333c9a72b98698dce7a4e7a4cb *R/ols.compreg.R
+828efef587813f65af5ffd67c82f1235 *R/ols.compreg.R
 7c58070d27e8a53e5b0ed5277aaa55b8 *R/ols.prop.reg.R
 748fd1512e40a13534aa2bb56eb28f26 *R/onAttach.R
 bbaa4d423a8bf1ad9bde8a4c4a7e600a *R/pcc.R
@@ -178,6 +179,7 @@ fd7e26aed51469fd8818249c22037405 *R/rbeta1.R
 755b9404e03549d7ba5606403e0214e3 *R/rcompsn.R
 72776d56099b60230f95f83e7dcbd39e *R/rcompt.R
 9759b803c059745b92c491861921af13 *R/rdiri.R
+2aaf7cf178358dd1049c81c836b129b7 *R/read.fbm.R
 bac858f8a7e17fe4fb8f67601b8928ad *R/rfd.R
 e72353ba1c322f37bea14413f5a3a949 *R/rfolded.R
 d6182e0855c8cae8ec4017856fd7defa *R/rgendiri.R
@@ -188,7 +190,7 @@ c61b60e99ed03367f0dfcaad067aebeb *R/ridge.reg.R
 4e445b447bbbad85b74b5db9dba7e4c7 *R/rmixcomp.R
 03e96c42655ba23996bc8e0f20541357 *R/rmixdiri.R
 63a4b7fc852d1879a4cc0632a702ca2d *R/runitweibull.R
-8b26962ed2f20f757776a44f739d347d *R/scls.R
+46cff9e09876b7c045128c1601fe01b1 *R/scls.R
 b19cc4ddbd55c63cdaadc688b5af5e7e *R/scls.betest.R
 d29c26867a249d8ef1972fa5aef8c79f *R/scls.indeptest.R
 3ee685903e42cbfdb32773f2df54f4cd *R/scls2.R
@@ -221,7 +223,7 @@ b3c5c7c061aca03170426255821131af *R/zadr.R
 cf6ccdd48ebaae7ca91821e484e50caf *R/zadr2.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-187fd595d59ebb13a6dba52b966329fa *man/Compositional-package.Rd
+21cb59e7d9c4d15c63e8e92b53bf01dd *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 34fab95c9920ab8cf05595ebedfc361e *man/acor.Rd
 a2d90a4f450cbb99af71f665b8519840 *man/acor.tune.Rd
@@ -263,8 +265,8 @@ cffad159be83926b0fd39fa30ac979db *man/alfareg.tune.Rd
 c4d1346d4257fb0e325d3c9ee94279e1 *man/alpha.mle.Rd
 6b458245ef0c878e895b355d1ef04cbb *man/alr.Rd
 ef65eca755222037bf620818b7b388c9 *man/alr.all.Rd
-09055c308ab733c953d3cb83754e01e6 *man/ascls.Rd
-dce9e902b6bfea13eb72d70522049673 *man/atflr.Rd
+4726373a3f896113cefc0b0128252235 *man/ascls.Rd
+52332e43fd5980bb48f8017cf28a54d7 *man/atflr.Rd
 df4a11616bed4795eb036e28bd5c5109 *man/bc.Rd
 1df10325e972541a83aff4d6fcd9b1b7 *man/beta.est.Rd
 98a78ad968e7ba6df211c3082faaab08 *man/beta.reg.Rd
@@ -291,6 +293,7 @@ e8aab4e3ec3ecc605193513c5178a736 *man/cv.atflr.Rd
 a1e093c2dd9f78002a7b90de2201f408 *man/cv.lasso.compreg.Rd
 da7f69094092301f967482afe6c12df8 *man/cv.lasso.klcompreg.Rd
 bc713804ec91df9bc1ecd662e7d33c8b *man/cv.scls.Rd
+43e56d1dcb7400c599ef2dc7c63a8725 *man/cv.scrq.Rd
 b728380cc5a94070e8294ee5a6684921 *man/cv.tflr.Rd
 e6856445e451cd7334e3990f868e2153 *man/dda.Rd
 e05e40ff3734437f573e3c39150f357c *man/ddiri.Rd
@@ -367,6 +370,7 @@ d460070cea7f946657e75e16e4d1f4f6 *man/probout.Rd
 e1f67859b88c1aa865b0459bd126a841 *man/rcompsn.Rd
 b6df1adf8b00d92611827a2cbd207630 *man/rcompt.Rd
 871b0c3bf2ffe1b1ca0a6c70701dcd85 *man/rdiri.Rd
+316e3de34df31af2495c7f7896f3ffd5 *man/read.fbm.Rd
 b8e3bffc8bb58ea6de9949a23d1740eb *man/rfd.Rd
 9002cf400a813ac2c1beaef583c92180 *man/rfolded.Rd
 f5c34665411561251d4aef0a3b775052 *man/rgendiri.Rd
@@ -375,11 +379,11 @@ a37c248ef6f6f309eaacb22ec79f720a *man/ridge.plot.Rd
 7e1e8912e3d69c110f1eb6198b0c1f0a *man/ridge.tune.Rd
 e033c9c2321cce062cdacf7f1feac9d1 *man/rmixcomp.Rd
 b253107acb370d3d29f14d7d9043b6b2 *man/rmixdiri.Rd
-592f3e3a7556a883ce4d7cdfc4b6e59f *man/scls.Rd
+b9da53b519b7eeacf1d2f21dd7981c84 *man/scls.Rd
 6f8139eaab3b17c8167ec6d7ec17d659 *man/scls.betest.Rd
 735141e96c549a5787bd100d2a0d6174 *man/scls.indeptest.Rd
 3f2483ce32a3200843ac941329b925e7 *man/scls2.Rd
-6f04be6fefd06ebaf33a5becd7427844 *man/scrq.Rd
+6ecb4f2ee8cba99ce73cb397c6375943 *man/scrq.Rd
 79f708bac058bce18218cd5e2c46df71 *man/skewnorm.contour.Rd
 2080d1a32bfd6d2836cf0884a0a1d101 *man/spatmed.reg.Rd
 ed3acee1ccc29436fb6b5fa0e6ad439f *man/sym.test.Rd
@@ -390,7 +394,7 @@ ed3acee1ccc29436fb6b5fa0e6ad439f *man/sym.test.Rd
 6d77abc3d8741287e56170b74654884e *man/ternary.reg.Rd
 4080d9cc8ddbc3e810b716f189724435 *man/tflr.Rd
 c7976cfba7d1935c4e50c11e7f0ab485 *man/tflr.betest.Rd
-3882266c706fa59283acfb93a2bc208a *man/tflr.indeptest.Rd
+bbd05e6628ab0343008fa822ccc5d0b9 *man/tflr.indeptest.Rd
 ffd3d58bc7afb42f6498055f27a30e0c *man/tflr2.Rd
 1c1299c94d5b58589ceca54582f6567b *man/totvar.Rd
 2a29b6ae084a621af1f3152c61e6a8c5 *man/ulc.glm.Rd

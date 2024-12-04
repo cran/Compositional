@@ -63,6 +63,6 @@ set.seed(1234)
 y <- rdiri(214, runif(4, 1, 3))
 x <- as.matrix(fgl[, 2:9])
 x <- x / rowSums(x)
-tflr.indeptest(y, x, R = 10)
+tflr.indeptest(y, x, R = 9)
 }
 

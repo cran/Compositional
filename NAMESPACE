@@ -27,7 +27,6 @@ importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            rbeta1, colGroup, Sample.int, Sample, Runif, gammareg, censweib.reg,
            negbin.reg, colaccs, colmses, pcr)
 
-importFrom("regda", rda, rda.tune)
 importFrom("quadprog", solve.QP)
 importFrom("Matrix", nearPD)
 importFrom("Rnanoflann", nn)
@@ -38,9 +37,8 @@ importFrom("emplik", el.test)
 importFrom("nnet", multinom)
 importFrom("glmnet", glmnet, cv.glmnet)
 importFrom("energy", eqdist.etest)
-importFrom("mvhtests", james, maovjames, hotel2T2, el.test2, eel.test2)
 importFrom("cluster", ellipsoidhull)
-importFrom("minpack.lm", nls.lm)
+importFrom("minpack.lm", nls.lm, nls.lm.control)
 importFrom("quantreg", rq)
 importFrom("bigstatsr", big_crossprodSelf, big_apply, big_cprodMat, FBM, big_read)
 

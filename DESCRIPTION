@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 7.1
-Date: 2024-10-09
+Version: 7.2
+Date: 2024-12-04
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -15,9 +15,9 @@ Maintainer: Michail Tsagris <mtsagris@uoc.gr>
 Depends: R (>= 4.0)
 Imports: bigstatsr, cluster, doParallel, emplik, energy, foreach,
         glmnet, graphics, grDevices, quantreg, MASS, Matrix, mda,
-        minpack.lm, mixture, mvhtests, nnet, quadprog, regda, Rfast,
-        Rfast2, Rnanoflann, sn, stats
-Suggests: bigparallelr, codalm, FlexDir,
+        minpack.lm, mixture, nnet, quadprog, Rfast, Rfast2, Rnanoflann,
+        sn, stats
+Suggests: bigparallelr, codalm, FlexDir
 Description: Regression, classification, contour plots, hypothesis testing and fitting of distributions for compositional data are some of the functions included. We further include functions for percentages (or proportions).
              The standard textbook for such data is John Aitchison's (1986) "The statistical analysis of compositional data". Relevant papers include:
 			       a) Tsagris M.T., Preston S. and Wood A.T.A. (2011). "A data-based power transformation for compositional data". Fourth International International Workshop on Compositional Data Analysis. <doi:10.48550/arXiv.1106.1451>
@@ -29,13 +29,13 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       g) Tsagris M. and Stewart C. (2018). "A Dirichlet regression model for compositional data with zeros". Lobachevskii Journal of Mathematics, 39(3): 398--412. <doi:10.1134/S1995080218030198>. 
 			       h) Alenazi A. (2019). "Regression for compositional data with compositional data as predictor variables with or without zero values". Journal of Data Science, 17(1): 219--238. <doi:10.6339/JDS.201901_17(1).0010>. 
 		         i) Tsagris M. and Stewart C. (2020). "A folded model for compositional data analysis". Australian and New Zealand Journal of Statistics, 62(2): 249--277. <doi:10.1111/anzs.12289>. 
-		         j) Alenazi A. (2021). Alenazi, A. (2023). "A review of compositional data analysis and recent advances". Communications in Statistics--Theory and Methods, 52(16): 5535--5567. <doi:10.1080/03610926.2021.2014890>.
-		         k) Alenazi A.A. (2022). "f-divergence regression models for compositional data". Pakistan Journal of Statistics and Operation Research, 18(4): 867--882. <doi:10.18187/pjsor.v18i4.3969>.
-		         l) Tsagris M. and Stewart C. (2022). "A Review of Flexible Transformations for Modeling Compositional Data". In Advances and Innovations in Statistics and Data Science, pp. 225--234. <doi:10.1007/978-3-031-08329-7_10>.
+		         j) Alenazi A.A. (2022). "f-divergence regression models for compositional data". Pakistan Journal of Statistics and Operation Research, 18(4): 867--882. <doi:10.18187/pjsor.v18i4.3969>.
+		         k) Tsagris M. and Stewart C. (2022). "A Review of Flexible Transformations for Modeling Compositional Data". In Advances and Innovations in Statistics and Data Science, pp. 225--234. <doi:10.1007/978-3-031-08329-7_10>.
+		         l) Alenazi A. (2023). "A review of compositional data analysis and recent advances". Communications in Statistics--Theory and Methods, 52(16): 5535--5567. <doi:10.1080/03610926.2021.2014890>.
 			       m) Tsagris M., Alenazi A. and Stewart C. (2023). "Flexible non-parametric regression models for compositional response data with zeros". Statistics and Computing, 33(106). <doi:10.1007/s11222-023-10277-5>. 
 			       n) Tsagris. M. (2024). "Constrained least squares simplicial-simplicial regression". <doi:10.48550/arXiv.2403.19835>.  
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2024-10-09 09:04:12 UTC; mtsag
+Packaged: 2024-12-04 14:57:10 UTC; mtsag
 Repository: CRAN
-Date/Publication: 2024-10-09 09:50:02 UTC
+Date/Publication: 2024-12-04 16:00:02 UTC

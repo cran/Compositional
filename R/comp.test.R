@@ -24,24 +24,24 @@ comp.test <- function(x, ina, test = "james", R = 0, ncores = 1, graph = FALSE) 
   k <- max(ina)  ## the number of groups
   ## default value in the case of MANOVA and bad specification of test
   ## is the James MANOVA
-  if ( k > 2 & ( test != "maovjames" || test != "maov" ) )   result <- mvhtests::maovjames(x, ina)
+  if ( k > 2 & ( test != "maovjames" || test != "maov" ) )   result <- Compositional::maovjames(x, ina)
   ## multi-sample case
   if (k > 2) {
 
     if (test == "maov") {
-      result <- mvhtests::maov(x, ina)
-    } else if ( test == "maovjames" )  result <- mvhtests::maovjames(x, ina)
+      result <- Compositional::maov(x, ina)
+    } else if ( test == "maovjames" )  result <- Compositional::maovjames(x, ina)
     ## two sample case
   } else if ( k == 2 ) {
 
     if ( test == "hotel" ) {
-      result <- mvhtests::hotel2T2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
+      result <- Compositional::hotel2T2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
     } else if ( test == "james" ) {
-      result <- mvhtests::james(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
+      result <- Compositional::james(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
     } else if ( test == "el" ) {
-      result <- mvhtests::el.test2(y[ina == 1, ], y[ina == 2, ], R = R, ncores = ncores, graph = graph)
+      result <- Compositional::el.test2(y[ina == 1, ], y[ina == 2, ], R = R, ncores = ncores, graph = graph)
     } else if ( test == "eel" ) {
-      result <- mvhtests::eel.test2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
+      result <- Compositional::eel.test2(y[ina == 1, ], y[ina == 2, ], R = R, graph = graph)
     }
   }
   result

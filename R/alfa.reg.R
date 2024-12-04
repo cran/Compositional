@@ -17,6 +17,8 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     as.vector(ya - ma)
   }
 
+  runtime <- proc.time()
+
   if ( is.null(yb) ) {
     ya <- Compositional::alfa(y, a)$aff
   } else  ya <- yb
@@ -33,15 +35,18 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
     runtime <- mod$runtime
 
   } else {
-    runtime <- proc.time()
     ha <- t( Compositional::helm(D) )
     ini <- as.vector( solve(crossprod(x), crossprod(x, ya) ) )
-    mod <- minpack.lm::nls.lm(par = ini, fn = reg, ya = ya, ax = ax, a = a, ha = ha, d = d, D = D, control = list(maxiter = 500))
+    suppressWarnings({
+      mod <- minpack.lm::nls.lm( par = ini, fn = reg, ya = ya, ax = ax, a = a, ha = ha, d = d, D = D,
+                                 control = minpack.lm::nls.lm.control(maxiter = 5000) )
+    })
     be <- matrix(mod$par, ncol = d)
-    runtime <- proc.time() - runtime
     seb <- sqrt( diag( solve(mod$hessian) ) )
     seb <- matrix(seb, ncol = d)
   }  ## end if (a == 0)
+
+  runtime <- proc.time() - runtime
 
   est <- NULL
   if ( !is.null(xnew) ) {

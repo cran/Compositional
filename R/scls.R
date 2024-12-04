@@ -10,9 +10,9 @@ scls <- function(y, x, xnew = NULL, nbcores = 4) {
     dvec <- bigstatsr::big_apply(y, function(X, ind, x, res) {
       res[, ind] <- bigstatsr::big_cprodMat(x, X[, ind, drop = FALSE])
     }, a.combine  = "c", block.size = 500, ncores = nbcores, x = x, res = a1)
-    dvec <-  2 * dvec[1:pyx]
+    dvec <- dvec[1:pyx]
   } else {
-    dvec <-  2 * as.vector( crossprod(x, y) )
+    dvec <- as.vector( crossprod(x, y) )
     xx <- crossprod(x)
   }
 
@@ -25,14 +25,14 @@ scls <- function(y, x, xnew = NULL, nbcores = 4) {
   A <- A[, -c( (px + 1): pyx) ]
   bvec <- c( rep(1, px), rep(0, pyx), rep(-1, pyx) )
 
-  f <- try( quadprog::solve.QP( Dmat = 2 * XX, dvec = dvec, Amat = A, bvec = bvec,
+  f <- try( quadprog::solve.QP( Dmat = XX, dvec = dvec, Amat = A, bvec = bvec,
                                 meq = px ), silent = TRUE )
   if ( identical(class(f), "try-error") ) {
-    f <- quadprog::solve.QP( Dmat = 2 * Matrix::nearPD(XX)$mat, dvec = dvec, Amat = A, bvec = bvec, meq = px )
+    f <- quadprog::solve.QP( Dmat = Matrix::nearPD(XX)$mat, dvec = dvec, Amat = A, bvec = bvec, meq = px )
   }
 
   be <- matrix( abs(f$solution), ncol = py)
-  mse <- ( sum(y^2) + f$value ) / n
+  mse <- ( sum(y^2) + 2 * f$value ) / n
 
   if ( is.null( colnames(y) ) ) {
     colnames(be) <- paste("Y", 1:py, sep = "")

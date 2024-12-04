@@ -24,8 +24,11 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
   } else namy <- namy[-1]
 
   runtime <- proc.time()
-  ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1], con = con)$be ) ) ## initial values
-  mod <- minpack.lm::nls.lm(par = ini, fn = olsreg, y = y, x = x, d = d, control = list(maxiter = 5000))
+  suppressWarnings({
+    ini <- as.vector( t( Compositional::kl.compreg(y, x[, -1], con = con)$be ) ) ## initial values
+    mod <- minpack.lm::nls.lm( par = ini, fn = olsreg, y = y, x = x, d = d,
+                               control = minpack.lm::nls.lm.control(maxiter = 5000) )
+  })
   be <- matrix(mod$par, ncol = d)
   runtime <- proc.time() - runtime
   covbe <- solve(mod$hessian)
@@ -39,11 +42,12 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
         ida <- Rfast2::Sample.int(n, n, replace = TRUE)
         yb <- y[ida, ]
         xb <- x[ida, ]
-        ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
-        qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
-        qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
-        qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
-        betaboot[i, ] <- qa$estimate
+        suppressWarnings({
+          ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
+          mod <- minpack.lm::nls.lm( par = ini, fn = olsreg, y = y, x = x, d = d,
+                                     control = minpack.lm::nls.lm.control(maxiter = 5000) )
+        })
+        betaboot[i, ] <- mod$par
       }  ##  end  for (i in 1:B) {
       covbe <- cov(betaboot)
       runtime <- proc.time() - runtime
@@ -55,18 +59,17 @@ ols.compreg <- function(y, x, con = TRUE, B = 1, ncores = 1, xnew = NULL) {
       cl <- parallel::makePSOCKcluster(ncores)
       doParallel::registerDoParallel(cl)
       betaboot <- foreach::foreach( i = 1:B, .combine = rbind, .packages = "Rfast2",
-                                    .export = c( "Sample.int", "olsreg" ) ) %dopar% {
-                                      ida <- Rfast2::Sample.int(n, n, replace = TRUE)
-                                      yb <- y[ida, ]
-                                      xb <- x[ida, ]
-                                      suppressWarnings({
-                                        ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
-                                        qa <- nlm(olsreg, ini, y = yb, x = xb, d = d)
-                                        qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
-                                        qa <- nlm(olsreg, qa$estimate, y = yb, x = xb, d = d)
-                                      })
-                                      betaboot[i, ] <- qa$estimate
-                                    }  ##  end foreach
+               .export = c( "Sample.int", "olsreg" ) ) %dopar% {
+               ida <- Rfast2::Sample.int(n, n, replace = TRUE)
+               yb <- y[ida, ]
+               xb <- x[ida, ]
+               suppressWarnings({
+                 ini <- as.vector( t( Compositional::kl.compreg(yb, xb[, -1], con = con)$be ) )  ## initial values
+                 mod <- minpack.lm::nls.lm( par = ini, fn = olsreg, y = y, x = x, d = d,
+                                            control = minpack.lm::nls.lm.control(maxiter = 5000) )
+              })
+              betaboot[i, ] <- mod$par
+      }  ##  end foreach
       parallel::stopCluster(cl)
       covbe <- cov(betaboot)
       runtime <- proc.time() - runtime

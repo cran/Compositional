@@ -21,9 +21,9 @@ diri.reg3 <- function(y, x, xnew = NULL) {
   ## the next lines optimize the dirireg function and
   ## estimate the parameter values
   suppressWarnings({
-    qa <- optim( ini.beta, dirireg3, z = z, x = x, d = d, control = list(maxit = 5000) )
-    qa <- optim( qa$par, dirireg3, z = z, x = x, d = d, control = list(maxit = 5000)  )
-    qa <- optim(qa$par, dirireg3, z = z, x = x, d = d, control = list(maxit = 5000), hessian = TRUE)
+    qa <- optim( ini.beta, dirireg3, z = z, x = x, d = d, method = "BFGS", control = list(maxit = 5000) )
+    qa <- optim( qa$par, dirireg3, z = z, x = x, d = d, method = "BFGS", control = list(maxit = 5000)  )
+    qa <- optim(qa$par, dirireg3, z = z, x = x, d = d, method = "BFGS", control = list(maxit = 5000), hessian = TRUE)
   })
   be <- matrix(qa$par, ncol = d)  ## matrix of the betas
   colnames(be) <- colnames(y)  ## names of the betas

@@ -18,11 +18,11 @@ ascls <- function(y, x, a = seq(0.1, 1, by = 0.1), xnew ) {
   for ( j in 1:length(a) ) {
     ya <- y^a[j]
     ya <- ya / Rfast::rowsums(ya)
-    dvec <-  2 * as.vector( crossprod(x, ya) )
-    f <- try( quadprog::solve.QP( Dmat = 2 * XX, dvec = dvec, Amat = A, bvec = bvec,
+    dvec <- as.vector( crossprod(x, ya) )
+    f <- try( quadprog::solve.QP( Dmat = XX, dvec = dvec, Amat = A, bvec = bvec,
                                   meq = px ), silent = TRUE )
     if ( identical(class(f), "try-error") ) {
-      f <- quadprog::solve.QP( Dmat = 2 * Matrix::nearPD(XX)$mat, dvec = dvec, Amat = A, bvec = bvec, meq = px )
+      f <- quadprog::solve.QP( Dmat = Matrix::nearPD(XX)$mat, dvec = dvec, Amat = A, bvec = bvec, meq = px )
     }
     be <- matrix( abs(f$solution), ncol = py)
     est <- ( xnew %*% be )^( 1/a[j] )

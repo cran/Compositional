@@ -7,15 +7,15 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   d <- dm[2] - 1  ## dimensionality of the simplex
   z <- Rfast::Log(y)
 
-    dirireg <- function(param, z, x, n, d) {
-      phi <- exp( param[1] )  ## this avoids negative values in phi
-      para <- param[-1]
-      be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
-      mu1 <- cbind( 1, exp(x %*% be) )
-      ma <- mu1 / rowSums(mu1)  ## the fitted values
-      ba <- phi * ma
-      - n * lgamma(phi) + sum( lgamma(ba) ) - sum( z * (ba - 1 ) )
-    }
+  dirireg <- function(param, z, x, n, d) {
+    phi <- exp( param[1] )  ## this avoids negative values in phi
+    para <- param[-1]
+    be <- matrix(para, ncol = d)  ## puts the beta parameters in a matrix
+    mu1 <- cbind( 1, exp(x %*% be) )
+    ma <- mu1 / rowSums(mu1)  ## the fitted values
+    ba <- phi * ma
+    - n * lgamma(phi) + sum( lgamma(ba) ) - sum( z * (ba - 1 ) )
+  }
 
   runtime <- proc.time()
   ini.beta <- as.vector( Compositional::kl.compreg(y, x[, -1], con = TRUE)$be )
@@ -25,9 +25,9 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   ## estimate the parameter values
   el <- NULL
   suppressWarnings({
-    qa <- optim( c(ini.phi, ini.beta), dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000) )
-    qa <- optim( qa$par, dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000)  )
-    qa <- optim(qa$par, dirireg, z = z, x = x, n = n, d = d, control = list(maxit = 5000), hessian = TRUE)
+    qa <- optim( c(ini.phi, ini.beta), dirireg, z = z, x = x, n = n, d = d, method = "BFGS", control = list(maxit = 5000) )
+    qa <- optim( qa$par, dirireg, z = z, x = x, n = n, d = d, method = "BFGS", control = list(maxit = 5000)  )
+    qa <- optim(qa$par, dirireg, z = z, x = x, n = n, d = d, method = "BFGS", control = list(maxit = 5000), hessian = TRUE)
   })
   log.phi <- qa$par[1]
   be <- matrix(qa$par[-1], ncol = d)  ## matrix of the betas
@@ -52,12 +52,12 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
     est <- mu / Rfast::rowsums(mu)
   } else {
     if ( plot ) {
-    mu <- cbind( 1, exp(x %*% be) )
-    est <- mu / Rfast::rowsums(mu)  ## fitted values
-    lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
+      mu <- cbind( 1, exp(x %*% be) )
+      est <- mu / Rfast::rowsums(mu)  ## fitted values
+      lev <- ( exp(log.phi) + 1 ) * Rfast::rowsums( (y - est)^2 / mu )
       plot( 1:n, lev, main = "Influence values", xlab = "Observations",
             ylab = expression( paste("Pearson ", chi^2, "statistic") ),
-	        cex.lab = 1.2, cex.axis = 1.2 )
+            cex.lab = 1.2, cex.axis = 1.2 )
       lines(1:n, lev, type = "h")
       abline(h = qchisq(0.95, d), lty = 2, col = 2)
     }
@@ -67,5 +67,5 @@ diri.reg <- function(y, x, plot = FALSE, xnew = NULL) {
   rownames(be)  <- colnames(x)
   if  ( !is.null(seb) ) rownames(seb) <- colnames(x)
   list(runtime = runtime, loglik = -qa$value, phi = exp(log.phi), log.phi = log.phi,
-  std.logphi = std.logphi, be = be, seb = seb, lev = lev, est = est)
+       std.logphi = std.logphi, be = be, seb = seb, lev = lev, est = est)
 }

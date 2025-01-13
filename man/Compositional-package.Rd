@@ -13,8 +13,8 @@ A Collection of Functions for Compositional Data Analysis.
 \tabular{ll}{
 Package: \tab Compositional\cr
 Type: \tab Package\cr
-Version: \tab 7.2 \cr
-Date: \tab 2024-12-04\cr
+Version: \tab 7.3 \cr
+Date: \tab 2025-01-13\cr
 License: \tab GPL-2\cr
 }
 }
@@ -65,7 +65,6 @@ Sucharitha Dodamgodage suggested to add an extra case in the function \code{\lin
 Loic Mangnier found a bug in the function \code{\link{lc.glm}} which is now fixed and also became faster.
 
 Ravi Varadhan found a bug in \code{\link{diri.reg}} and he is acknowledged for that.
-
 }
 
 \keyword{ Compositional data }

@@ -54,8 +54,8 @@ The average Kullback-Leibler divergence and average Jensen-Shannon divergence.
 }
 
 \references{
-Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
-https://arxiv.org/pdf/2403.19835.pdf
+Tsagris. M. (2025). Constrained least squares simplicial-simplicial regression.
+Statistics and Computing, 35(27).
 }
 
 \author{
@@ -73,13 +73,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-\donttest{
-library(MASS)
-set.seed(1234)
-y <- rdiri(214, runif(3, 1, 3))
-x <- as.matrix(fgl[, 2:9])
-x <- x / rowSums(x)
-mod <- cv.scrq(y, x, nfolds = 5, seed = 12345)
-mod
-}
+y <- rdiri(500, runif(3, 1, 3))
+x <- rdiri(500, runif(3, 1, 3))
+mod <- cv.scrq(y, x, nfolds = 5)
 }

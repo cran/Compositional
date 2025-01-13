@@ -9,7 +9,7 @@ Energy test of equality of distributions using the \eqn{\alpha}-transformation.
 }
 
 \usage{
-aeqdist.etest(x, sizes, a = 1, R = 999)
+aeqdist.etest(x, sizes, a = 1, R = 999, ms = FALSE)
 }
 
 \arguments{
@@ -29,6 +29,9 @@ energy distance of equality of distributions is applied for each value of
 \item{R}{
 The number of permutations to apply in order to compute the approximate p-value.
 }
+\item{ms}{
+Set this to true for the memory-saving algorithm, which is slower though, but can work with tens of thousands of vectors.
+}
 }
 
 \details{
@@ -39,7 +42,7 @@ energy distance of equality of distributions is applied for each value of
 
 \value{
 A numerical value or a numerical vector, depending on the length of the values
-of \eqn{\alpha}, with the approximate p-value(s) of the energy test.
+of \eqn{\alpha}, with the permutation based p-value(s) of the energy test.
 }
 
 \references{
@@ -53,7 +56,11 @@ Bowling Green State University.
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-https://arxiv.org/pdf/1106.1451.pdf
+https://arxiv.org/pdf/1106.1451
+
+Sevinc V. and Tsagris. M. (2024).
+Energy Based Equality of Distributions Testing for Compositional Data.
+https://arxiv.org/pdf/2412.05199
 }
 
 \author{

@@ -1,6 +1,4 @@
-acor.tune <- function(y, x, a = seq(-1, 1, by = 0.1), type = "dcor") {
-
-  if ( min(x) == 0  |  min(y) == 0 )  a = a[ a > 0 ]
+acor.tune <- function(y, x, a = c(-1, 1), type = "dcor") {
 
   runtime <- proc.time()
 

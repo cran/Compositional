@@ -19,7 +19,7 @@ importFrom("Rfast", colVars, colMedians, colmeans, colsums, rowmeans, rowsums,
            glm_logistic, glm_poisson, colhameans, spdinv, colnth, Table, Order,
            eachrow, sscov, beta.mle, ibeta.mle, hsecant01.mle, logitnorm.mle,
 		       prop.reg, prop.regs, spatmed.reg, dcor, squareform, gammanb, Rnorm,
-		       dmvnorm, dmvt, normlog.reg)
+		       dmvnorm, dmvt, normlog.reg, XopY.sum)
 
 importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,

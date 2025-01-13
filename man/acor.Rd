@@ -26,7 +26,7 @@ log-ratio transformation is applied. If more than one valuesare supplied the
 distance or canonical correlation are computed for all values.
 }
 \item{type}{
-The type of correlation to compute, the distance correlation ("edist"),
+The type of correlation to compute, the distance correlation ("dcor"),
 the canonical correlation ("cancor") or "both".
 }
 }
@@ -51,6 +51,9 @@ Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
+
+Tsagris M. and Papadakis M. (2025). Fast and light-weight energy statistics using the R package Rfast.
+https://arxiv.org/abs/2501.02849v2
 }
 
 \author{

@@ -40,7 +40,7 @@ A ternary plot of the coefficients of the \code{\link{tflr}} or the \code{\link{
 }
 
 \references{
-Aitchison, J. (1983). Principal component analysis of compositional data. Biometrika 70(1):57-65.
+Aitchison, J. (1983). Principal component analysis of compositional data. Biometrika 70(1): 57--65.
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }

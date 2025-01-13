@@ -44,7 +44,7 @@ A matrix with the simulated data.
 }
 
 \references{
-Azzalini, A. and Dalla Valle, A. (1996). The multivariate skew-normal distribution. Biometrika, 83(4): 715-726.
+Azzalini, A. and Dalla Valle, A. (1996). The multivariate skew-normal distribution. Biometrika, 83(4): 715--726.
 
 Azzalini, A. and Capitanio, A. (1999). Statistical applications of the multivariate skew normal distribution. Journal of the Royal
 Statistical Society Series B, 61(3):579-602. Full-length version available from http://arXiv.org/abs/0911.2093

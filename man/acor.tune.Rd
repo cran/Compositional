@@ -9,7 +9,7 @@ Tuning of the \eqn{alpha}-generalised correlations between two compositional dat
 }
 
 \usage{
-acor.tune(y, x, a, type = "dcor")
+acor.tune(y, x, a = c(-1, 1), type = "dcor")
 }
 
 \arguments{
@@ -24,7 +24,7 @@ The range of values of the power transformation to search for the optimal one.
 If zero values are present it has to be greater than 0.
 }
 \item{type}{
-the type of correlation to compute, the distance correlation ("edist"),
+the type of correlation to compute, the distance correlation ("dcor"),
 the canonical correlation type 1 ("cancor1") or the canonical correlation
 type 2 ("cancor2"). See details for more information.
 }
@@ -54,6 +54,9 @@ The runtime of the optimization
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data.
 In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 https://arxiv.org/pdf/1106.1451.pdf
+
+Tsagris M. and Papadakis M. (2025). Fast and light-weight energy statistics using the R package Rfast.
+https://arxiv.org/abs/2501.02849v2
 }
 
 \author{
@@ -69,7 +72,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 
 \examples{
 y <- rdiri(30, runif(3) )
-x <- rdiri(30, runif(4) )
-acor(y, x, a = 0.4)
+x <- rdiri(30, runif(3) )
+acor.tune(y, x)
 }
 

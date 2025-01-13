@@ -35,7 +35,7 @@ A vector with the test statistic value and its associated (bootstrap) p-value.
 
 \references{
 Cao Y., Lin W. and Li H. (2018). Two-sample tests of high-dimensional means for compositional data.
-Biometrika, 105(1): 115-132.
+Biometrika, 105(1): 115--132.
 }
 
 \author{

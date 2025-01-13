@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 7.2
-Date: 2024-12-04
+Version: 7.3
+Date: 2025-01-13
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -33,9 +33,10 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 		         k) Tsagris M. and Stewart C. (2022). "A Review of Flexible Transformations for Modeling Compositional Data". In Advances and Innovations in Statistics and Data Science, pp. 225--234. <doi:10.1007/978-3-031-08329-7_10>.
 		         l) Alenazi A. (2023). "A review of compositional data analysis and recent advances". Communications in Statistics--Theory and Methods, 52(16): 5535--5567. <doi:10.1080/03610926.2021.2014890>.
 			       m) Tsagris M., Alenazi A. and Stewart C. (2023). "Flexible non-parametric regression models for compositional response data with zeros". Statistics and Computing, 33(106). <doi:10.1007/s11222-023-10277-5>. 
-			       n) Tsagris. M. (2024). "Constrained least squares simplicial-simplicial regression". <doi:10.48550/arXiv.2403.19835>.  
+			       n) Tsagris. M. (2025). "Constrained least squares simplicial-simplicial regression". Statistics and Computing, 35(27). <doi:10.1007/s11222-024-10560-z>.
+			       o) Sevinc V. and Tsagris. M. (2024). "Energy Based Equality of Distributions Testing for Compositional Data". <doi:10.48550/arXiv.2412.05199>.
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2024-12-04 14:57:10 UTC; mtsag
+Packaged: 2025-01-13 15:20:07 UTC; mtsag
 Repository: CRAN
-Date/Publication: 2024-12-04 16:00:02 UTC
+Date/Publication: 2025-01-13 17:00:02 UTC

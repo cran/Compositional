@@ -55,24 +55,24 @@ The outcome of each test.
 
 \references{
 Tsagris M., Preston S. and Wood A.T.A. (2017). Nonparametric hypothesis testing for equality of means on the
-simplex. Journal of Statistical Computation and Simulation, 87(2): 406-422.
+simplex. Journal of Statistical Computation and Simulation, 87(2): 406--422.
 
 G.S. James (1954). Tests of Linear Hypothese in Univariate and Multivariate Analysis
-when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19-43
+when the Ratios of the Population Variances are Unknown. Biometrika, 41(1/2): 19--43
 
 Krishnamoorthy K. and Yanping Xia (2006).  On Selecting Tests for Equality of Two Normal Mean Vectors.
-Multivariate Behavioral Research 41(4): 533-548.
+Multivariate Behavioral Research 41(4): 533--548.
 
 Owen A. B. (2001). Empirical likelihood. Chapman and Hall/CRC Press.
 
-Owen A.B. (1988). Empirical likelihood ratio confidence intervals for a single functional. Biometrika 75(2): 237-249.
+Owen A.B. (1988). Empirical likelihood ratio confidence intervals for a single functional. Biometrika 75(2): 237--249.
 
 Amaral G.J.A., Dryden I.L. and Wood A.T.A. (2007). Pivotal bootstrap methods for k-sample problems in directional statistics and shape analysis.
-Journal of the American Statistical Association 102(478): 695-707.
+Journal of the American Statistical Association 102(478): 695--707.
 
-Preston S.P. and Wood A.T.A. (2010). Two-Sample Bootstrap Hypothesis Tests for Three-Dimensional Labelled Landmark Data. Scandinavian Journal of Statistics 37(4): 568-587.
+Preston S.P. and Wood A.T.A. (2010). Two-Sample Bootstrap Hypothesis Tests for Three-Dimensional Labelled Landmark Data. Scandinavian Journal of Statistics 37(4): 568--587.
 
-Jing Bing-Yi and Andrew TA Wood (1996). Exponential empirical likelihood is not Bartlett correctable. Annals of Statistics 24(1): 365-369.
+Jing Bing-Yi and Andrew TA Wood (1996). Exponential empirical likelihood is not Bartlett correctable. Annals of Statistics 24(1): 365--369.
 }
 
 \author{

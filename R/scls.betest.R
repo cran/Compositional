@@ -16,7 +16,8 @@ scls.betest <- function(y, x, B, R = 999) {
   if ( det(Dmat) < 1e-20 )  Dmat <- Matrix::nearPD(Dmat)$mat
 
   ma <- x %*% B
-  mse <-  - sum( diag( crossprod(y, ma) ) ) + 0.5 * sum( diag( crossprod(ma) ) )
+  #mse <-  - sum( diag( crossprod(y, ma) ) ) + 0.5 * sum( diag( crossprod(ma) ) )
+  mse <-  - Rfast::XopY.sum(y, ma) + 0.5 * sum(ma^2)
   pmse <- numeric(R)
   for (i in 1:R) {
     id <- Rfast2::Sample.int(n, n)

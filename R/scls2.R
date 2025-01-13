@@ -27,7 +27,8 @@ scls2 <- function(y, x, wei = FALSE, xnew = NULL) {
       b <- round(b, 6)
       ma <- 0
       for ( i in 1:length(b) )  ma <- ma + b[i] * est[[ i ]]
-      - 2 * sum( diag( crossprod(y, ma) ) ) + sum( diag( crossprod(ma) ) )
+      #- 2 * sum( diag( crossprod(y, ma) ) ) + sum( diag( crossprod(ma) ) )
+      - 2 * sum( y * ma ) + sum( ma^2)
     }
 
     est <- list()

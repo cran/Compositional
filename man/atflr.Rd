@@ -38,8 +38,8 @@ A list with matrices containing the predicted simplicial response values, one ma
 \references{
 Fiksel J., Zeger S. and Datta A. (2022). A transformation-free linear regression for compositional outcomes and predictors. Biometrics, 78(3): 974--987.
 
-Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
-https://arxiv.org/pdf/2403.19835.pdf
+Tsagris. M. (2025). Constrained least squares simplicial-simplicial regression.
+Statistics and Computing, 35(27).
 }
 
 \author{

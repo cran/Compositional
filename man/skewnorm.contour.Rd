@@ -40,7 +40,7 @@ A ternary diagram with the points (if appear = TRUE) and the bivariate skew skew
 }
 
 \references{
-Azzalini A. and Valle A. D. (1996). The multivariate skew-skewnormal distribution. Biometrika 83(4):715-726.
+Azzalini A. and Valle A. D. (1996). The multivariate skew-skewnormal distribution. Biometrika 83(4): 715--726.
 
 Aitchison J. (1986). The statistical analysis of compositional data. Chapman & Hall.
 }

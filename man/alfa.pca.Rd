@@ -58,7 +58,7 @@ Aitchison J. (1986). The statistical analysis of compositional data.
 Chapman & Hall.
 
 Aitchison, J. (1983). Principal component analysis of compositional data.
-Biometrika, 70(1), 57-65.
+Biometrika, 70(1), 57--65.
 
 Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power
 transformation for compositional data.

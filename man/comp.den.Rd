@@ -41,7 +41,7 @@ The mean vector and covariance matrix mainly. Other parameters are also returned
 }
 
 \references{
-P. J. Rousseeuw and K. van Driessen (1999) A fast algorithm for the minimum covariance determinant estimator. Technometrics 41, 212-223.
+P. J. Rousseeuw and K. van Driessen (1999) A fast algorithm for the minimum covariance determinant estimator. Technometrics 41, 212--223.
 
 Mardia K.V., Kent J.T., and Bibby J.M. (1979). Multivariate analysis. Academic press.
 
@@ -50,12 +50,12 @@ Aitchison J. (1986). The statistical analysis of compositional data. Chapman & H
 T. Karkkaminen and S. Ayramo (2005). On computation of spatial median for robust data mining. Evolutionary and Deterministic Methods for Design, 
 Optimization  and Control with Applications to Industrial and Societal Problems EUROGEN 2005.
 
-A Durre, D Vogel, DE Tyler (2014). The spatial sign covariance matrix with unknown location.  Journal of Multivariate Analysis, 130: 107-117.
+A Durre, D Vogel, DE Tyler (2014). The spatial sign covariance matrix with unknown location.  Journal of Multivariate Analysis, 130: 107--117.
 
 J. T. Kent, D. E. Tyler and Y. Vardi (1994) A curious likelihood identity for the multivariate t-distribution. 
-Communications in Statistics-Simulation and Computation 23, 441-453.
+Communications in Statistics-Simulation and Computation 23, 441--453.
 
-Azzalini A. and Dalla Valle A. (1996). The multivariate skew-normal distribution. Biometrika 83(4): 715-726.
+Azzalini A. and Dalla Valle A. (1996). The multivariate skew-normal distribution. Biometrika 83(4): 715--726.
 }
 
 \author{

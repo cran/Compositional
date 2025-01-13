@@ -54,8 +54,8 @@ The fitted of xnew if xnew is not NULL.
 }
 
 \references{
-Tsagris. M. (2024). Constrained least squares simplicial-simplicial regression.
-https://arxiv.org/pdf/2403.19835.pdf
+Tsagris. M. (2025). Constrained least squares simplicial-simplicial regression.
+Statistics and Computing, 35(27).
 }
 
 \author{

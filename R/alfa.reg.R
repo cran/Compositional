@@ -6,7 +6,7 @@
 #### Regression analysis with compositional data containing zero values
 #### Chilean Journal of Statistics, 6(2): 47-57
 ################################
-alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
+alfa.reg <- function(y, x, a, seb = NULL, xnew = NULL, yb = NULL) {
 
   reg <- function(para, ya, ax, a, ha, d, D) {
     be <- matrix(para, ncol = d)
@@ -31,7 +31,7 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
   if ( a == 0 ) {
     mod <- Compositional::comp.reg(y, x[, -1], yb = yb)
     be <- mod$be
-    seb <- mod$seb
+    if ( !is.null(seb) )  seb <- mod$seb
     runtime <- mod$runtime
 
   } else {
@@ -42,8 +42,10 @@ alfa.reg <- function(y, x, a, xnew = NULL, yb = NULL) {
                                  control = minpack.lm::nls.lm.control(maxiter = 5000) )
     })
     be <- matrix(mod$par, ncol = d)
-    seb <- sqrt( diag( solve(mod$hessian) ) )
-    seb <- matrix(seb, ncol = d)
+    if ( !is.null(seb) ) {
+      seb <- sqrt( diag( solve(mod$hessian) ) )
+      seb <- matrix(seb, ncol = d)
+    }
   }  ## end if (a == 0)
 
   runtime <- proc.time() - runtime

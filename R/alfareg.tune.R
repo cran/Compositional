@@ -29,7 +29,7 @@ alfareg.tune <- function(y, x, a = seq(0.1, 1, by = 0.1), nfolds = 10, folds = N
     for (j in 1:la) {
       ytr <- Compositional::alfa(y, a[j])$aff
       for (i in 1:nfolds) {
-        xu <- x[ folds[[ i ]], -1 , drop = FALSE]
+        xu <- x[ folds[[ i ]], -1, drop = FALSE]
         yu <- y[ folds[[ i ]], ]
         xa <- x[ -folds[[ i ]], -1]
         yb <- ytr[ -folds[[ i ]], ]

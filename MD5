@@ -1,4 +1,4 @@
-584f2ce7a88df32ab4c16ceb900a96b4 *DESCRIPTION
+a6c2e48081aba3224ad19438e21624e4 *DESCRIPTION
 57adda003c6fa917b5b8543da0c6e228 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
@@ -30,7 +30,7 @@ ee65c98c5fd008f1bca3a54130c0b66c *R/alfa.pcr.R
 fed10acd0a48960f466e5c1cee01db63 *R/alfa.pprcomp.R
 86395d92e765d2b4306cb5c77acafb96 *R/alfa.profile.R
 fbf80c4ab819fb874d0316f16d0485d0 *R/alfa.rda.R
-d17a48e94c16394051c941c272b68da6 *R/alfa.reg.R
+597a9ec2cabcceafadb5be7a72724108 *R/alfa.reg.R
 ab97e30f359a3bfa23a3332b251694c1 *R/alfa.reg2.R
 44ddd99ef4835addc7da0cbad81123ec *R/alfa.reg3.R
 9673f19195c2c4a13486c11bda369b3b *R/alfa.ridge.R
@@ -38,7 +38,7 @@ ab97e30f359a3bfa23a3332b251694c1 *R/alfa.reg2.R
 f467beeb8c085e9be18ea91044cf17eb *R/alfadist.R
 20d039d4c414f93e30c08ed868fd7614 *R/alfadista.R
 1b15562fbc667cb9d7848cac0f5b1c94 *R/alfafda.tune.R
-6dbd0e770afd3bb2cf151d67af6f6deb *R/alfainv.R
+de944cc405e184716aee0297c73cd917 *R/alfainv.R
 64776a1a06c0042b22caf8dcf1113e5b *R/alfaknn.tune.R
 ebf24ba35d343a6dcc48ca76d477232f *R/alfaknnreg.tune.R
 a43f90084c2c1ad853eac9d50a52b728 *R/alfalasso.tune.R
@@ -47,7 +47,7 @@ f7e05c3d5f997acfa3d1824b1feeb94c *R/alfanb.tune.R
 ce45c147947e2db6b4bf3391f74e72a7 *R/alfapcr.tune.R
 1d3f80a77cde960c2f1d178e75430058 *R/alfapprcomp.tune.R
 9fefc3cf3597ca9152aedebf3fb80ec7 *R/alfarda.tune.R
-b552aa805f91eae4f0f4c0991eadc47c *R/alfareg.tune.R
+6db81eed0e0ddebb164a9403516b59b3 *R/alfareg.tune.R
 3e25fe1e6c7a9b6e46f67ea9b70bbfe1 *R/alfaridge.plot.R
 cbb601615ece1fae61a95445321c0a36 *R/alfaridge.tune.R
 81a9fa71325f2bf42f67f0da3f4a1f61 *R/alpha.mle.R
@@ -109,7 +109,7 @@ d62ef0a2c8ec8de5ac603aefdc4ce53c *R/eqdist.etest.R
 3ece55b74234648bd8afb877013ca6fe *R/es.R
 8fad6bcc1e2dce7f3d2601036a65c67c *R/esov.R
 8578f4bebbb04d945ba40bc516c01410 *R/esov.mds.R
-676f4e6412b89b0e0a93fa26d9e8fc5b *R/esova.R
+8a9697298497f84137af4fa6d7d1e760 *R/esova.R
 e645a4136f55359e1a86a9624c893c63 *R/fd.contour.R
 f4b69c95c9d25d8657a67f403653ad9a *R/folded.contour.R
 75bd27c50d485f21e6e048b03142b399 *R/fp.R
@@ -233,7 +233,7 @@ b3c5c7c061aca03170426255821131af *R/zadr.R
 cf6ccdd48ebaae7ca91821e484e50caf *R/zadr2.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-67453f99bbe27f73785989a5e2af02b5 *man/Compositional-package.Rd
+32c2df239472d14b5aaa25180193548f *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 29b8e4cc2913feb262d37752e41f5393 *man/acor.Rd
 0431af37e5730f49034641b17adb2b83 *man/acor.tune.Rd
@@ -257,7 +257,7 @@ b585ba55b9f8f0d3186350ccefe9f877 *man/alfa.pca.Rd
 07d1d39d9b30ba1e86d0df9f3135f9e2 *man/alfa.pprcomp.Rd
 045640d408b5e1a87f55f2f81ea7b795 *man/alfa.profile.Rd
 64c024bb14f6ea97b65a425bd9189c0a *man/alfa.rda.Rd
-a1dd64858b876e343b860e5572cc37a2 *man/alfa.reg.Rd
+448ccf58b1c629d28d6672b8e187c3f4 *man/alfa.reg.Rd
 780e8f099e9b20b01e496964a5b6ffe1 *man/alfa.ridge.Rd
 f45e7d2dfa577cdf58c05d0755efec4b *man/alfa.tune.Rd
 411f5e444373a2e35c811a89646aaa46 *man/alfadist.Rd

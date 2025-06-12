@@ -11,6 +11,7 @@ alfainv <- function(x, a, h = TRUE) {
   ## a is the power parameter
   D <- dim(x)[2]
   if ( D == 1)   x <- t(x)
+  D <- dim(x)[2]
   
   if ( h )  {
     h <- helm( D + 1 )  ## multiply with the Helmert

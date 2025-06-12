@@ -11,7 +11,7 @@ Regression with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
-alfa.reg(y, x, a, xnew = NULL, yb = NULL)
+alfa.reg(y, x, a, seb = NULL, xnew = NULL, yb = NULL)
 alfa.reg2(y, x, a, xnew = NULL)
 alfa.reg3(y, x, a = c(-1, 1), xnew = NULL)
 }
@@ -25,6 +25,9 @@ A matrix with the continuous predictor variables or a data frame including categ
 }
 \item{a}{
 The value of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied and the solution exists in a closed form, since it the classical mutivariate regression. For the alfa.reg2() this should be a vector of \eqn{\alpha} values and the function call repeatedly the alfa.reg() function. For the alfa.reg3() function it should be a vector with two values, the endpoints of the interval of \eqn{\alpha}. This function searches for the optimal vaue of \eqn{\alpha} that minimizes the sum of squares of the errors. Using the \code{\link{optimize}} function it searches for the optimal value of \eqn{\alpha}. Instead of choosing the value of \eqn{\alpha} using \code{\link{alfareg.tune}} (that uses cross-validation) one can select it this way.
+}
+\item{seb}{
+If this is NULL, the standard errors of the coefficients will not be returned. For reasons of possible numerical purposes or errors, you may want to leave this NULL.
 }
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.

@@ -1,8 +1,8 @@
 Package: Compositional
 Type: Package
 Title: Compositional Data Analysis
-Version: 7.5
-Date: 2025-06-13
+Version: 7.6
+Date: 2025-06-22
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
            person("Giorgos", "Athineou", role = "aut", email = "gioathineou@gmail.com"),
            person("Abdulaziz", "Alenazi", role = "ctb", email = "a.alenazi@nbu.edu.sa"),
@@ -37,6 +37,6 @@ Description: Regression, classification, contour plots, hypothesis testing and f
 			       o) Sevinc V. and Tsagris. M. (2024). "Energy Based Equality of Distributions Testing for Compositional Data". <doi:10.48550/arXiv.2412.05199>.
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2025-06-12 21:40:07 UTC; mtsag
+Packaged: 2025-06-22 12:24:41 UTC; mtsag
 Repository: CRAN
-Date/Publication: 2025-06-12 22:20:08 UTC
+Date/Publication: 2025-06-22 13:10:01 UTC

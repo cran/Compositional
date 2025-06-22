@@ -1,4 +1,4 @@
-a6c2e48081aba3224ad19438e21624e4 *DESCRIPTION
+a44a05b4bd95ca83813bc586260fd1fc *DESCRIPTION
 57adda003c6fa917b5b8543da0c6e228 *NAMESPACE
 3b85ca2174a949b0ce78ad6d48551e5b *R/a.est.R
 1587e30e397209f7693750295ac11603 *R/a.mle.R
@@ -233,7 +233,7 @@ b3c5c7c061aca03170426255821131af *R/zadr.R
 cf6ccdd48ebaae7ca91821e484e50caf *R/zadr2.R
 8dac73d086aeb2aecd35af205d73fc4f *R/zeroreplace.R
 74c097f92077ad4025a4759895d5c33e *R/zilogitnorm.est.R
-32c2df239472d14b5aaa25180193548f *man/Compositional-package.Rd
+62729480ee6c8aa7fe45cfd0f691b1d4 *man/Compositional-package.Rd
 c52c06e081125f110d37c2fc8f6fede7 *man/a.est.Rd
 29b8e4cc2913feb262d37752e41f5393 *man/acor.Rd
 0431af37e5730f49034641b17adb2b83 *man/acor.tune.Rd
@@ -303,7 +303,7 @@ c589875326518438592d0397e810044a *man/comp.ppr.Rd
 a1e093c2dd9f78002a7b90de2201f408 *man/cv.lasso.compreg.Rd
 da7f69094092301f967482afe6c12df8 *man/cv.lasso.klcompreg.Rd
 dcf1f46994d445aff10dc7f3f45c429f *man/cv.scls.Rd
-cd7acfdaed587d07aba43be0420ea5f2 *man/cv.scrq.Rd
+938265bb7db4a7d9b21cbdb5b0bed9f6 *man/cv.scrq.Rd
 69ce1152c0c3880fc8d31439a605d712 *man/cv.tflr.Rd
 e6856445e451cd7334e3990f868e2153 *man/dda.Rd
 e05e40ff3734437f573e3c39150f357c *man/ddiri.Rd

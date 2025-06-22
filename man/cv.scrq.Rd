@@ -75,5 +75,5 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 \examples{
 y <- rdiri(500, runif(3, 1, 3))
 x <- rdiri(500, runif(3, 1, 3))
-mod <- cv.scrq(y, x, nfolds = 5)
+mod <- scrq(y, x)
 }

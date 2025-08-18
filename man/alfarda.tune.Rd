@@ -1,12 +1,12 @@
-\name{Cross validation for the regularised and flexible discriminant analysis with compositional data using the alpha-transformation}
+\name{cross-validation for the regularised and flexible discriminant analysis with compositional data using the alpha-transformation}
 \alias{alfarda.tune}
 \alias{alfafda.tune}
 \title{
-Cross validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation
+cross-validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation
 }
 
 \description{
-Cross validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation.
+cross-validation for the regularised and flexible discriminant analysis with compositional data using the \eqn{\alpha}-transformation.
 }
 
 \usage{
@@ -23,7 +23,7 @@ folds = NULL, stratified = TRUE, seed = NULL, graph = FALSE)
 A matrix with the available compositional data. Zeros are allowed.
 }
 \item{ina}{
-A group indicator variable for the avaiable data.
+A group indicator variable for the compositional data.
 }
 \item{a}{
 A vector with a grid of values of the power transformation, it has to be between -1 and 1. If zero values are present it has to be greater than 0. If \eqn{\alpha=0} the isometric log-ratio transformation is applied.
@@ -59,7 +59,7 @@ If graph is TRUE (default value) a plot will appear.
 }
 
 \details{
-A k-fold cross validation is performed.
+A k-fold cross-validation is performed.
 }
 
 \value{

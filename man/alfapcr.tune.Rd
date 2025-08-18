@@ -24,7 +24,7 @@ A matrix with the predictor variables, the compositional data. Zero values are a
 The type of regression model to fit. The possible values are "gaussian", "binomial" and "poisson".
 }
 \item{nfolds}{
-The number of folds for the K-fold cross validation, set to 10 by default.
+The number of folds for the K-fold cross-validation, set to 10 by default.
 }
 \item{maxk}{
 The maximum number of principal components to check.

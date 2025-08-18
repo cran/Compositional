@@ -1,11 +1,11 @@
-\name{Cross validation for the alpha-kernel regression with compositional response data}
+\name{cross-validation for the alpha-kernel regression with compositional response data}
 \alias{akernreg.tune}
 \title{
-Cross validation for the \eqn{\alpha}-kernel regression with compositional response data
+cross-validation for the \eqn{\alpha}-kernel regression with compositional response data
 }
 
 \description{
-Cross validation for the \eqn{\alpha}-kernel regression with compositional response data.
+cross-validation for the \eqn{\alpha}-kernel regression with compositional response data.
 }
 
 \usage{
@@ -41,7 +41,7 @@ You can specify your own seed number here or leave it NULL.
 }
 
 \details{
-A k-fold cross validation for the \eqn{\alpha}-kernel regression for compositional response data is performed.
+A k-fold cross-validation for the \eqn{\alpha}-kernel regression for compositional response data is performed.
 }
 
 \value{

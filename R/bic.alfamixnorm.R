@@ -30,9 +30,10 @@ bic.alfamixnorm <- function(x, G, a = seq(-1, 1, by = 0.1), veo = FALSE, graph =
 
   ## Next, we plot the BIC for all models
   if ( graph ) {
-    plot( a, bica[1, , drop = FALSE], type = "b", pch = 9, xlab = expression( paste(alpha, " values") ),
+    plot( a, bica[1, ], type = "b", pch = 9, xlab = expression( paste(alpha, " values") ),
           ylab = "BIC values", ylim = c( min(bica, na.rm = TRUE), max(bica, na.rm = TRUE) ),
           cex.lab = 1.2, cex.axis = 1.2, xaxt = "n" )
+    axis(1, at = a, labels = a)
     abline(v = a, col = "lightgrey", lty = 2)
     abline(h = seq( min(bica), max(bica), length = 10 ), col = "lightgrey", lty = 2)
     if ( length(G) > 1 ) {

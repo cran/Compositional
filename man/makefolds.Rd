@@ -5,7 +5,7 @@ Generate random folds for cross-validation
 }
 
 \description{
-Random folds for use in a cross validation are generated. There is the option for stratified splitting as well.
+Random folds for use in a cross-validation are generated. There is the option for stratified splitting as well.
 }
 
 \usage{

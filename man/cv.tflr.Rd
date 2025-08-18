@@ -1,11 +1,11 @@
-\name{Cross validation for the TFLR model}
+\name{cross-validation for the TFLR model}
 \alias{cv.tflr}
 \title{
-Cross validation for the TFLR model
+cross-validation for the TFLR model
 }
 
 \description{
-Cross validation for the TFLR model.
+cross-validation for the TFLR model.
 }
 
 \usage{
@@ -33,7 +33,7 @@ If seed is TRUE the results will always be the same.
 }
 
 \details{
-A k-fold cross validation for the transformation-free linear regression for
+A k-fold cross-validation for the transformation-free linear regression for
 compositional responses and predictors is performed.
 }
 

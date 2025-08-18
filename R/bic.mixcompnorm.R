@@ -23,15 +23,15 @@ bic.mixcompnorm <- function(x, G, type = "alr", veo = FALSE, graph = TRUE) {
   }
 
   mod <- mixture::gpcm(y, G = G, mnames = NULL, start = 0, mmax = 100, veo = veo)
-  mbic <- mod$BIC[, , 3, drop = FALSE]  ## BIC for all models
+  mbic <- mod$BIC[, , 3]  ## BIC for all models
   ## Next, we plot the BIC for all models
   if ( graph ) {
-    plot( G, mbic[, 1, drop = FALSE], type = "b", pch = 9, xlab = "Number of components",
+    plot( G, mbic[, 1], type = "b", pch = 9, xlab = "Number of components",
     ylab = "BIC values", ylim = c( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE) ),
     cex.lab = 1.2, cex.axis = 1.2, xaxt = "n")
     axis(1, at = G, labels = G)
     abline(v = G, col = "lightgrey", lty = 2)
-  	abline(h = seq( min(mbic), max(mbic), length = 10 ), col = "lightgrey", lty = 2)
+  	abline(h = seq( min(mbic, na.rm = TRUE), max(mbic, na.rm = TRUE), length = 10 ), col = "lightgrey", lty = 2)
     for ( i in 2:ncol(mbic) )  lines(G, mbic[, i], type = "b", pch = 9, col = i)
   }
 

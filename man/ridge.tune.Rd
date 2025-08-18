@@ -1,11 +1,11 @@
-\name{Cross validation for the ridge regression}
+\name{cross-validation for the ridge regression}
 \alias{ridge.tune}
 \title{
-Cross validation for the ridge regression
+cross-validation for the ridge regression
 }
 
 \description{
-Cross validation for the ridge regression is performed. There is an option for the GCV criterion which is automatic.
+cross-validation for the ridge regression is performed. There is an option for the GCV criterion which is automatic.
 }
 
 \usage{
@@ -22,7 +22,7 @@ i.e. strictly within 0 and 1 they are mapped into R using the logit transformati
 A numeric matrix containing the variables.
 }
 \item{nfolds}{
-The number of folds in the cross validation.
+The number of folds in the cross-validation.
 }
 \item{lambda}{
 A vector with the a grid of values of \eqn{\lambda} to be used.
@@ -42,7 +42,7 @@ If graph is set to TRUE the performances for each fold as a function of the \eqn
 }
 
 \details{
-A k-fold cross validation is performed. This function is used by \code{\link{alfaridge.tune}}.
+A k-fold cross-validation is performed. This function is used by \code{\link{alfaridge.tune}}.
 }
 
 \value{

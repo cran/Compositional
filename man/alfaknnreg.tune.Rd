@@ -1,11 +1,11 @@
-\name{Cross validation for the alpha-k-NN regression with compositional predictor variables}
+\name{cross-validation for the alpha-k-NN regression with compositional predictor variables}
 \alias{alfaknnreg.tune}
 \title{
-Cross validation for the \eqn{\alpha}-k-NN regression with compositional predictor variables
+cross-validation for the \eqn{\alpha}-k-NN regression with compositional predictor variables
 }
 
 \description{
-Cross validation for the \eqn{\alpha}-k-NN regression with compositional predictor variables.
+cross-validation for the \eqn{\alpha}-k-NN regression with compositional predictor variables.
 }
 
 \usage{
@@ -49,7 +49,7 @@ If graph is TRUE (default value) a filled contour plot will appear.
 }
 
 \details{
-A k-fold cross validation for the \eqn{\alpha}-k-NN regression for compositional response data is performed.
+A k-fold cross-validation for the \eqn{\alpha}-k-NN regression for compositional response data is performed.
 }
 
 \value{

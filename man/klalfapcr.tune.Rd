@@ -24,7 +24,7 @@ A matrix with the predictor variables, the compositional data. Zero values are a
 If you have other continuous covariates put themn here.
 }
 \item{nfolds}{
-The number of folds for the K-fold cross validation, set to 10 by default.
+The number of folds for the K-fold cross-validation, set to 10 by default.
 }
 \item{maxk}{
 The maximum number of principal components to check.
@@ -51,8 +51,8 @@ You can specify your own seed number here or leave it NULL.
 }
 
 \details{
-The M-fold cross validation is performed in order to select the optimal values for \eqn{\alpha} and k, the number of principal components.
-The \eqn{\alpha}-transformation is applied to the compositional data first, the first k principal component scores are calcualted and used as predictor variables for the Kullback-Leibler divergence based regression model. This procedure is performed M times during the M-fold cross validation.
+The M-fold cross-validation is performed in order to select the optimal values for \eqn{\alpha} and k, the number of principal components.
+The \eqn{\alpha}-transformation is applied to the compositional data first, the first k principal component scores are calcualted and used as predictor variables for the Kullback-Leibler divergence based regression model. This procedure is performed M times during the M-fold cross-validation.
 }
 
 \value{

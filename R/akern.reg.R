@@ -9,13 +9,14 @@ akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, len
   D <- dim(y)[2]
   names <- paste("alpha", a)
   est <- sapply(names, function(x) NULL)
-  di <-  -0.5 * Rfast::dista( xnew, x, square = TRUE)
 
   if (type == "gauss") {
-    di <-  - 0.5 * Rfast::dista( xnew, x, square = TRUE)
-    h <- h^2
-  } else  di <-  - Rfast::dista(xnew, x, type = "manhattan" )
-
+    di <- Rfast::dista( xnew, x, square = TRUE)
+    h <-  - 2 * h^2
+  } else  {
+    di <- Rfast::dista(xnew, x, type = "manhattan" )
+    h <-  -h
+  }	
   for ( i in 1:la ) {
     if ( abs( a[i] ) < 1e-9 ) {
       ua <- Compositional::alef(y, 0)$aff
@@ -26,7 +27,6 @@ akern.reg <- function(xnew, y, x, a = seq(0.1, 1, by = 0.1), h = seq(0.1, 1, len
       }
 	} else {
       ua <- y^a[i]
-      ua <- ua / Rfast::rowsums(ua)
       for ( j in 1:nh ) {
         w <- exp( di / h[j] )
         es <- ( w %*% ua )^( 1 / a[i] )

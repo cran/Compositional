@@ -25,7 +25,7 @@ importFrom("Rfast2", kumar.mle, propols.reg, prophelling.reg, zil.mle,
            beta.nb, logitnorm.nb, cauchy.nb, laplace.nb, normlog.nb, weibull.nb,
            pca, unitweibull.mle, colbeta.mle, collogitnorm.mle, colunitweibull.mle,
            rbeta1, colGroup, Sample.int, Sample, Runif, gammareg, censweib.reg,
-           negbin.reg, colaccs, colmses, pcr)
+           negbin.reg, colaccs, colmses, pcr, frechet.nn)
 
 importFrom("quadprog", solve.QP)
 importFrom("Matrix", nearPD)

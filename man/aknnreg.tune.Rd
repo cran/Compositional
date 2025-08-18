@@ -1,11 +1,11 @@
-\name{Cross validation for the alpha-k-NN regression with compositional response data}
+\name{cross-validation for the alpha-k-NN regression with compositional response data}
 \alias{aknnreg.tune}
 \title{
-Cross validation for the \eqn{\alpha}-k-NN regression with compositional response data
+cross-validation for the \eqn{\alpha}-k-NN regression with compositional response data
 }
 
 \description{
-Cross validation for the \eqn{\alpha}-k-NN regression with compositional response data.
+cross-validation for the \eqn{\alpha}-k-NN regression with compositional response data.
 }
 
 \usage{
@@ -46,7 +46,7 @@ In this case you must set this argument equal to TRUE. Note however, that in thi
 }
 
 \details{
-A k-fold cross validation for the \eqn{\alpha}-k-NN regression for compositional response data is performed.
+A k-fold cross-validation for the \eqn{\alpha}-k-NN regression for compositional response data is performed.
 }
 
 \value{

@@ -28,7 +28,7 @@ combination of the ridge and of the Lasso regression. When \eqn{\alpha=1} LASSO 
 \eqn{\alpha=0} yields the ridge regression.
 }
 \item{nfolds}{
-The number of folds for the K-fold cross validation, set to 10 by default.
+The number of folds for the K-fold cross-validation, set to 10 by default.
 }
 \item{folds}{
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
@@ -42,7 +42,7 @@ If graph is TRUE (default value) a filled contour plot will appear.
 }
 
 \details{
-The K-fold cross validation is performed in order to select the optimal value for \eqn{\lambda}, the
+The K-fold cross-validation is performed in order to select the optimal value for \eqn{\lambda}, the
 penalty parameter in LASSO.
 }
 

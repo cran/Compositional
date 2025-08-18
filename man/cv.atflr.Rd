@@ -23,7 +23,7 @@ A matrix with the simplicial predictor variables. Zero values are allowed.
 A vector or a single number of values of the \eqn{\alpha}-parameter. This has to be different from zero, and it can take negative values if there are no zeros in the simplicial response (y).
 }
 \item{nfolds}{
-The number of folds for the K-fold cross validation, set to 10 by default.
+The number of folds for the K-fold cross-validation, set to 10 by default.
 }
 \item{folds}{
 If you have the list with the folds supply it here. You can also leave it NULL and it will create folds.
@@ -34,7 +34,7 @@ You can specify your own seed number here or leave it NULL.
 }
 
 \details{
-The K-fold cross validation is performed in order to select the optimal value for \eqn{\alpha} of the \eqn{\alpha}-TFLR model.
+The K-fold cross-validation is performed in order to select the optimal value for \eqn{\alpha} of the \eqn{\alpha}-TFLR model.
 }
 
 \value{

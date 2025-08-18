@@ -1,11 +1,11 @@
-\name{Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation}
+\name{Tuning of the bandwidth h of the kernel using the maximum likelihood cross-validation}
 \alias{mkde.tune}
 \title{
-Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation
+Tuning of the bandwidth h of the kernel using the maximum likelihood cross-validation
 }
 
 \description{
-Tuning of the bandwidth h of the kernel using the maximum likelihood cross validation.
+Tuning of the bandwidth h of the kernel using the maximum likelihood cross-validation.
 }
 
 \usage{
@@ -28,7 +28,7 @@ A covariance matrix. By default it is equal to the covariance matrix of the data
 }
 
 \details{
-Maximum likelihood cross validation is applied in order to choose the optimal value of the bandwidth parameter. No plot is produced.
+Maximum likelihood cross-validation is applied in order to choose the optimal value of the bandwidth parameter. No plot is produced.
 }
 
 \value{
@@ -68,6 +68,6 @@ library(MASS)
 mkde.tune(as.matrix(iris[, 1:4]), c(0.1, 3) )
 }
 
-\keyword{ maximum likelihood cross validation }
+\keyword{ maximum likelihood cross-validation }
 \keyword{ bandwidth tuning }
 \keyword{ kernel density }

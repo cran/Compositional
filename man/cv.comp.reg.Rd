@@ -1,11 +1,11 @@
-\name{Cross validation for some compositional regression models}
+\name{cross-validation for some compositional regression models}
 \alias{cv.comp.reg}
 \title{
-Cross validation for some compositional regression models
+cross-validation for some compositional regression models
 }
 
 \description{
-Cross validation for some compositional regression models.
+cross-validation for some compositional regression models.
 }
 
 \usage{
@@ -34,7 +34,7 @@ If seed is TRUE the results will always be the same.
 }
 
 \details{
-A k-fold cross validation for a compositional regression model is performed.
+A k-fold cross-validation for a compositional regression model is performed.
 }
 
 \value{

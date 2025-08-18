@@ -1,11 +1,11 @@
-\name{Cross validation for the kernel regression with Euclidean response data}
+\name{cross-validation for the kernel regression with Euclidean response data}
 \alias{kernreg.tune}
 \title{
-Cross validation for the kernel regression with Euclidean response data
+cross-validation for the kernel regression with Euclidean response data
 }
 
 \description{
-Cross validation for the kernel regression with Euclidean response data.
+cross-validation for the kernel regression with Euclidean response data.
 }
 
 \usage{
@@ -44,7 +44,7 @@ The number of cores to use. Default value is 1.
 }
 
 \details{
-A k-fold cross validation for the kernel regression with a euclidean response is performed.
+A k-fold cross-validation for the kernel regression with a euclidean response is performed.
 }
 
 \value{

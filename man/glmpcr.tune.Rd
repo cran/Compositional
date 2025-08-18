@@ -32,7 +32,7 @@ more than just two values. This is a multinomial regression.
 A matrix with the predictor variables, they have to be continuous.
 }
 \item{nfolds}{
-The number of folds in the cross validation.
+The number of folds in the cross-validation.
 }
 \item{maxk}{
 The maximum number of principal components to check.
@@ -53,7 +53,7 @@ If graph is TRUE a plot of the performance for each fold along the values of \eq
 }
 
 \details{
-Cross validation is performed to select the optimal number of principal components in the GLMs 
+cross-validation is performed to select the optimal number of principal components in the GLMs 
 or the multinomial regression. This is used
 by \code{\link{alfapcr.tune}}.
 }

@@ -20,7 +20,7 @@ A matrix with the new data whose group is to be predicted. They have to be conti
 A matrix with the available data. They have to be continuous.
 }
 \item{ina}{
-A group indicator variable for the avaiable data.
+A group indicator variable for the compositional data.
 }
 \item{gam}{
 This is a number between 0 and 1. It is the weight of the pooled covariance and the diagonal matrix.

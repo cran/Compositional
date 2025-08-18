@@ -1,11 +1,11 @@
-\name{Cross validation for the ridge regression with compositional data as predictor using the alpha-transformation}
+\name{cross-validation for the ridge regression with compositional data as predictor using the alpha-transformation}
 \alias{alfaridge.tune}
 \title{
-Cross validation for the ridge regression with compositional data as predictor using the \eqn{\alpha}-transformation
+cross-validation for the ridge regression with compositional data as predictor using the \eqn{\alpha}-transformation
 }
 
 \description{
-Cross validation for the ridge regression is performed.
+cross-validation for the ridge regression is performed.
 There is an option for the GCV criterion which is automatic. The predictor variables are compositional data and the \eqn{\alpha}-transformation is applied first.
 }
 
@@ -24,7 +24,7 @@ i.e. strictly within 0 and 1 they are mapped into R using the logit transformati
 A numeric matrix containing the compositional data, i.e. the predictor variables. Zero values are allowed.
 }
 \item{nfolds}{
-The number of folds in the cross validation.
+The number of folds in the cross-validation.
 }
 \item{a}{
 A vector with the a grid of values of \eqn{\alpha} to be used.
@@ -50,7 +50,7 @@ You can specify your own seed number here or leave it NULL.
 }
 
 \details{
-A k-fold cross validation is performed.
+A k-fold cross-validation is performed.
 }
 
 \value{
